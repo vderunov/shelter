@@ -1,0 +1,13 @@
+<div class="searchContainer">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input
+        [(ngModel)]="searchValue"
+        matInput
+        placeholder="Search"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <button mat-button (click)="search()"><fa-icon [icon]="faSearch"></fa-icon></button>
+  </form>
+</div>
