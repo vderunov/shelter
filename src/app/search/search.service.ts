@@ -14,9 +14,7 @@ export class SearchService {
 
     return list.filter((dataNote: object) => {
       return searchTypes.some((propName: string) => {
-        return dataNote[propName].toLowerCase().indexOf(searchValue.toLowerCase()) === -1
-          ? false
-          : true;
+        return dataNote[propName].toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
       });
     });
   }
