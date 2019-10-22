@@ -1,0 +1,71 @@
+<form class="example-container" [formGroup]="form" (ngSubmit)="submit()">
+  <h4 class="mat-display-1">Shelter Registration Form</h4>
+  <mat-form-field
+    [ngClass]="{
+      'mat-form-field': form.get('name').touched && form.get('name').invalid
+    }"
+  >
+    <input matInput type="text" placeholder="Name" formControlName="name" />
+    <mat-error *ngIf="form.get('name').touched && form.get('name').invalid">{{
+      'You must enter a value'
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field
+    [ngClass]="{
+      'mat-form-field': form.get('phone').touched && form.get('phone').invalid
+    }"
+  >
+    <input
+      matInput
+      type="tel"
+      placeholder="Phone e.g. (555) 555-5555"
+      formControlName="phone"
+    />
+    <mat-error *ngIf="form.get('phone').touched && form.get('phone').invalid">{{
+      'You must enter a value'
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field
+    [ngClass]="{
+      'mat-form-field':
+        form.get('address').touched && form.get('address').invalid
+    }"
+  >
+    <input
+      matInput
+      type="text"
+      placeholder="Address"
+      formControlName="address"
+    />
+    <mat-error
+      *ngIf="form.get('address').touched && form.get('address').invalid"
+      >{{ 'You must enter a value' }}</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field
+    [ngClass]="{
+      'mat-form-field':
+        form.get('address').touched && form.get('address').invalid
+    }"
+  >
+    <input matInput type="number" placeholder="Kids" formControlName="kids" />
+    <mat-error *ngIf="form.get('kids').touched && form.get('kids').invalid">{{
+      'You must enter a value'
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea
+      matInput
+      placeholder="Additional Information"
+      formControlName="info"
+    ></textarea>
+  </mat-form-field>
+  <div class="div-buttons">
+    <button type="submit" mat-button [disabled]="form.invalid">
+      Confirm
+    </button>
+    <button mat-button (click)="gotoMainPage()">
+      Cancel
+    </button>
+  </div>
+</form>
