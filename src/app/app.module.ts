@@ -4,22 +4,17 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './shared/material/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RegistrationShelterComponent } from './registration-shelter/registration-shelter.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
 
 @NgModule({
-  declarations: [AppComponent, RegistrationShelterComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    RegistrationShelterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
