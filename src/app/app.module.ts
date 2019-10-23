@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationShelterComponent } from './registration-shelter/registration-shelter.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, RegistrationShelterComponent],
@@ -17,6 +18,8 @@ import { RegistrationShelterComponent } from './registration-shelter/registratio
     MaterialModule,
     FormsModule,
     ReactiveFormsModule
+    AppRoutingModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
