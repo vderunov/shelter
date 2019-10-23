@@ -1,10 +1,13 @@
 <nav class="nav mat-elevation-z6">
   <a mat-button disableRipple [routerLink]="mainLogoHref">
-    <img id="logo" [src]="mainLogoSrc">
+    <img alt="logo" title="logo" id="logo" [src]="mainLogoSrc">
     <span id="title" [innerText]="mainTitleText"></span>
   </a>
+  <a mat-button disabled [routerLink]="['/shelter']">
+    Find shelter
+  </a>
   <div class="flex-spacer"></div>
-  <a mat-raised-button color="primary" [routerLink]="[]">
+  <a mat-stroked-button disabled color="primary" [routerLink]="['/login']">
     Sign in
   </a>
 </nav>

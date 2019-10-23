@@ -3,12 +3,9 @@
 * license: free for personal project, non-profit and charity use
 */
 .nav {
-  //display: grid;
-  //grid-template-columns: repeat(3, 1fr);
   display: flex;
   justify-content: space-between;
   background-color: aliceblue;
-  //height: 50px;
   padding: 8px 16px;
 
   a {
@@ -16,9 +13,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    //width: 100%;
-    //height: 100%;
-    //padding: 0;
 
     img#logo {
       max-height: 40px;
@@ -28,5 +22,9 @@
     span#title {
       margin-left: 5px;
     }
+  }
+
+  .flex-spacer {
+    flex-grow: 1;
   }
 }

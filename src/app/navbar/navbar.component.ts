@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   mainTitle = 'Shelter';
   mainTitleText = '';
-  mainLogoSrc = `https://www.fonts-online.ru/img_fonts.php?id=17752&t=${this.mainTitle}`;
+  mainLogoSrc = '/assets/logo.png';
   mainLogoHref = [];
 
   ngOnInit() {
