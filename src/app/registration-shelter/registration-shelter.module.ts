@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RegistrationShelterComponent } from './registration-shelter.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+
+import { RegistrationShelterComponent } from './registration-shelter.component';
 
 @NgModule({
   declarations: [RegistrationShelterComponent],
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatInputModule
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class RegistrationShelterModule {}

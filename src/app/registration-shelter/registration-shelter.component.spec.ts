@@ -1,24 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 
 import { RegistrationShelterComponent } from './registration-shelter.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatInputModule } from '@angular/material';
 
 describe('RegistrationShelterComponent', () => {
-  let component: RegistrationShelterComponent;
-  let fixture: ComponentFixture<RegistrationShelterComponent>;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RegistrationShelterComponent]
+      declarations: [RegistrationShelterComponent],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatInputModule
+      ]
     }).compileComponents();
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RegistrationShelterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });

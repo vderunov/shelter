@@ -16,6 +16,7 @@ speed-measure-plugin*.json
 
 # IDEs and editors
 .prettierrc
+*.prettierrc
 /.idea
 .idea
 .idea/

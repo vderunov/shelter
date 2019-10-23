@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Shelter } from './registration-shelter-interfaces';
-
 @Component({
   selector: 'app-registration-shelter',
   templateUrl: './registration-shelter.component.html',
@@ -27,21 +25,16 @@ export class RegistrationShelterComponent implements OnInit {
     });
   }
 
+  isFieldValid(fieldName): boolean {
+    return this.form.get(fieldName).touched && this.form.get(fieldName).invalid;
+  }
+
   submit(): void {
     if (this.form.invalid) {
       return;
     } else {
-      const formData = { ...this.form.value };
       this.form.reset();
     }
-
-    const shelter: Shelter = {
-      name: this.form.value.name,
-      phone: this.form.value.phone,
-      address: this.form.value.address,
-      kids: this.form.value.kids,
-      info: this.form.value.info
-    };
   }
 
   gotoMainPage(): void {
