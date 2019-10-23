@@ -1,0 +1,10 @@
+<nav class="nav mat-elevation-z6">
+  <a mat-button disableRipple [routerLink]="mainLogoHref">
+    <img id="logo" [src]="mainLogoSrc">
+    <span id="title" [innerText]="mainTitleText"></span>
+  </a>
+  <div class="flex-spacer"></div>
+  <a mat-raised-button color="primary" [routerLink]="[]">
+    Sign in
+  </a>
+</nav>
