@@ -2,10 +2,12 @@
 * see https://www.fonts-online.ru/font/Kindly-Jasmine for title font
 * license: free for personal project, non-profit and charity use
 */
+$background-color: aliceblue;
+
 .nav {
   display: flex;
   justify-content: space-between;
-  background-color: aliceblue;
+  background-color: $background-color;
   padding: 8px 16px;
 
   a {
@@ -14,12 +16,12 @@
     justify-content: center;
     align-items: center;
 
-    img#logo {
+    img {
       max-height: 40px;
       max-width: 100%;
     }
 
-    span#title {
+    span {
       margin-left: 5px;
     }
   }
