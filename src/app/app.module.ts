@@ -3,11 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MatButtonModule } from '@angular/material/button';
 import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, RegistrationShelterModule],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatButtonModule,
+    RegistrationShelterModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

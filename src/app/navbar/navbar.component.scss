@@ -1,0 +1,32 @@
+/*
+* see https://www.fonts-online.ru/font/Kindly-Jasmine for title font
+* license: free for personal project, non-profit and charity use
+*/
+@import "src/app/shared/style/variables.scss";
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: $navbar-background-color;
+  padding: 8px 16px;
+
+  a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-height: 40px;
+      max-width: 100%;
+    }
+
+    span {
+      margin-left: 5px;
+    }
+  }
+
+  .flex-spacer {
+    flex-grow: 1;
+  }
+}
