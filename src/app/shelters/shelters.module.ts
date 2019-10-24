@@ -6,13 +6,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import { ShelterCardDetailsComponent } from './shelter-card-details/shelter-card-details.component';
 
 const sheltersRoutes: Routes = [
-  { path: 'shelters', component: ShelterListComponent }
+  { path: 'shelters', component: ShelterListComponent, children: [
+    {path: 'shelter/:id', component: ShelterCardDetailsComponent }
+  ]}
 ];
 
 @NgModule({
-  declarations: [ShelterListComponent, ShelterCardComponent],
+  declarations: [ShelterListComponent, ShelterCardComponent, ShelterCardDetailsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(sheltersRoutes),

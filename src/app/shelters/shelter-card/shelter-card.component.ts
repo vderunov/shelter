@@ -7,5 +7,12 @@ import { Shelter } from '../models/shelter.interface';
   styleUrls: ['./shelter-card.component.scss']
 })
 export class ShelterCardComponent {
+  selectedId: number;
+
   @Input() shelter: Shelter;
+
+  selectCard(shelter) {
+    this.selectedId = shelter.id
+    console.log(shelter.id, this.selectedId)
+  }
 }

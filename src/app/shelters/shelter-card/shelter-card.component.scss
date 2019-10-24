@@ -1,0 +1,11 @@
+.mat-card {
+  cursor: pointer;
+}
+
+.shelter.selected {
+  background-color: #CFD8DC;
+  color: white;
+}
+.shelter.selected:hover {
+  background-color: #BBD8DC;
+}
