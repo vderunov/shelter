@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Shelter } from '../models/shelter.model';
 
 @Component({
   selector: 'app-shelter-card',
   templateUrl: './shelter-card.component.html',
   styleUrls: ['./shelter-card.component.scss']
 })
-export class ShelterCardComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class ShelterCardComponent {
+  @Input() shelter: Shelter;
 }
