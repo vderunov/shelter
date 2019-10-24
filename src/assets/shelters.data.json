@@ -1,0 +1,47 @@
+[
+  {
+    "id": 34,
+    "name": "DomMalutka",
+    "adressID": 9,
+    "Rating": 5.0,
+    "Avatar": null,
+    "locationID": 3,
+    "photoPath": ""
+  },
+  {
+    "id": 39,
+    "name": "DomMalutka",
+    "adressID": 14,
+    "Rating": 5.0,
+    "Avatar": null,
+    "locationID": 6,
+    "photoPath": ""
+  },
+  {
+    "id": 45,
+    "name": "DomMalutka",
+    "adressID": 14,
+    "Rating": 5.0,
+    "Avatar": null,
+    "locationID": 6,
+    "photoPath": ""
+  },
+  {
+    "id": 55,
+    "name": "DomMalutka",
+    "adressID": 14,
+    "Rating": 5.0,
+    "Avatar": null,
+    "locationID": 6,
+    "photoPath": ""
+  },
+  {
+    "id": 66,
+    "name": "DomMalutka",
+    "adressID": 14,
+    "Rating": 5.0,
+    "Avatar": null,
+    "locationID": 6,
+    "photoPath": ""
+  }
+]

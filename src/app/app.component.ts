@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from './shared/services/config/config.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'shelter';
+
+  constructor(private configService: ConfigService){
+    this.configService.initConfig();
+  }
 }
