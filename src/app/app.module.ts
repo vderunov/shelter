@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheltersModule } from './shelters/shelters.module';
-import { ConfigService } from './shared/services/config/config.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { ConfigService } from './shared/services/config/config.service';
     NoopAnimationsModule,
     SheltersModule
   ],
-  providers: [ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

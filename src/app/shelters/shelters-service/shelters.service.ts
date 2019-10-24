@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Shelter } from '../models/shelter.model';
-import { Observable, of, merge } from 'rxjs';
+import { Shelter } from '../models/shelter.interface';
+import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
+import { ApiShelter } from '../models/api-shelter.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,16 @@ export class SheltersService {
 
   getShelters(): Observable<Shelter[]> {
     return this.configService.configLoaded
-    .pipe(concatMap(config => this.http.get<Shelter[]>(config.sheltersApi)));
+    .pipe(
+      concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi)),
+      map((arr: ApiShelter[]): Shelter[] => arr.map((el: ApiShelter): Shelter => ({
+          avatar: el.Avatar,
+          rating: el.Rating,
+          adressID: el.adressID,
+          id: el.id,
+          locationID: el.locationID,
+          name: el.name,
+          photoPath: el.photoPath,
+      }))));
   }
 }

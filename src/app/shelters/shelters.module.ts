@@ -5,7 +5,6 @@ import { ShelterListComponent } from './shelter-list/shelter-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card';
-import { SheltersService } from './shelters-service/shelters.service';
 import { HttpClientModule } from '@angular/common/http';
 
 const sheltersRoutes: Routes = [
@@ -21,7 +20,6 @@ const sheltersRoutes: Routes = [
     HttpClientModule,
     MatCardModule
   ],
-  providers: [SheltersService],
   exports: [RouterModule, ShelterCardComponent]
 })
 export class SheltersModule { }

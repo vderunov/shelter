@@ -1,4 +1,4 @@
-export class Shelter {
+export interface ApiShelter {
   Avatar: object;
   Rating: number;
   adressID: number;

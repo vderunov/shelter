@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConfigService } from './shared/services/config/config.service';
 
 @Component({
@@ -6,9 +6,11 @@ import { ConfigService } from './shared/services/config/config.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor(private configService: ConfigService){
+  constructor(private configService: ConfigService) {}
+  
+  ngOnInit(): void {
     this.configService.initConfig();
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Shelter } from '../models/shelter.model';
+import { Shelter } from '../models/shelter.interface';
 
 @Component({
   selector: 'app-shelter-card',
