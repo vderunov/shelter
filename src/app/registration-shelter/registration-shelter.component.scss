@@ -1,0 +1,14 @@
+.form-wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h4 {
+    text-align: center;
+  }
+
+  .div-buttons {
+    text-align: center;
+  }
+}
