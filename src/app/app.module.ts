@@ -5,17 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheltersModule } from './shelters/shelters.module';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MatButtonModule } from '@angular/material/button';
+import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    SheltersModule
+    SheltersModule,
+    MatButtonModule,
+    RegistrationShelterModule,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
