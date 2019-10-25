@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 5rem auto;
+
+  h2 {
+    text-align: center;
+  }
+
+  .div-buttons {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .div-buttons button {
+    margin-right: 1rem;
+  }
+}
