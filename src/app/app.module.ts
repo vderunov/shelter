@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NeedsModule } from './shared/needs.module';
 
 @NgModule({
   declarations: [
@@ -12,9 +13,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    NeedsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

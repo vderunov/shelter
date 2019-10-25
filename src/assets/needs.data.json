@@ -1,0 +1,84 @@
+[
+  {
+    "city": "Dnipro",
+    "orphanageId": 1,
+    "charityMakerID": 2,
+    "donationItemID": 1,
+    "pathToAvatar": "",
+    "status": "Sended",
+    "lastDateWhenStatusChanged":"2019-10-15T12:18",
+    "itemName": "Boots",
+    "itemDescription": "Shoes 40th size"
+  },
+  {
+    "city": "Kyiv",
+    "orphanageId": 2,
+    "charityMakerID": 2,
+    "donationItemID": 2,
+    "pathToAvatar": "",
+    "status": "Complited",
+    "lastDateWhenStatusChanged":"2019-10-14T12:18",
+    "itemName": "Toys",
+    "itemDescription": "Cars"
+  },
+  {
+    "city": "Lviv",
+    "orphanageId": 3,
+    "charityMakerID": 2,
+    "donationItemID": 3,
+    "orphanageAvatar": null,
+    "pathToAvatar": "",
+    "status": "Sended",
+    "lastDateWhenStatusChanged":"2019-10-13T12:18",
+    "itemName": "Books",
+    "itemDescription": "Fairy tail"
+  },
+  {
+    "city": "Lviv",
+    "orphanageId": 4,
+    "charityMakerID": 2,
+    "donationItemID": 3,
+    "orphanageAvatar": null,
+    "pathToAvatar": "",
+    "status": "Sended",
+    "lastDateWhenStatusChanged":"2019-10-13T12:18",
+    "itemName": "Books",
+    "itemDescription": "Fairy tail"
+  },
+  {
+    "city": "Lviv",
+    "orphanageId": 5,
+    "charityMakerID": 2,
+    "donationItemID": 3,
+    "orphanageAvatar": null,
+    "pathToAvatar": "",
+    "status": "Sended",
+    "lastDateWhenStatusChanged":"2019-10-13T12:18",
+    "itemName": "Books",
+    "itemDescription": "Fairy tail"
+  },
+  {
+    "city": "Lviv",
+    "orphanageId": 6,
+    "charityMakerID": 2,
+    "donationItemID": 3,
+    "orphanageAvatar": null,
+    "pathToAvatar": "",
+    "status": "Sended",
+    "lastDateWhenStatusChanged":"2019-10-13T12:18",
+    "itemName": "Books",
+    "itemDescription": "Fairy tail"
+  },
+  {
+    "city": "Lviv",
+    "orphanageId": 7,
+    "charityMakerID": 2,
+    "donationItemID": 3,
+    "orphanageAvatar": null,
+    "pathToAvatar": "",
+    "status": "Sended",
+    "lastDateWhenStatusChanged":"2019-10-13T12:18",
+    "itemName": "Books",
+    "itemDescription": "Fairy tail"
+  }
+]
