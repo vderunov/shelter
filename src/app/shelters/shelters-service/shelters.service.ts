@@ -15,7 +15,7 @@ export class SheltersService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-  getShelters(value: string = ""): Observable<Shelter[]> {
+  getShelters(searchValue: string = ''): Observable<Shelter[]> {
     return this.configService.configLoaded
     .pipe(
       concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi)),
@@ -29,7 +29,7 @@ export class SheltersService {
           photoPath: el.photoPath,
       }))),
       map((arr: Shelter[]): Shelter[] => arr.filter((el: Shelter): boolean => 
-        el.name.toLowerCase().indexOf(value.toLocaleLowerCase()) > -1
+        el.name.toLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1
       ))
       );
   }
