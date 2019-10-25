@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Shelter } from '../models/shelter.interface';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap, map, filter } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { ApiShelter } from '../models/api-shelter.interface';
 
 @Injectable({
