@@ -10,17 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-  ],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     SheltersModule,
     MatButtonModule,
-    RegistrationShelterModule,
+    RegistrationShelterModule
   ],
   bootstrap: [AppComponent]
 })

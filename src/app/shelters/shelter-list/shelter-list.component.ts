@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class ShelterListComponent implements OnInit {
   shelters: Observable<Shelter[]>;
 
-  constructor(private sheltersService: SheltersService) { }
+  constructor(private sheltersService: SheltersService) {}
 
   ngOnInit(): void {
     this.shelters = this.sheltersService.getShelters();

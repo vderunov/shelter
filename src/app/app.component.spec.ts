@@ -17,7 +17,7 @@ describe('AppComponent', () => {
         NoopAnimationsModule,
         SheltersModule,
         MatButtonModule,
-        RegistrationShelterModule,
+        RegistrationShelterModule
       ],
       declarations: [AppComponent, NavbarComponent]
     }).compileComponents();
