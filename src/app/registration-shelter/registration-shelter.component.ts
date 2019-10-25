@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { ShelterService } from '../shared/services/shelter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-registration-shelter',
   templateUrl: './registration-shelter.component.html',
   styleUrls: ['./registration-shelter.component.scss']
 })
-export class RegistrationShelterComponent implements OnInit {
+export class RegistrationShelterComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  error = '';
+  shelterSub: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(private shelterService: ShelterService, private router: Router) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -32,8 +37,27 @@ export class RegistrationShelterComponent implements OnInit {
   submit(): void {
     if (this.form.invalid) {
       return;
-    } else {
-      this.form.reset();
+    }
+
+    const formData = { ...this.form.value };
+
+    this.shelterSub = this.shelterService.registerShelter(formData).subscribe(
+      () => {
+        this.form.reset();
+        this.gotoMainPage();
+      },
+      error => {
+        this.error = error.message;
+        setTimeout(() => {
+          this.error = '';
+        }, 3000);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.shelterSub) {
+      this.shelterSub.unsubscribe();
     }
   }
 

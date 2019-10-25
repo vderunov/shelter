@@ -1,5 +1,7 @@
 <form class="form-wrap" [formGroup]="form" (ngSubmit)="submit()">
   <h4 class="mat-display-1">Shelter Registration Form</h4>
+  <p *ngIf="error; else errorBlock" class="error">{{ error }}</p>
+  <ng-template #errorBlock>
   <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('name') }">
     <input matInput type="text" placeholder="Name" formControlName="name" />
     <mat-error *ngIf="isFieldValid('name')">You must enter a value</mat-error>
@@ -38,4 +40,5 @@
     <button type="submit" mat-button [disabled]="form.invalid">Confirm</button>
     <button mat-button (click)="gotoMainPage()">Cancel</button>
   </div>
+  </ng-template>
 </form>
