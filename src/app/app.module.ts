@@ -5,12 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NeedsModule } from './needs/needs.module';
-import { QuestsComponent } from './quests/quests.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    QuestsComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
