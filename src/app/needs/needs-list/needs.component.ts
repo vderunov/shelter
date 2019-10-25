@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Need } from '../models/need.interface';
-import { HttpService} from '../services/http.service';
+import { HttpService} from '../services/need.service';
 
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   selector: 'app-needs',
   templateUrl: './needs.component.html',
   styleUrls: ['./needs.component.scss'],
-  providers: [HttpService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class NeedsComponent implements OnInit {
