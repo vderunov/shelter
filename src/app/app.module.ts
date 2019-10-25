@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NeedsModule } from './shared/needs.module';
+import { NeedsModule } from './needs/needs.module';
+import { QuestsComponent } from './quests/quests.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QuestsComponent
   ],
   imports: [
     BrowserModule,
