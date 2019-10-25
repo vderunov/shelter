@@ -21,4 +21,8 @@ export class ShelterListComponent implements OnInit {
   shelterTrackBy(index: number, shelter: Shelter): number {
     return shelter.id;
   }
+
+  onSearch(searchValue: string): void {
+    this.shelters = this.sheltersService.getShelters(searchValue);
+  }
 }

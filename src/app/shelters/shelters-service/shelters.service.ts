@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Shelter } from '../models/shelter.interface';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap, map } from 'rxjs/operators';
+import { concatMap, map, filter } from 'rxjs/operators';
 import { ApiShelter } from '../models/api-shelter.interface';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class SheltersService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-  getShelters(): Observable<Shelter[]> {
+  getShelters(value: string = ""): Observable<Shelter[]> {
     return this.configService.configLoaded
     .pipe(
       concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi)),
@@ -27,6 +27,10 @@ export class SheltersService {
           locationID: el.locationID,
           name: el.name,
           photoPath: el.photoPath,
-      }))));
+      }))),
+      map((arr: Shelter[]): Shelter[] => arr.filter((el: Shelter): boolean => 
+        el.name.toLowerCase().indexOf(value.toLocaleLowerCase()) > -1
+      ))
+      );
   }
 }

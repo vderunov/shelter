@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchModule } from '../search/search.module';
 
 const sheltersRoutes: Routes = [
   { path: 'shelters', component: ShelterListComponent }
@@ -18,7 +19,8 @@ const sheltersRoutes: Routes = [
     RouterModule.forChild(sheltersRoutes),
     MatGridListModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    SearchModule
   ],
   exports: [RouterModule, ShelterCardComponent]
 })

@@ -1,0 +1,12 @@
+<div class="searchContainer">
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      placeholder="Search"
+      #searchInput
+    />
+  </mat-form-field>
+  <button mat-button (click)="search(searchInput.value)"><i class="material-icons">
+    search
+  </i></button>
+</div>

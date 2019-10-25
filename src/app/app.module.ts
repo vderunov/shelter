@@ -12,7 +12,7 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +20,7 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
     NoopAnimationsModule,
     SheltersModule,
     MatButtonModule,
-    RegistrationShelterModule,
+    RegistrationShelterModule
   ],
   bootstrap: [AppComponent]
 })
