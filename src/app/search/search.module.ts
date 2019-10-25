@@ -9,6 +9,7 @@ import { SearchComponent } from './search.component';
   imports: [
     CommonModule,
     MatInputModule
-  ]
+  ],
+  exports: [SearchComponent]
 })
 export class SearchModule { }
