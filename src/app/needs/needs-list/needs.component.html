@@ -1,7 +1,7 @@
 <p>needs work</p>
 
 <mat-list>
-  <mat-list-item *ngFor="let need of needs | async">
+  <mat-list-item *ngFor="let need of needs | async; trackBy: needTrackBy">
     <span class="shelter">Shelter {{ need.orphanageId }}</span>
     <span class="need">{{ need.itemName }}</span>
     <span class="status">{{ need.status }}</span>

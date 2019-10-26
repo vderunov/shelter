@@ -6,8 +6,7 @@ import { Need } from '../models/need.interface';
 @Injectable({
   providedIn: 'root'
 })
-
-export class HttpService {
+export class NeedService {
   private needsUrl = '/assets/needs.data.json';
   // private needsUrl = 'https://familynetserver.azurewebsites.net/api/v1/donations'
 

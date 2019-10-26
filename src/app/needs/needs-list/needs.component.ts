@@ -1,9 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Need } from '../models/need.interface';
-import { HttpService} from '../services/need.service';
-
+import { NeedService} from '../services/need.service';
 import { Observable } from 'rxjs';
-
 
 @Component({
   selector: 'app-needs',
@@ -11,16 +9,16 @@ import { Observable } from 'rxjs';
   styleUrls: ['./needs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class NeedsComponent implements OnInit {
-  title1 = 'List of needs';
-  title2 = 'List of quests';
-
   needs: Observable<Need[]>;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private needService: NeedService) { }
 
   ngOnInit() {
-    this.needs = this.httpService.getNeeds();
+    this.needs = this.needService.getNeeds();
+  }
+
+  needTrackBy(index: number, need: Need): number {
+    return need.donationItemID;
   }
 }
