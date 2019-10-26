@@ -15,10 +15,10 @@ export class SheltersService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-  getShelters(searchValue: string = ''): Observable<Shelter[]> {
+  getShelters(param: string = ''): Observable<Shelter[]> {
     return this.configService.configLoaded
     .pipe(
-      concatMap(config => this.http.get<ApiShelter[]>(`${config.sheltersApi}${searchValue ? `?name=${searchValue}` : ''}`)),
+      concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi + param)),
       map((arr: ApiShelter[]): Shelter[] => arr.map((el: ApiShelter): Shelter => ({
           avatar: el.Avatar,
           rating: el.Rating,

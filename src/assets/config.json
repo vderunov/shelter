@@ -1,3 +1,3 @@
 {
-  "sheltersApi": "https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/childrenHouse"
+  "sheltersApi": "https://familynetserver.azurewebsites.net/api/v1/childrenHouse"
 }
