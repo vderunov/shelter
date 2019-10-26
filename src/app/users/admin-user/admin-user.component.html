@@ -1,1 +1,33 @@
-<p>admin-user works!</p>
+<div>
+    <p>admin-user works!</p>
+    <div *ngIf="user" class="comment-wrap main-wrap">
+
+
+        <div class="author-avatar">
+            <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
+                class=" avatar" alt="User Avatar">
+        </div>
+        <div class="comment-body">
+            <div class="comment-author-wrap ">
+                <p *ngIf="user.personType == 0; else type1">
+                    Role: Volunteer</p>
+                <ng-template #type1>
+                    <p> Role: CharityMaker </p>
+                </ng-template>
+                <p> Person ID: {{user.id}}</p>
+                <p> Phone: {{user.phoneNumber}}</p>
+                <p> Email: {{user.email}} </p>
+
+               
+            
+                
+            </div>
+        </div>
+        <div> <a [routerLink]="['/users', user.id]">
+                <button class="button">Change Information</button></a>
+        </div>
+
+
+    </div>
+
+</div>

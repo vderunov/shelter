@@ -1,15 +1,8 @@
 body { font-family: Helvetica; }
 .main-wrap{
-   
     width: 60%;
-      margin:25px auto;
-      padding: 10px !important;
-}
-
-
-.comment-author-wrap {
-    margin: 0;
-    padding: 0;
+    margin:25px auto;
+    padding: 10px !important;
 }
 
 .avatar{
@@ -19,7 +12,6 @@ body { font-family: Helvetica; }
 .comment-wrap{
 font-size: 20px;
 font-weight: 400;
-line-height: 1.35;
 list-style: none;
 box-sizing: border-box;
 position: relative;
@@ -37,20 +29,12 @@ border-radius: 16px;
   
 font-size: 20px;
 font-weight: 400;
-line-height: 1.35;
 list-style: none;
 color:rgb(31, 30, 30);
 box-sizing: border-box;
-padding: 0;}
-
-.comment-content{
-    padding: 0;
-    margin: 0;
+padding: 0;
 }
 
-div.comment-author-wrap {
-    padding: 0;
-}
 
 .button{
     background-color: rgb(113, 135, 207);
@@ -62,10 +46,4 @@ div.comment-author-wrap {
     border: 1px solid rgb(113, 135, 207);
 }
 
-
-
-// .wrap-main{
-//     width: 70%;
-    
-// }
 

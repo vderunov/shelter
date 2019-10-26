@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from './Users';
-import { Manager } from "./Manager";
+import { User } from './user.model';
+import { Manager } from './manager.model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -15,9 +15,8 @@ export class UsersService {
   public nextPage: string;
   public lastPage: string;
 
-// apiUsers = 'https://familynetserver.azurewebsites.net/api/v1/users/';
-apiUsers: string = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/users/';
-apiMenager: string = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/representatives/';
+apiUsers = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/users/';
+apiMenager = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/representatives/';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -32,10 +31,11 @@ apiMenager: string = 'https://cors-anywhere.herokuapp.com/https://familynetserve
   //   return this.httpClient.get<User[]>(`${this.apiUsers}`);
   // }
 
-  // public getUserById(id: number): Observable<User> {
+  public getUserById(id: number): Observable<any> {
+  //  const test =  this.httpClient.get<User>(`${this.apiUsers}${id}`);
 
-  //   return this.httpClient.get<User>(`${this.apiUsers}${id}`);
-  // }
+    return this.httpClient.get<User>(`${this.apiUsers}${id}` );
+  }
 
   // public createUser(user: User) {
   //   return this.httpClient.post(`${this.apiUsers}`, user);
@@ -50,8 +50,14 @@ apiMenager: string = 'https://cors-anywhere.herokuapp.com/https://familynetserve
   // }
 
   public getUserInfo(url?: string) {
+    return this.httpClient.get<User[]>(`${this.apiUsers}?page=1`,
+      { observe: 'response' }).pipe(tap(res => {
+        this.pagination(res);
+      }));
+  }
+  public getManagerInfo(url?: string) {
 
-    return this.httpClient.get<User[]>(`${this.apiUsers}?page=1`, // maybe ?page or &page
+    return this.httpClient.get<Manager[]>(`${this.apiMenager}?page=1`,
       { observe: 'response' }).pipe(tap(res => {
         this.pagination(res);
       }));
@@ -69,7 +75,6 @@ apiMenager: string = 'https://cors-anywhere.herokuapp.com/https://familynetserve
   headerLink(header) {
     console.log(header);
 
-      return;
     }
   // headerLink(header) {
   //   if (header.length !==110) {

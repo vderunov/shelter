@@ -19,8 +19,8 @@
                         <p> Email: {{user.email}} </p>
                     </div>
                 </div>
-                <div>
-                    <button class="button">More</button>
+                <div>    <a [routerLink]="['/users', user.id]">
+                    <button class="button">More</button></a>
                 </div>
             </div>
         </mat-tab>

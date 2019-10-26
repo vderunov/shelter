@@ -1,0 +1,51 @@
+body { font-family: Helvetica; }
+.main-wrap{
+    width: 60%;
+    margin:25px auto;
+    padding: 10px !important;
+}
+
+.avatar{
+    width: 90%;
+    margin: auto;
+}
+.comment-wrap{
+font-size: 20px;
+font-weight: 400;
+list-style: none;
+box-sizing: border-box;
+position: relative;
+display: grid;
+grid-template-columns: 150px minmax(10px,1fr) 150px;
+grid-gap: 0;
+background: #f0f0f136;
+color:rgb(31, 30, 30);
+box-shadow: 0 2px 35px #178552;
+padding: 2rem;
+border-radius: 16px;
+}
+
+.comment-body{
+  
+font-size: 20px;
+font-weight: 400;
+list-style: none;
+color:rgb(31, 30, 30);
+box-sizing: border-box;
+padding: 0;
+}
+
+
+.button{
+    background-color: #178552;
+    margin-top: 40%;
+    width: 75%;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid  #178552;
+   font-weight:400 ;
+   font-size: 16px;
+}
+
+

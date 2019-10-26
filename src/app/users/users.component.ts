@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from './users.service';
-import { User } from './Users';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-users',
@@ -11,21 +10,23 @@ export class UsersComponent implements OnInit {
   users;
   managers;
   constructor(private userService: UsersService) { }
+
   ngOnInit(): void {
-    
+
     this.userService.getUserInfo().subscribe((res) => {
-      this.userService.getUserInfo(this.userService.nextPage).subscribe((res) => {
-      this.users = res.body;
-      return this.users
-    })
-  })
+      this.userService.getUserInfo(this.userService.nextPage).subscribe((resp) => {
+        this.users = resp.body;
+        return this.users;
+      });
+    });
 
-this.userService.getManagers().subscribe((res) => {
-  this.userService.getManagers(this.userService.nextPage).subscribe((res) => {
-  this.managers = res;
-  return this.managers
-})
-})
+    this.userService.getManagers().subscribe((res) => {
+      this.userService.getManagers(this.userService.nextPage).subscribe((resp) => {
+        this.managers = resp;
+        return this.managers;
+      });
+    });
 
-}
+  }
+
 }
