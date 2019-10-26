@@ -33,7 +33,7 @@ export class SheltersService {
       )
   }
 
-  getDetails(id: string = ''): Observable<Shelter> {
+  public getDetails(id: string = ''): Observable<Shelter> {
     return this.getShelter(id)
       .pipe(
         concatMap(
@@ -48,7 +48,7 @@ export class SheltersService {
       );
   }
 
-  getData(api, params) {
+  private getData(api, params) {
     return this.http.get(`${api}/${params}`)
   }
 }
