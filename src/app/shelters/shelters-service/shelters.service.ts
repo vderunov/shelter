@@ -20,13 +20,13 @@ export class SheltersService {
     .pipe(
       concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi)),
       map((arr: ApiShelter[]): Shelter[] => arr.map((el: ApiShelter): Shelter => ({
-          avatar: el.Avatar,
-          rating: el.Rating,
-          adressID: el.adressID,
-          id: el.id,
-          locationID: el.locationID,
-          name: el.name,
-          photoPath: el.photoPath,
+        avatar: el.Avatar,
+        rating: el.Rating,
+        adressID: el.adressID,
+        id: el.id,
+        locationID: el.locationID,
+        name: el.name,
+        photoPath: el.photoPath,
       }))));
   }
 }
