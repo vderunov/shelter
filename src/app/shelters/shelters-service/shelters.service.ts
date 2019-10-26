@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Shelter } from '../models/shelter.interface';
+
+import { AddressShelter, Shelter } from '../models/shelter.interface';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { concatMap, map } from 'rxjs/operators';
@@ -27,6 +28,16 @@ export class SheltersService {
             photoPath: el.photoPath
           })
         )
+      )
+    );
+  }
+
+  registerAddressShelter(
+    addressShelter: AddressShelter
+  ): Observable<AddressShelter> {
+    return this.configService.configLoaded.pipe(
+      concatMap(config =>
+        this.http.post<AddressShelter>(config.addressApi, addressShelter)
       )
     );
   }

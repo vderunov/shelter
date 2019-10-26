@@ -7,7 +7,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheltersModule } from './shelters/shelters.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
-import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -16,8 +15,7 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
     AppRoutingModule,
     NoopAnimationsModule,
     SheltersModule,
-    MatButtonModule,
-    RegistrationShelterModule
+    MatButtonModule
   ],
   bootstrap: [AppComponent]
 })
