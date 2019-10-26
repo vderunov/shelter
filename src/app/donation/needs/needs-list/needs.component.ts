@@ -18,7 +18,7 @@ export class NeedsComponent implements OnInit {
     this.needs = this.needService.getNeeds();
   }
 
-  needTrackBy(index: number, need: Need): number {
+  needTrackBy(need: Need): number {
     return need.donationItemID;
   }
 }

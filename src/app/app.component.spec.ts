@@ -7,7 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
 import { MatButtonModule } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NeedsModule } from './needs/needs.module';
+import { DonationModule } from './donation/donation.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
         SheltersModule,
         MatButtonModule,
         RegistrationShelterModule,
-        NeedsModule
+        DonationModule
       ],
       declarations: [AppComponent, NavbarComponent]
     }).compileComponents();

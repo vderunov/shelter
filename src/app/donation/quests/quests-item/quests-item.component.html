@@ -1,0 +1,9 @@
+<mat-card>
+  <span>{{ quest.lastDateWhenStatusChanged | date:'dd/MM/yyyy'}}</span>
+  <span>{{ quest.status }}</span>
+  <span>{{ quest.city }}</span>
+  <span>{{ quest.orphanageName }}</span>
+  <span>{{ quest.itemID }}</span>
+  <span>{{ quest.itemName }}</span>
+  <button mat-button (click)="openDialog()">Open details</button>
+</mat-card>

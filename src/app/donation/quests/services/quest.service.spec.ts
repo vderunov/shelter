@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { QuestService } from './quest.service';
 
-import { NeedService } from './need.service';
-
-xdescribe('HttpService', () => {
+xdescribe('QuestService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   xit('should be created', () => {
-    const service: NeedService = TestBed.get(NeedService);
+    const service: QuestService = TestBed.get(QuestService);
     expect(service).toBeTruthy();
   });
 });

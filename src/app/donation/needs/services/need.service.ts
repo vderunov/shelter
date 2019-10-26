@@ -7,12 +7,12 @@ import { Need } from '../models/need.interface';
   providedIn: 'root'
 })
 export class NeedService {
-  private needsUrl = '/assets/needs.data.json';
-  // private needsUrl = 'https://familynetserver.azurewebsites.net/api/v1/donations'
+  // in case of non-working api: private needsUrl = '/assets/needs.data.json';
+  private needsUrl = 'https://familynetserver.azurewebsites.net/api/v1/donations';
 
   constructor(private http: HttpClient) { }
 
-  getNeeds(): Observable<Need[]> {
+  public getNeeds(): Observable<Need[]> {
     return this.http.get<Need[]>(this.needsUrl);
   }
 }

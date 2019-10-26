@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NeedsModule } from './needs/needs.module';
+import { DonationModule } from './donation/donation.module';
 import { SheltersModule } from './shelters/shelters.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,7 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
     SheltersModule,
     MatButtonModule,
     RegistrationShelterModule,
-    NeedsModule
+    DonationModule
   ],
   bootstrap: [AppComponent]
 })
