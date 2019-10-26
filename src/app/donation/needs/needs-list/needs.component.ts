@@ -10,15 +10,15 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NeedsComponent implements OnInit {
-  needs: Observable<Need[]>;
+  private needs: Observable<Need[]>;
 
   constructor(private needService: NeedService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.needs = this.needService.getNeeds();
   }
 
-  needTrackBy(need: Need): number {
-    return need.donationItemID;
+  trackById(index: number, item: Need) {
+    return item.donationItemID
   }
 }
