@@ -1,15 +1,12 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatInputModule } from '@angular/material';
+import { SheltersModule } from './shelters/shelters.module';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule
-} from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
+import { MatButtonModule } from '@angular/material';
+import { NavbarComponent } from './navbar/navbar.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -17,11 +14,12 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         BrowserModule,
-        BrowserAnimationsModule,
         NoopAnimationsModule,
-        RegistrationShelterModule
+        SheltersModule,
+        MatButtonModule,
+        RegistrationShelterModule,
       ],
-      declarations: [AppComponent]
+      declarations: [AppComponent, NavbarComponent]
     }).compileComponents();
   }));
 

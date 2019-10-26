@@ -1,0 +1,48 @@
+<div>
+
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Helpers">
+            <div *ngFor="let user of users " class="comment-wrap main-wrap">
+                <div class="author-avatar">
+                    <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
+                        class=" avatar" alt="User Avatar">
+                </div>
+                <div class="comment-body">
+                    <div class="comment-author-wrap ">
+                        <div class="comment-author">{{user.userName}}</div>
+                        <p *ngIf="user.personType == 0; else type1">
+                            Role: Volunteer</p>
+                        <ng-template #type1>
+                            <p> Role: CharityMaker </p>
+                        </ng-template>
+                        <p> Phone: {{user.phoneNumber}}</p>
+                        <p> Email: {{user.email}} </p>
+                    </div>
+                </div>
+                <div>
+                    <button class="button">More</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Menagers"><div *ngFor="let manager of managers " class="comment-wrap main-wrap">
+                <div class="author-avatar">
+                    <img src="../../assets/avatar.png"
+                        class=" avatar" alt="User Avatar">
+                </div>
+                <div class="comment-body">
+                    <div class="comment-author-wrap ">
+                        <div class="comment-author">{{manager.name}} {{manager.surname}}</div>
+                        
+                        <p> Phone: {{manager.birthday}}</p>
+                        <p> Email: {{manager.childrenHouseId}} </p>
+                    </div>
+                </div>
+                <div>
+                    <button class="button">More</button>
+                </div>
+            </div></mat-tab>
+        <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+
+  
+</div>
