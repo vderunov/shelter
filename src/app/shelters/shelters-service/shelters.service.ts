@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { concatMap, map } from 'rxjs/operators';
 import { ApiShelter } from '../models/api-shelter.interface';
+import { UrlParamCreatorService } from 'src/app/shared/services/config/url-param-creator.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,18 @@ export class SheltersService {
 
   constructor(
     private http: HttpClient,
-    private configService: ConfigService) { }
+    private configService: ConfigService,
+    private urlParamCreatorService : UrlParamCreatorService) { }
 
-  getShelters(param: string = ''): Observable<Shelter[]> {
+  public getShelters(paramObj: object = {}): Observable<Shelter[]> {
+    let paramString: string = '';
+    if(Object.keys(paramObj).length > 0){
+      paramString = this.urlParamCreatorService.createUrlSearchParam(paramObj);
+    } 
+
     return this.configService.configLoaded
     .pipe(
-      concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi + param)),
+      concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi + paramString)),
       map((arr: ApiShelter[]): Shelter[] => arr.map((el: ApiShelter): Shelter => ({
           avatar: el.Avatar,
           rating: el.Rating,
@@ -29,4 +36,6 @@ export class SheltersService {
           photoPath: el.photoPath,
       }))));
   }
+
+
 }

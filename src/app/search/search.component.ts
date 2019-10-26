@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,12 +6,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent {
-  searchForm: FormGroup;
+export class SearchComponent implements OnInit {
+  public searchForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.searchForm = this.formBuilder.group({
       search: ''
     });

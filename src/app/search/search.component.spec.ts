@@ -23,21 +23,16 @@ describe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    spyOn(component.onSearch, 'emit');
   });
 
   it('should create search component', () => {
     expect(component).toBeTruthy();
   });
-
   
-  it('should emit on submit searchForm', () => {
-    spyOn(component.onSearch, 'emit');
-    const nativeElement = fixture.nativeElement;
-    const searchForm = nativeElement.querySelector('form');
-    const searchInput = nativeElement.querySelector('input');
-    searchForm.dispatchEvent(new Event('submit'));
-
-    expect(component.onSearch.emit).toHaveBeenCalledWith(searchInput.value);
+  it('should emit on call of function Search with same argument', () => {
+    component.search('search value');
+    expect(component.onSearch.emit).toHaveBeenCalledWith('search value');
  });
 
 });
