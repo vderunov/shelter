@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 import { SearchComponent } from './search.component';
@@ -8,7 +9,8 @@ import { SearchComponent } from './search.component';
   declarations: [ SearchComponent ],
   imports: [
     CommonModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   exports: [SearchComponent]
 })
