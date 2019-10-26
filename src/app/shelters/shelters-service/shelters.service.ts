@@ -18,7 +18,7 @@ export class SheltersService {
   getShelters(searchValue: string = ''): Observable<Shelter[]> {
     return this.configService.configLoaded
     .pipe(
-      concatMap(config => this.http.get<ApiShelter[]>(config.sheltersApi)),
+      concatMap(config => this.http.get<ApiShelter[]>(`${config.sheltersApi}${searchValue ? `?name=${searchValue}` : ''}`)),
       map((arr: ApiShelter[]): Shelter[] => arr.map((el: ApiShelter): Shelter => ({
           avatar: el.Avatar,
           rating: el.Rating,
@@ -27,10 +27,6 @@ export class SheltersService {
           locationID: el.locationID,
           name: el.name,
           photoPath: el.photoPath,
-      }))),
-      map((arr: Shelter[]): Shelter[] => arr.filter((el: Shelter): boolean => 
-        el.name.toLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1
-      ))
-      );
+      }))));
   }
 }
