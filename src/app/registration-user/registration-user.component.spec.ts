@@ -9,8 +9,7 @@ xdescribe('RegistrationUserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RegistrationUserComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
