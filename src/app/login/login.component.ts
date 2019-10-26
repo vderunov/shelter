@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/services/user/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from './login.interface';
+import { AuthenticationService } from '../shared/services/user/authentication.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
+import { Login } from './login.interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,50 +11,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  submitted = false;
+  private loginForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private authenticationService: AuthenticationService,
     private router: Router
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: [null, [
-        Validators.required,
-        Validators.email,
-        Validators.pattern('^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+[.])+([a-zA-Z0-9]{2,4})+$'),
-      ]],
-      password: [null, [
-        Validators.required,
-        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9.,<>()-=_+!@#$%^&*~?]+$'),
-      ]],
+      email: [null, FormFiledsValidator.checkEmail],
+      password: [null, FormFiledsValidator.checkPassword]
     });
   }
 
-  get form() {
-    return this.loginForm.controls;
+  isFieldInvalid(fieldName): boolean {
+    return this.loginForm.get(fieldName).touched && this.loginForm.get(fieldName).invalid;
   }
 
-  onSubmit() {
-    this.submitted = true;
+  onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
     }
 
-    const user: User = {
-      email: this.form.email.value,
-      password: this.form.password.value
-    };
-
-    this.userService.login(user).subscribe();
+    const loginData: Login = { ...this.loginForm.value };
+    this.authenticationService.login(loginData).subscribe();
   }
 
-  goToRegistrationPage() {
+  goToRegistrationPage(): void {
     this.router.navigate(['/registraction-user']);
   }
-
 }

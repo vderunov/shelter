@@ -3,72 +3,60 @@
 
   <mat-form-field>
     <input matInput placeholder="First Name" type="text" formControlName="firstName" />
-
     <mat-hint align="end">
       Between 2 and 20 symbols
     </mat-hint>
-
-    <mat-error *ngIf="form.firstName.touched && form.firstName.invalid">
+    <mat-error *ngIf="isFieldInvalid('firstName')">
       Please enter valid First Name (between 2 and 20 symbols)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input matInput placeholder="Last Name" type="text" formControlName="lastName" />
-
     <mat-hint align="end">
       Between 2 and 20 symbols
     </mat-hint>
-
-    <mat-error *ngIf="form.lastName.touched && form.lastName.invalid">
+    <mat-error *ngIf="isFieldInvalid('lastName')">
       Please enter valid Last Name (between 2 and 20 symbols)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input matInput placeholder="Phone Number" type="text" formControlName="phone" />
-
     <mat-hint align="end">
       Format: +380501234567
     </mat-hint>
-
-    <mat-error *ngIf="form.phone.touched && form.phone.invalid">
+    <mat-error *ngIf="isFieldInvalid('phone')">
       Please enter valid Phone Number (format: +380501234567)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input matInput placeholder="Email" type="email" formControlName="email" />
-
     <mat-hint align="end">
       Format: johndoe@mail.com
     </mat-hint>
-
-    <mat-error *ngIf="form.email.touched && form.email.invalid">
+    <mat-error *ngIf="isFieldInvalid('email')">
       Please enter valid Email (format: johndoe@mail.com)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input matInput placeholder="Password" type="password" formControlName="password" />
-
     <mat-hint align="end">
       Between 6 and 16 symbols, must have at least one letter and one number
     </mat-hint>
-
-    <mat-error *ngIf="form.password.touched && form.password.invalid">
+    <mat-error *ngIf="isFieldInvalid('password')">
       Please enter valid Password (6-16 symbols, 1 digit and 1 letter at least)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword" />
-
     <mat-hint align="end">
       Between 6 and 16 symbols, must have at least one letter and one number
     </mat-hint>
-
-    <mat-error *ngIf="form.confirmPassword.touched && form.confirmPassword.invalid">
+    <mat-error *ngIf="isFieldInvalid('confirmPassword')">
       Passwords don't match
     </mat-error>
   </mat-form-field>
@@ -78,5 +66,4 @@
       Create Account
     </button>
   </div>
-
 </form>

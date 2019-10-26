@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { UserService } from '../shared/services/user/user.service';
-import { FormFiledsValidator } from './form-fields-validator';
+import { AuthenticationService } from '../shared/services/user/authentication.service';
+import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
 import { NewUser } from './registration-user.interface';
-
 
 @Component({
   selector: 'app-registration-user',
@@ -12,16 +11,13 @@ import { NewUser } from './registration-user.interface';
   styleUrls: ['./registration-user.component.scss']
 })
 export class RegistrationUserComponent implements OnInit {
-  registerForm: FormGroup;
-  submitted = false;
+  private registerForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private authenticationService: AuthenticationService,
     private router: Router
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -36,27 +32,22 @@ export class RegistrationUserComponent implements OnInit {
       });
   }
 
-  get form() {
-    return this.registerForm.controls;
+  isFieldInvalid(fieldName): boolean {
+    return this.registerForm.get(fieldName).touched && this.registerForm.get(fieldName).invalid;
   }
 
-  onSubmit() {
-    this.submitted = true;
+  goToLoginPage(): void {
+    this.router.navigate(['/login']);
+  }
+
+  onSubmit(): void {
     if (this.registerForm.invalid) {
       return;
     }
-    const newUser: NewUser = {
-      firstName: this.form.firstName.value,
-      lastName: this.form.lastName.value,
-      phone: this.form.phone.value,
-      email: this.form.email.value,
-      password: this.form.password.value,
-    };
 
-    this.userService.addUser(newUser);
-  }
+    const newUser: NewUser = { ...this.registerForm.value };
+    this.authenticationService.addUser(newUser);
 
-  goToLoginPage() {
-    this.router.navigate(['/login']);
+    this.goToLoginPage();
   }
 }
