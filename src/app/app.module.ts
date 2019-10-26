@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheltersModule } from './shelters/shelters.module';
+import { LoginModule } from './login/login.module';
+import { RegistrationUserModule } from './registration-user/registration-user.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -16,6 +18,9 @@ import { MatButtonModule } from '@angular/material/button';
     NoopAnimationsModule,
     SheltersModule,
     MatButtonModule
+    MatButtonModule,
+    LoginModule,
+    RegistrationUserModule
   ],
   bootstrap: [AppComponent]
 })

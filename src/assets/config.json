@@ -1,4 +1,6 @@
 {
   "sheltersApi": "https://familynetserver.azurewebsites.net/api/v1/childrenHouse",
   "addressApi": "https://familynetserver.azurewebsites.net/api/v1/address"
+  "loginApi": "https://familynetserver.azurewebsites.net/api/v1/authentication",
+  "registrationUserApi": "/api/v1/volunteers"
 }
