@@ -12,12 +12,15 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     SheltersModule,
-    MatButtonModule,
     MatButtonModule,
     LoginModule,
     RegistrationUserModule

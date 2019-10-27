@@ -10,15 +10,19 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShelterListComponent implements OnInit {
-  shelters: Observable<Shelter[]>;
+  public shelters$: Observable<Shelter[]>;
 
   constructor(private sheltersService: SheltersService) {}
 
-  ngOnInit(): void {
-    this.shelters = this.sheltersService.getShelters();
+  public ngOnInit(): void {
+    this.shelters$ = this.sheltersService.getShelters();
   }
 
-  shelterTrackBy(index: number, shelter: Shelter): number {
+  public shelterTrackBy(index: number, shelter: Shelter): number {
     return shelter.id;
+  }
+
+  public onSearch(searchValue: string): void {
+    this.shelters$ = this.sheltersService.getShelters({name: searchValue});
   }
 }
