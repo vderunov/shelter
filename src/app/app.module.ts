@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
     AppRoutingModule,
     NoopAnimationsModule,
     SheltersModule,
-    MatButtonModule
+    MatButtonModule,
     MatButtonModule,
     LoginModule,
     RegistrationUserModule
