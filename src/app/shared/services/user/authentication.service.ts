@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Login } from 'src/app/login/login.interface';
 import { NewUser } from 'src/app/registration-user/registration-user.interface';
 import { ConfigService } from '../config/config.service';
+import { LocalStorageService } from '../localStorage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthenticationService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) { }
 
   login(loginData: Login): Observable<any> {
@@ -35,7 +36,7 @@ export class AuthenticationService {
         'Admin'
       ]
     }];
-    localStorage.setItem('user', JSON.stringify(body));
+    LocalStorageService.setItem('user', JSON.stringify(body));
     // [1] end.
     return this.configService.configLoaded
       .pipe(

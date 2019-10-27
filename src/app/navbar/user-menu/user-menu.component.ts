@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalStorageService } from '../../shared/services/localStorage/local-storage.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -9,14 +10,14 @@ export class UserMenuComponent {
   constructor() { }
 
   public isLogged(): boolean {
-    return Boolean(localStorage.getItem('user'));
+    return Boolean(LocalStorageService.getItem('user'));
   }
 
   public getUser(): string {
-      return JSON.parse(localStorage.getItem('user'))[0]['email'];
+    return JSON.parse(LocalStorageService.getItem('user'))[0]['email'];
   }
 
   public logOut(): void {
-    localStorage.removeItem('user');
+    LocalStorageService.removeItem('user');
   }
 }
