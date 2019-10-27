@@ -2,21 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Subscription } from 'rxjs';
 import { SheltersService } from '../shelters-service/shelters.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-registration-shelter',
   templateUrl: './shelter-registration.component.html',
-  styleUrls: [
-    './shelter-registration.component.scss',
-    '../../shared/style/style.scss'
-  ]
+  styleUrls: ['./shelter-registration.component.scss']
 })
 export class ShelterRegistrationComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   private error = '';
-  private shelterSub: Subscription;
+  private destroy$: Subject<void> = new Subject();
 
   constructor(
     private sheltersService: SheltersService,
@@ -33,19 +31,20 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
     });
   }
 
-  isFieldValid(fieldName): boolean {
+  private isFieldValid(fieldName): boolean {
     return this.form.get(fieldName).touched && this.form.get(fieldName).invalid;
   }
 
-  submit(): void {
+  public submit(): void {
     if (this.form.invalid) {
       return;
     }
 
     const formData = { ...this.form.value };
 
-    this.shelterSub = this.sheltersService
+    this.sheltersService
       .registerAddressShelter(formData)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
           this.form.reset();
@@ -57,13 +56,12 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
       );
   }
 
-  ngOnDestroy(): void {
-    if (this.shelterSub) {
-      this.shelterSub.unsubscribe();
-    }
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  gotoMainPage(): void {
+  public gotoMainPage(): void {
     this.router.navigate(['/']);
   }
 }

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { AddressShelter, Shelter } from '../models/shelter.interface';
+import { Shelter } from '../models/shelter.interface';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { concatMap, map } from 'rxjs/operators';
 import { ApiShelter } from '../models/api-shelter.interface';
+import {AddressShelter} from '../models/address-shelter.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,7 @@ export class SheltersService {
     );
   }
 
-  registerAddressShelter(
-    addressShelter: AddressShelter
-  ): Observable<AddressShelter> {
+  registerAddressShelter(addressShelter: AddressShelter): Observable<AddressShelter> {
     return this.configService.configLoaded.pipe(
       concatMap(config =>
         this.http.post<AddressShelter>(config.addressApi, addressShelter)

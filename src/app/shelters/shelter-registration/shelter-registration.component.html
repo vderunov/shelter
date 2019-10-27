@@ -2,7 +2,7 @@
   <h4 class="mat-display-1">Shelter Registration Form</h4>
   <p *ngIf="error; else registrationBlock" class="error">
     {{ error }}
-    <button mat-button color="primary" (click)="gotoMainPage()">To the main..</button>
+    <button mat-button color="primary" (click)="gotoMainPage()">To the main</button>
   </p>
   <ng-template #registrationBlock>
   <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('country') }">

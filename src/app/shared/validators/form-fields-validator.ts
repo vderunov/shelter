@@ -3,7 +3,7 @@ import { AbstractControl, Validators } from '@angular/forms';
 export class FormFiledsValidator {
   static checkName = [
     Validators.required,
-    Validators.pattern("^[a-zA-Zа-яА-Я' -]+$"),
+    Validators.pattern('^[a-zA-Zа-яА-Я\' -]+$'),
     Validators.minLength(2),
     Validators.maxLength(20)
   ];
