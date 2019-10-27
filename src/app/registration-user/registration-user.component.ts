@@ -11,7 +11,7 @@ import { NewUser } from './registration-user.interface';
   styleUrls: ['./registration-user.component.scss']
 })
 export class RegistrationUserComponent implements OnInit {
-  private registerForm: FormGroup;
+  public registerForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
