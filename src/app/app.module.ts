@@ -10,11 +10,12 @@ import { RegistrationUserModule } from './registration-user/registration-user.mo
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
+import {AdminUsersModule} from './admin-users/admin-users.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,8 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
     MatButtonModule,
     RegistrationShelterModule,
     LoginModule,
-    RegistrationUserModule
+    RegistrationUserModule,
+    AdminUsersModule
   ],
   bootstrap: [AppComponent]
 })

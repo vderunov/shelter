@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegistrationShelterComponent } from './registration-shelter/registration-shelter.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationUserComponent } from './registration-user/registration-user.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 const routes: Routes = [
   { path: 'registration-shelter', component: RegistrationShelterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registraction-user', component: RegistrationUserComponent }
+  { path: 'registraction-user', component: RegistrationUserComponent },
+  { path: 'users', component: AdminUsersComponent }
 ];
 
 @NgModule({

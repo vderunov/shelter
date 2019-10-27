@@ -1,0 +1,52 @@
+<div>
+    <div *ngIf="manager" class="comment-wrap main-wrap">
+        <div class="author-avatar">
+            <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
+                class=" avatar" alt="Menager Avatar">
+        </div>
+        <div class="comment-body">
+            <form [formGroup]="managerForm" (ngSubmit)="editInfoManager()">
+                <div class="comment-author-wrap ">
+                    <p> name: <span *ngIf="! visibleFields">
+                            {{manager.name}} </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="name">
+                    </p>
+                    <p> surname: <span *ngIf="! visibleFields">
+                            {{manager.surname}} </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="surname">
+                    </p>
+                    <p> patronymic:<span *ngIf="! visibleFields">
+                            {{manager.patronymic}} </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="patronymic">
+                    </p>
+                    <p> rating: <span *ngIf="! visibleFields">
+                            {{manager.rating}}
+                        </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="rating">
+                    </p>
+                    <p> childrenHouseID:<span *ngIf="! visibleFields">
+                            {{manager.childrenHouseID}}
+                        </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="childrenHouseID">
+                    </p>
+                    <p> photoPath:
+                        <span *ngIf="! visibleFields">
+                            {{manager.photoPath}}
+                        </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="photoPath">
+                    </p>
+                </div>
+                <button type="submit" [disabled]="!managerForm" *ngIf=" visibleFields" class="buttonSave"> Save
+                    changes</button>
+            </form>
+        </div>
+        <div class="buttonHolder">
+            <button *ngIf="! visibleFields" (click)="changeInfoManager()" [routerLink]="['/manager', manager.id]"
+                class="buttonChange">
+                Change Information
+            </button>
+            <button *ngIf=" visibleFields" (click)="deleteManager()" [routerLink]="['/users']" class="buttonDelet">
+                Delete user
+            </button>
+        </div>
+    </div>

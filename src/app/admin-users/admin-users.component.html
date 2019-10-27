@@ -1,0 +1,51 @@
+<div>
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Helpers">
+            <div class="side">
+                <button class="buttonAddHelper">Add new Helper </button>
+            </div>
+            <div *ngFor="let user of users " class="comment-wrap main-wrap">
+                <div>
+                    <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
+                        class=" avatar" alt="User Avatar">
+                </div>
+                <div class="comment-body">
+                    <div>
+                        <div>{{user.userName}}</div>
+                        <p *ngIf="user.personType == 0; else changeRole">
+                            Role: Volunteer</p>
+                        <ng-template #changeRole>
+                            <p>Role: CharityMaker</p>
+                        </ng-template>
+                        <p> Phone: {{user.phoneNumber}}</p>
+                        <p> Email: {{user.email}}</p>
+                    </div>
+                </div>
+                <div> <a [routerLink]="['/users', user.id]">
+                        <button class="button">More</button></a>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Managers">
+            <div class="side">
+                <button class="buttonAddManager">Add Manager</button>
+            </div>
+            <div *ngFor="let manager of managers " class="comment-wrap main-wrap">
+                <div>
+                    <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
+                        class=" avatar" alt="User Avatar">
+                </div>
+                <div class="comment-body">
+                    <div>
+                        <div class="comment-author">{{manager.name}} {{manager.surname}}</div>
+                        <p>Birthday: {{manager.birthday}}</p>
+                        <p>Rating: {{manager.rating}}</p>
+                    </div>
+                </div>
+                <div> <a [routerLink]="['/manager', manager.id]">
+                        <button class="button">More</button></a>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

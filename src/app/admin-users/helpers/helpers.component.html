@@ -1,0 +1,53 @@
+<div>
+
+    <div *ngIf="user" class="comment-wrap main-wrap">
+
+        <div class="author-avatar">
+            <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
+                class=" avatar" alt="User Avatar">
+
+        </div>
+        <div class="comment-body">
+            <form [formGroup]="userForm" (ngSubmit)="editInfo()">
+                <div class="comment-author-wrap ">
+                    <div *ngIf="! visibleFields">
+                        <p hidden="hidden" *ngIf="user.personType == 0; else changeRole">
+                            Role: <span>Volunteer</span></p>
+                        <ng-template #changeRole>
+                            <p> Role: <span>CharityMaker </span></p>
+                        </ng-template>
+                    </div>
+                    <ng-container *ngIf=" visibleFields">
+                        <mat-form-field>
+                            <mat-label>Role</mat-label>
+                            <select matNativeControl required formControlName="roles">
+                                <option value="0">Volunteer</option>
+                                <option value="1">CharityMaker </option>
+                            </select>
+                        </mat-form-field>
+                    </ng-container>
+                    <p> Phone: <span *ngIf="! visibleFields">
+                            {{user.phoneNumber}} </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="phoneNumber"
+                            placeholder=" phone">
+                    </p>
+                    <p> Email: <span *ngIf="! visibleFields">
+                            {{user.email}}
+                        </span>
+                        <input class="inputForm" *ngIf=" visibleFields" formControlName="email" placeholder="email">
+                    </p>
+                </div>
+                <button type="submit" [disabled]="!userForm" *ngIf=" visibleFields" class="buttonSave"> Save
+                    changes</button>
+            </form>
+        </div>
+        <div class="buttonHolder">
+            <button *ngIf="! visibleFields" (click)="changeInfo()" [routerLink]="['/users', user.id]"
+                class="buttonChange">
+                Change Information
+            </button>
+            <button *ngIf=" visibleFields" (click)="deleteUser()" [routerLink]="['/users']" class="buttonDelet">
+                Delete user
+            </button>
+        </div>
+    </div>
