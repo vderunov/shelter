@@ -2,7 +2,7 @@
 
   <button mat-button [matMenuTriggerFor]="menu">
     <img src="assets/defaultUserPic.png"/>
-    <span>{{userEmail}}</span> <mat-icon>arrow_drop_down</mat-icon>
+    <span>{{getUser()}}</span> <mat-icon>arrow_drop_down</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <a mat-menu-item [routerLink]="['/registration-shelter']">Registrate a New Shelter</a>
