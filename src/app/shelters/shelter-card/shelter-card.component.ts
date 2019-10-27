@@ -12,6 +12,6 @@ export class ShelterCardComponent {
   @Input() shelter: Shelter;
 
   public selectCard(shelter) {
-    this.selectedId = shelter.id
+    this.selectedId = shelter.id;
   }
 }

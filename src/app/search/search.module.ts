@@ -6,12 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { SearchComponent } from './search.component';
 
 @NgModule({
-  declarations: [ SearchComponent ],
-  imports: [
-    CommonModule,
-    MatInputModule,
-    ReactiveFormsModule
-  ],
+  declarations: [SearchComponent],
+  imports: [CommonModule, MatInputModule, ReactiveFormsModule],
   exports: [SearchComponent]
 })
-export class SearchModule { }
+export class SearchModule {}

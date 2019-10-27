@@ -1,0 +1,65 @@
+<form class="form-wrap" [formGroup]="form" (ngSubmit)="submit()">
+  <h4 class="mat-display-1">Shelter Registration Form</h4>
+  <p *ngIf="error; else registrationBlock" class="error">
+    {{ error }}
+    <button mat-button color="primary" (click)="gotoMainPage()">To the main</button>
+  </p>
+  <ng-template #registrationBlock>
+  <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('country') }">
+    <input
+      matInput
+      type="text"
+      placeholder="Country"
+      formControlName="country" />
+    <mat-error *ngIf="isFieldValid('country')">You must enter a value</mat-error>
+  </mat-form-field>
+  <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('region') }">
+    <input
+      matInput
+      type="text"
+      placeholder="Region"
+      formControlName="region"
+    />
+    <mat-error *ngIf="isFieldValid('region')">
+      You must enter a value
+    </mat-error>
+  </mat-form-field>
+    <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('city') }">
+      <input
+        matInput
+        type="text"
+        placeholder="Сity"
+        formControlName="city"
+      />
+      <mat-error *ngIf="isFieldValid('city')">
+        You must enter a value
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('street') }">
+      <input
+        matInput
+        type="text"
+        placeholder="Street"
+        formControlName="street"
+      />
+      <mat-error *ngIf="isFieldValid('street')">
+        You must enter a value
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('house') }">
+      <input
+        matInput
+        type="text"
+        placeholder="House"
+        formControlName="house"
+      />
+      <mat-error *ngIf="isFieldValid('house')">
+        You must enter a value
+      </mat-error>
+    </mat-form-field>
+  <div class="div-buttons">
+    <button type="submit" mat-button [disabled]="form.invalid">Confirm</button>
+    <button mat-button (click)="gotoMainPage()">Cancel</button>
+  </div>
+  </ng-template>
+</form>

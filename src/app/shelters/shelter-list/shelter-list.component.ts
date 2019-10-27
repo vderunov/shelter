@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class ShelterListComponent implements OnInit {
   public shelters$: Observable<Shelter[]>;
 
-  constructor(private sheltersService: SheltersService) { }
+  constructor(private sheltersService: SheltersService) {}
 
   public ngOnInit(): void {
     this.shelters$ = this.sheltersService.getShelters();
@@ -23,6 +23,6 @@ export class ShelterListComponent implements OnInit {
   }
 
   public onSearch(searchValue: string): void {
-    this.shelters$ = this.sheltersService.getShelters({name: searchValue});
+    this.shelters$ = this.sheltersService.getShelters({ name: searchValue });
   }
 }
