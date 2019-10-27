@@ -4,5 +4,5 @@ export interface NewUser {
   phone: string;
   email: string;
   password: string;
-  id?: number
+  id?: number;
 }

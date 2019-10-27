@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  private loginForm: FormGroup;
+  public loginForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -27,7 +27,10 @@ export class LoginComponent implements OnInit {
   }
 
   isFieldInvalid(fieldName): boolean {
-    return this.loginForm.get(fieldName).touched && this.loginForm.get(fieldName).invalid;
+    return (
+      this.loginForm.get(fieldName).touched &&
+      this.loginForm.get(fieldName).invalid
+    );
   }
 
   onSubmit(): void {

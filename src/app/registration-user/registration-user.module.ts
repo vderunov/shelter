@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { RegistrationUserComponent } from './registration-user.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
   declarations: [RegistrationUserComponent],
   imports: [
@@ -21,4 +20,4 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   exports: [RegistrationUserComponent]
 })
-export class RegistrationUserModule { }
+export class RegistrationUserModule {}

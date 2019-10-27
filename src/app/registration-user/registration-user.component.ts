@@ -11,29 +11,35 @@ import { NewUser } from './registration-user.interface';
   styleUrls: ['./registration-user.component.scss']
 })
 export class RegistrationUserComponent implements OnInit {
-  private registerForm: FormGroup;
+  public registerForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      firstName: [null, FormFiledsValidator.checkName],
-      lastName: [null, FormFiledsValidator.checkName],
-      phone: ['+380', FormFiledsValidator.checkPhone],
-      email: [null, FormFiledsValidator.checkEmail],
-      password: [null, FormFiledsValidator.checkPassword],
-      confirmPassword: [null, FormFiledsValidator.checkPassword]
-    }, {
+    this.registerForm = this.formBuilder.group(
+      {
+        firstName: [null, FormFiledsValidator.checkName],
+        lastName: [null, FormFiledsValidator.checkName],
+        phone: ['+380', FormFiledsValidator.checkPhone],
+        email: [null, FormFiledsValidator.checkEmail],
+        password: [null, FormFiledsValidator.checkPassword],
+        confirmPassword: [null, FormFiledsValidator.checkPassword]
+      },
+      {
         validator: FormFiledsValidator.matchPassword
-      });
+      }
+    );
   }
 
   isFieldInvalid(fieldName): boolean {
-    return this.registerForm.get(fieldName).touched && this.registerForm.get(fieldName).invalid;
+    return (
+      this.registerForm.get(fieldName).touched &&
+      this.registerForm.get(fieldName).invalid
+    );
   }
 
   goToLoginPage(): void {

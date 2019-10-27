@@ -7,7 +7,6 @@ import { ConfigService } from './shared/services/config/config.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {

@@ -18,9 +18,8 @@ xdescribe('ShelterListComponent', () => {
         MatGridListModule,
         MatCardModule,
         HttpClientModule
-      ],
-    })
-    .compileComponents();
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
