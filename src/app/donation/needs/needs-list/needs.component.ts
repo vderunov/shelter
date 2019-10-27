@@ -21,4 +21,8 @@ export class NeedsComponent implements OnInit {
   public trackById(index: number, item: Need) {
     return item.donationItemID
   }
+
+  public onSearch(searchValue: string): void {
+    this.needs$ = this.needService.getNeeds({itemName: searchValue});
+  }
 }
