@@ -4,7 +4,6 @@ import { Shelter } from '../models/shelter.interface';
 import { Observable, of, forkJoin } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { concatMap, map } from 'rxjs/operators';
-import { ApiShelter } from '../models/api-shelter.interface';
 import { AddressShelter } from '../models/address-shelter.interface';
 import { Config } from 'src/app/shared/services/config/config.interface';
 
