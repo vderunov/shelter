@@ -4,7 +4,6 @@ body { font-family: Helvetica; }
     margin:25px 0 0 30%;
     padding: 10px !important;
 }
-
 .avatar{
     width: 90%;
     margin: auto;
@@ -20,13 +19,12 @@ grid-template-columns: 150px minmax(10px,1fr) 150px;
 grid-gap: 0;
 background: #f0f0f136;
 color:rgb(31, 30, 30);
-box-shadow: 0 2px 35px #173185;
+box-shadow: 0 10px 35px #45a3c0;
 padding: 2rem;
 border-radius: 16px;
 }
 
 .comment-body{
-  
 font-size: 20px;
 font-weight: 400;
 list-style: none;
@@ -34,8 +32,6 @@ color:rgb(31, 30, 30);
 box-sizing: border-box;
 padding: 0;
 }
-
-
 .button{
     background-color: rgb(113, 135, 207);
     margin-top: 40%;
@@ -46,8 +42,8 @@ padding: 0;
     border: 1px solid rgb(113, 135, 207);
 }
 .buttonAddHelper{
-    box-shadow: 0 2px 35px #173185;
-    background-color: #55a7a2;
+    box-shadow: 0 2px 35px #45a3c0;
+    background-color: #7c8ce4;
     float: left;
     margin-left: 1%;
     margin-top: 5%;

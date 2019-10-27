@@ -12,19 +12,14 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UsersService) { }
 
   ngOnInit(): void {
-
     this.userService.getUserInfo().subscribe((res) => {
-      this.userService.getUserInfo(this.userService.nextPage).subscribe((resp) => {
-        this.users = resp.body;
+        this.users = res.body;
         return this.users;
-      });
     });
 
     this.userService.getManagers().subscribe((res) => {
-      this.userService.getManagers(this.userService.nextPage).subscribe((resp) => {
-        this.managers = resp;
+        this.managers = res;
         return this.managers;
-      });
     });
 
   }

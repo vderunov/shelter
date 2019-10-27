@@ -45,11 +45,10 @@
                         <p> Email: {{manager.childrenHouseId}} </p>
                     </div>
                 </div>
-                <div>
-                    <button class="button">More</button>
-                </div>
+                <div> <a [routerLink]="['/manager', manager.id]">
+                    <button class="button">More</button></a>
+                 </div>
             </div>
         </mat-tab>
-
     </mat-tab-group>
 </div>

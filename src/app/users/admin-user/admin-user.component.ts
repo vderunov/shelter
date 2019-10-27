@@ -13,8 +13,7 @@ export class AdminUserComponent implements OnInit {
 
   constructor(
     private userService: UsersService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private route: ActivatedRoute) { }
   user: User[];
   id;
   userForm = new FormGroup({
@@ -25,7 +24,6 @@ export class AdminUserComponent implements OnInit {
   public show = false;
   public buttonName: any = 'Show';
   public contenteditable = false;
-  
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
     this.userService

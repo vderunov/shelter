@@ -1,0 +1,58 @@
+<p>admin-manager works!</p>
+<div>
+    <div *ngIf="manager" class="comment-wrap main-wrap">
+
+        <div class="author-avatar">
+            <img src="../../../assets/avatar.png" class=" avatar" alt="Menager Avatar">
+        </div>
+        <div class="comment-body">
+            <form [formGroup]="managerForm" (ngSubmit)="editInfoManager()">
+                <div class="comment-author-wrap ">
+                    <p> Role: Managerl</p>
+
+                    <p> name: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                            {{manager.name}} </span>
+                        <input class="inputForm" *ngIf="show" formControlName="name" placeholder=" {{manager.name}}">
+                    </p>
+                    <p> surname: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                            {{manager.surname}} </span>
+                        <input class="inputForm" *ngIf="show" formControlName="surname"
+                            placeholder=" {{manager.surname}}">
+                    </p>
+                    <p> patronymic: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                            {{manager.patronymic}} </span>
+                        <input class="inputForm" *ngIf="show" formControlName="patronymic"
+                            placeholder=" {{manager.patronymic}}">
+                    </p>
+                    <p> rating: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                            {{manager.rating}}
+                        </span>
+                        <input class="inputForm" *ngIf="show" formControlName="rating" placeholder="{{manager.rating}}">
+                    </p>
+                    <p> childrenHouseID: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                            {{manager.childrenHouseID}}
+                        </span>
+                        <input class="inputForm" *ngIf="show" formControlName="childrenHouseID"
+                            placeholder="{{manager.childrenHouseID}}">
+                    </p>
+                    <p> photoPath:   
+                            <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                                    {{manager.photoPath}}
+                                </span>
+                                <input class="inputForm" *ngIf="show" formControlName="photoPath"
+                                    placeholder="{{manager.photoPath}}">
+                        </p>
+                </div>
+                <button type="submit" [disabled]="!managerForm" *ngIf="show" class="buttonSave"> Save changes</button>
+            </form>
+        </div>
+        <div class="buttonHolder">
+            <button *ngIf="!show" (click)="changeInfoManager()" [routerLink]="['/manager', manager.id]"
+                class="buttonChange">
+                Change Information
+            </button>
+            <button *ngIf="show" (click)="deleteManager()" [routerLink]="['/users']" class="buttonDelet">
+                Delete user
+            </button>
+        </div>
+    </div>
