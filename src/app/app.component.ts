@@ -1,11 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ConfigService} from './shared/services/config/config.service';
+import { Component, OnInit } from '@angular/core';
+import { ConfigService } from './shared/services/config/config.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   constructor(private configService: ConfigService) {}
