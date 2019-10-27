@@ -1,0 +1,24 @@
+@import "src/app/shared/style/variables.scss";
+
+.shelter {
+  text-decoration: none;
+}
+
+.mat-card {
+  cursor: pointer;
+}
+
+.shelter .selected {
+  background-color: $selected-background-color;
+  color: white;
+}
+
+.shelter .selected:hover,
+.mat-card:hover {
+  background-color: $selected-hover-background-color;
+}
+
+.mat-card-image {
+  max-height: 250px;
+  object-fit: contain;
+}

@@ -1,0 +1,17 @@
+<mat-card *ngIf="shelter$|async; let shelter">
+    <mat-card-header>
+        <mat-card-title>{{shelter.name}}</mat-card-title>
+        <mat-card-subtitle>Country: {{shelter.country}}</mat-card-subtitle>
+        <mat-card-subtitle>Region: {{shelter.region}}</mat-card-subtitle>
+        <mat-card-subtitle>City: {{shelter.city}}</mat-card-subtitle>
+        <mat-card-subtitle>Street: {{shelter.street}}</mat-card-subtitle>
+        <mat-card-subtitle>House: {{shelter.house}}</mat-card-subtitle>
+      </mat-card-header>
+  <!-- <img mat-card-image src="{{shelter.photoPath}}" alt="Photo Shelter"> -->
+  <mat-card-title></mat-card-title>
+  <mat-card-content>Rating: {{shelter.rating}}</mat-card-content>
+  <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+</mat-card>
