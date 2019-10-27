@@ -1,4 +1,9 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { Observable, Subscription } from 'rxjs';
@@ -16,7 +21,8 @@ export class ShelterCardDetailsComponent implements OnInit {
 
   constructor(
     private sheltersService: SheltersService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   public ngOnInit() {
     this.id = this.activatedRoute.snapshot.params['id'];

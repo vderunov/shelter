@@ -12,10 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
-  declarations: [
-    AppComponent,
-    NavbarComponent
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
