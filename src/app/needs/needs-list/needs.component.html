@@ -1,7 +1,10 @@
 <p>needs work</p>
 
+<app-search
+  (onSearch)="onSearch($event)"></app-search>
+
 <mat-list>
-  <mat-list-item *ngFor="let need of needs | async">
+  <mat-list-item *ngFor="let need of needs$ | async">
     <span class="shelter">Shelter {{ need.orphanageId }}</span>
     <span class="need">{{ need.itemName }}</span>
     <span class="status">{{ need.status }}</span>

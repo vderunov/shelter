@@ -3,5 +3,6 @@
   "addressApi": "https://familynetserver.azurewebsites.net/api/v1/address",
   "locationApi": "https://familynetserver.azurewebsites.net/api/v1/location",
   "loginApi": "https://familynetserver.azurewebsites.net/api/v1/authentication",
-  "registrationUserApi": "/api/v1/volunteers"
+  "registrationUserApi": "/api/v1/volunteers",
+  "needsApi": "https://familynetserver.azurewebsites.net/api/v1/donations"
 }

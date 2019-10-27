@@ -1,19 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Need } from '../models/need.interface';
+import { ConfigService } from 'src/app/shared/services/config/config.service';
+import { concatMap, map } from 'rxjs/operators';
+import { Config } from 'src/app/shared/services/config/config.interface';
+import { RouteReuseStrategy } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
+export class NeedService {
 
-export class HttpService {
-  private needsUrl = '/assets/needs.data.json';
-  // private needsUrl = 'https://familynetserver.azurewebsites.net/api/v1/donations'
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService) { }
 
-  constructor(private http: HttpClient) { }
+  public getNeeds(paramObj: object = {}): Observable<Need[]> {
+    const key: string = Object.keys(paramObj)[0];
+    const value: string = paramObj[key];
 
-  getNeeds(): Observable<Need[]> {
-    return this.http.get<Need[]>(this.needsUrl);
+    return this.configService.configLoaded.pipe(
+      concatMap((config: Config) => this.http.get<Need[]>(config.needsApi)),
+      map((arr: Need[]): Need[] => {
+        if(Object.values(paramObj).length > 0){
+          return arr.filter((el: Need): boolean => el[key].toLowerCase().indexOf(value.toLocaleLowerCase()) > -1)
+        } 
+        return arr;
+      })
+    );
   }
 }

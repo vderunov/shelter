@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Need } from '../models/need.interface';
-import { HttpService} from '../services/need.service';
+import { NeedService } from '../services/need.service';
 
 import { Observable } from 'rxjs';
 
@@ -13,14 +13,16 @@ import { Observable } from 'rxjs';
 })
 
 export class NeedsComponent implements OnInit {
-  title1 = 'List of needs';
-  title2 = 'List of quests';
 
-  needs: Observable<Need[]>;
+  public needs$: Observable<Need[]>;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private needService: NeedService) { }
 
-  ngOnInit() {
-    this.needs = this.httpService.getNeeds();
+  public ngOnInit() {
+    this.needs$ = this.needService.getNeeds();
+  }
+
+  public onSearch(searchValue: string): void {
+    this.needs$ = this.needService.getNeeds({itemName: searchValue});
   }
 }
