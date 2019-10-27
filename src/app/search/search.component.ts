@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.searchForm = this.formBuilder.group({
       search: ''
     });

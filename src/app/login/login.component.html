@@ -1,0 +1,32 @@
+<form class="container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <h2 class="mat-display-1">Login Form</h2>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-hint align="end">
+      Format: johndoe@mail.com
+    </mat-hint>
+    <mat-error *ngIf="isFieldInvalid('email')">
+      Please enter valid Email (format: johndoe@mail.com)
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Password" type="password" formControlName="password">
+    <mat-hint align="end">
+      Between 6 and 16 symbols, must have at least one letter and one number
+    </mat-hint>
+    <mat-error *ngIf="isFieldInvalid('password')">
+      Please enter valid Password (6-16 symbols, 1 digit and 1 letter at least)
+    </mat-error>
+  </mat-form-field>
+
+  <div class="div-buttons">
+    <button type="submit" mat-raised-button [disabled]="loginForm.invalid">
+      Log In
+    </button>
+    <button type="button" mat-raised-button (click)="goToRegistrationPage()">
+      Create New Account
+    </button>
+  </div>
+</form>
