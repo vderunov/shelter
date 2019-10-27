@@ -1,7 +1,7 @@
 body { font-family: Helvetica; }
 .main-wrap{
     width: 60%;
-    margin:25px auto;
+    margin:25px 0 0 30%;
     padding: 10px !important;
 }
 
@@ -45,19 +45,34 @@ padding: 0;
     color: white;
     border: 1px solid rgb(113, 135, 207);
 }
-.buttonAdd{
+.buttonAddHelper{
     box-shadow: 0 2px 35px #173185;
     background-color: #55a7a2;
     float: left;
     margin-left: 1%;
     margin-top: 5%;
-    width: 15%;
+    width: 20%;
     height: 40px;
     border-radius: 5px;
     color: white;
     border: 1px solid  #175485;
     font-weight:400 ;
     font-size: 16px;
+}
+.buttonAddManager{
+    box-shadow: 0 2px 35px #136442;
+    background-color: #257035;
+    float: left;
+    margin-left: 1%;
+    margin-top: 5%;
+    width: 20%;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid  #175485;
+    font-weight:400 ;
+    font-size: 16px;
+    padding: 0;
 }
 
 

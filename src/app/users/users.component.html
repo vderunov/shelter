@@ -4,7 +4,7 @@
     
         <mat-tab label="Helpers">  
               <div class="side"> 
-                  <button class="buttonAdd">Add new Helper </button>
+                  <button class="buttonAddHelper">Add new Helper </button>
               </div>    
             <div *ngFor="let user of users " class="comment-wrap main-wrap">
                 <div>
@@ -28,8 +28,12 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Menagers">
-            <div *ngFor="let manager of managers " class="comment-wrap main-wrap">
+       
+        <mat-tab label="Managers">
+                <div class="side"> 
+                        <button class="buttonAddManager">Add Manager </button>
+                    </div>  
+                <div *ngFor="let manager of managers " class="comment-wrap main-wrap">
                 <div>
                     <img src="../../assets/avatar.png" class=" avatar" alt="User Avatar">
                 </div>
