@@ -50,11 +50,11 @@ export class SheltersService {
     return this.http.get<Shelter>(`${api}/${id}`);
   }
 
-  private getAddress(api, params) {
+  private getAddress(api, params): Observable<any> {
     return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 
-  private getLocation(api, params) {
+  private getLocation(api, params): Observable<any> {
     return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 
