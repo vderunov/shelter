@@ -20,16 +20,20 @@ export class ShelterCardDetailsComponent implements OnInit {
   constructor(
     private sheltersService: SheltersService,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder
+  ) {}
 
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.shelterId = this.activatedRoute.snapshot.params['id'];
-    this.sheltersService.getDetails(this.shelterId).pipe(take(1)).subscribe(shelter => {
-      this.shelter = shelter;
-      this.patchFormValues(shelter);
-    });
+    this.sheltersService
+      .getDetails(this.shelterId)
+      .pipe(take(1))
+      .subscribe(shelter => {
+        this.shelter = shelter;
+        this.patchFormValues(shelter);
+      });
   }
 
   public onSubmit(): void {
@@ -37,7 +41,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   }
 
   public onEdit(): void {
-    this.toggleForm()
+    this.toggleForm();
   }
 
   public onReset(): void {
@@ -55,7 +59,7 @@ export class ShelterCardDetailsComponent implements OnInit {
         region: [],
         city: [],
         street: [],
-        house: [],
+        house: []
       })
     });
   }
@@ -74,7 +78,9 @@ export class ShelterCardDetailsComponent implements OnInit {
   }
 
   private toggleForm() {
-    this.profileForm.enabled ? this.profileForm.disable() : this.profileForm.enable();
+    this.profileForm.enabled
+      ? this.profileForm.disable()
+      : this.profileForm.enable();
     this.isEdiDisabled = this.profileForm.disabled;
   }
 }

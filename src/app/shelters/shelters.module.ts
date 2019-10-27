@@ -42,4 +42,4 @@ const sheltersRoutes: Routes = [
   ],
   exports: [RouterModule, ShelterCardComponent]
 })
-export class SheltersModule { }
+export class SheltersModule {}
