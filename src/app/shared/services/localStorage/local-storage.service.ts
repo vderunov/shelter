@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { UserMenuComponent } from '../../../navbar/user-menu/user-menu.component';
 
 @Injectable({
   providedIn: 'root'
