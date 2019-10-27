@@ -25,6 +25,18 @@ export class AuthenticationService {
   ) { }
 
   login(loginData: Login): Observable<any> {
+    // [1] added only for testing, delete this block in the future!
+    const body: object[] = [{
+      id: '8c338aa3-2e1b-4a44-aab0-4c4045d39e91',
+      phoneNumber: '8045357385',
+      email: loginData['email'].toLowerCase(),
+      password: null,
+      roles: [
+        'Admin'
+      ]
+    }];
+    localStorage.setItem('user', JSON.stringify(body));
+    // [1] end.
     return this.configService.configLoaded
       .pipe(
         concatMap(config => this.http.post<any>(config.loginApi, loginData, this.httpOptions)),
