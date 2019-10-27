@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Quest } from '../models/quest.interface';
-import { QuestService} from '../services/quest.service';
+import { QuestService } from '../services/quest.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -23,6 +23,6 @@ export class QuestsListComponent implements OnInit {
   }
 
   public onSearch(searchValue: string): void {
-    this.quests$ = this.questService.getNeeds({itemName: searchValue});
+    this.quests$ = this.questService.getNeeds({ itemName: searchValue });
   }
 }
