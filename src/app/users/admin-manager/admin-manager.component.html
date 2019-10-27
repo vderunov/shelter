@@ -8,7 +8,7 @@
         <div class="comment-body">
             <form [formGroup]="managerForm" (ngSubmit)="editInfoManager()">
                 <div class="comment-author-wrap ">
-                    <p> Role: Managerl</p>
+                    <p> Role: Manager</p>
 
                     <p> name: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
                             {{manager.name}} </span>
