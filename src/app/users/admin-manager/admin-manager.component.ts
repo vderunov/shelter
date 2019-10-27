@@ -32,7 +32,6 @@ export class AdminManagerComponent implements OnInit {
     this.userService
       .getManagerById(this.id)
       .subscribe((res) => {
-        console.log(res);
         this.manager = res;
         return this.manager;
       });
@@ -47,7 +46,6 @@ export class AdminManagerComponent implements OnInit {
     this.userService
       .updateManager(this.managerForm.value, this.id)
       .subscribe((res) => {
-        console.log(res);
         return res;
       });
   }
