@@ -22,7 +22,7 @@ export class ShelterListComponent implements OnInit {
     return shelter.id;
   }
 
-  onSearch(searchValue: string): void {
+  public onSearch(searchValue: string): void {
     this.shelters = this.sheltersService.getShelters({name: searchValue});
   }
 }
