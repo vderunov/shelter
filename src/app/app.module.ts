@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DonationModule } from './donation/donation.module';
 import { SheltersModule } from './shelters/shelters.module';
 import { LoginModule } from './login/login.module';
 import { RegistrationUserModule } from './registration-user/registration-user.module';
@@ -19,8 +20,9 @@ import { MatButtonModule } from '@angular/material/button';
     SheltersModule,
     MatButtonModule,
     LoginModule,
-    RegistrationUserModule
+    RegistrationUserModule,
+    DonationModule
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
