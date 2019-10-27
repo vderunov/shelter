@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, forkJoin, of } from 'rxjs';
 import { Need } from '../models/need.interface';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { concatMap, map } from 'rxjs/operators';
@@ -29,5 +29,11 @@ export class NeedService {
         return arr;
       })
     );
+  }
+
+  public getDetails(id: any): Observable<Need> {
+    return this.configService.configLoaded.pipe(
+      concatMap((config: Config) => this.http.get<Need>(`${config.needsApi}/${id}`))
+    )
   }
 }

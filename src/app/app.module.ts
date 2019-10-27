@@ -31,4 +31,3 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-

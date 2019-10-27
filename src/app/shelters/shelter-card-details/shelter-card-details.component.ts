@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable} from 'rxjs';
 import { Shelter } from '../models/shelter.interface';
 
 @Component({

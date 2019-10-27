@@ -1,10 +1,8 @@
-<p>needs work</p>
-
 <app-search
   (onSearch)="onSearch($event)"></app-search>
 
-<mat-list>
-  <mat-list-item *ngFor="let need of needs$ | async">
+<mat-grid-list cols="1">
+  <mat-list-item *ngFor="let need of needs$ | async; trackBy: needTrackBy">
     <app-need-card [need]="need"></app-need-card>
   </mat-list-item>
-</mat-list>
+</mat-grid-list>

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { MatListModule, MatDialogModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list'
 import { HttpClientModule } from '@angular/common/http';
 import { NeedsComponent } from './needs-list/needs.component';
 import { SearchModule } from '../search/search.module';
@@ -10,7 +12,7 @@ import { NeedCardDetailsComponent } from './need-card-details/need-card-details.
 
 const needsRoutes: Routes = [
   { path: 'needs', component: NeedsComponent },
-  { path: 'need/:id', component: NeedCardDetailsComponent }
+  { path: 'needs/:id', component: NeedCardDetailsComponent }
 ];
 
 @NgModule({
@@ -20,6 +22,8 @@ const needsRoutes: Routes = [
     CommonModule,
     MatListModule,
     MatDialogModule,
+    MatCardModule,
+    MatGridListModule,
     HttpClientModule,
     SearchModule
   ],
