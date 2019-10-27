@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheltersModule } from './shelters/shelters.module';
 import { UsersModule} from './users/users.module';
+import { LoginModule } from './login/login.module';
+import { RegistrationUserModule } from './registration-user/registration-user.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
@@ -26,4 +28,4 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

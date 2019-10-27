@@ -1,5 +1,7 @@
+<app-search
+  (onSearch)="onSearch($event)"></app-search>
 <mat-grid-list cols="4">
-  <mat-grid-tile *ngFor="let shelter of shelters | async; trackBy: shelterTrackBy">
+  <mat-grid-tile *ngFor="let shelter of shelters$ | async; trackBy: shelterTrackBy">
     <app-shelter-card [shelter]="shelter"></app-shelter-card>
   </mat-grid-tile>
 </mat-grid-list>
