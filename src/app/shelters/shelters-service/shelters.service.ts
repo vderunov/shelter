@@ -10,45 +10,42 @@ import { Config } from 'src/app/shared/services/config/config.interface';
   providedIn: 'root'
 })
 export class SheltersService {
-  private config: Config;
-
   constructor(
     private http: HttpClient,
     private configService: ConfigService) { }
 
   public getShelters(params: string = ''): Observable<Shelter[]> {
-    return this.configService.configLoaded
-      .pipe(
-        concatMap(config => this.http.get<Shelter[]>(config.sheltersApi + params))
-      );
-  }
-
-  public getShelter(id): Observable<Shelter> {
-    return this.configService.configLoaded
-      .pipe(
-        concatMap(config => {
-          this.config = config;
-          return this.http.get<Shelter>(`${this.config.sheltersApi}/${id}`)
-        })
-      )
+    return this.configService.configLoaded.pipe(
+      concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi + params))
+    );
   }
 
   public getDetails(id: string = ''): Observable<Shelter> {
-    return this.getShelter(id)
-      .pipe(
-        concatMap(
-          (shelter: Shelter): Observable<any[]> => forkJoin(
-            of(shelter),
-            shelter.adressID && this.getData(this.config.addressApi, shelter.adressID) || of(null),
-            shelter.locationID && this.getData(this.config.locationApi, shelter.locationID) || of(null)
-          )
-        ),
-        map((arr: any[]): Shelter => arr.reduce((acc, curr) => ({ ...curr, ...acc }))
+    return this.configService.configLoaded.pipe(
+      concatMap((config: Config) =>
+        this.getShelter(config.sheltersApi, id).pipe(
+          concatMap((shelter: Shelter): Observable<any[]> =>
+            forkJoin(
+              of(shelter),
+              this.getAddress(config.addressApi, shelter.adressID),
+              this.getLocation(config.locationApi, shelter.locationID)
+            )
+          ),
+          map((arr: any[]): Shelter => arr.reduce((acc, curr) => ({ ...curr, ...acc })))
         )
-      );
+      )
+    );
   }
 
-  private getData(api, params) {
-    return this.http.get(`${api}/${params}`)
+  public getShelter(api, id): Observable<Shelter> {
+    return this.http.get<Shelter>(`${api}/${id}`);
+  }
+
+  private getAddress(api, params) {
+    return params ? this.http.get(`${api}/${params}`) : of(null);
+  }
+
+  private getLocation(api, params) {
+    return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 }

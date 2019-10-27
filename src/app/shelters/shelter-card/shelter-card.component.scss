@@ -9,17 +9,13 @@
 }
 
 .shelter .selected {
-  background-color: #CFD8DC;
+  background-color: $selected-background-color;
   color: white;
 }
 
 .shelter .selected:hover,
 .mat-card:hover {
-  background-color: #BBD8DC;
-}
-
-.button-primary {
-  background: $button-primary-background-color;
+  background-color: $selected-hover-background-color;
 }
 
 .mat-card-image {

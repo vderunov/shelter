@@ -1,4 +1,4 @@
-<mat-card *ngIf="shelter">
+<mat-card *ngIf="shelter$|async; let shelter">
     <mat-card-header>
         <mat-card-title>{{shelter.name}}</mat-card-title>
         <mat-card-subtitle>Country: {{shelter.country}}</mat-card-subtitle>

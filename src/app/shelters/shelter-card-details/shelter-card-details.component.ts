@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { Observable, Subscription } from 'rxjs';
@@ -7,12 +7,12 @@ import { Shelter } from '../models/shelter.interface';
 @Component({
   selector: 'app-shelter-card-details',
   templateUrl: './shelter-card-details.component.html',
-  styleUrls: ['./shelter-card-details.component.scss']
+  styleUrls: ['./shelter-card-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShelterCardDetailsComponent implements OnInit, OnDestroy {
+export class ShelterCardDetailsComponent implements OnInit {
   private id: string;
-  private shelter: Shelter;
-  private shelterSubscription: Subscription;
+  public shelter$: Observable<Shelter>;
 
   constructor(
     private sheltersService: SheltersService,
@@ -20,10 +20,6 @@ export class ShelterCardDetailsComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.shelterSubscription = this.sheltersService.getDetails(`/${this.id}`).subscribe(shelter => this.shelter = shelter);
-  }
-
-  public ngOnDestroy() {
-    this.shelterSubscription.unsubscribe();
+    this.shelter$ = this.sheltersService.getDetails(`/${this.id}`);
   }
 }
