@@ -10,20 +10,15 @@ import { LoginModule } from './login/login.module';
 import { RegistrationUserModule } from './registration-user/registration-user.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
-import { RegistrationShelterModule } from './registration-shelter/registration-shelter.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent
-  ],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     SheltersModule,
     MatButtonModule,
-    RegistrationShelterModule,
     LoginModule,
     RegistrationUserModule,
     DonationModule
