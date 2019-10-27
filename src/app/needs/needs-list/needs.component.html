@@ -5,10 +5,6 @@
 
 <mat-list>
   <mat-list-item *ngFor="let need of needs$ | async">
-    <span class="shelter">Shelter {{ need.orphanageId }}</span>
-    <span class="need">{{ need.itemName }}</span>
-    <span class="status">{{ need.status }}</span>
-    <span class="date">{{ need.lastDateWhenStatusChanged}}</span>
-    <button mat-button (click)="openDialog()">Open details</button>
+    <app-need-card [need]="need"></app-need-card>
   </mat-list-item>
 </mat-list>
