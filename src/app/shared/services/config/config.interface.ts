@@ -4,4 +4,6 @@ export interface Config {
   locationApi: string;
   loginApi: string;
   registrationUserApi: string;
+  needsApi: string;
+  questsApi: string;
 }
