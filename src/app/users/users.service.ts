@@ -14,11 +14,21 @@ export class UsersService {
   public prevPage: string;
   public nextPage: string;
   public lastPage: string;
-
+api = 'https://familynetserver.azurewebsites.net/api/v1/users/'
 apiUsers = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/users/';
 apiMenager = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/representatives/';
 
   constructor(private httpClient: HttpClient) { }
+
+
+
+
+
+
+
+
+
+
 
   public getAllUsers(url?: string): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.apiUsers}`);
@@ -27,27 +37,24 @@ apiMenager = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurew
   public getManagers(url?: string) {
     return this.httpClient.get<Manager[]>(`${this.apiMenager}`);
   }
-  // public getUsers(url?: string) {
-  //   return this.httpClient.get<User[]>(`${this.apiUsers}`);
-  // }
 
-  public getUserById(id: number): Observable<any> {
-  //  const test =  this.httpClient.get<User>(`${this.apiUsers}${id}`);
 
-    return this.httpClient.get<User>(`${this.apiUsers}${id}` );
+  public getUserById(id: string): Observable<any> {
+    return this.httpClient.get<User>(`${this.apiUsers}${id}`);
   }
 
   // public createUser(user: User) {
   //   return this.httpClient.post(`${this.apiUsers}`, user);
   // }
 
-  // public updateUser(user: User) {
-  //   return this.httpClient.put(`${this.apiUsers}${user.id}`, user);
-  // }
+  public updateUser(user: User, id: string) {
+    return this.httpClient.put(`${this.api}${id}`, user);
+  }
 
-  // public deleteUser(id: number) {
-  //   return this.httpClient.delete(`${this.apiUsers}${id}`);
-  // }
+  public deleteUser(id: string) {
+    return this.httpClient.delete(`${this.apiUsers}${id}`);
+  }
+
 
   public getUserInfo(url?: string) {
     return this.httpClient.get<User[]>(`${this.apiUsers}?page=1`,
@@ -56,7 +63,6 @@ apiMenager = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurew
       }));
   }
   public getManagerInfo(url?: string) {
-
     return this.httpClient.get<Manager[]>(`${this.apiMenager}?page=1`,
       { observe: 'response' }).pipe(tap(res => {
         this.pagination(res);

@@ -4,9 +4,10 @@ import { UsersComponent } from './users.component';
 import { AdminUserComponent} from './admin-user/admin-user.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 const usersRoutes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'users/:id', component: AdminUserComponent},
@@ -15,13 +16,18 @@ const usersRoutes: Routes = [
 @NgModule({
   declarations: [UsersComponent, AdminUserComponent],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild(usersRoutes),
     MatGridListModule,
     HttpClientModule,
-    MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatInputModule
+
   ],
-  exports: [RouterModule]
+  exports: [
+    RouterModule,
+    MatTabsModule,
+  ]
 })
 export class UsersModule { }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShelterCardComponent } from './shelter-card/shelter-card.component';
 import { ShelterListComponent } from './shelter-list/shelter-list.component';
 import { Routes, RouterModule } from '@angular/router';
-import { MatGridListModule } from '@angular/material/grid-list'
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 

@@ -1,33 +1,53 @@
 <div>
-    <p>admin-user works!</p>
-    <div *ngIf="user" class="comment-wrap main-wrap">
 
+    <div *ngIf="user" class="comment-wrap main-wrap">
 
         <div class="author-avatar">
             <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
                 class=" avatar" alt="User Avatar">
+
         </div>
+
         <div class="comment-body">
-            <div class="comment-author-wrap ">
-                <p *ngIf="user.personType == 0; else type1">
-                    Role: Volunteer</p>
-                <ng-template #type1>
-                    <p> Role: CharityMaker </p>
-                </ng-template>
-                <p> Person ID: {{user.id}}</p>
-                <p> Phone: {{user.phoneNumber}}</p>
-                <p> Email: {{user.email}} </p>
-
-               
-            
-                
-            </div>
+            <form [formGroup]="userForm" (ngSubmit)="editInfo()">
+                <div class="comment-author-wrap ">
+                    <div *ngIf="!show">
+                        <p hidden="hidden" *ngIf="user.personType == 0; else type1">
+                            Role: <span>Volunteer</span></p>
+                        <ng-template #type1>
+                            <p> Role: <span>CharityMaker </span></p>
+                        </ng-template>
+                    </div>
+                    <ng-container *ngIf="show">
+                        <mat-form-field>
+                            <mat-label>Role</mat-label>
+                            <select matNativeControl required formControlName="roles">
+                                <option value="0">Volunteer</option>
+                                <option value="1">CharityMaker </option>
+                            </select>
+                        </mat-form-field>
+                    </ng-container>
+                    <p> Phone: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                            {{user.phoneNumber}} </span>
+                        <input class="inputForm" *ngIf="show" formControlName="phoneNumber"
+                            placeholder=" {{user.phoneNumber}}">
+                    </p>
+                    <p> Email: <span *ngIf="!show" #el [attr.contenteditable]="contenteditable">
+                            {{user.email}}
+                        </span>
+                        <input class="inputForm" *ngIf="show" formControlName="email" placeholder="{{user.email}}">
+                    </p>
+                </div>
+                <button type="submit" [disabled]="!userForm" *ngIf="show" class="buttonSave"> Save changes</button>
+            </form>
         </div>
-        <div> <a [routerLink]="['/users', user.id]">
-                <button class="button">Change Information</button></a>
+        <div class="buttonHolder">
+            <button *ngIf="!show" (click)="changeInfo()" [routerLink]="['/users', user.id]" class="buttonChange">
+                Change Information
+            </button>
+            <button *ngIf="show" (click)="deleteUser()"  [routerLink]="['/users']" class="buttonDelet">
+                Delete user
+            </button>
         </div>
-
 
     </div>
-
-</div>

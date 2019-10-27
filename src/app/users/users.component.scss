@@ -41,9 +41,31 @@ padding: 0;
     margin-top: 40%;
     width: 75%;
     height: 20%;
-    border-radius: 5px;
+    border-radius: 3px;
     color: white;
     border: 1px solid rgb(113, 135, 207);
 }
+.buttonAdd{
+    box-shadow: 0 2px 35px #173185;
+    background-color: #55a7a2;
+    float: left;
+    margin-left: 1%;
+    margin-top: 5%;
+    width: 15%;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid  #175485;
+    font-weight:400 ;
+    font-size: 16px;
+}
 
 
+
+.inputForm{
+    width: 50%;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #173185;
+  margin: 0 50% 0 auto;;
+}

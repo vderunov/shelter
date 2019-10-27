@@ -3,6 +3,7 @@ body { font-family: Helvetica; }
     width: 60%;
     margin:25px auto;
     padding: 10px !important;
+
 }
 
 .avatar{
@@ -23,29 +24,71 @@ color:rgb(31, 30, 30);
 box-shadow: 0 2px 35px #178552;
 padding: 2rem;
 border-radius: 16px;
+
 }
 
 .comment-body{
-  
 font-size: 20px;
 font-weight: 400;
 list-style: none;
 color:rgb(31, 30, 30);
 box-sizing: border-box;
-padding: 0;
+padding-top: 20px;
 }
 
 
-.button{
-    background-color: #178552;
+.buttonChange{
+    background-color: #175485;
     margin-top: 40%;
     width: 75%;
     height: 40px;
     border-radius: 5px;
     color: white;
-    border: 1px solid  #178552;
-   font-weight:400 ;
-   font-size: 16px;
+    border: 1px solid  #175485;
+    font-weight:400 ;
+    font-size: 16px;
 }
 
+.buttonSave{
+    font-size: 16px;  
+    border-radius: 5px;
+    color: white;
+    border: 1px solid  #17852f;
+    width: 30%;
+    height: 35px;
+    background-color: #178552;
+    margin: auto;
+ 
 
+}
+.buttonDelet{
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid #851741;
+    height: 40px;
+    width: 75%;
+
+    background-color: rgb(204, 73, 73);
+}
+
+.buttonHolder{
+    justify-content: space-between;
+    flex-direction: column;
+
+    display: flex;
+    // justify-content: flex-end;
+    // display: flex;
+  
+}
+p{
+    padding-bottom: 10px;
+    margin: 0;
+    color: #212224;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.mat-form-field-appearance-legacy ,.mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+    margin: 0;
+}
