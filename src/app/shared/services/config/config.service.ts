@@ -9,8 +9,8 @@ import { Config } from './config.interface';
 })
 export class ConfigService {
   configUrl = 'assets/config.json';
-  configLoaded = new ReplaySubject<Config>(1); 
-  
+  configLoaded = new ReplaySubject<Config>(1);
+
   constructor(private http: HttpClient) { }
 
   initConfig(): void {

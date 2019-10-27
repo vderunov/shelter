@@ -18,7 +18,7 @@ export class SheltersService {
     let params = new HttpParams();
     Object.entries(paramObj).forEach(([key, value]: string[]) => params = params.append(key, value));
     return this.configService.configLoaded.pipe(
-        concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params: params }))
+        concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params }))
       );
   }
 
@@ -39,7 +39,7 @@ export class SheltersService {
     );
   }
 
-  public getShelter(api, id): Observable<Shelter> {
+  private getShelter(api, id): Observable<Shelter> {
     return this.http.get<Shelter>(`${api}/${id}`);
   }
 
@@ -49,5 +49,13 @@ export class SheltersService {
 
   private getLocation(api, params): Observable<any> {
     return params ? this.http.get(`${api}/${params}`) : of(null);
+  }
+
+  public putShelter(id, paramObj: object = {}): Observable<Shelter[]> {
+    let params = new HttpParams();
+    Object.entries(paramObj).forEach(([key, value]: string[]) => params = params.append(key, value));
+    return this.configService.configLoaded.pipe(
+        concatMap((config: Config) => this.http.put<Shelter[]>(`${config.sheltersApi}/${id}`, { params }))
+      );
   }
 }

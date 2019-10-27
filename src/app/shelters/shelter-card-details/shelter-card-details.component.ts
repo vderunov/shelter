@@ -25,7 +25,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
-    this.shelterId = this.activatedRoute.snapshot.params['id'];
+    this.shelterId = this.activatedRoute.snapshot.params.id;
     this.sheltersService.getDetails(this.shelterId).pipe(take(1)).subscribe(shelter => {
       this.shelter = shelter;
       this.patchFormValues(shelter);
@@ -34,22 +34,32 @@ export class ShelterCardDetailsComponent implements OnInit {
 
   public onSubmit(): void {
     this.toggleForm();
+    const data = {
+      name: this.profileForm.get('name').value,
+      rating: this.shelter.rating,
+      adressID: this.shelter.adressID,
+      avatar: this.profileForm.get('avatar').value,
+      // photoPath: this.profileForm.get('photoPath').value
+    };
+    this.sheltersService.putShelter(this.shelter.id, data).subscribe(data1 => {
+      console.log(data1);
+
+    });
   }
 
   public onEdit(): void {
-    this.toggleForm()
+    this.toggleForm();
   }
 
   public onReset(): void {
     this.patchFormValues(this.shelter);
   }
-  
+
   private createForm(): void {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
       avatar: [],
       photoPath: [],
-      rating: [],
       address: this.fb.group({
         country: [],
         region: [],
@@ -63,6 +73,8 @@ export class ShelterCardDetailsComponent implements OnInit {
   private patchFormValues(shelter: Shelter): void {
     this.profileForm.patchValue({
       name: shelter.name,
+      avatar: shelter.avatar,
+      photoPath: shelter.photoPath,
       address: {
         country: shelter.country,
         region: shelter.region,
@@ -73,7 +85,7 @@ export class ShelterCardDetailsComponent implements OnInit {
     });
   }
 
-  private toggleForm() {
+  private toggleForm(): void {
     this.profileForm.enabled ? this.profileForm.disable() : this.profileForm.enable();
     this.isEdiDisabled = this.profileForm.disabled;
   }
