@@ -14,7 +14,7 @@ import { RegistrationShelterModule } from './registration-shelter/registration-s
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { ShelterCardDetailsComponent } from './shelter-card-details/shelter-card-details.component';
 import { MatButtonModule } from '@angular/material';
+import { SearchModule } from '../search/search.module';
 
 const sheltersRoutes: Routes = [
   {path: 'shelters', component: ShelterListComponent},
@@ -22,7 +23,8 @@ const sheltersRoutes: Routes = [
     RouterModule.forChild(sheltersRoutes),
     MatGridListModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    SearchModule
   ],
   exports: [RouterModule, ShelterCardComponent]
 })

@@ -20,6 +20,6 @@ export class ShelterCardDetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.shelter$ = this.sheltersService.getDetails(`/${this.id}`);
+    this.shelter$ = this.sheltersService.getDetails(this.id);
   }
 }
