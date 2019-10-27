@@ -1,5 +1,5 @@
 <mat-list>
-  <mat-list-item *ngFor="let quest of quests | async; trackBy: trackById">
+  <mat-list-item *ngFor="let quest of quests$ | async; trackBy: trackById">
     <app-quests-item [quest]="quest"></app-quests-item>
   </mat-list-item>
 </mat-list>

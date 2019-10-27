@@ -10,15 +10,15 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestsListComponent implements OnInit {
-  private quests: Observable<Quest[]>;
+  public quests$: Observable<Quest[]>;
 
   constructor(private questService: QuestService) { }
 
   public ngOnInit() {
-    this.quests = this.questService.getNeeds();
+    this.quests$ = this.questService.getNeeds();
   }
 
-  private trackById(index: number, quest: Quest): number {
+  public trackById(index: number, quest: Quest): number {
     return quest.itemID;
   }
 }

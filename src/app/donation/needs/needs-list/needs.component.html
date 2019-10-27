@@ -1,5 +1,5 @@
 <mat-list>
-  <mat-list-item *ngFor="let need of needs | async; trackBy: trackById">{{ need.donationItemID }}">
+  <mat-list-item *ngFor="let need of needs$ | async; trackBy: trackById">{{ need.donationItemID }}">
     <app-needs-item [need]="need"></app-needs-item>
   </mat-list-item>
 </mat-list>
