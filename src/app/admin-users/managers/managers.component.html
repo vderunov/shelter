@@ -24,11 +24,8 @@
                     Change Information
                 </button>
             </div>
-
             <div class="comment-author-wrap " *ngIf="visibleFields">
-                
                 <div [formGroup]="managerForm" (ngSubmit)="editInfoManager()">
-               
                     <p> name:
                         <input class="inputForm" formControlName="name">
                     </p>
@@ -47,9 +44,7 @@
                     <p> photoPath:
                         <input class="inputForm" formControlName="photoPath">
                     </p>
-              
             </div>
-           
             </div> 
         </div>
         

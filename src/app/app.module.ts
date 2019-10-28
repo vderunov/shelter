@@ -11,10 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {AdminUsersModule} from './admin-users/admin-users.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-  ],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
