@@ -8,6 +8,7 @@ import { NeedsComponent } from './needs/needs-list/needs.component';
 import { NeedsItemComponent } from './needs/needs-item/needs-item.component';
 import { QuestsListComponent } from './quests/quests-list/quests-list.component';
 import { QuestsItemComponent } from './quests/quests-item/quests-item.component';
+import { SearchModule } from '../search/search.module';
 
 const donationRoutes: Routes = [
   { path: 'donation', component: DonationComponent }
@@ -22,7 +23,8 @@ const donationRoutes: Routes = [
     MatDialogModule,
     MatTabsModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    SearchModule
   ],
   exports: [
     RouterModule
