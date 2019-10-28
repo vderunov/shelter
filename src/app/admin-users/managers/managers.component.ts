@@ -16,7 +16,7 @@ export class ManagersComponent implements OnInit, OnDestroy {
   public visibleFields = false;
   public manager: Manager[];
   public managerId;
-  managerForm = new FormGroup({
+  public managerForm = new FormGroup({
     name: new FormControl(''),
     surname: new FormControl(''),
     birthday: new FormControl(''),
