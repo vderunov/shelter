@@ -17,10 +17,10 @@ export class AdminUsersComponent implements OnInit {
     this.users$ = this.helperService.getUserInfo();
     this.managers$ = this.managerService.getManagers();
   }
-  usertrackBy(index: number, user: Helper): string {
+  public usertrackBy(index: number, user: Helper): string {
     return user.id;
   }
-  managertrackBy(index: number, manager: Manager): string {
+  public managertrackBy(index: number, manager: Manager): string {
     return manager.id;
   }
 }
