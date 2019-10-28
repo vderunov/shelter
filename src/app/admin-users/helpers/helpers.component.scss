@@ -7,15 +7,9 @@ $text-dark: #212224;
 $border-red: #851741;
 $button-red: #cc4949;
 $background-gray:#f0f0f136;
-
 .main-wrap {
-    width: 60%;
-    margin: 25px 0 0 15%;
-    padding: 10px !important;
-}
-.avatar {
-    width: 90%;
-    margin: auto;
+    width: 800px;
+    margin: 25px 0 0 400px;
 }
 .comment-wrap {
     font-size: 20px;
@@ -29,11 +23,10 @@ $background-gray:#f0f0f136;
     background: $background-gray;
     color: $text-dark;
     box-shadow: $box-shadow;
-    padding: 2rem;
+    padding: 20px;
     border-radius: 16px;
 }
 .comment-body {
-
     font-size: 20px;
     font-weight: 400;
     list-style: none;
@@ -43,44 +36,22 @@ $background-gray:#f0f0f136;
 }
 .button {
     background-color: $button-blue;
-    margin-top: 40%;
-    width: 75%;
-    height: 20%;
-}
-.buttonAddHelper {
-    box-shadow: $box-shadow;
-    background-color: $button-blue;
-    float: left;
-    margin-left: 1%;
-    margin-top: 5%;
-    width: 20%;
+    margin-top: 200px;
+    width: 200px;
     height: 40px;
-
 }
-.buttonAddManager {
-    box-shadow: $box-shadow;
-    background-color: $button-green;
-    float: left;
-    margin-left: 1%;
-    margin-top: 5%;
-    width: 20%;
-    height: 40px;
-    padding: 0;
-}
-
 .inputForm {
-    width: 50%;
+    width: 300px;
     height: 35px;
     border-radius: 5px;
     border: 1px solid $border;
-    margin: 0 50% 0 auto;
+    margin: 0 300px 0 auto;
     font-weight: 400;
     font-size: 16px;
     color: $text-dark;
 }
 input::placeholder {
     color: $text-dark;
-
 }
 button {
     font-weight: 400;
@@ -90,13 +61,12 @@ button {
     border: 1px solid $border;
 }
 .avatar {
-    width: 90%;
+    width: 150px;
     margin: auto;
 }
 .buttonChange {
     background-color: $button-green;
-    margin-top: 40%;
-    width: 75%;
+    width: 140px;
     height: 40px;
     border-radius: 5px;
     color: $button-text-color;
@@ -109,8 +79,8 @@ button {
     border-radius: 5px;
     color: $button-text-color;
     border: 1px solid $button-green;
-    width: 30%;
-    height: 35px;
+    width: 140px;
+    height: 40px;
     background-color: $border;
     margin: auto;
 }
@@ -121,7 +91,7 @@ button {
     color: $button-text-color;
     border: 1px solid $border-red;
     height: 40px;
-    width: 75%;
+    width: 140px;
     background-color: $button-red;
 }
 .buttonHolder {

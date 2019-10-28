@@ -1,18 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from '../admin-users.models';
 import { ActivatedRoute } from '@angular/router';
-import { HelpersService} from '../helper.service';
+import { HelpersService } from '../helper.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 @Component({
   selector: 'app-helpers',
   templateUrl: './helpers.component.html',
-  styleUrls: ['./helpers.component.scss', ]
+  styleUrls: ['./helpers.component.scss',]
 })
-
-
 export class HelpersComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   user;
@@ -38,17 +34,15 @@ export class HelpersComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
-  changeInfo() {
+  public changeInfo() {
     this.visibleFields = !this.visibleFields;
   }
-
-  editInfo() {
+  public editInfo() {
     this.helperService
       .updateUser(this.userForm.value, this.helperId)
       .subscribe();
   }
-  deleteUser() {
+  public deleteUser() {
     this.helperService
       .deleteUser(this.helperId)
       .subscribe();

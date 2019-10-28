@@ -3,15 +3,13 @@
         <div class="avatarHold">
             <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
                 class=" avatar" alt="Menager Avatar">
-                <div class="buttonHolder">
-                        <button type="submit" [disabled]="!managerForm" *ngIf=" visibleFields" class="buttonSave">
-                            Save changes</button>
-                        <button *ngIf=" visibleFields"
-                         (click)="deleteManager()" [routerLink]="['/users']"
-                            class="buttonDelet">
-                            Delete user
-                        </button>
-                    </div>
+            <div class="buttonHolder">
+                <button type="submit" [disabled]="!managerForm" *ngIf=" visibleFields" class="buttonSave">
+                    Save changes</button>
+                <button *ngIf=" visibleFields" (click)="deleteManager()" [routerLink]="['/users']" class="buttonDelet">
+                    Delete user
+                </button>
+            </div>
         </div>
         <div class="comment-body">
             <div class="comment-author-wrap " *ngIf="! visibleFields">
@@ -20,7 +18,7 @@
                 <p> patronymic:{{manager.patronymic}}</p>
                 <p> rating:{{manager.rating}}</p>
                 <p> children House ID:{{manager.childrenHouseID}}</p>
-                <button  (click)="changeInfoManager()" [routerLink]="['/manager', manager.id]" class="buttonChange">
+                <button (click)="changeInfoManager()" [routerLink]="['/manager', manager.id]" class="buttonChange">
                     Change Information
                 </button>
             </div>
@@ -44,8 +42,7 @@
                     <p> photoPath:
                         <input class="inputForm" formControlName="photoPath">
                     </p>
+                </div>
             </div>
-            </div> 
         </div>
-        
     </div>

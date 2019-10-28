@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Manager } from './admin-users.models';
+import { Manager } from './manager.model';
 import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 export class ManagersService {
     apiManager = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/representatives/';
     constructor(private httpClient: HttpClient) { }
-
     public getManagers(url?: string) {
         return this.httpClient.get<Manager[]>(`${this.apiManager}`);
     }

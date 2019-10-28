@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ManagersService} from '../managers.service';
+import { ManagersService } from '../managers.service';
 import { ActivatedRoute } from '@angular/router';
-import { Manager } from '../admin-users.models';
+import { Manager } from '../manager.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -25,8 +25,7 @@ export class ManagersComponent implements OnInit, OnDestroy {
     photoPath: new FormControl(''),
     rating: new FormControl(''),
   });
-
-  constructor( private managerService: ManagersService, private route: ActivatedRoute) { }
+  constructor(private managerService: ManagersService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.managerId = this.route.snapshot.params.id;
     this.managerService
@@ -37,26 +36,25 @@ export class ManagersComponent implements OnInit, OnDestroy {
         return this.manager;
       });
   }
-
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-  changeInfoManager() {
+  public changeInfoManager() {
     this.visibleFields = !this.visibleFields;
   }
 
-  editInfoManager() {
+  public editInfoManager() {
     this.managerService
       .updateManager(this.managerForm.value, this.managerId)
       .subscribe();
   }
-  deleteManager() {
+  public deleteManager() {
     this.managerService
       .deleteManager(this.managerId)
       .subscribe();
   }
-  trackByUser(index: number, manager: Manager): string {
+  public trackByUser(index: number, manager: Manager): string {
     return manager.id;
   }
 }

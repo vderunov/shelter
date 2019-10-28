@@ -7,15 +7,9 @@ $text-dark: #212224;
 $border-red: #851741;
 $button-red: #cc4949;
 $background-gray:#f0f0f136;
-
 .main-wrap {
-    width: 60%;
-    margin: 25px 0 0 15%;
-    padding: 10px !important;
-}
-.avatar {
-    width: 90%;
-    margin: auto;
+    width: 800px;
+    margin: 25px 0 0 400px;
 }
 .comment-wrap {
     font-size: 20px;
@@ -24,12 +18,12 @@ $background-gray:#f0f0f136;
     box-sizing: border-box;
     position: relative;
     display: grid;
-    grid-template-columns: 250px minmax(10px, 1fr) ;
+    grid-template-columns: 150px minmax(10px, 1fr) 150px;
     grid-gap: 0;
     background: $background-gray;
     color: $text-dark;
     box-shadow: $box-shadow;
-    padding: 2rem;
+    padding: 20px;
     border-radius: 16px;
 }
 .comment-body {
@@ -40,52 +34,64 @@ $background-gray:#f0f0f136;
     box-sizing: border-box;
     padding: 0;
 }
-
+.button {
+    background-color: $button-blue;
+    margin-top: 200px;
+    width: 200px;
+    height: 40px;
+}
 .inputForm {
-    width: 50%;
+    width: 300px;
     height: 35px;
     border-radius: 5px;
     border: 1px solid $border;
-    margin: 0 50% 0 auto;
+    margin: 0 300px 0 auto;
     font-weight: 400;
     font-size: 16px;
     color: $text-dark;
 }
 input::placeholder {
     color: $text-dark;
-
 }
-
+button {
+    font-weight: 400;
+    font-size: 16px;
+    color: $button-text-color;
+    border-radius: 5px;
+    border: 1px solid $border;
+}
+.avatar {
+    width: 150px;
+    margin: auto;
+}
 .buttonChange {
     background-color: $button-green;
-    width: 40%;
+    width: 140px;
     height: 40px;
     border-radius: 5px;
     color: $button-text-color;
     border: 1px solid $border;
     font-weight: 400;
     font-size: 16px;
-    float: right;
 }
 .buttonSave {
-    padding: 3px;
     font-size: 16px;
     border-radius: 5px;
     color: $button-text-color;
-    border: 1px solid $border;
+    border: 1px solid $button-green;
+    width: 140px;
     height: 40px;
-    width: 75%;
-    background-color: $button-blue;
-
+    background-color: $border;
+    margin: auto;
 }
 .buttonDelet {
-   padding: 3px;
+    margin: 5px;
     font-size: 16px;
     border-radius: 5px;
     color: $button-text-color;
     border: 1px solid $border-red;
     height: 40px;
-    width: 75%;
+    width: 140px;
     background-color: $button-red;
 }
 .buttonHolder {

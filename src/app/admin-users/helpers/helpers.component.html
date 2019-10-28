@@ -1,11 +1,15 @@
 <div>
-
     <div *ngIf="user" class="comment-wrap main-wrap">
-
         <div class="author-avatar">
             <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
                 class=" avatar" alt="User Avatar">
-
+            <div class="buttonHolder">
+                <button type="submit" [disabled]="!userForm" *ngIf=" visibleFields" class="buttonSave"> Save
+                    changes</button>
+                <button *ngIf=" visibleFields" (click)="deleteUser()" [routerLink]="['/users']" class="buttonDelet">
+                    Delete user
+                </button>
+            </div>
         </div>
         <div class="comment-body">
             <form [formGroup]="userForm" (ngSubmit)="editInfo()">
@@ -37,17 +41,10 @@
                         <input class="inputForm" *ngIf=" visibleFields" formControlName="email" placeholder="email">
                     </p>
                 </div>
-                <button type="submit" [disabled]="!userForm" *ngIf=" visibleFields" class="buttonSave"> Save
-                    changes</button>
+                <button *ngIf="! visibleFields" (click)="changeInfo()" [routerLink]="['/users', user.id]"
+                    class="buttonChange">
+                    Change Information
+                </button>
             </form>
-        </div>
-        <div class="buttonHolder">
-            <button *ngIf="! visibleFields" (click)="changeInfo()" [routerLink]="['/users', user.id]"
-                class="buttonChange">
-                Change Information
-            </button>
-            <button *ngIf=" visibleFields" (click)="deleteUser()" [routerLink]="['/users']" class="buttonDelet">
-                Delete user
-            </button>
         </div>
     </div>

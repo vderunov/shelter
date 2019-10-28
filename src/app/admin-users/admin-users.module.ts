@@ -14,7 +14,6 @@ const usersRoutes: Routes = [
     { path: 'users/:id', component: HelpersComponent},
     { path: 'manager/:id', component: ManagersComponent},
 ];
-
 @NgModule({
   declarations: [AdminUsersComponent, HelpersComponent, ManagersComponent],
   imports: [
