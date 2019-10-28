@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-helpers',
   templateUrl: './helpers.component.html',
-  styleUrls: ['./helpers.component.scss',]
+  styleUrls: ['./helpers.component.scss']
 })
 export class HelpersComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
