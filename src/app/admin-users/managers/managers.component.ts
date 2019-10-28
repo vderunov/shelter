@@ -25,6 +25,7 @@ export class ManagersComponent implements OnInit, OnDestroy {
     photoPath: new FormControl(''),
     rating: new FormControl(''),
   });
+
   constructor(private managerService: ManagersService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.managerId = this.route.snapshot.params.id;
@@ -36,10 +37,12 @@ export class ManagersComponent implements OnInit, OnDestroy {
         return this.manager;
       });
   }
+
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+
   changeInfoManager() {
     this.visibleFields = !this.visibleFields;
   }
@@ -49,11 +52,13 @@ export class ManagersComponent implements OnInit, OnDestroy {
       .updateManager(this.managerForm.value, this.managerId)
       .subscribe();
   }
+
   deleteManager() {
     this.managerService
       .deleteManager(this.managerId)
       .subscribe();
   }
+
   trackByUser(index: number, manager: Manager): string {
     return manager.id;
   }

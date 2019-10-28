@@ -14,12 +14,14 @@ export class HelpersComponent implements OnInit, OnDestroy {
   public user;
   public helperId;
   public visibleFields = false;
-  userForm = new FormGroup({
+  public userForm = new FormGroup({
     phoneNumber: new FormControl(''),
     email: new FormControl(''),
     roles: new FormControl(''),
   });
+
   constructor(private helperService: HelpersService, private route: ActivatedRoute) { }
+
   ngOnInit(): void {
     this.helperId = this.route.snapshot.params.id;
     this.helperService
@@ -30,18 +32,22 @@ export class HelpersComponent implements OnInit, OnDestroy {
         return this.user;
       });
   }
+
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+
   public changeInfo() {
     this.visibleFields = !this.visibleFields;
   }
+
   public editInfo() {
     this.helperService
       .updateUser(this.userForm.value, this.helperId)
       .subscribe();
   }
+
   public deleteUser() {
     this.helperService
       .deleteUser(this.helperId)

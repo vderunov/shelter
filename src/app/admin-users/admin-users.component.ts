@@ -12,7 +12,9 @@ import { Manager } from './manager.model';
 export class AdminUsersComponent implements OnInit {
   public users$: Observable<Helper[]>;
   public managers$: Observable<Manager[]>;
+
   constructor(private helperService: HelpersService, private managerService: ManagersService) { }
+
   ngOnInit(): void {
     this.users$ = this.helperService.getUserInfo();
     this.managers$ = this.managerService.getManagers();
