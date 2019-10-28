@@ -11,8 +11,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class HelpersComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
-  user;
-  helperId;
+  public user;
+  public helperId;
   public visibleFields = false;
   userForm = new FormGroup({
     phoneNumber: new FormControl(''),

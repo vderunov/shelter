@@ -14,8 +14,8 @@ import { Subject } from 'rxjs';
 export class ManagersComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   public visibleFields = false;
-  manager: Manager[];
-  managerId;
+  public manager: Manager[];
+  public managerId;
   managerForm = new FormGroup({
     name: new FormControl(''),
     surname: new FormControl(''),
@@ -40,21 +40,21 @@ export class ManagersComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-  public changeInfoManager() {
+  changeInfoManager() {
     this.visibleFields = !this.visibleFields;
   }
 
-  public editInfoManager() {
+  editInfoManager() {
     this.managerService
       .updateManager(this.managerForm.value, this.managerId)
       .subscribe();
   }
-  public deleteManager() {
+  deleteManager() {
     this.managerService
       .deleteManager(this.managerId)
       .subscribe();
   }
-  public trackByUser(index: number, manager: Manager): string {
+  trackByUser(index: number, manager: Manager): string {
     return manager.id;
   }
 }
