@@ -10,15 +10,13 @@ $background-gray:#f0f0f136;
 
 .main-wrap {
     width: 60%;
-    margin: 25px 0 0 30%;
+    margin: 25px 0 0 15%;
     padding: 10px !important;
 }
-
 .avatar {
     width: 90%;
     margin: auto;
 }
-
 .comment-wrap {
     font-size: 20px;
     font-weight: 400;
@@ -34,7 +32,6 @@ $background-gray:#f0f0f136;
     padding: 2rem;
     border-radius: 16px;
 }
-
 .comment-body {
 
     font-size: 20px;
@@ -44,15 +41,12 @@ $background-gray:#f0f0f136;
     box-sizing: border-box;
     padding: 0;
 }
-
-
 .button {
     background-color: $button-blue;
     margin-top: 40%;
     width: 75%;
     height: 20%;
 }
-
 .buttonAddHelper {
     box-shadow: $box-shadow;
     background-color: $button-blue;
@@ -63,7 +57,6 @@ $background-gray:#f0f0f136;
     height: 40px;
 
 }
-
 .buttonAddManager {
     box-shadow: $box-shadow;
     background-color: $button-green;
@@ -75,8 +68,6 @@ $background-gray:#f0f0f136;
     padding: 0;
 }
 
-
-
 .inputForm {
     width: 50%;
     height: 35px;
@@ -87,12 +78,10 @@ $background-gray:#f0f0f136;
     font-size: 16px;
     color: $text-dark;
 }
-
 input::placeholder {
     color: $text-dark;
 
 }
-
 button {
     font-weight: 400;
     font-size: 16px;
@@ -100,15 +89,10 @@ button {
     border-radius: 5px;
     border: 1px solid $border;
 }
-
-
-
 .avatar {
     width: 90%;
     margin: auto;
 }
-
-
 .buttonChange {
     background-color: $button-green;
     margin-top: 40%;
@@ -120,7 +104,6 @@ button {
     font-weight: 400;
     font-size: 16px;
 }
-
 .buttonSave {
     font-size: 16px;
     border-radius: 5px;
@@ -131,7 +114,6 @@ button {
     background-color: $border;
     margin: auto;
 }
-
 .buttonDelet {
     margin: 5px;
     font-size: 16px;
@@ -142,13 +124,11 @@ button {
     width: 75%;
     background-color: $button-red;
 }
-
 .buttonHolder {
     justify-content: space-between;
     flex-direction: column;
     display: flex;
 }
-
 p {
     padding-bottom: 10px;
     margin: 0;

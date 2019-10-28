@@ -1,4 +1,3 @@
-
 $box-shadow: 0 2px 35px #136442;
 $button-text-color: #f8f5f5;
 $button-blue: #7187cf;
@@ -6,20 +5,18 @@ $button-green:#317940;
 $border: #162042;
 $text-dark: #212224;
 $border-red: #851741;
-$button-red:  #cc4949;
+$button-red: #cc4949;
 $background-gray:#f0f0f136;
 
 .main-wrap {
     width: 60%;
-    margin: 25px 0 0 30%;
+    margin: 25px 0 0 15%;
     padding: 10px !important;
 }
-
 .avatar {
     width: 90%;
     margin: auto;
 }
-
 .comment-wrap {
     font-size: 20px;
     font-weight: 400;
@@ -27,17 +24,15 @@ $background-gray:#f0f0f136;
     box-sizing: border-box;
     position: relative;
     display: grid;
-    grid-template-columns: 150px minmax(10px, 1fr) 150px;
+    grid-template-columns: 250px minmax(10px, 1fr) ;
     grid-gap: 0;
     background: $background-gray;
-    color:$text-dark;
+    color: $text-dark;
     box-shadow: $box-shadow;
     padding: 2rem;
     border-radius: 16px;
 }
-
 .comment-body {
-
     font-size: 20px;
     font-weight: 400;
     list-style: none;
@@ -45,38 +40,6 @@ $background-gray:#f0f0f136;
     box-sizing: border-box;
     padding: 0;
 }
-
-
-.button {
-    background-color: $button-blue;
-    margin-top: 40%;
-    width: 75%;
-    height: 20%;
-}
-
-.buttonAddHelper {
-    box-shadow: $box-shadow;
-    background-color:$button-blue;
-    float: left;
-    margin-left: 1%;
-    margin-top: 5%;
-    width: 20%;
-    height: 40px;
-
-}
-
-.buttonAddManager {
-    box-shadow: $box-shadow;
-    background-color: $button-green;
-    float: left;
-    margin-left: 1%;
-    margin-top: 5%;
-    width: 20%;
-    height: 40px;
-    padding: 0;
-}
-
-
 
 .inputForm {
     width: 50%;
@@ -91,65 +54,48 @@ $background-gray:#f0f0f136;
 input::placeholder {
     color: $text-dark;
 
-  }
-
-button {
-    font-weight: 400;
-    font-size: 16px;
-    color: $button-text-color;
-    border-radius: 5px;
-    border: 1px solid $border;
 }
 
-
-
-.avatar{
-    width: 90%;
-    margin: auto;
-}
-
-
-.buttonChange{
+.buttonChange {
     background-color: $button-green;
-    margin-top: 40%;
-    width: 75%;
+    width: 40%;
     height: 40px;
     border-radius: 5px;
     color: $button-text-color;
-    border: 1px solid  $border;
-    font-weight:400 ;
+    border: 1px solid $border;
+    font-weight: 400;
     font-size: 16px;
+    float: right;
 }
-
-.buttonSave{
-    font-size: 16px;  
+.buttonSave {
+    padding: 3px;
+    font-size: 16px;
     border-radius: 5px;
     color: $button-text-color;
-    border: 1px solid $button-green;
-    width: 30%;
-    height: 35px;
-    background-color: $border;
-    margin: auto;
+    border: 1px solid $border;
+    height: 40px;
+    width: 75%;
+    background-color: $button-blue;
+
 }
-.buttonDelet{
-    margin: 5px;
+.buttonDelet {
+   padding: 3px;
     font-size: 16px;
     border-radius: 5px;
     color: $button-text-color;
     border: 1px solid $border-red;
     height: 40px;
     width: 75%;
-    background-color:$button-red;
+    background-color: $button-red;
 }
-
-.buttonHolder{
+.buttonHolder {
     justify-content: space-between;
     flex-direction: column;
     display: flex;
 }
-p{
+p {
     padding-bottom: 10px;
     margin: 0;
-    color:$text-dark;
+    color: $text-dark;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

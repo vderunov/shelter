@@ -4,25 +4,20 @@
             <div class="side">
                 <button class="buttonAddHelper">Add new Helper </button>
             </div>
-            <div *ngFor="let user of users " class="comment-wrap main-wrap">
+            <div *ngFor="let user of users$ | async; trackBy: userTrackBy" class="comment-wrap main-wrap">
                 <div>
                     <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
-                        class=" avatar" alt="User Avatar">
+                        class="avatar" alt="User Avatar">
                 </div>
                 <div class="comment-body">
                     <div>
                         <div>{{user.userName}}</div>
-                        <p *ngIf="user.personType == 0; else changeRole">
-                            Role: Volunteer</p>
-                        <ng-template #changeRole>
-                            <p>Role: CharityMaker</p>
-                        </ng-template>
                         <p> Phone: {{user.phoneNumber}}</p>
                         <p> Email: {{user.email}}</p>
                     </div>
                 </div>
-                <div> <a [routerLink]="['/users', user.id]">
-                        <button class="button">More</button></a>
+                <div>
+                    <button  [routerLink]="['/users', user.id]" class="button">More</button>
                 </div>
             </div>
         </mat-tab>
@@ -30,10 +25,10 @@
             <div class="side">
                 <button class="buttonAddManager">Add Manager</button>
             </div>
-            <div *ngFor="let manager of managers " class="comment-wrap main-wrap">
+            <div *ngFor="let manager of managers$| async; trackBy: managerTrackBy " class="comment-wrap main-wrap">
                 <div>
                     <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
-                        class=" avatar" alt="User Avatar">
+                        class="avatar" alt="User Avatar">
                 </div>
                 <div class="comment-body">
                     <div>
@@ -42,8 +37,8 @@
                         <p>Rating: {{manager.rating}}</p>
                     </div>
                 </div>
-                <div> <a [routerLink]="['/manager', manager.id]">
-                        <button class="button">More</button></a>
+                <div>
+                    <button [routerLink]="['/manager', manager.id]" class="button">More</button>
                 </div>
             </div>
         </mat-tab>

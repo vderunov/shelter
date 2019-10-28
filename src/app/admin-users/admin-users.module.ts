@@ -25,7 +25,6 @@ const usersRoutes: Routes = [
     HttpClientModule,
     MatTabsModule,
     MatInputModule
-
   ],
   exports: [
     RouterModule,

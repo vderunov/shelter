@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from './users.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HelpersService } from './helper.service';
+import {ManagersService} from './managers.service';
+import { Observable } from 'rxjs';
+import { User, Manager } from './admin-users.models';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss']
 })
+
+
 export class AdminUsersComponent implements OnInit {
+  public users$: Observable<User[]>;
+  public managers$: Observable<Manager[]>;
+  help: User[];
 
-  constructor(private userService: UsersService) { }
-  users;
-  managers;
+
+  constructor(private helperService: HelpersService, private managerService: ManagersService) { }
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe((res) => {
-      this.users = res;
-      return this.users;
-    });
-
-    this.userService.getManagers().subscribe((res) => {
-      this.managers = res;
-      return this.managers;
-    });
-
+    this.users$ = this.helperService.getUserInfo();
+    this.managers$ =  this.managerService.getManagers();
   }
-
+  usertrackBy(index: number, user: User): string {
+    return user.id;
+  }
+ managertrackBy(index: number, manager: Manager): string {
+    return manager.id;
+  }
 }

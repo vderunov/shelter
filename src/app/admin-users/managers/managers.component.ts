@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UsersService } from '../users.service';
+import {ManagersService} from '../managers.service';
 import { ActivatedRoute } from '@angular/router';
 import { Manager } from '../admin-users.models';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -14,7 +14,6 @@ import { Subject } from 'rxjs';
 export class ManagersComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   public visibleFields = false;
-  public buttonName: any = ' visibleFields';
   manager: Manager[];
   managerId;
   managerForm = new FormGroup({
@@ -27,10 +26,10 @@ export class ManagersComponent implements OnInit, OnDestroy {
     rating: new FormControl(''),
   });
 
-  constructor(private userService: UsersService, private route: ActivatedRoute) { }
+  constructor( private managerService: ManagersService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.managerId = this.route.snapshot.params.id;
-    this.userService
+    this.managerService
       .getManagerById(this.managerId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((res) => {
@@ -48,14 +47,17 @@ export class ManagersComponent implements OnInit, OnDestroy {
   }
 
   editInfoManager() {
-    this.userService
+    this.managerService
       .updateManager(this.managerForm.value, this.managerId)
       .subscribe();
   }
   deleteManager() {
-    this.userService
+    this.managerService
       .deleteManager(this.managerId)
       .subscribe();
+  }
+  trackByUser(index: number, manager: Manager): string {
+    return manager.id;
   }
 }
 
