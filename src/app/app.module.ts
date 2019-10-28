@@ -9,6 +9,7 @@ import { RegistrationUserModule } from './registration-user/registration-user.mo
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import {AdminUsersModule} from './admin-users/admin-users.module';
+import { DonationModule } from './donation/donation.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -20,6 +21,7 @@ import {AdminUsersModule} from './admin-users/admin-users.module';
     MatButtonModule,
     LoginModule,
     RegistrationUserModule,
+    DonationModule,
     AdminUsersModule
   ],
   bootstrap: [AppComponent]
