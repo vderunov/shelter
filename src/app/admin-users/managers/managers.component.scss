@@ -1,0 +1,107 @@
+$box-shadow: 0 2px 35px #136442;
+$button-text-color: #f8f5f5;
+$button-blue: #7187cf;
+$button-green:#317940;
+$border: #162042;
+$text-dark: #212224;
+$border-red: #851741;
+$button-red: #cc4949;
+$background-gray:#f0f0f136;
+.main-wrap {
+    width: 800px;
+    margin: 25px 0 0 400px;
+}
+.comment-wrap {
+    font-size: 20px;
+    font-weight: 400;
+    list-style: none;
+    box-sizing: border-box;
+    position: relative;
+    display: grid;
+    grid-template-columns: 150px minmax(10px, 1fr) 150px;
+    grid-gap: 0;
+    background: $background-gray;
+    color: $text-dark;
+    box-shadow: $box-shadow;
+    padding: 20px;
+    border-radius: 16px;
+}
+.comment-body {
+    font-size: 20px;
+    font-weight: 400;
+    list-style: none;
+    color: $text-dark;
+    box-sizing: border-box;
+    padding: 0;
+}
+.button {
+    background-color: $button-blue;
+    margin-top: 200px;
+    width: 200px;
+    height: 40px;
+}
+.inputForm {
+    width: 300px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid $border;
+    margin: 0 300px 0 auto;
+    font-weight: 400;
+    font-size: 16px;
+    color: $text-dark;
+}
+input::placeholder {
+    color: $text-dark;
+}
+button {
+    font-weight: 400;
+    font-size: 16px;
+    color: $button-text-color;
+    border-radius: 5px;
+    border: 1px solid $border;
+}
+.avatar {
+    width: 150px;
+    margin: auto;
+}
+.buttonChange {
+    background-color: $button-green;
+    width: 140px;
+    height: 40px;
+    border-radius: 5px;
+    color: $button-text-color;
+    border: 1px solid $border;
+    font-weight: 400;
+    font-size: 16px;
+}
+.buttonSave {
+    font-size: 16px;
+    border-radius: 5px;
+    color: $button-text-color;
+    border: 1px solid $button-green;
+    width: 140px;
+    height: 40px;
+    background-color: $border;
+    margin: auto;
+}
+.buttonDelet {
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: $button-text-color;
+    border: 1px solid $border-red;
+    height: 40px;
+    width: 140px;
+    background-color: $button-red;
+}
+.buttonHolder {
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+}
+p {
+    padding-bottom: 10px;
+    margin: 0;
+    color: $text-dark;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
