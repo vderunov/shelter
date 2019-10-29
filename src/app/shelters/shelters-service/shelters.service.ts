@@ -15,13 +15,9 @@ export class SheltersService {
 
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
     let params = new HttpParams();
-    Object.entries(paramObj).forEach(
-      ([key, value]: string[]) => (params = params.append(key, value))
-    );
+    Object.entries(paramObj).forEach(([key, value]: string[]) => (params = params.append(key, value)));
     return this.configService.configLoaded.pipe(
-      concatMap((config: Config) =>
-        this.http.get<Shelter[]>(config.sheltersApi, { params: params })
-      )
+      concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params: params }))
     );
   }
 
@@ -37,10 +33,7 @@ export class SheltersService {
                 this.getLocation(config.locationApi, shelter.locationID)
               )
           ),
-          map(
-            (arr: any[]): Shelter =>
-              arr.reduce((acc, curr) => ({ ...curr, ...acc }))
-          )
+          map((arr: any[]): Shelter => arr.reduce((acc, curr) => ({ ...curr, ...acc })))
         )
       )
     );
@@ -58,13 +51,24 @@ export class SheltersService {
     return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 
-  registerAddressShelter(
-    addressShelter: AddressShelter
-  ): Observable<AddressShelter> {
+  registerShelter(addressDate, shelterDate): Observable<any> {
     return this.configService.configLoaded.pipe(
-      concatMap(config =>
-        this.http.post<AddressShelter>(config.addressApi, addressShelter)
-      )
+      concatMap((config: Config) => {
+        return this.registerAddressShelter(config.addressApi, addressDate).pipe(
+          concatMap(address => {
+            shelterDate.adressID = address.id;
+            return this.registrationShelter(config.sheltersApi, shelterDate);
+          })
+        );
+      })
     );
+  }
+
+  private registerAddressShelter(api, addressDate): Observable<any> {
+    return this.http.post<AddressShelter>(api, addressDate);
+  }
+
+  private registrationShelter(api, shelterDate): Observable<any> {
+    return this.http.post<Shelter>(api, shelterDate);
   }
 }

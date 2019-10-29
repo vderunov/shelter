@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AddressShelter } from '../models/address-shelter.interface';
+import { Shelter } from '../models/shelter.interface';
 
 @Component({
   selector: 'app-registration-shelter',
@@ -13,7 +15,7 @@ import { Subject } from 'rxjs';
 })
 export class ShelterRegistrationComponent implements OnInit, OnDestroy {
   public form: FormGroup;
-  private error = '';
+  public error = '';
   private destroy$: Subject<void> = new Subject();
 
   constructor(
@@ -23,15 +25,17 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.form = new FormGroup({
+      name: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
       region: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
-      house: new FormControl('', Validators.required)
+      house: new FormControl('', Validators.required),
+      rating: new FormControl('', Validators.required)
     });
   }
 
-  private isFieldValid(fieldName): boolean {
+  public isFieldValid(fieldName): boolean {
     return this.form.get(fieldName).touched && this.form.get(fieldName).invalid;
   }
 
@@ -40,10 +44,24 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const formData = { ...this.form.value };
+    const addressDate: AddressShelter = {
+      country: this.form.value.country,
+      region: this.form.value.region,
+      city: this.form.value.city,
+      street: this.form.value.city,
+      house: this.form.value.city
+    };
+
+    const shelterDate: Shelter = {
+      name: this.form.value.name,
+      rating: this.form.value.rating,
+      adressID: null,
+      avatar: null,
+      locationID: null
+    };
 
     this.sheltersService
-      .registerAddressShelter(formData)
+      .registerShelter(addressDate, shelterDate)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {

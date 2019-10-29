@@ -12,6 +12,7 @@ import { ShelterCardDetailsComponent } from './shelter-card-details/shelter-card
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { SearchModule } from '../search/search.module';
 import { ShelterRegistrationComponent } from './shelter-registration/shelter-registration.component';
+import { MatFileUploadModule } from 'mat-file-upload';
 
 const sheltersRoutes: Routes = [
   { path: 'shelter-registration', component: ShelterRegistrationComponent },
@@ -38,7 +39,8 @@ const sheltersRoutes: Routes = [
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
-    SearchModule
+    SearchModule,
+    MatFileUploadModule
   ],
   exports: [RouterModule, ShelterCardComponent]
 })
