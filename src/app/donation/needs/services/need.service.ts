@@ -24,7 +24,7 @@ export class NeedService {
         if (Object.values(paramObj).length > 0) {
           const key: string = Object.keys(paramObj)[0];
           const value: string = paramObj[key];
-          return arr.filter((el: Need): boolean => el[key].toLowerCase().indexOf(value.toLocaleLowerCase()) > -1)
+          return arr.filter((el: Need): boolean => el[key].toLowerCase().indexOf(value.toLocaleLowerCase()) > -1);
         }
         return arr;
       })

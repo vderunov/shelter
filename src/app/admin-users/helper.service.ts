@@ -6,9 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HelpersService {
-  apiUsers = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/users/';
+  // apiUsers = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/representatives/';
+  apiUsers = 'https://cors-anywhere.herokuapp.com/https://familynetserver.azurewebsites.net/api/v1/volunteers/';
   constructor(private httpClient: HttpClient) { }
-  public getAllUsers(url?: string): Observable<Helper[]> {
+  public getAllUsers(): Observable<Helper[]> {
     return this.httpClient.get<Helper[]>(`${this.apiUsers}`);
   }
   public getUserById(id: string): Observable<any> {

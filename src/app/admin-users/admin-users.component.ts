@@ -16,7 +16,8 @@ export class AdminUsersComponent implements OnInit {
   constructor(private helperService: HelpersService, private managerService: ManagersService) { }
 
   ngOnInit(): void {
-    this.users$ = this.helperService.getUserInfo();
+    // this.users$ = this.helperService.getUserInfo();
+    this.users$ = this.helperService.getAllUsers();
     this.managers$ = this.managerService.getManagers();
   }
   public usertrackBy(index: number, user: Helper): string {
