@@ -16,13 +16,13 @@ export class SheltersService {
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
     let params = new HttpParams();
     Object.entries(paramObj).forEach(([key, value]: string[]) => (params = params.append(key, value)));
-    return this.configService.configLoaded.pipe(
+    return this.configService.getConfig().pipe(
       concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params: params }))
     );
   }
 
   public getDetails(id: string = ''): Observable<Shelter> {
-    return this.configService.configLoaded.pipe(
+    return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.getShelter(config.sheltersApi, id).pipe(
           concatMap(
@@ -52,7 +52,7 @@ export class SheltersService {
   }
 
   registerShelter(addressDate, shelterDate): Observable<any> {
-    return this.configService.configLoaded.pipe(
+    return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
         return this.registerAddressShelter(config.addressApi, addressDate).pipe(
           concatMap(address => {

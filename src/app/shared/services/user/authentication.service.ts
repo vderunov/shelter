@@ -30,7 +30,7 @@ export class AuthenticationService {
   ) {}
 
   login(loginData: Login): Observable<any> {
-    return this.configService.configLoaded.pipe(
+    return this.configService.getConfig().pipe(
       concatMap(config =>
         this.http.post<any>(config.loginApi, loginData, this.httpOptions)
       ),
