@@ -1,12 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, take, concatMap, map } from 'rxjs/operators';
-import {
-  HttpHeaders,
-  HttpClient,
-  HttpParams,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/login/login.interface';
 import { NewUser } from 'src/app/registration-user/registration-user.interface';
@@ -23,23 +18,25 @@ export class AuthenticationService {
     })
   };
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private configService: ConfigService
-  ) {}
+  constructor(private router: Router, private http: HttpClient, private configService: ConfigService) {}
 
   login(loginData: Login): Observable<any> {
     return this.configService.getConfig().pipe(
-      concatMap(config =>
-        this.http.post<any>(config.loginApi, loginData, this.httpOptions)
-      ),
+      concatMap(config => this.http.post<any>(config.loginApi, loginData, this.httpOptions)),
       take(1),
       map(tokenObj => {
         this.httpOptions.headers.set('Authorization', tokenObj['token']);
       }),
       catchError(this.handleError)
     );
+  }
+
+  logout() {
+    // Clear frontend token information
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.token;
   }
 
   addUser(newUser: NewUser) {
@@ -57,9 +54,7 @@ export class AuthenticationService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
+      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
     }
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
