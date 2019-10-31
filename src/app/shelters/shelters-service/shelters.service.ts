@@ -14,11 +14,11 @@ export class SheltersService {
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
-    let params = new HttpParams();
-    Object.entries(paramObj).forEach(([key, value]: string[]) => (params = params.append(key, value)));
+    const params = new HttpParams();
+    Object.entries(paramObj).forEach(([key, value]: string[]) => params.append(key, value));
     return this.configService
       .getConfig()
-      .pipe(concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params: params })));
+      .pipe(concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params })));
   }
 
   public getDetails(id: string = ''): Observable<Shelter> {
