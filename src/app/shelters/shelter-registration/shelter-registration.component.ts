@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { AddressShelter } from '../models/address-shelter.interface';
-import { Shelter } from '../models/shelter.interface';
 
 @Component({
   selector: 'app-registration-shelter',
@@ -18,10 +16,7 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
   public error = '';
   private destroy$: Subject<void> = new Subject();
 
-  constructor(
-    private sheltersService: SheltersService,
-    private router: Router
-  ) {}
+  constructor(private sheltersService: SheltersService, private router: Router) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -44,24 +39,8 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const addressDate: AddressShelter = {
-      country: this.form.value.country,
-      region: this.form.value.region,
-      city: this.form.value.city,
-      street: this.form.value.city,
-      house: this.form.value.city
-    };
-
-    const shelterDate: Shelter = {
-      name: this.form.value.name,
-      rating: this.form.value.rating,
-      adressID: null,
-      avatar: null,
-      locationID: null
-    };
-
     this.sheltersService
-      .registerShelter(addressDate, shelterDate)
+      .registerShelter(this.form.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {

@@ -8,7 +8,7 @@ import { LoginModule } from './login/login.module';
 import { RegistrationUserModule } from './registration-user/registration-user.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
-import {AdminUsersModule} from './admin-users/admin-users.module';
+import { AdminUsersModule } from './admin-users/admin-users.module';
 import { DonationModule } from './donation/donation.module';
 
 @NgModule({
@@ -26,4 +26,4 @@ import { DonationModule } from './donation/donation.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
