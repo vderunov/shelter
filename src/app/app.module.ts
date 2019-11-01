@@ -11,12 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { AdminUsersModule } from './admin-users/admin-users.module';
 import { DonationModule } from './donation/donation.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './shared/auth.interceptor';
+import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
 
-const INTERCEPTOR_PROVIDER: Provider = {
+const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
   multi: true,
-  useClass: AuthInterceptor
+  useClass: AuthenticateInterceptor
 };
 
 @NgModule({
@@ -32,7 +32,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     DonationModule,
     AdminUsersModule
   ],
-  providers: [INTERCEPTOR_PROVIDER],
+  providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

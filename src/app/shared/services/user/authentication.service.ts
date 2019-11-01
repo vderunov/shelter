@@ -1,42 +1,53 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry, take, concatMap, map } from 'rxjs/operators';
-import { HttpHeaders, HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { catchError, take, concatMap, map } from 'rxjs/operators';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/login/login.interface';
 import { NewUser } from 'src/app/registration-user/registration-user.interface';
 import { ConfigService } from '../config/config.service';
+import { StateService } from '../state/state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  token: string;
+  private isAuthenticated = false;
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
 
-  constructor(private router: Router, private http: HttpClient, private configService: ConfigService) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private configService: ConfigService,
+    private stateService: StateService
+  ) {}
 
   login(loginData: Login): Observable<any> {
     return this.configService.getConfig().pipe(
       concatMap(config => this.http.post<any>(config.loginApi, loginData, this.httpOptions)),
       take(1),
       map(tokenObj => {
-        this.httpOptions.headers.set('Authorization', tokenObj['token']);
+        if (tokenObj.token) {
+          this.stateService.setToken(tokenObj.token);
+          this.isAuthenticated = true;
+        }
       }),
       catchError(this.handleError)
     );
   }
 
   logout() {
-    // Clear frontend token information
+    this.stateService.setToken(null);
   }
 
-  isAuthenticated(): boolean {
-    return !!this.token;
+  cleanAuthenticatedState() {
+    this.isAuthenticated = false;
+    this.logout();
   }
 
   addUser(newUser: NewUser) {
