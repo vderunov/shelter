@@ -18,7 +18,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public manager: Manager;
   public managerId: string;
   public profileForm: FormGroup;
-  public isEdiDisabled: boolean;
+  public isEditDisabled: boolean;
   public visibleFields = false;
   constructor(
     private managersService: ManagersService,
@@ -66,7 +66,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
     this.profileForm.enabled
       ? this.profileForm.disable()
       : this.profileForm.enable();
-    this.isEdiDisabled = this.profileForm.disabled;
+    this.isEditDisabled = this.profileForm.disabled;
   }
 
   ngOnDestroy() {

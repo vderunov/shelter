@@ -17,7 +17,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   public helper: Helper;
   public helperId: string;
   public profileForm: FormGroup;
-  public isEdiDisabled: boolean;
+  public isEditDisabled: boolean;
   public visibleFields = false;
   constructor(
     private helpersService: HelpersService,
@@ -65,7 +65,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
     this.profileForm.enabled
       ? this.profileForm.disable()
       : this.profileForm.enable();
-    this.isEdiDisabled = this.profileForm.disabled;
+    this.isEditDisabled = this.profileForm.disabled;
   }
 
   ngOnDestroy() {
