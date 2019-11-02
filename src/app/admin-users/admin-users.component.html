@@ -1,12 +1,11 @@
 <div>
     <mat-tab-group mat-align-tabs="center">
         <mat-tab>
-            <ng-template matTabLabel >
+            <ng-template matTabLabel>
                 <h2>Helpers</h2>
             </ng-template>
             <app-helpers-list></app-helpers-list>
         </mat-tab>
-
         <mat-tab>
             <ng-template matTabLabel>
                 <h2>Managers</h2>
@@ -14,47 +13,4 @@
             <app-managers-list></app-managers-list>
         </mat-tab>
     </mat-tab-group>
-    <!-- <mat-tab-group mat-align-tabs="center">
-
-        <mat-tab label="Helper">
-            <div class="side">
-                <button class="buttonAddManager">Add Manager</button>
-            </div>
-            <div *ngFor="let user of users$| async; trackBy: userTrackBy " class="comment-wrap main-wrap">
-                <div>
-                    <img src="{{user.photoPath}}" class="avatar" alt="User Avatar">
-                </div>
-                <div class="comment-body">
-                    <div>
-                        <div class="comment-author">{{user.name}} {{user.surname}}</div>
-                        <p>Birthday: {{user.birthday}}</p>
-                        <p>Rating: {{user.rating}}</p>
-                    </div>
-                </div>
-                <div>
-                    <button [routerLink]="['/manager', user.id]" class="button">More</button>
-                </div>
-            </div>
-        </mat-tab>
-        <mat-tab label="Managers">
-            <div class="side">
-                <button class="buttonAddManager">Add Manager</button>
-            </div>
-            <div *ngFor="let manager of managers$| async; trackBy: managerTrackBy " class="comment-wrap main-wrap">
-                <div>
-                    <img src="{{manager.photoPath}}" class="avatar" alt="User Avatar">
-                </div>
-                <div class="comment-body">
-                    <div>
-                        <div class="comment-author">{{manager.name}} {{manager.surname}}</div>
-                        <p>Birthday: {{manager.birthday}}</p>
-                        <p>Rating: {{manager.rating}}</p>
-                    </div>
-                </div>
-                <div>
-                    <button [routerLink]="['/manager', manager.id]" class="button">More</button>
-                </div>
-            </div>
-        </mat-tab>
-    </mat-tab-group> -->
 </div>

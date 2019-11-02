@@ -1,35 +1,37 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HelpersService } from './helper.service';
-import { ManagersService } from './managers.service';
-
-import { Observable } from 'rxjs';
-import { Helper } from './helper.models';
-import { Manager } from './manager.model';
-
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HelpersListComponent } from './helpers/helpers-list/helpers-list.component';
+import { ManagersListComponent } from './managers/managers-list/managers-list.component';
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit {
-  public enabled = true;
-  public users$: Observable<Helper[]>;
-  public managers$: Observable<Manager[]>;
-  constructor(private helperService: HelpersService,
-              private managerService: ManagersService,
-
-  ) { }
-
+  title = 'angular-material-tab-router';
+  navLinks: any[];
+  activeLinkIndex = -1;
+  constructor(private router: Router) {
+    this.navLinks = [
+      {
+        path: 'users/managers',
+        component: ManagersListComponent,
+        data: {
+          label: 'Managers'
+        }
+      },
+      {
+        path: 'users/helpers',
+        component: HelpersListComponent,
+        data: {
+          label: 'Helpers'
+        }
+      },
+    ];
+  }
   ngOnInit(): void {
-    this.users$ = this.helperService.getAllUsers();
-    this.managers$ = this.managerService.getManagers();
-
+    this.router.events.subscribe((res) => {
+      this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.link === '.' + this.router.url));
+    });
   }
-  public usertrackBy(index: number, user: Helper): string {
-    return user.id;
-  }
-  public managertrackBy(index: number, manager: Manager): string {
-    return manager.id;
-  }
-
 }

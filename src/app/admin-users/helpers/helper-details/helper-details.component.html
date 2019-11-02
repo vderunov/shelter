@@ -1,4 +1,5 @@
 <div>
+        <button mat-raised-button color="primary"><mat-icon>reply</mat-icon> Back to helpers </button> 
     <mat-card class="user-card">
         <div *ngIf="helper" class="heder-card">
             <h2> All Information about {{helper.name}}</h2>
@@ -35,11 +36,11 @@
             </form>
         </mat-card-content>
         <mat-card-actions *ngIf=" visibleFields" class="button">
-            <button mat-raised-button class="reset" (click)="onReset()" [disabled]="isEdiDisabled">Reset</button>
+            <button mat-raised-button class="reset" (click)="onReset()" [disabled]="isEdiDisabled"><mat-icon>settings_backup_restore</mat-icon>Reset</button>
             <button mat-raised-button class="delete" [routerLink]="['/helper', helper.id]" (click)="deleteUser()"
-                [disabled]="isEdiDisabled || profileForm.invalid"> Delete user</button>
-            <button mat-raised-button color="primary" [routerLink]="['/helper', helper.id]" (click)="changeInfo()"
-                [disabled]="isEdiDisabled || profileForm.invalid">Save changes</button>
+                [disabled]="isEdiDisabled || profileForm.invalid"> <mat-icon>delete_forever</mat-icon>Delete user</button>
+            <button mat-raised-button class="saveBtn" [routerLink]="['/helper', helper.id]" (click)="changeInfo()"
+                [disabled]="isEdiDisabled || profileForm.invalid"><mat-icon>done_all</mat-icon>Save changes</button>
         </mat-card-actions>
     </mat-card>
 </div>

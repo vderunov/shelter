@@ -13,7 +13,7 @@ export class HelperItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  public selecHelper(helper) {
+  public selecHelper(helper: { id: number; }) {
     this.helperId = helper.id;
   }
 }

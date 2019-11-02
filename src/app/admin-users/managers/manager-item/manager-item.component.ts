@@ -13,7 +13,7 @@ export class ManagerItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  public selecManager(manager) {
+  public selecManager(manager: { id: number; }) {
     this.managerId = manager.id;
   }
 
