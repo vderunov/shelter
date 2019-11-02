@@ -1,0 +1,45 @@
+<div>
+    <mat-card class="user-card">
+        <div *ngIf="helper" class="heder-card">
+            <h2> All Information about {{helper.name}}</h2>
+            <mat-card-content>
+                <p><img mat-card-image class="avatar" src="{{helper.photoPath}}" alt="user photo"></p>
+            </mat-card-content>
+        </div>
+        <mat-card-content>
+            <form class="details-form" [formGroup]="profileForm">
+
+                <mat-form-field *ngIf="visibleFields" class="details-full-width">
+                    <input matInput placeholder="Path to photo" formControlName="photoPath">
+                </mat-form-field>
+                <mat-card-title>
+                    <mat-form-field class="details-full-width">
+                        <input matInput placeholder="Name" formControlName="name">
+                    </mat-form-field>
+                    <mat-form-field class="details-full-width">
+                        <input matInput placeholder="Surname" formControlName="surname">
+                    </mat-form-field>
+                    <mat-form-field class="details-full-width">
+                        <input matInput placeholder="Patronymic" formControlName="patronymic">
+                    </mat-form-field>
+                    <mat-form-field class="details-full-width">
+                        <input matInput placeholder="Birthday" formControlName="birthday">
+                    </mat-form-field>
+                    <mat-form-field class="details-full-width">
+                        <input matInput placeholder="Rating" formControlName="rating">
+                    </mat-form-field>
+                </mat-card-title>
+                <mat-card-actions>
+                    <button class="edit-wrap" mat-button (click)="onEdit()" [disabled]="!isEdiDisabled">Edit</button>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+        <mat-card-actions *ngIf=" visibleFields" class="button">
+            <button mat-raised-button class="reset" (click)="onReset()" [disabled]="isEdiDisabled">Reset</button>
+            <button mat-raised-button class="delete" [routerLink]="['/helper', helper.id]" (click)="deleteUser()"
+                [disabled]="isEdiDisabled || profileForm.invalid"> Delete user</button>
+            <button mat-raised-button color="primary" [routerLink]="['/helper', helper.id]" (click)="changeInfo()"
+                [disabled]="isEdiDisabled || profileForm.invalid">Save changes</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

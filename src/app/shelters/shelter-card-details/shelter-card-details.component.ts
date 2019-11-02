@@ -26,7 +26,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
-    this.shelterId = this.activatedRoute.snapshot.params['id'];
+    this.shelterId = this.activatedRoute.snapshot.params.id;
     this.sheltersService
       .getDetails(this.shelterId)
       .pipe(take(1))

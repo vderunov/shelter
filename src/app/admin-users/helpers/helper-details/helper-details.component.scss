@@ -1,0 +1,51 @@
+.mat-card {
+    max-width: 450px;
+    margin: 25px auto;
+}
+.mat-card-image {
+    max-height: 250px;
+    object-fit: contain;
+}
+.details-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    color: black;
+}
+.details-full-width {
+    width: 100%;
+}
+td {
+    padding-right: 8px;
+}
+.mat-card-actions {
+    text-align: center;
+}
+.heder-card {
+    text-align: center;
+}
+.mat-input-element.mat-form-field-autofill-control.cdk-text-field-autofill-monitored.ng-untouched.ng-pristine {  
+    color: black;
+}
+.mat-input-element.mat-form-field-autofill-control.cdk-text-field-autofill-monitored.ng-untouched.ng-pristine.ng-valid{
+    color: rgb(44, 87, 206);
+}
+.mat-input-element.mat-form-field-autofill-control.cdk-text-field-autofill-monitored.ng-pristine.ng-valid.ng-touched{
+    color: rgb(35, 97, 73);
+}
+.reset{
+    background-color: rgb(231, 144, 44);
+    color : rgb(255, 255, 255);
+}
+.delete{
+    background-color: rgb(231, 50, 44);
+    color : rgb(255, 255, 255);
+}
+.edit-wrap{
+    float: right;
+    color: rgb(66, 65, 65);
+}
+.avatar{
+    height: 200px;
+    margin-top:20px;
+}
