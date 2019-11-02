@@ -20,6 +20,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
+  
   constructor(
     private managersService: ManagersService,
     private activatedRoute: ActivatedRoute,
@@ -51,6 +52,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       rating: [],
     });
   }
+
   private patchFormValues(manager: Manager): void {
     this.profileForm.patchValue({
       name: manager.name,
@@ -62,6 +64,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       rating: manager.rating,
     });
   }
+
   private toggleForm() {
     this.profileForm.enabled
       ? this.profileForm.disable()
@@ -82,6 +85,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public onReset(): void {
     this.patchFormValues(this.manager);
   }
+
   public deleteUser() {
     this.managersService
       .deleteManager(this.managerId)
@@ -92,5 +96,4 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       .updateManager(this.profileForm.value, this.managerId)
       .subscribe();
   }
-
 }
