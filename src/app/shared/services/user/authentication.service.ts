@@ -22,6 +22,7 @@ export class AuthenticationService {
       'Content-Type': 'application/json'
     })
   };
+  public isAuthenticated = false;
 
   constructor(
     private router: Router,

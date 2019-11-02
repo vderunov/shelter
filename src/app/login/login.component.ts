@@ -3,7 +3,7 @@ import { AuthenticationService } from '../shared/services/user/authentication.se
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Login } from './login.interface';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +12,22 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
+  public message: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params: Params) => {
+      if (params['auth']) {
+        this.message = 'Please login';
+      }
+    });
+
     this.loginForm = this.formBuilder.group({
       email: [null, FormFiledsValidator.checkEmail],
       password: [null, FormFiledsValidator.checkPassword]
