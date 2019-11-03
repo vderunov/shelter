@@ -1,53 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, take, concatMap, map } from 'rxjs/operators';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/login/login.interface';
 import { NewUser } from 'src/app/registration-user/registration-user.interface';
 import { ConfigService } from '../config/config.service';
-import { StateService } from '../state/state.service';
+import { AuthStateService } from '../state/auth-state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private isAuthenticated = false;
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private configService: ConfigService,
-    private stateService: StateService
+    private authStateService: AuthStateService
   ) {}
 
   login(loginData: Login): Observable<any> {
     return this.configService.getConfig().pipe(
-      concatMap(config => this.http.post<any>(config.loginApi, loginData, this.httpOptions)),
+      concatMap(config => this.http.post<any>(config.loginApi, loginData)),
       take(1),
       map(tokenObj => {
         if (tokenObj.token) {
-          this.stateService.setToken(tokenObj.token);
-          this.isAuthenticated = true;
+          this.authStateService.setToken(tokenObj.token);
         }
       }),
       catchError(this.handleError)
     );
-  }
-
-  logout() {
-    this.stateService.setToken(null);
-  }
-
-  cleanAuthenticatedState() {
-    this.isAuthenticated = false;
-    this.logout();
   }
 
   addUser(newUser: NewUser) {

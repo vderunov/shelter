@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class StateService {
-  private token$ = new BehaviorSubject<any>('');
+export class AuthStateService {
+  private token$ = new BehaviorSubject<object>(null);
 
   getState(): Observable<any> {
     return this.token$;
@@ -13,5 +13,9 @@ export class StateService {
 
   setToken(tokenObj: any) {
     this.token$.next(tokenObj);
+  }
+
+  cleanAuthenticatedState() {
+    this.setToken(null);
   }
 }
