@@ -1,3 +1,6 @@
+<app-search
+  (onSearch)="onSearch($event)"></app-search>
+
 <mat-list>
   <mat-list-item *ngFor="let quest of quests$ | async; trackBy: trackById">
     <app-quests-item [quest]="quest"></app-quests-item>

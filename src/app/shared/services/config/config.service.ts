@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Config } from './config.interface';
 
@@ -9,7 +9,7 @@ import { Config } from './config.interface';
 })
 export class ConfigService {
   configUrl = 'assets/config.json';
-  configLoaded = new ReplaySubject<Config>(1);
+  private configLoaded$ = new ReplaySubject<Config>(1);
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +17,10 @@ export class ConfigService {
     this.http
       .get<Config>(this.configUrl)
       .pipe(take(1))
-      .subscribe(config => this.configLoaded.next(config));
+      .subscribe(config => this.configLoaded$.next(config));
+  }
+
+  getConfig(): Observable<Config> {
+    return this.configLoaded$.pipe(take(1));
   }
 }

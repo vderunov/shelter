@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Need } from '../models/need.interface';
-import { NeedService} from '../services/need.service';
+import { NeedService } from '../services/need.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -20,5 +20,9 @@ export class NeedsComponent implements OnInit {
 
   public trackById(index: number, item: Need) {
     return item.donationItemID;
+  }
+
+  public onSearch(searchValue: string): void {
+    this.needs$ = this.needService.getNeeds({ itemName: searchValue });
   }
 }

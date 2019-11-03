@@ -14,33 +14,26 @@ export class SheltersService {
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
-    let params = new HttpParams();
-    Object.entries(paramObj).forEach(
-      ([key, value]: string[]) => (params = params.append(key, value))
-    );
-    return this.configService.configLoaded.pipe(
-      concatMap((config: Config) =>
-        this.http.get<Shelter[]>(config.sheltersApi, { params: params })
-      )
-    );
+    const params = new HttpParams();
+    Object.entries(paramObj).forEach(([key, value]: string[]) => params.append(key, value));
+    return this.configService
+      .getConfig()
+      .pipe(concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params })));
   }
 
   public getDetails(id: string = ''): Observable<Shelter> {
-    return this.configService.configLoaded.pipe(
+    return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.getShelter(config.sheltersApi, id).pipe(
           concatMap(
-            (shelter: Shelter): Observable<any[]> =>
+            (shelter: Shelter): Observable<Shelter[]> =>
               forkJoin(
                 of(shelter),
                 this.getAddress(config.addressApi, shelter.adressID),
                 this.getLocation(config.locationApi, shelter.locationID)
               )
           ),
-          map(
-            (arr: any[]): Shelter =>
-              arr.reduce((acc, curr) => ({ ...curr, ...acc }))
-          )
+          map((arr: Shelter[]): Shelter => arr.reduce((acc, curr) => ({ ...curr, ...acc })))
         )
       )
     );
@@ -50,21 +43,48 @@ export class SheltersService {
     return this.http.get<Shelter>(`${api}/${id}`);
   }
 
-  private getAddress(api, params): Observable<any> {
+  private getAddress(api, params): Observable<Shelter> {
     return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 
-  private getLocation(api, params): Observable<any> {
+  private getLocation(api, params): Observable<Shelter> {
     return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 
-  registerAddressShelter(
-    addressShelter: AddressShelter
-  ): Observable<AddressShelter> {
-    return this.configService.configLoaded.pipe(
-      concatMap(config =>
-        this.http.post<AddressShelter>(config.addressApi, addressShelter)
-      )
+  registerShelter(form): Observable<Shelter> {
+    const addressDate: AddressShelter = {
+      country: form.country,
+      region: form.region,
+      city: form.city,
+      street: form.street,
+      house: form.house
+    };
+
+    const shelterDate: Shelter = {
+      name: form.name,
+      rating: form.rating,
+      adressID: null,
+      avatar: null,
+      locationID: null
+    };
+
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return this.registerAddressShelter(config.addressApi, addressDate).pipe(
+          concatMap(address => {
+            shelterDate.adressID = address.id;
+            return this.registrationShelter(config.sheltersApi, shelterDate);
+          })
+        );
+      })
     );
+  }
+
+  private registerAddressShelter(api, addressDate): Observable<AddressShelter> {
+    return this.http.post<AddressShelter>(api, addressDate);
+  }
+
+  private registrationShelter(api, shelterDate): Observable<Shelter> {
+    return this.http.post<Shelter>(api, shelterDate);
   }
 }

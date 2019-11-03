@@ -13,25 +13,24 @@ import { Subject } from 'rxjs';
 })
 export class ShelterRegistrationComponent implements OnInit, OnDestroy {
   public form: FormGroup;
-  private error = '';
+  public error = '';
   private destroy$: Subject<void> = new Subject();
 
-  constructor(
-    private sheltersService: SheltersService,
-    private router: Router
-  ) {}
+  constructor(private sheltersService: SheltersService, private router: Router) {}
 
   ngOnInit() {
     this.form = new FormGroup({
+      name: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
       region: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
-      house: new FormControl('', Validators.required)
+      house: new FormControl('', Validators.required),
+      rating: new FormControl('', Validators.required)
     });
   }
 
-  private isFieldValid(fieldName): boolean {
+  public isFieldValid(fieldName): boolean {
     return this.form.get(fieldName).touched && this.form.get(fieldName).invalid;
   }
 
@@ -40,10 +39,8 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const formData = { ...this.form.value };
-
     this.sheltersService
-      .registerAddressShelter(formData)
+      .registerShelter(this.form.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
