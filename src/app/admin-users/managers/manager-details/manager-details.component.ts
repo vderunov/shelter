@@ -20,7 +20,6 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
-  
   constructor(
     private managersService: ManagersService,
     private activatedRoute: ActivatedRoute,

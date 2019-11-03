@@ -27,7 +27,6 @@ const usersRoutes: Routes = [
 
 ];
 @NgModule({
-
   declarations: [
     AdminUsersComponent,
     ManagersListComponent,

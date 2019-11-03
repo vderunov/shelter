@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ManagerItemComponent } from './manager-item.component';
 
-describe('ManagerItemComponent', () => {
+xdescribe('ManagerItemComponent', () => {
   let component: ManagerItemComponent;
   let fixture: ComponentFixture<ManagerItemComponent>;
 
@@ -19,7 +19,7 @@ describe('ManagerItemComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  xit('should create', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -8,7 +8,7 @@ import { ManagersListComponent } from './managers/managers-list/managers-list.co
   styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit {
-  title = 'angular-material-tab-router';
+
   navLinks: any[];
   activeLinkIndex = -1;
   constructor(private router: Router) {
