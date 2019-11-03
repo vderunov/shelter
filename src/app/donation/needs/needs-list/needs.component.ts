@@ -19,6 +19,6 @@ export class NeedsComponent implements OnInit {
   }
 
   public trackById(index: number, item: Need) {
-    return item.donationItemID
+    return item.donationItemID;
   }
 }
