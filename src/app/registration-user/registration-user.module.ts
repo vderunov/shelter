@@ -6,9 +6,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RegistrationUserComponent } from './registration-user.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PhoneMaskDirective } from './phone-mask.directive';
 
 @NgModule({
-  declarations: [RegistrationUserComponent],
+  declarations: [RegistrationUserComponent, PhoneMaskDirective],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,4 +21,4 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   exports: [RegistrationUserComponent]
 })
-export class RegistrationUserModule {}
+export class RegistrationUserModule { }

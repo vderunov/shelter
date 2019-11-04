@@ -2,37 +2,44 @@
   <h2 class="mat-display-1">Create New Account</h2>
 
   <mat-form-field>
-    <input matInput placeholder="First Name" type="text" formControlName="firstName" />
+    <input matInput placeholder="First Name*" type="text" formControlName="name" />
     <mat-hint align="end">
       Between 2 and 20 symbols
     </mat-hint>
-    <mat-error *ngIf="isFieldInvalid('firstName')">
+    <mat-error *ngIf="isFieldInvalid('name')">
       Please enter valid First Name (between 2 and 20 symbols)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Last Name" type="text" formControlName="lastName" />
+    <input matInput placeholder="Last Name*" type="text" formControlName="surname" />
     <mat-hint align="end">
       Between 2 and 20 symbols
     </mat-hint>
-    <mat-error *ngIf="isFieldInvalid('lastName')">
+    <mat-error *ngIf="isFieldInvalid('surname')">
       Please enter valid Last Name (between 2 and 20 symbols)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Phone Number" type="text" formControlName="phone" />
+    <input matInput placeholder="Phone Number*" type="text" formControlName="phone" phoneMask [maxlength]="maxL.phone" />
     <mat-hint align="end">
-      Format: +380501234567
+      Format: (050) 123-4567
     </mat-hint>
     <mat-error *ngIf="isFieldInvalid('phone')">
-      Please enter valid Phone Number (format: +380501234567)
+      Please enter valid Phone Number (format: (050) 123-4567)
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Email" type="email" formControlName="email" />
+    <input matInput placeholder="Your Address" type="text" formControlName="address" />
+    <mat-hint align="end">
+      Format: region, city, street, house
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email*" type="email" formControlName="email" />
     <mat-hint align="end">
       Format: johndoe@mail.com
     </mat-hint>
@@ -42,7 +49,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Password" type="password" formControlName="password" />
+    <input matInput placeholder="Password*" type="password" formControlName="password" />
     <mat-hint align="end">
       Between 6 and 16 symbols, must have at least one letter and one number
     </mat-hint>
@@ -52,7 +59,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword" />
+    <input matInput placeholder="Confirm Password*" type="password" formControlName="confirmPassword" />
     <mat-hint align="end">
       Between 6 and 16 symbols, must have at least one letter and one number
     </mat-hint>

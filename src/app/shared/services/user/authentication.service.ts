@@ -27,9 +27,9 @@ export class AuthenticationService {
     private router: Router,
     private http: HttpClient,
     private configService: ConfigService
-  ) {}
+  ) { }
 
-  login(loginData: Login): Observable<any> {
+  public login(loginData: Login): Observable<any> {
     return this.configService.getConfig().pipe(
       concatMap(config =>
         this.http.post<any>(config.loginApi, loginData, this.httpOptions)
@@ -42,15 +42,15 @@ export class AuthenticationService {
     );
   }
 
-  addUser(newUser: NewUser) {
+  public addUser(newUser: NewUser) {
     console.log('User has been added', newUser);
   }
 
-  removeUser(id: number) {
+  public removeUser(id: number) {
     console.log('User has been removed');
   }
 
-  handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);

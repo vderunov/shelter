@@ -26,14 +26,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  isFieldInvalid(fieldName): boolean {
+  public isFieldInvalid(fieldName): boolean {
     return (
       this.loginForm.get(fieldName).touched &&
       this.loginForm.get(fieldName).invalid
     );
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
     }
@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(loginData).subscribe();
   }
 
-  goToRegistrationPage(): void {
+  public goToRegistrationPage(): void {
+    
     this.router.navigate(['/registraction-user']);
   }
 }
