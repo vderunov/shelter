@@ -7,15 +7,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthStateService {
   private token$ = new BehaviorSubject<object>(null);
 
-  getState(): Observable<any> {
+  public getState(): Observable<any> {
     return this.token$;
   }
 
-  setToken(tokenObj: any) {
+  public getStateValue() {
+    return this.token$.getValue();
+  }
+
+  public setToken(tokenObj: any) {
     this.token$.next(tokenObj);
   }
 
-  cleanAuthenticatedState() {
+  public cleanAuthenticatedState() {
     this.setToken(null);
   }
 }
