@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegistrationUserComponent implements OnInit {
   public registerForm: FormGroup;
-  public maxL: Object;
+  public maxInputLength: Object;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,15 +26,15 @@ export class RegistrationUserComponent implements OnInit {
         surname: [null, FormFiledsValidator.checkName],
         phone: ['', FormFiledsValidator.checkPhone],
         email: [null, FormFiledsValidator.checkEmail],
+        address: [null],
         password: [null, FormFiledsValidator.checkPassword],
-        confirmPassword: [null, FormFiledsValidator.checkPassword],
-        address: [null]
+        confirmPassword: [null, FormFiledsValidator.checkPassword]
       },
       {
         validator: FormFiledsValidator.matchPassword
       }
     );
-    this.maxL = FormFiledsValidator.getMaxInputLength();
+    this.maxInputLength = FormFiledsValidator.getMaxInputLength();
   }
 
   public isFieldInvalid(fieldName): boolean {

@@ -15,8 +15,6 @@ export class PhoneMaskDirective {
 
   @HostListener('keydown.backspace', ['$event'])
   keydownBackspace(event) {
-    console.log('BackSpace', event.target.value); // remove me!
-
     this.onInputChange(event.target.value, true);
   }
 
@@ -38,7 +36,5 @@ export class PhoneMaskDirective {
     }
 
     this.ngControl.valueAccessor.writeValue(newVal);
-    console.log('newVal:', newVal); // remove me!
-    console.log('event:', event); // remove me!
   }
 }

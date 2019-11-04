@@ -45,7 +45,12 @@ export class FormFiledsValidator {
 
   public static getMaxInputLength() {
     return {
-      phone: 14
+      name: 20,
+      surname: 20,
+      phone: 14,
+      email: 20,
+      address: 100,
+      password: 20
     };
   }
 }
