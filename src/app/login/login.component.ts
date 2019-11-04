@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
   }
 
   public goToRegistrationPage(): void {
-    
     this.router.navigate(['/registraction-user']);
   }
 }

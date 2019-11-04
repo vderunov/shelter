@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegistrationUserComponent implements OnInit {
   public registerForm: FormGroup;
-  public maxInputLength: Object;
+  public maxInputLength: object;
 
   constructor(
     private formBuilder: FormBuilder,

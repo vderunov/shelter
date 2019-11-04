@@ -33,8 +33,8 @@ export class FormFiledsValidator {
   ];
 
   public static matchPassword(control: AbstractControl) {
-    let password = control.get('password').value;
-    let confirmPassword = control.get('confirmPassword').value;
+    const password = control.get('password').value;
+    const confirmPassword = control.get('confirmPassword').value;
     if (password !== confirmPassword) {
       control.get('confirmPassword').setErrors({ NoPasswordMatch: true });
     } else {
