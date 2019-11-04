@@ -20,13 +20,14 @@ export class ShelterCardDetailsComponent implements OnInit {
   constructor(
     private sheltersService: SheltersService,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder
+  ) {}
 
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.shelterId = this.activatedRoute.snapshot.params.id;
-    this.sheltersService.getDetails(this.shelterId).pipe(take(1)).subscribe(shelter => {
+    this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
       this.shelter = shelter;
       this.patchFormValues(shelter);
     });
@@ -65,7 +66,7 @@ export class ShelterCardDetailsComponent implements OnInit {
         region: [],
         city: [],
         street: [],
-        house: [],
+        house: []
       })
     });
   }

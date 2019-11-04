@@ -18,7 +18,20 @@
   background-color: $selected-hover-background-color;
 }
 
-.mat-card-image {
-  max-height: 250px;
-  object-fit: contain;
+.representative {
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.representative__photo {
+  height: 50px;
+  max-width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 15px 15px;
+}
+
+mat-card {
+  min-height: 280px;
 }

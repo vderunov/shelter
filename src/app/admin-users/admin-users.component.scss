@@ -1,0 +1,80 @@
+$box-shadow: 0 2px 35px #136442;
+$button-text-color: #f8f5f5;
+$button-blue: #7187cf;
+$button-green:#317940;
+$border: #162042;
+$text-dark: #212224;
+$border-red: #851741;
+$button-red:  #cc4949;
+$background-gray:#f0f0f136;
+
+.main-wrap {
+    width:  800px;
+    margin: 25px 0 0 400px;
+}
+.comment-body {
+    font-size: 20px;
+    font-weight: 400;
+    list-style: none;
+    color: $text-dark;
+    box-sizing: border-box;
+    padding: 0;
+}
+.comment-wrap {
+    font-size: 20px;
+    font-weight: 400;
+    list-style: none;
+    box-sizing: border-box;
+    position: relative;
+    display: grid;
+    grid-template-columns: 150px minmax(10px, 1fr) 150px;
+    grid-gap: 0;
+    background: $background-gray;
+    color: $text-dark;
+    box-shadow: $box-shadow;
+    padding: 25px;
+    border-radius: 16px;
+}
+.button {
+    background-color: $button-blue;
+    width: 150px;
+    height: 40px;
+}
+.avatar {
+    width: 150px;
+    margin: auto;
+}
+p {
+    padding-bottom: 10px;
+    margin: 0;
+    color: $text-dark;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.buttonAddHelper {
+    box-shadow: $box-shadow;
+    background-color:$button-blue;
+    float: left;
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 250px;
+    height: 40px;
+}
+.buttonAddManager {
+    box-shadow: $box-shadow;
+    background-color: $button-green;
+    float: left;
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 250px;
+    height: 40px;
+    padding: 0;
+}
+button {
+    font-weight: 400;
+    font-size: 16px;
+    color: $button-text-color;
+    border-radius: 5px;
+    border: 1px solid $border;
+    cursor: pointer;
+}

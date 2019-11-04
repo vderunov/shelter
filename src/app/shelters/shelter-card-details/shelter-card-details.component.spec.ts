@@ -8,9 +8,8 @@ xdescribe('ShelterCardDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShelterCardDetailsComponent ]
-    })
-    .compileComponents();
+      declarations: [ShelterCardDetailsComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

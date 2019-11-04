@@ -11,12 +11,9 @@ describe('SearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchComponent ],
-      imports:[ReactiveFormsModule,
-        MatInputModule,
-        BrowserAnimationsModule ]
-    })
-    .compileComponents();
+      declarations: [SearchComponent],
+      imports: [ReactiveFormsModule, MatInputModule, BrowserAnimationsModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -29,10 +26,9 @@ describe('SearchComponent', () => {
   it('should create search component', () => {
     expect(component).toBeTruthy();
   });
-  
+
   it('should emit on call of function Search with same argument', () => {
     component.search('search value');
     expect(component.onSearch.emit).toHaveBeenCalledWith('search value');
- });
-
+  });
 });
