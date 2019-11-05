@@ -16,6 +16,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   public shelter: Shelter;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
+  public isMessage = false;
 
   constructor(
     private sheltersService: SheltersService,
@@ -27,6 +28,10 @@ export class ShelterCardDetailsComponent implements OnInit {
     this.createForm();
     this.toggleForm();
     this.shelterId = this.activatedRoute.snapshot.params.id;
+    this.getDetails();
+  }
+
+  private getDetails() {
     this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
       this.shelter = shelter;
       this.patchFormValues(shelter);
@@ -42,13 +47,19 @@ export class ShelterCardDetailsComponent implements OnInit {
       avatar: this.profileForm.get('avatar').value,
       locationID: this.shelter.locationID
     };
-    const addressChange = { ...this.profileForm.get('address').value };
-    this.sheltersService.putShelter({
+    let addressChange = { ...this.profileForm.get('address').value };
+    const isChangeAddress = Object.entries(addressChange).every(([key, value]) => this.shelter.address[key] === value);
+    if (isChangeAddress) {
+      addressChange = null;
+    }
+    this.sheltersService.putShelterDetails({
       id: this.shelter.id,
       shelter: shelterChange,
-      adressID: this.shelter.adressID,
+      addressID: this.shelter.adressID,
       address: addressChange,
-    }).subscribe();
+    }).subscribe(_ => {
+      // notify user that info was saved throw notify service
+    });
   }
 
   public onEdit(): void {
@@ -56,10 +67,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   }
 
   public onReset(): void {
-    this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
-      this.shelter = shelter;
-      this.patchFormValues(shelter);
-    });
+    this.patchFormValues(this.shelter);
     this.onEdit();
   }
 

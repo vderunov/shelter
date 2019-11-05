@@ -1,12 +1,14 @@
 import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Shelter } from '../models/shelter.interface';
-import { Observable, of, forkJoin, zip } from 'rxjs';
+import { Observable, of, zip } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap, map, switchMap, take, catchError } from 'rxjs/operators';
+import { concatMap, map, take, catchError } from 'rxjs/operators';
 import { AddressShelter } from '../models/address-shelter.interface';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { Location } from '../models/location.interface';
+import { Children } from 'src/app/shared/models/children.interface';
+import { Representative } from 'src/app/shared/models/representative.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +22,14 @@ export class SheltersService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         zip(
-          this.http.get<Shelter[]>(config.sheltersApi, { params }),
-          this.http.get(config.childrenApi),
-          this.http.get(config.representativesApi),
-          this.http.get<AddressShelter[]>(config.addressApi)
+          this.http.get<Shelter[]>(config.sheltersApi, { params }).pipe(take(1), catchError(error => of([]))),
+          this.http.get(config.childrenApi).pipe(take(1), catchError(error => of([]))),
+          this.http.get(config.representativesApi).pipe(take(1), catchError(error => of([]))),
+          this.http.get<AddressShelter[]>(config.addressApi).pipe(take(1), catchError(error => of([]))),
           )
         ),
-        map(([shelters, children, representatives, address]: [Shelter[], any[], any[], AddressShelter[]]) => {
-          const countChildren = children.reduce((acc, curr): any => {
+        map(([shelters, children, representatives, address]: [Shelter[], Children[], Representative[], AddressShelter[]]) => {
+          const countChildren = children.reduce((acc, curr) => {
             acc[curr.childrenHouseID] = acc[curr.childrenHouseID] ? ++acc[curr.childrenHouseID] : 1;
             return acc;
           }, {});
@@ -65,36 +67,41 @@ export class SheltersService {
   }
 
   private getShelter(api, id): Observable<Shelter> {
-    return this.http.get<Shelter>(`${api}/${id}`);
+    return this.http.get<Shelter>(`${api}/${id}`).pipe(
+      take(1));
   }
 
   private getAddress(api, params): Observable<AddressShelter> {
-    return params ? this.http.get(`${api}/${params}`) : of(null);
+    return params ?
+      this.http.get(`${api}/${params}`).pipe(
+        take(1)) :
+      of(null);
   }
 
   private getLocation(api, params): Observable<Location> {
-    return params ? this.http.get(`${api}/${params}`) : of(null);
+    return params ?
+      this.http.get(`${api}/${params}`).pipe(
+        take(1)) :
+      of(null);
   }
 
-  public putShelter(changeData): Observable<string[]> {
-    const paramsAddress = new FormData();
-    Object.entries(changeData.address).forEach(([key, value]: [string, Blob]) => paramsAddress.append(key, value));
+  public putShelterDetails(changeData): Observable<[Shelter, AddressShelter]> {
     return this.configService.getConfig().pipe(
-      take(1),
       concatMap((config: Config) => {
         const location$ = changeData.shelter.locationID ?
-          this.putLocation(config.locationApi, paramsAddress, changeData.shelter.locationID) :
-          this.postLocation(config.locationApi, paramsAddress);
+          // will change value null to changeData.address to location when its work is stable
+          this.putLocation(config.locationApi, null, changeData.shelter.locationID) :
+          this.postLocation(config.locationApi, null);
         return location$.pipe(
-          concatMap((location: Location): Observable<[string, string]> => {
-            const paramsShelter = new FormData();
-            if (location)  {
+          concatMap((location: Location ): Observable<[Shelter, AddressShelter]> => {
+            if (location) {
               changeData.shelter.locationID = location.id;
+            } else {
+              changeData.shelter.locationID = null;
             }
-            Object.entries(changeData.shelter).forEach(([key, value]: [string, Blob]) => paramsShelter.append(key, value));
             return zip(
-              this.http.put<string>(`${config.sheltersApi}/${changeData.id}`, paramsShelter),
-              this.http.put<string>(`${config.addressApi}/${changeData.adressID}`, paramsAddress),
+              this.putShelter(config.sheltersApi, changeData.shelter, changeData.id),
+              this.putAddress(config.addressApi, changeData.address, changeData.addressID)
             );
           })
         );
@@ -102,12 +109,46 @@ export class SheltersService {
     );
   }
 
-  private postLocation(api, params): Observable<Location> {
-    return this.http.post<Location>(api, params);
+  private putShelter(api, shelter, shelterId): Observable<Shelter> {
+    return shelter ?
+      this.http.put<Shelter>(`${api}/${shelterId}`, this.createNewFormData(shelter)).pipe(
+        take(1)) :
+      of(null);
   }
 
-  private putLocation(api, params, locationID): Observable<Location> {
-    return this.http.put<Location>(`${api}/${locationID}`, params);
+  private postLocation(api, address): Observable<Location> {
+    return address ?
+      this.http.post<Location>(api, this.createNewFormData(address)).pipe(
+        take(1)) :
+      of(null);
+  }
+
+  private putLocation(api, address, locationID): Observable<Location> {
+    return address ?
+      this.http.put<Location>(`${api}/${locationID}`, this.createNewFormData(address)).pipe(
+        take(1),
+        catchError(error => of([]))) :
+      of(null);
+  }
+
+  private postAddress(api, address): Observable<AddressShelter> {
+    return address ?
+      this.http.post<AddressShelter>(api, this.createNewFormData(address)).pipe(
+        take(1)) :
+      of(null);
+  }
+
+  private putAddress(api, address, addressID): Observable<AddressShelter> {
+    return address ?
+      this.http.put<AddressShelter>(`${api}/${addressID}`, this.createNewFormData(address)).pipe(
+        take(1)) :
+      of(null);
+  }
+
+  private createNewFormData(params) {
+    const formData = new FormData();
+    Object.entries(params).forEach(([key, value]: [string, Blob]) => formData.append(key, value));
+    return formData;
   }
 
   public registerShelter(form): Observable<Shelter> {
