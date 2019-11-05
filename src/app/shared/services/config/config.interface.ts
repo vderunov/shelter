@@ -6,4 +6,7 @@ export interface Config {
   registrationUserApi: string;
   needsApi: string;
   questsApi: string;
+  managersApi: string;
+  helpersApi: string;
+  userApi: string;
 }

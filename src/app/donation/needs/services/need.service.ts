@@ -15,8 +15,7 @@ export class NeedService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-  // TODO. Nikolaienko Mikhail responsible for realization of search logic. Due to lack of search logic on backend, it is temporary realized on front-side.
-  // Nikolaienko Mikhail takes responsibility to negotiate with backers on matter of realization of search logic on beckend until next presentation.
+
   public getNeeds(paramObj: object = {}): Observable<Need[]> {
     return this.configService.configLoaded.pipe(
       concatMap((config: Config) => this.http.get<Need[]>(config.needsApi)),

@@ -16,15 +16,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-const usersRoutes: Routes = [
+const adminRoutes: Routes = [
   { path: 'users', component: AdminUsersComponent },
   { path: 'users/helpers', component: HelpersListComponent },
   { path: 'users/managers', component: ManagersListComponent },
   { path: 'helper/:id', component: HelperDetailsComponent },
   { path: 'manager/:id', component: ManagerDetailsComponent },
-
 ];
 @NgModule({
   declarations: [
@@ -39,14 +38,17 @@ const usersRoutes: Routes = [
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    RouterModule.forChild(usersRoutes),
+    RouterModule.forRoot(
+      adminRoutes,
+    ),
     MatGridListModule,
     HttpClientModule,
     MatTabsModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     RouterModule,

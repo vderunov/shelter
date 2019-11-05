@@ -1,17 +1,16 @@
 <div>
     <mat-card class="user-card">
         <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title class="title">{{manager.name}} {{manager.patronymic}} {{manager. surname}}
+            <mat-card-title class="title">{{ manager.name }} {{ manager.patronymic }} {{ manager. surname }}
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <p><img mat-card-image class="avatar" src="{{manager.photoPath}}" alt="Photo of a Shiba Inu"></p>
-            <p>Birthday: {{manager.birthday | date:'dd/MM/yyyy'}}</p>
-            <p>Rating: {{manager.rating}}</p>
+            <p><img mat-card-image class="avatar" src="{{ manager.photoPath }}" alt="Photo of a Shiba Inu"></p>
+            <p>Birthday: {{ manager.birthday | date:'dd/MM/yyyy' }}</p>
+            <p>Rating: {{ manager.rating }}</p>
         </mat-card-content>
         <mat-card-actions class="button">
-            <button mat-raised-button color="primary" [routerLink]="['/manager', manager.id]"
+            <button mat-raised-button color="primary" 
                 (click)="selecManager(manager)">
                 More</button>
         </mat-card-actions>

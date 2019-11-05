@@ -1,10 +1,13 @@
 <div>
-        <button mat-raised-button color="primary"><mat-icon>reply</mat-icon> Back to helpers </button> 
-    <mat-card class="user-card">
+    <button mat-raised-button [routerLink]="['', 'users']" routerLinkActive="router-link-active" color="primary">
+        <mat-icon>reply</mat-icon>Back to users
+    </button>
+    <mat-card>
         <div *ngIf="helper" class="heder-card">
-            <h2> All Information about {{helper.name}}</h2>
+            <h2> All Information about {{ helper.name }}</h2>
             <mat-card-content>
-                <p><img mat-card-image class="avatar" src="{{helper.photoPath}}" alt="user photo"></p>
+                <p><img mat-card-image class="avatar" src="{{ helper.photoPath }}"
+                        alt="Photo of {{ helper.name }} {{ helper.surname }}"></p>
             </mat-card-content>
         </div>
         <mat-card-content>
@@ -35,11 +38,17 @@
             </form>
         </mat-card-content>
         <mat-card-actions *ngIf=" visibleFields" class="button">
-            <button mat-raised-button class="reset"  (click)="onReset()" [disabled]="isEditDisabled"><mat-icon>settings_backup_restore</mat-icon>Reset</button>
-            <button mat-raised-button class="delete" [routerLink]="['/helper', helper.id]" (click)="deleteUser()"
-                [disabled]="isEditDisabled || profileForm.invalid"><mat-icon>delete_forever</mat-icon>Delete user</button>
-            <button mat-raised-button class="saveBtn" [routerLink]="['/helper', helper.id]" (click)="changeInfo()"
-                [disabled]="isEditDisabled || profileForm.invalid"><mat-icon>done_all</mat-icon>Save changes</button>
+            <button mat-raised-button class="reset" (click)="onReset()" [disabled]="isEditDisabled">
+                <mat-icon>settings_backup_restore</mat-icon>Reset
+            </button>
+            <button mat-raised-button class="delete" (click)="deleteUser()"
+                [disabled]="isEditDisabled || profileForm.invalid">
+                <mat-icon>delete_forever</mat-icon>Delete user
+            </button>
+            <button mat-raised-button class="save-btn" (click)="changeInfo()"
+                [disabled]="isEditDisabled || profileForm.invalid">
+                <mat-icon>done_all</mat-icon>Save changes
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>

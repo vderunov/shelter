@@ -1,0 +1,70 @@
+@import '../../shared/style/variables.scss';
+
+.mat-card {
+    max-width: 450px;
+    margin: 25px auto;
+}
+
+.mat-card-image {
+    max-height: 250px;
+    object-fit: contain;
+}
+
+.mat-card-actions,
+.heder-card {
+    text-align: center;
+}
+
+.cdk-text-field-autofill-monitored.ng-untouched.ng-pristine {
+    color: $color-black;
+}
+
+.reset {
+    background-color: $reset-btn;
+    color: $text-btn;
+    margin: 0 8px;
+}
+
+.delete {
+    background-color: $del-btn;
+    color: $text-btn;
+}
+
+.mat-form-field {
+    position: relative;
+    text-align: left;
+    display: contents;
+    margin: 0;
+    padding: 0;
+}
+
+.mat-form-field-infix {
+    display: contents;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    width: 180px;
+}
+
+.edit-wrap {
+    float: right;
+    color: $edit-color;
+}
+
+.avatar {
+    height: 200px;
+    margin-top: 20px;
+}
+
+.save-btn {
+    background-color: $save-btn;
+    color: $text-btn;
+}
+
+.mat-icon {
+    margin-right: 3px;
+}
+
+.reset.mat-raised-button.mat-button-base {
+    margin: 0 8px;
+}

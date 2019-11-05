@@ -1,26 +1,44 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Manager } from '../models/manager.model';
 import { Observable } from 'rxjs';
+import { Config } from 'src/app/shared/services/config/config.interface';
+import { ConfigService } from 'src/app/shared/services/config/config.service';
+import { concatMap } from 'rxjs/operators';
 @Injectable({
     providedIn: 'root'
 })
+
 export class ManagersService {
-    apiManager = 'https://familynetserver.azurewebsites.net/api/v1/representatives/';
-    constructor(private httpClient: HttpClient) { }
-    public getManagers(url?: string) {
-        return this.httpClient.get<Manager[]>(`${this.apiManager}`);
+    manager: Manager;
+
+    constructor(private http: HttpClient, private configService: ConfigService) { }
+
+    public getAllManagers(): Observable<Manager[]> {
+        return this.configService.configLoaded.pipe(
+            concatMap((config: Config) =>
+                this.http.get<Manager[]>(config.managersApi)
+            )
+        );
     }
-    public getManagerById(id: string): Observable<any> {
-        return this.httpClient.get<Manager>(`${this.apiManager}${id}`);
+
+    public getManagerById(id: string = ''): Observable<Manager> {
+        return this.configService.configLoaded.pipe(
+            concatMap((config: Config) => this.getManager(config.managersApi, id)
+            )
+        );
     }
-    public updateManager(manager: Manager, id: string) {
-        return this.httpClient.put(`${this.apiManager}${id}`, manager);
+
+    public getManager(api, id): Observable<Manager> {
+        return this.http.get<Manager>(`${api}/${id}`);
     }
-    public deleteManager(id: string) {
-        return this.httpClient.delete(`${this.apiManager}${id}`);
+
+    public updateManager(api, id: string) {
+        return this.http.put(`${api}${id}`, this.manager);
     }
-    public getManagerInfo() {
-        return this.httpClient.get<Manager[]>(`${this.apiManager}?page=1`);
+
+    public deleteManager(api, id: string) {
+        return this.http.delete(`${api}${id}`);
     }
+
 }

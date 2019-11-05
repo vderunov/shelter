@@ -5,7 +5,7 @@
                         <mat-icon>person_add</mat-icon>Add Manager
                     </button>
                 </mat-grid-tile-header>
-        <mat-grid-tile *ngFor="let manager of managers$ | async; trackBy: TrackByManagers">
+        <mat-grid-tile *ngFor="let manager of managers$ | async; trackBy: trackByManagers">
             <app-manager-item [manager]="manager"></app-manager-item>
         </mat-grid-tile>
     </mat-grid-list>

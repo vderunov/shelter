@@ -8,7 +8,7 @@ import { ConfigService } from './shared/services/config/config.service';
 })
 export class AppComponent implements OnInit {
   constructor(private configService: ConfigService) {}
-  
+
   ngOnInit(): void {
     this.configService.initConfig();
   }

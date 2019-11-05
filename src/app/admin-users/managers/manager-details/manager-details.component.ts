@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Manager } from '../models/manager.model';
 import { ManagersService } from '../services/manager.service';
@@ -12,21 +12,22 @@ import { ManagersService } from '../services/manager.service';
   styleUrls: ['./manager-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ManagerDetailsComponent implements OnInit, OnDestroy {
 
-  private unsubscribe: Subject<void> = new Subject();
+export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public manager: Manager;
   public managerId: string;
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
+  private unsubscribe: Subject<void> = new Subject();
   constructor(
     private managersService: ManagersService,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.managerId = this.activatedRoute.snapshot.params.id;
@@ -38,6 +39,32 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
         this.manager = managers;
         return this.manager;
       });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  public onEdit(): void {
+    this.toggleForm();
+    this.visibleFields = !this.visibleFields;
+  }
+
+  public onReset(): void {
+    this.patchFormValues(this.manager);
+  }
+
+  public deleteUser() {
+    this.router.navigate(['users']);
+  }
+
+  public changeInfo() {
+    this.managersService
+      .updateManager(this.profileForm.value, this.managerId)
+      .subscribe();
+    this.router.navigate(['/managers', this.manager.id]);
+    this.onEdit();
   }
 
   private createForm(): void {
@@ -71,28 +98,4 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
     this.isEditDisabled = this.profileForm.disabled;
   }
 
-  ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
-
-  public onEdit(): void {
-    this.toggleForm();
-    this.visibleFields = !this.visibleFields;
-  }
-
-  public onReset(): void {
-    this.patchFormValues(this.manager);
-  }
-
-  public deleteUser() {
-    this.managersService
-      .deleteManager(this.managerId)
-      .subscribe();
-  }
-  public changeInfo() {
-    this.managersService
-      .updateManager(this.profileForm.value, this.managerId)
-      .subscribe();
-  }
 }

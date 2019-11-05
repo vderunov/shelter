@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HelpersService } from '../services/helper.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Helper } from '../models/helper.model';
 import { Subject } from 'rxjs';
 
@@ -13,19 +13,20 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HelperDetailsComponent implements OnInit, OnDestroy {
-  private unsubscribe: Subject<void> = new Subject();
   public helper: Helper;
   public helperId: string;
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
+  private unsubscribe: Subject<void> = new Subject();
   constructor(
     private helpersService: HelpersService,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.helperId = this.activatedRoute.snapshot.params.id;
@@ -37,35 +38,6 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
         this.helper = helpers;
         return this.helper;
       });
-  }
-
-  private createForm(): void {
-    this.profileForm = this.fb.group({
-      name: [null, Validators.required],
-      surname: [],
-      patronymic: [],
-      birthday: [],
-      avatar: [],
-      photoPath: [],
-      rating: [],
-    });
-  }
-  private patchFormValues(helper: Helper): void {
-    this.profileForm.patchValue({
-      name: helper.name,
-      surname: helper.surname,
-      patronymic: helper.patronymic,
-      birthday: helper.birthday,
-      avatar: helper.avatar,
-      photoPath: helper.photoPath,
-      rating: helper.rating,
-    });
-  }
-  private toggleForm() {
-    this.profileForm.enabled
-      ? this.profileForm.disable()
-      : this.profileForm.enable();
-    this.isEditDisabled = this.profileForm.disabled;
   }
 
   ngOnDestroy() {
@@ -81,14 +53,45 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   public onReset(): void {
     this.patchFormValues(this.helper);
   }
+
   public deleteUser() {
-    this.helpersService
-      .deleteUser(this.helperId)
-      .subscribe();
+    this.router.navigate(['users']);
   }
+
   public changeInfo() {
-    this.helpersService
-      .updateUser(this.profileForm.value, this.helperId)
-      .subscribe();
+    this.router.navigate(['/helper', this.helper.id]);
+    this.onEdit();
   }
+
+  private createForm(): void {
+    this.profileForm = this.fb.group({
+      name: [null, Validators.required],
+      surname: [],
+      patronymic: [],
+      birthday: [],
+      avatar: [],
+      photoPath: [],
+      rating: [],
+    });
+  }
+
+  private patchFormValues(helper: Helper): void {
+    this.profileForm.patchValue({
+      name: helper.name,
+      surname: helper.surname,
+      patronymic: helper.patronymic,
+      birthday: helper.birthday,
+      avatar: helper.avatar,
+      photoPath: helper.photoPath,
+      rating: helper.rating,
+    });
+  }
+
+  private toggleForm() {
+    this.profileForm.enabled
+      ? this.profileForm.disable()
+      : this.profileForm.enable();
+    this.isEditDisabled = this.profileForm.disabled;
+  }
+
 }

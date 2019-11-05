@@ -13,7 +13,7 @@ export class HelpersListComponent implements OnInit {
   constructor(private helperService: HelpersService) { }
 
   ngOnInit(): void {
-    this.helpers$ = this.helperService.getAllUsers();
+    this.helpers$ = this.helperService.getAllHelpers();
   }
   public trackByHelpers(index: number, user: Helper): string {
     return user.id;

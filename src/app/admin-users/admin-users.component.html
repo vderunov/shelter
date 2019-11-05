@@ -1,16 +1,16 @@
-<div>
-    <mat-tab-group mat-align-tabs="center">
-        <mat-tab>
-            <ng-template matTabLabel>
-                <h2>Helpers</h2>
-            </ng-template>
-            <app-helpers-list></app-helpers-list>
-        </mat-tab>
-        <mat-tab>
-            <ng-template matTabLabel>
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab (click)="setTab('users/helpers')">
+        <ng-template mat-tab-label >
+            <h2>Helpers</h2>
+        </ng-template>
+        <app-helpers-list></app-helpers-list>
+    </mat-tab>
+    <mat-tab (click)="setTab('users/managers')">
+        <ng-template mat-tab-label>
+            <div>
                 <h2>Managers</h2>
-            </ng-template>
-            <app-managers-list></app-managers-list>
-        </mat-tab>
-    </mat-tab-group>
-</div>
+            </div>
+        </ng-template>
+        <app-managers-list></app-managers-list>
+    </mat-tab>
+</mat-tab-group>
