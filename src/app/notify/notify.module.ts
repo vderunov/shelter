@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { NotifyComponent } from './notify.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [NotifyComponent],
@@ -14,4 +14,5 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   exports: [NotifyComponent]
 })
-export class NotifyModule { }
+export class NotifyModule {
+}

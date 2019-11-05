@@ -1,0 +1,17 @@
+mat-form-field {
+  margin-right: 12px;
+}
+
+::ng-deep .notify-error {
+  background: #34495e;
+  color: orange;
+}
+
+::ng-deep .notify-success {
+  background: #2ecc71;
+  color: black;
+}
+
+
+
+

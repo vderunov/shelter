@@ -7,15 +7,27 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
   styleUrls: ['./notify.component.scss']
 })
 export class NotifyComponent {
+  private config = new MatSnackBarConfig();
 
   constructor(private snackBar: MatSnackBar) {
-    const config = new MatSnackBarConfig();
-    this.openSnackBar('Hello there', 'Close');
+    this.showMessage();
+    // this.showError('Some Success - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ');
+    this.showSuccess('Some Success - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ');
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
+  showMessage() {
+    this.config.duration = 5000;
+    this.config.horizontalPosition = 'left';
+    this.config.verticalPosition = 'top';
+  }
+
+  showError(message: string) {
+    this.config.panelClass = ['notify-error'];
+    this.snackBar.open(message, null, this.config);
+  }
+
+  showSuccess(message: string) {
+    this.config.panelClass = ['notify-success'];
+    this.snackBar.open(message, null, this.config);
   }
 }
