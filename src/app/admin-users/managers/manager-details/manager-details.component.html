@@ -39,7 +39,7 @@
                 </mat-card-actions>
             </form>
         </mat-card-content>
-        <mat-card-actions *ngIf=" visibleFields" class="button">
+        <mat-card-actions *ngIf="visibleFields" class="button">
             <button mat-raised-button class="reset" (click)="onReset()"
              [disabled]="isEditDisabled">
                 <mat-icon>settings_backup_restore</mat-icon>Reset

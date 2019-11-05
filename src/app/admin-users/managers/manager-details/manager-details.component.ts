@@ -37,7 +37,6 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       .subscribe(managers => {
         this.patchFormValues(managers);
         this.manager = managers;
-        return this.manager;
       });
   }
 

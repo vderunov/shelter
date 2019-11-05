@@ -36,7 +36,6 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       .subscribe(helpers => {
         this.patchFormValues(helpers);
         this.helper = helpers;
-        return this.helper;
       });
   }
 
