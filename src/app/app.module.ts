@@ -12,6 +12,7 @@ import { AdminUsersModule } from './admin-users/admin-users.module';
 import { DonationModule } from './donation/donation.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
+import { NotifyModule } from './notify/notify.module';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -30,9 +31,10 @@ const interceptorProvider: Provider = {
     LoginModule,
     RegistrationUserModule,
     DonationModule,
-    AdminUsersModule
+    AdminUsersModule,
+    NotifyModule
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
