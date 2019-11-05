@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params: Params) => {
@@ -37,14 +37,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  isFieldInvalid(fieldName): boolean {
+  public isFieldInvalid(fieldName): boolean {
     return (
       this.loginForm.get(fieldName).touched &&
       this.loginForm.get(fieldName).invalid
     );
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
     }
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authenticationService.login(loginData).subscribe();
   }
 
-  goToRegistrationPage(): void {
+  public goToRegistrationPage(): void {
     this.router.navigate(['/registraction-user']);
   }
 
