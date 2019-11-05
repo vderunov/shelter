@@ -15,7 +15,7 @@ export class ManagersService {
     constructor(private http: HttpClient, private configService: ConfigService) { }
 
     public getAllManagers(): Observable<Manager[]> {
-        return this.configService.configLoaded.pipe(
+        return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
                 this.http.get<Manager[]>(config.managersApi)
             )
@@ -23,7 +23,7 @@ export class ManagersService {
     }
 
     public getManagerById(id: string = ''): Observable<Manager> {
-        return this.configService.configLoaded.pipe(
+        return this.configService.getConfig().pipe(
             concatMap((config: Config) => this.getManager(config.managersApi, id)
             )
         );

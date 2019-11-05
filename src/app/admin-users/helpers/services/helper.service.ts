@@ -14,7 +14,7 @@ export class HelpersService {
   constructor(private http: HttpClient, private configService: ConfigService) { }
 
   public getAllHelpers(): Observable<Helper[]> {
-    return this.configService.configLoaded.pipe(
+    return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.http.get<Helper[]>(config.helpersApi)
       )
@@ -22,7 +22,7 @@ export class HelpersService {
   }
 
   public getHelperById(id: string): Observable<Helper> {
-    return this.configService.configLoaded.pipe(
+    return this.configService.getConfig().pipe(
       concatMap((config: Config) => this.getHelper(config.helpersApi, id)
       )
     );
