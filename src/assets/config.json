@@ -4,8 +4,14 @@
   "locationApi": "https://familynetserver.azurewebsites.net/api/v1/location",
   "loginApi": "https://familynetserver.azurewebsites.net/api/v1/authentication",
   "needsApi": "https://familynetserver.azurewebsites.net/api/v1/donations",
+<<<<<<< HEAD
   "questsApi": "/assets/quests.data.json",
   "registrationUserApi": "/api/v1/volunteers",
   "managersApi": "https://familynetserver.azurewebsites.net/api/v1/representatives/",
   "helpersApi": "https://familynetserver.azurewebsites.net/api/v1/volunteers/"
 }
+=======
+  "questsApi": "assets/quests.data.json",
+  "registrationUserApi": "/api/v1/volunteers"
+}
+>>>>>>> fcaeba3c58714f359ff0662e78b744c9a238144c

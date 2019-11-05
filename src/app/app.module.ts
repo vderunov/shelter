@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,8 +8,16 @@ import { LoginModule } from './login/login.module';
 import { RegistrationUserModule } from './registration-user/registration-user.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
-import {AdminUsersModule} from './admin-users/admin-users.module';
+import { AdminUsersModule } from './admin-users/admin-users.module';
 import { DonationModule } from './donation/donation.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
+
+const interceptorProvider: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: AuthenticateInterceptor
+};
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -24,6 +32,7 @@ import { DonationModule } from './donation/donation.module';
     DonationModule,
     AdminUsersModule
   ],
+  providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
