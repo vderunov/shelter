@@ -1,0 +1,10 @@
+<mat-card *ngIf="need$ | async; let need">
+    <mat-card-title>Name: {{need.orphanageName}}</mat-card-title>
+    <mat-card-content>Address: {{need.city}}, {{need.orphanageStreet}}/{{need.orphanageHouse}}</mat-card-content>
+    <mat-card-content>We need: {{need.itemName}}</mat-card-content>
+    <mat-card-content>Details: {{need.itemDescription}}</mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Back</button>
+    <button mat-button>Donate</button>
+  </mat-card-actions>
+</mat-card>

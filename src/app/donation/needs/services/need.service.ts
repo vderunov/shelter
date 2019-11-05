@@ -32,4 +32,12 @@ export class NeedService {
       })
     );
   }
+
+  public getDetails(id: string = ''): Observable<Need> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return this.http.get<Need>(`${config.needsApi}/${id}`);
+      })
+    );
+  }
 }
