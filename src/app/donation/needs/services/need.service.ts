@@ -15,14 +15,10 @@ export class NeedService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-<<<<<<< HEAD
-
-=======
   // TODO. Nikolaienko Mikhail responsible for realization of search logic.
   // Due to lack of search logic on backend, it is temporary realized on front-side.
   // Nikolaienko Mikhail takes responsibility to negotiate with backers on matter of realization
   // of search logic on beckend until next presentation.
->>>>>>> fcaeba3c58714f359ff0662e78b744c9a238144c
   public getNeeds(paramObj: object = {}): Observable<Need[]> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => this.http.get<Need[]>(config.needsApi)),
