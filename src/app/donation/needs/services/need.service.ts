@@ -15,8 +15,10 @@ export class NeedService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-  // TODO. Nikolaienko Mikhail responsible for realization of search logic. Due to lack of search logic on backend, it is temporary realized on front-side.
-  // Nikolaienko Mikhail takes responsibility to negotiate with backers on matter of realization of search logic on beckend until next presentation.
+  // TODO. Nikolaienko Mikhail responsible for realization of search logic.
+  // Due to lack of search logic on backend, it is temporary realized on front-side.
+  // Nikolaienko Mikhail takes responsibility to negotiate with backers on matter of realization
+  // of search logic on beckend until next presentation.
   public getNeeds(paramObj: object = {}): Observable<Need[]> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => this.http.get<Need[]>(config.needsApi)),
@@ -24,9 +26,17 @@ export class NeedService {
         if (Object.values(paramObj).length > 0) {
           const key: string = Object.keys(paramObj)[0];
           const value: string = paramObj[key];
-          return arr.filter((el: Need): boolean => el[key].toLowerCase().indexOf(value.toLocaleLowerCase()) > -1)
+          return arr.filter((el: Need): boolean => el[key].toLowerCase().indexOf(value.toLocaleLowerCase()) > -1);
         }
         return arr;
+      })
+    );
+  }
+
+  public getDetails(id: string = ''): Observable<Need> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return this.http.get<Need>(`${config.needsApi}/${id}`);
       })
     );
   }

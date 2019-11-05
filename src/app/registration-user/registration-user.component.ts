@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
-import { NewUser } from './registration-user.interface';
 
 @Component({
   selector: 'app-registration-user',
@@ -12,20 +11,22 @@ import { NewUser } from './registration-user.interface';
 })
 export class RegistrationUserComponent implements OnInit {
   public registerForm: FormGroup;
+  public maxInputLength: object;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
       {
-        firstName: [null, FormFiledsValidator.checkName],
-        lastName: [null, FormFiledsValidator.checkName],
-        phone: ['+380', FormFiledsValidator.checkPhone],
+        name: [null, FormFiledsValidator.checkName],
+        surname: [null, FormFiledsValidator.checkName],
+        phone: ['', FormFiledsValidator.checkPhone],
         email: [null, FormFiledsValidator.checkEmail],
+        address: [null],
         password: [null, FormFiledsValidator.checkPassword],
         confirmPassword: [null, FormFiledsValidator.checkPassword]
       },
@@ -33,27 +34,22 @@ export class RegistrationUserComponent implements OnInit {
         validator: FormFiledsValidator.matchPassword
       }
     );
+    this.maxInputLength = FormFiledsValidator.getMaxInputLength();
   }
 
-  isFieldInvalid(fieldName): boolean {
+  public isFieldInvalid(fieldName): boolean {
     return (
       this.registerForm.get(fieldName).touched &&
       this.registerForm.get(fieldName).invalid
     );
   }
 
-  goToLoginPage(): void {
-    this.router.navigate(['/login']);
-  }
-
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.registerForm.invalid) {
       return;
     }
 
-    const newUser: NewUser = { ...this.registerForm.value };
-    this.authenticationService.addUser(newUser);
-
-    this.goToLoginPage();
+    this.authenticationService.addUser(this.registerForm.value);
+    this.router.navigate(['/login']);
   }
 }

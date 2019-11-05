@@ -20,7 +20,7 @@ export class ConfigService {
       .subscribe(config => this.configLoaded$.next(config));
   }
 
-  getConfig(): Observable<Config> {
+  public getConfig(): Observable<Config> {
     return this.configLoaded$.pipe(take(1));
   }
 }
