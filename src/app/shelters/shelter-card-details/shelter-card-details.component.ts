@@ -35,17 +35,20 @@ export class ShelterCardDetailsComponent implements OnInit {
 
   public onSubmit(): void {
     this.toggleForm();
-    const data = {
+    const shelterChange = {
       name: this.profileForm.get('name').value,
       rating: this.shelter.rating,
       adressID: this.shelter.adressID,
       avatar: this.profileForm.get('avatar').value,
-      // photoPath: this.profileForm.get('photoPath').value
+      locationID: this.shelter.locationID
     };
-    this.sheltersService.putShelter(this.shelter.id, data).subscribe(data1 => {
-      console.log(data1);
-
-    });
+    const addressChange = { ...this.profileForm.get('address').value };
+    this.sheltersService.putShelter({
+      id: this.shelter.id,
+      shelter: shelterChange,
+      adressID: this.shelter.adressID,
+      address: addressChange,
+    }).subscribe();
   }
 
   public onEdit(): void {
@@ -53,7 +56,11 @@ export class ShelterCardDetailsComponent implements OnInit {
   }
 
   public onReset(): void {
-    this.patchFormValues(this.shelter);
+    this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
+      this.shelter = shelter;
+      this.patchFormValues(shelter);
+    });
+    this.onEdit();
   }
 
   private createForm(): void {
@@ -71,18 +78,12 @@ export class ShelterCardDetailsComponent implements OnInit {
     });
   }
 
-  private patchFormValues(shelter: Shelter): void {
+  private patchFormValues(shelter): void {
     this.profileForm.patchValue({
       name: shelter.name,
       avatar: shelter.avatar,
       photoPath: shelter.photoPath,
-      address: {
-        country: shelter.country,
-        region: shelter.region,
-        city: shelter.city,
-        street: shelter.street,
-        house: shelter.house
-      }
+      address: shelter.address
     });
   }
 
