@@ -9,7 +9,7 @@ import { Config } from 'src/app/shared/services/config/config.interface';
   providedIn: 'root'
 })
 export class HelpersService {
-  helper: Helper;
+  public helper: Helper;
 
   constructor(private http: HttpClient, private configService: ConfigService) { }
 
@@ -35,6 +35,7 @@ export class HelpersService {
   public updateUser(api, id: string) {
     return this.http.put(`${api}/${id}`, this.helper);
   }
+
   public deleteUser(api, id: string) {
     return this.http.delete(`${api}/${id}`);
   }

@@ -10,7 +10,7 @@ import { concatMap } from 'rxjs/operators';
 })
 
 export class ManagersService {
-    manager: Manager;
+   public manager: Manager;
 
     constructor(private http: HttpClient, private configService: ConfigService) { }
 

@@ -7,9 +7,8 @@ import { Router } from '@angular/router';
 })
 export class AdminUsersComponent {
 
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router) { }
+
   setTab(tab: string) {
     this.router.navigate([`${tab}`]);
   }

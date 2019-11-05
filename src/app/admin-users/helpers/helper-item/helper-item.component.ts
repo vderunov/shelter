@@ -7,12 +7,11 @@ import { Router } from '@angular/router';
   templateUrl: './helper-item.component.html',
   styleUrls: ['./helper-item.component.scss']
 })
-export class HelperItemComponent  {
+export class HelperItemComponent {
   public helperId: string;
   @Input() helper: Helper;
-  constructor(
-    private router: Router
-  ) { }
+  constructor(private router: Router) { }
+
   public selectHelper(helper: Helper) {
     this.helperId = helper.id;
     this.router.navigate(['helper/', this.helperId]);
