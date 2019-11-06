@@ -6,7 +6,7 @@ import { Helper } from '../models/helper.model';
   templateUrl: './helper-item.component.html',
   styleUrls: ['./helper-item.component.scss']
 })
-export class HelperItemComponent {
 
+export class HelperItemComponent {
   @Input() helper: Helper;
 }

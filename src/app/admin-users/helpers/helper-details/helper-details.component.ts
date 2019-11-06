@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./helper-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class HelperDetailsComponent implements OnInit, OnDestroy {
   public helper: Helper;
   public helperId: string;
@@ -19,6 +20,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   public isEditDisabled: boolean;
   public visibleFields = false;
   private unsubscribe: Subject<void> = new Subject();
+
   constructor(
     private helpersService: HelpersService,
     private activatedRoute: ActivatedRoute,
