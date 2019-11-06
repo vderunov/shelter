@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 import { take, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStateService {
-  private token$ = new BehaviorSubject<object>(null);
+  constructor(private cookieService: CookieService) { }
+
+  private token$ = new BehaviorSubject<string>(this.cookieService.get('token') || null);
 
   public getState(): Observable<any> {
     return this.token$;
@@ -18,6 +21,7 @@ export class AuthStateService {
 
   public setToken(tokenObj: any) {
     this.token$.next(tokenObj);
+
   }
 
   public cleanAuthenticatedState() {
@@ -28,19 +32,16 @@ export class AuthStateService {
   //   return this.getState().pipe(
   //     take(1),
   //     map(tok => {
-  //       const userInfo = tok.match(/.*?\.(.*?)\..*/)[1];
-  //
-  //
+  //       return this.base64decode(this.getPayload(tok));
   //     })
-  //   )
-  //
+  //   ).subscribe();
   // }
 
-  private base64decode(str: string): string {
+  public base64decode(str: string): string {
     return atob(str);
   }
 
-  private getPayload(str: string): string {
+  public getPayload(str: string): string {
     return str.match(/.*?\.(.*?)\..*/)[1];
   }
 }
