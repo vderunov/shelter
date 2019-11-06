@@ -7,6 +7,7 @@ import { Login } from 'src/app/login/login.interface';
 import { NewUser } from 'src/app/registration-user/registration-user.interface';
 import { ConfigService } from '../config/config.service';
 import { AuthStateService } from '../state/auth-state.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthenticationService {
     private router: Router,
     private http: HttpClient,
     private configService: ConfigService,
-    private authStateService: AuthStateService
+    private authStateService: AuthStateService,
+    private cookieService: CookieService,
   ) { }
 
   public login(loginData: Login): Observable<any> {
@@ -27,6 +29,7 @@ export class AuthenticationService {
       map(tokenObj => {
         if (tokenObj.token) {
           this.authStateService.setToken(tokenObj.token);
+          this.cookieService.set('token', tokenObj.token, Date.now() + 7);
         }
       }),
       catchError(this.handleError)
