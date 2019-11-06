@@ -8,12 +8,12 @@ import { Config } from './config.interface';
   providedIn: 'root'
 })
 export class ConfigService {
-  configUrl = 'assets/config.json';
+  private configUrl = 'assets/config.json';
   private configLoaded$ = new ReplaySubject<Config>(1);
 
   constructor(private http: HttpClient) {}
 
-  initConfig(): void {
+  public initConfig(): void {
     this.http
       .get<Config>(this.configUrl)
       .pipe(take(1))

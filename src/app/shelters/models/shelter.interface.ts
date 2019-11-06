@@ -1,14 +1,16 @@
+import { Location } from './location.interface';
+import { AddressShelter } from './address-shelter.interface';
+
 export interface Shelter {
-  adressID?: number;
-  avatar: any;
-  city?: string;
-  country?: string;
-  house?: number;
   id?: number;
-  locationID?: number;
   name: string;
-  photoPath?: string;
   rating: number;
-  region?: string;
-  street?: string;
+  avatar?: any;
+  photoPath?: string;
+  locationID?: number;
+  adressID?: number;
+  location?: Location;
+  address?: AddressShelter;
+  children?: number;
+  representative?: any;
 }
