@@ -9,14 +9,12 @@ import { Router } from '@angular/router';
 })
 
 export class ManagerItemComponent {
-  public managerId: string;
   @Input() manager: Manager;
 
   constructor(private router: Router) { }
 
   public selecManager(manager: Manager) {
-    this.managerId = manager.id;
-    this.router.navigate(['manager/', this.managerId]);
+    this.router.navigate(['manager/', manager.id]);
   }
 
 }

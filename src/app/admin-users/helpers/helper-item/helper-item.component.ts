@@ -8,12 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./helper-item.component.scss']
 })
 export class HelperItemComponent {
-  public helperId: string;
+
   @Input() helper: Helper;
   constructor(private router: Router) { }
 
   public selectHelper(helper: Helper) {
-    this.helperId = helper.id;
-    this.router.navigate(['helper/', this.helperId]);
+    this.router.navigate(['helper/',  helper.id]);
   }
 }
