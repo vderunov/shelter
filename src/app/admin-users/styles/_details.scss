@@ -16,17 +16,17 @@
 }
 
 .cdk-text-field-autofill-monitored.ng-untouched.ng-pristine {
-    color: $color-black;
+    color: $dark-text-color;
 }
 
 .reset {
-    background-color: $reset-btn;
+    background-color: $reset-btn-bgc;
     color: $text-btn;
     margin: 0 8px;
 }
 
 .delete {
-    background-color: $del-btn;
+    background-color: $del-btn-bgc;
     color: $text-btn;
 }
 
@@ -48,7 +48,7 @@
 
 .edit-wrap {
     float: right;
-    color: $edit-color;
+    color: $edit-btn-text-color;
 }
 
 .avatar {
@@ -57,7 +57,7 @@
 }
 
 .save-btn {
-    background-color: $save-btn;
+    background-color: $save-btn-bgc;
     color: $text-btn;
 }
 

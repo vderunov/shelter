@@ -5,11 +5,10 @@ import { Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { Config } from 'src/app/shared/services/config/config.interface';
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable({ providedIn: 'root' })
+
 export class HelpersService {
-  public helper: Helper;
 
   constructor(private http: HttpClient, private configService: ConfigService) { }
 
@@ -23,21 +22,26 @@ export class HelpersService {
 
   public getHelperById(id: string): Observable<Helper> {
     return this.configService.getConfig().pipe(
-      concatMap((config: Config) => this.getHelper(config.helpersApi, id)
+      concatMap((config: Config) =>
+        this.http.get<Helper>(`${config.helpersApi}${id}`)
       )
     );
   }
 
-  public getHelper(api, id: string): Observable<Helper> {
-    return this.http.get<Helper>(`${api}/${id}`);
+
+  public updateHelperById(formValue: object, id: string): Observable<Helper> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.put<Helper>(`${config.helpersApi}${id}`, formValue)
+      )
+    );
   }
 
-  public updateUser(api, id: string) {
-    return this.http.put(`${api}/${id}`, this.helper);
+  public deleteHelperById(id: string) {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.delete(`${config.helpersApi}${id}`)
+      )
+    );
   }
-
-  public deleteUser(api, id: string) {
-    return this.http.delete(`${api}/${id}`);
-  }
-
 }

@@ -1,14 +1,12 @@
 <div>
-    <button mat-raised-button [routerLink]="['', '/users' ]" routerLinkActive="router-link-active" color="primary">
+    <button mat-raised-button [routerLink]="['', 'users' ]" routerLinkActive="router-link-active" color="primary">
         <mat-icon>reply</mat-icon> Back to users
     </button>
     <mat-card class="user-card">
         <div *ngIf="manager" class="heder-card">
             <h2> All Information about {{ manager.name }}</h2>
             <mat-card-content>
-                <p>
-                    <img mat-card-image class="avatar" src="{{ manager.photoPath }}" alt="user photo">
-                </p>
+                <p><img mat-card-image class="avatar" [src]="manager.photoPath" [alt]="manager.name"></p>
             </mat-card-content>
         </div>
         <mat-card-content>
@@ -43,12 +41,10 @@
             <button mat-raised-button class="reset" (click)="onReset()"
              [disabled]="isEditDisabled">
                 <mat-icon>settings_backup_restore</mat-icon>Reset
-
             </button>
             <button mat-raised-button class="delete" (click)="deleteUser()"
                 [disabled]="isEditDisabled || profileForm.invalid">
                 <mat-icon>delete_forever</mat-icon>Delete user
-
             </button>
             <button mat-raised-button class="save-btn" (click)="changeInfo()"
                 [disabled]="isEditDisabled || profileForm.invalid">

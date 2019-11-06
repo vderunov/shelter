@@ -54,12 +54,15 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    this.router.navigate(['users']);
+    this.helpersService
+    .deleteHelperById(this.helperId)
+    .subscribe(() => this.router.navigate(['users']));
   }
 
   public changeInfo() {
-    this.router.navigate(['/helper', this.helper.id]);
-    this.onEdit();
+    this.helpersService
+      .updateHelperById(this.profileForm.value, this.helperId)
+      .subscribe(() => this.onEdit());
   }
 
   private createForm(): void {
