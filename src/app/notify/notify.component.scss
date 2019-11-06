@@ -3,13 +3,15 @@ mat-form-field {
 }
 
 ::ng-deep .notify-error {
-  background: #34495e;
-  color: orange;
+  background: #fff;
+  border: 1px solid red;
+  color: red;
 }
 
 ::ng-deep .notify-success {
-  background: #2ecc71;
-  color: black;
+  background: #fff;
+  border: 1px solid green;
+  color: green;
 }
 
 

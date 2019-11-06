@@ -1,33 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
+import { NotifyService } from './notify.service';
 
 @Component({
   selector: 'app-notify',
   templateUrl: './notify.component.html',
-  styleUrls: ['./notify.component.scss']
+  styleUrls: ['./notify.component.scss'],
 })
-export class NotifyComponent {
+export class NotifyComponent implements OnDestroy {
   private config = new MatSnackBarConfig();
+  private subscription: Subscription;
 
-  constructor(private snackBar: MatSnackBar) {
-    this.showMessage();
-    // this.showError('Some Success - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ');
-    this.showSuccess('Some Success - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ');
+  constructor(private snackBar: MatSnackBar, private notifyService: NotifyService) {
+    this.setConfig();
+
+    this.subscription = this.notifyService.onNoticeChanged$.subscribe(notice => {
+      if (notice) {
+        if (notice.type === 'success') {
+          this.showSuccess(notice.message);
+        } else if (notice.type === 'error') {
+          this.showError(notice.message);
+        }
+      }
+    });
   }
 
-  showMessage() {
-    this.config.duration = 5000;
-    this.config.horizontalPosition = 'left';
-    this.config.verticalPosition = 'top';
+  private setConfig() {
+    this.config.duration = 3000;
+    this.config.horizontalPosition = 'right';
+    this.config.verticalPosition = 'bottom';
   }
 
-  showError(message: string) {
+  private showError(message: string) {
     this.config.panelClass = ['notify-error'];
     this.snackBar.open(message, null, this.config);
   }
 
-  showSuccess(message: string) {
+  private showSuccess(message: string) {
     this.config.panelClass = ['notify-success'];
     this.snackBar.open(message, null, this.config);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

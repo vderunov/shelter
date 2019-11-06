@@ -1,3 +1,4 @@
+import { NotifyService } from './../notify/notify.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
@@ -16,7 +17,8 @@ export class RegistrationUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private notify: NotifyService
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,7 @@ export class RegistrationUserComponent implements OnInit {
     }
 
     this.authenticationService.addUser(this.registerForm.value);
+    this.notify.setNotice('Hey there', 'error'); // remove me!
     this.router.navigate(['/login']);
   }
 }

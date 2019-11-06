@@ -14,5 +14,4 @@ import { MatSnackBarModule } from '@angular/material';
   ],
   exports: [NotifyComponent]
 })
-export class NotifyModule {
-}
+export class NotifyModule { }
