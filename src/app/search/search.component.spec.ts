@@ -20,7 +20,7 @@ describe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    spyOn(component.searchValue, 'emit');
+    spyOn(component.searchInit, 'emit');
   });
 
   it('should create search component', () => {
@@ -29,6 +29,6 @@ describe('SearchComponent', () => {
 
   it('should emit on call of function Search with same argument', () => {
     component.search('search value');
-    expect(component.searchValue.emit).toHaveBeenCalledWith('search value');
+    expect(component.searchInit.emit).toHaveBeenCalledWith('search value');
   });
 });

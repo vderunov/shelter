@@ -14,8 +14,9 @@ export class SheltersService {
   constructor(private http: HttpClient, private configService: ConfigService) { }
 
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
-    const params = new HttpParams();
-    Object.entries(paramObj).forEach(([key, value]: string[]) => params.append(key, value));
+    let params = new HttpParams();
+    Object.keys(paramObj).forEach((key: string) => {params = params.set(key, paramObj[key]);});
+
     return this.configService
       .getConfig()
       .pipe(concatMap((config: Config) => this.http.get<Shelter[]>(config.sheltersApi, { params })));

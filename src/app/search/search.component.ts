@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class SearchComponent implements OnInit {
   public searchForm: FormGroup;
 
-  @Output() searchValue = new EventEmitter<string>();
+  @Output() searchInit = new EventEmitter<string>();
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -20,6 +20,6 @@ export class SearchComponent implements OnInit {
   }
 
   public search(searchInputValue: string): void {
-    this.searchValue.emit(searchInputValue);
+    this.searchInit.emit(searchInputValue);
   }
 }
