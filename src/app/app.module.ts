@@ -12,6 +12,7 @@ import { AdminUsersModule } from './admin-users/admin-users.module';
 import { DonationModule } from './donation/donation.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -32,7 +33,10 @@ const interceptorProvider: Provider = {
     DonationModule,
     AdminUsersModule
   ],
-  providers: [interceptorProvider],
+  providers: [
+    interceptorProvider,
+    CookieService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
