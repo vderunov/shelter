@@ -55,15 +55,15 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    this.router.navigate(['users']);
+    this.managersService
+    .deleteManagerById(this.managerId)
+    .subscribe(() => this.router.navigate(['users']));
   }
 
   public changeInfo() {
     this.managersService
-      .updateManager(this.profileForm.value, this.managerId)
-      .subscribe();
-    this.router.navigate(['/managers', this.manager.id]);
-    this.onEdit();
+      .updateManagerById(this.profileForm.value, this.managerId)
+      .subscribe(() => this.onEdit());
   }
 
   private createForm(): void {

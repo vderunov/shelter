@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./helper-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class HelperDetailsComponent implements OnInit, OnDestroy {
   public helper: Helper;
   public helperId: string;
@@ -19,6 +20,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   public isEditDisabled: boolean;
   public visibleFields = false;
   private unsubscribe: Subject<void> = new Subject();
+
   constructor(
     private helpersService: HelpersService,
     private activatedRoute: ActivatedRoute,
@@ -54,12 +56,15 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    this.router.navigate(['users']);
+    this.helpersService
+    .deleteHelperById(this.helperId)
+    .subscribe(() => this.router.navigate(['users']));
   }
 
   public changeInfo() {
-    this.router.navigate(['/helper', this.helper.id]);
-    this.onEdit();
+    this.helpersService
+      .updateHelperById(this.profileForm.value, this.helperId)
+      .subscribe(() => this.onEdit());
   }
 
   private createForm(): void {

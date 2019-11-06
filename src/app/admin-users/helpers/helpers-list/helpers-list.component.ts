@@ -8,13 +8,16 @@ import { HelpersService } from '../services/helper.service';
   templateUrl: './helpers-list.component.html',
   styleUrls: ['./helpers-list.component.scss']
 })
+
 export class HelpersListComponent implements OnInit {
   public helpers$: Observable<Helper[]>;
+
   constructor(private helperService: HelpersService) { }
 
   ngOnInit(): void {
     this.helpers$ = this.helperService.getAllHelpers();
   }
+
   public trackByHelpers(index: number, user: Helper): string {
     return user.id;
   }

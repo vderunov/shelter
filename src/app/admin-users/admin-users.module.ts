@@ -25,6 +25,7 @@ const adminRoutes: Routes = [
   { path: 'helper/:id', component: HelperDetailsComponent },
   { path: 'manager/:id', component: ManagerDetailsComponent },
 ];
+
 @NgModule({
   declarations: [
     AdminUsersComponent,
@@ -55,4 +56,5 @@ const adminRoutes: Routes = [
     MatTabsModule,
   ]
 })
+
 export class AdminUsersModule { }

@@ -5,13 +5,12 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <p><img mat-card-image class="avatar" src="{{ manager.photoPath }}" alt="Photo of a Shiba Inu"></p>
+            <p><img mat-card-image class="avatar" [src]="manager.photoPath" [alt]="manager.name"></p>
             <p>Birthday: {{ manager.birthday | date:'dd/MM/yyyy' }}</p>
             <p>Rating: {{ manager.rating }}</p>
         </mat-card-content>
         <mat-card-actions class="button">
-            <button mat-raised-button color="primary" 
-                (click)="selecManager(manager)">
+            <button mat-raised-button color="primary" [routerLink]="['/manager/', manager.id]">
                 More</button>
         </mat-card-actions>
     </mat-card>
