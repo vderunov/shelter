@@ -22,10 +22,10 @@ export class SheltersService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         zip(
-          this.http.get<Shelter[]>(config.sheltersApi, { params }).pipe(take(1), catchError(error => of([]))),
-          this.http.get(config.childrenApi).pipe(take(1), catchError(error => of([]))),
-          this.http.get(config.representativesApi).pipe(take(1), catchError(error => of([]))),
-          this.http.get<AddressShelter[]>(config.addressApi).pipe(take(1), catchError(error => of([]))),
+          this.http.get<Shelter[]>(config.sheltersApi, { params }),
+          this.http.get(config.childrenApi),
+          this.http.get(config.representativesApi),
+          this.http.get<AddressShelter[]>(config.addressApi),
           )
         ),
         map(([shelters, children, representatives, address]: [Shelter[], Children[], Representative[], AddressShelter[]]) => {
@@ -67,22 +67,15 @@ export class SheltersService {
   }
 
   private getShelter(api, id): Observable<Shelter> {
-    return this.http.get<Shelter>(`${api}/${id}`).pipe(
-      take(1));
+    return this.http.get<Shelter>(`${api}/${id}`);
   }
 
   private getAddress(api, params): Observable<AddressShelter> {
-    return params ?
-      this.http.get(`${api}/${params}`).pipe(
-        take(1)) :
-      of(null);
+    return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 
   private getLocation(api, params): Observable<Location> {
-    return params ?
-      this.http.get(`${api}/${params}`).pipe(
-        take(1)) :
-      of(null);
+    return params ? this.http.get(`${api}/${params}`) : of(null);
   }
 
   public putShelterDetails(changeData): Observable<[Shelter, AddressShelter]> {
@@ -92,7 +85,7 @@ export class SheltersService {
           // will change value null to changeData.address to location when its work is stable
           this.putLocation(config.locationApi, null, changeData.shelter.locationID) :
           this.postLocation(config.locationApi, null);
-        return location$.pipe(
+        return location$.pipe(take(1),
           concatMap((location: Location ): Observable<[Shelter, AddressShelter]> => {
             if (location) {
               changeData.shelter.locationID = location.id;
@@ -110,42 +103,26 @@ export class SheltersService {
   }
 
   private putShelter(api, shelter, shelterId): Observable<Shelter> {
-    return shelter ?
-      this.http.put<Shelter>(`${api}/${shelterId}`, this.createNewFormData(shelter)).pipe(
-        take(1)) :
-      of(null);
+    return shelter ? this.http.put<Shelter>(`${api}/${shelterId}`, this.createFormData(shelter)) : of(null);
   }
 
   private postLocation(api, address): Observable<Location> {
-    return address ?
-      this.http.post<Location>(api, this.createNewFormData(address)).pipe(
-        take(1)) :
-      of(null);
+    return address ? this.http.post<Location>(api, this.createFormData(address)) : of(null);
   }
 
   private putLocation(api, address, locationID): Observable<Location> {
-    return address ?
-      this.http.put<Location>(`${api}/${locationID}`, this.createNewFormData(address)).pipe(
-        take(1),
-        catchError(error => of([]))) :
-      of(null);
+    return address ? this.http.put<Location>(`${api}/${locationID}`, this.createFormData(address)) : of(null);
   }
 
   private postAddress(api, address): Observable<AddressShelter> {
-    return address ?
-      this.http.post<AddressShelter>(api, this.createNewFormData(address)).pipe(
-        take(1)) :
-      of(null);
+    return address ? this.http.post<AddressShelter>(api, this.createFormData(address)) : of(null);
   }
 
   private putAddress(api, address, addressID): Observable<AddressShelter> {
-    return address ?
-      this.http.put<AddressShelter>(`${api}/${addressID}`, this.createNewFormData(address)).pipe(
-        take(1)) :
-      of(null);
+    return address ? this.http.put<AddressShelter>(`${api}/${addressID}`, this.createFormData(address)) : of(null);
   }
 
-  private createNewFormData(params) {
+  private createFormData(params) {
     const formData = new FormData();
     Object.entries(params).forEach(([key, value]: [string, Blob]) => formData.append(key, value));
     return formData;

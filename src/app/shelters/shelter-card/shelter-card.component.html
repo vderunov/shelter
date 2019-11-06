@@ -4,7 +4,7 @@
   <mat-card-content *ngIf="shelter.children">Children: {{shelter.children}}</mat-card-content>
   <mat-card-content>Rating: {{shelter.rating}}</mat-card-content>
   <div class="representative">
-    <img class="representative__photo" *ngIf="shelter.representative" [src]="shelter.representative.photoPath"
+    <img class="representative-photo" *ngIf="shelter.representative" [src]="shelter.representative.photoPath"
       alt="Photo Shelter">
     <mat-card-content *ngIf="shelter.representative">
       Representative:
