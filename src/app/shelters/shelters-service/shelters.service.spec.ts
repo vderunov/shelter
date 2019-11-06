@@ -1,11 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
 import { SheltersService } from './shelters.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { Shelter } from '../models/shelter.interface';
-import { async } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-
+import { of } from 'rxjs';
 
 describe('SheltersService', () => {
   let service: SheltersService;
@@ -18,49 +13,26 @@ describe('SheltersService', () => {
     service = new SheltersService(<any> httpClientSpy, <any> configServiceSpy);
    });
 
-  it('should be created', () => {
+  it('service should be created', () => {
     expect(service).toBeTruthy();
-  })
-
-  xit('should get filtered shelter list', (done: DoneFn) => {
-    const expectedHeroes: Hero[] =
-    [{ id: 1, name: 'A' }, { id: 2, name: 'B' }];
-
-    httpClientSpy.get.and.returnValue(asyncData(expectedHeroes));
-    
-
   });
 
-  xit('should get filtered shelter list', inject([SheltersService], (service: SheltersService) => {
-    service.getShelters().subscribe((shelters: Array<Shelter>) => {
-      expect(shelters).toBeTruthy();
-    });
-  }));
+  it('should get allShelters', (done: DoneFn) => {
+    const configUrl = {
+      "sheltersApi": "https://familynetserver.azurewebsites.net/api/v1/childrenHouse"
+    }
+    const mockShelters = [
+      {"id":53,"name":"Ромашка","adressID":114,"rating":11.0,"avatar":null,"locationID":null,"photoPath":"https://familynetserver.azurewebsites.net/3nf3pby0.jpg"},
+      {"id":54,"name":"Ромашка","adressID":114,"rating":11.0,"avatar":null,"locationID":null,"photoPath":"https://familynetserver.azurewebsites.net/3nf3pby0.jpg"}
+    ];
 
-  xit('should get filtered shelter list', inject([SheltersService], (service: SheltersService) => {
-    const searchValue = "";
+    configServiceSpy.getConfig.and.returnValue(of(configUrl));
+    httpClientSpy.get.and.returnValue(of(mockShelters));
 
-    service.getShelters().subscribe((shelters: Array<Shelter>) => {
-      expect(shelters.every((shelterObj: Shelter) => {
-        return shelterObj.name.indexOf(searchValue) > -1;
-      })).toBeTruthy();
-    });
-
-  }));
-
-  xit('should get shelter by ID', inject([SheltersService, HttpTestingController], (service: SheltersService, httpMock: HttpTestingController) => {
-    const mockShelters = {
-      id: 55,
-      name: 'Артек',
-      avatar: '1',
-      rating: 5
-    };
-    
-    service.getShelter('https://familynetserver.azurewebsites.net/api/v1/childrenHouse', '55').subscribe((shelter: Shelter) => {
-      expect(shelter.id).toEqual(mockShelters.id);
+    service.getShelters().subscribe((shelters: Shelter[]) => {
+      expect(shelters).toEqual(mockShelters);
+      done();
     });
 
-    const req = httpMock.expectOne('https://familynetserver.azurewebsites.net/api/v1/childrenHouse/55');
-    req.flush(mockShelters);
-  }));
+  });
 });

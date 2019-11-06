@@ -11,7 +11,7 @@ import { Config } from 'src/app/shared/services/config/config.interface';
   providedIn: 'root'
 })
 export class SheltersService {
-  constructor(private http: HttpClient, private configService: ConfigService) {}
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
     const params = new HttpParams();
