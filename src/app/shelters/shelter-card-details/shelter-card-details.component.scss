@@ -24,3 +24,11 @@ td {
 .mat-card-actions {
   text-align: center;
 }
+
+.coords {
+  display: flex;
+
+  mat-card-subtitle {
+    padding: 0 15px;
+  }
+}

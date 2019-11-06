@@ -1,11 +1,35 @@
-<a class="shelter" 
-  [routerLink]="[shelter.id]"
-  (click)="selectCard(shelter)">
-  <mat-card
-    [class.selected]="shelter.id === selectedId">
-    <!-- <img mat-card-image src="{{shelter.photoPath}}" alt="Photo Shelter"> -->
-    <mat-card-title>{{shelter.name}}</mat-card-title>
-    <mat-card-subtitle>id: {{shelter.id}}</mat-card-subtitle>
-    <mat-card-content>Rating: {{shelter.rating}}</mat-card-content>
-  </mat-card>
-</a>
+<mat-card>
+  <mat-card-title>{{shelter.name}}</mat-card-title>
+  <mat-card-subtitle>id: {{shelter.id}}</mat-card-subtitle>
+  <mat-card-content *ngIf="shelter.children">Children: {{shelter.children}}</mat-card-content>
+  <mat-card-content>Rating: {{shelter.rating}}</mat-card-content>
+  <div class="representative">
+    <img class="representative-photo" *ngIf="shelter.representative" [src]="shelter.representative.photoPath"
+      alt="Photo Shelter">
+    <mat-card-content *ngIf="shelter.representative">
+      Representative:
+      <mat-card-subtitle>
+        {{ shelter.representative.surname }}
+        {{ shelter.representative.name }}
+      </mat-card-subtitle>
+      <mat-card-subtitle>Rating: {{shelter.representative.rating}}</mat-card-subtitle>
+    </mat-card-content>
+  </div>
+  <mat-card-content *ngIf="shelter.address">Address:
+    {{shelter.address.street}}
+    {{shelter.address.house}},
+    {{shelter.address.city}},
+    {{shelter.address.region}},
+    {{shelter.address.country}}
+  </mat-card-content>
+  <mat-card-actions>
+    <button 
+      class="shelter-button"
+      (click)="selectCard(shelter)" 
+      mat-raised-button
+      color="primary"
+      [routerLink]="[shelter.id]" 
+      [class.selected]="shelter.id === selectedId">Open Details
+    </button>
+  </mat-card-actions>
+</mat-card>
