@@ -32,7 +32,7 @@ describe('SheltersService', () => {
   });
 
   describe('Method getShelters', () => {
-    let mockAnswerForApi: object;
+    let mockAnswerForApi: any;
     let mockShelters: Shelter[];
     beforeEach(() => {
       mockAnswerForApi = {
@@ -66,7 +66,6 @@ describe('SheltersService', () => {
           address: { id: 115, country: 'Украина', region: 'Днепропетровская', city: 'Днепр', street: 'Гагарина', house: '122' }
         }];
 
-      configServiceSpy.getConfig.and.returnValue(of(configUrl));
       httpClientSpy.get.and.callFake(api => of(mockAnswerForApi[api]));
     });
 
