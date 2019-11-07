@@ -21,7 +21,11 @@ export class AuthStateService {
 
   public setToken(tokenObj: any) {
     this.token$.next(tokenObj);
-
+    if (tokenObj) {
+      this.cookieService.set('token', tokenObj, Date.now() + 7);
+    } else {
+      this.cookieService.delete('token');
+    }
   }
 
   public cleanAuthenticatedState() {

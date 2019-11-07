@@ -29,7 +29,6 @@ export class AuthenticationService {
       map(tokenObj => {
         if (tokenObj.token) {
           this.authStateService.setToken(tokenObj.token);
-          this.cookieService.set('token', tokenObj.token, Date.now() + 7);
         }
       }),
       catchError(this.handleError)
