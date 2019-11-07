@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HelpersComponent } from './helpers.component';
+import { HelperItemComponent } from './helper-item.component';
 
-xdescribe('HelpersComponent', () => {
-  let component: HelpersComponent;
-  let fixture: ComponentFixture<HelpersComponent>;
+xdescribe('HelperItemComponent', () => {
+  let component: HelperItemComponent;
+  let fixture: ComponentFixture<HelperItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HelpersComponent ]
+      declarations: [ HelperItemComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HelpersComponent);
+    fixture = TestBed.createComponent(HelperItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
