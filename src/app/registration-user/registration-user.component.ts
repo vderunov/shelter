@@ -52,7 +52,7 @@ export class RegistrationUserComponent implements OnInit {
     }
 
     this.authenticationService.addUser(this.registerForm.value);
-    this.notify.setNotice('Hey there', 'error'); // remove me!
+    this.notify.setNotice('Please login', 'success'); // remove me!
     this.router.navigate(['/login']);
   }
 }

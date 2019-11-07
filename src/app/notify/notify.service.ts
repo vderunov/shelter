@@ -13,8 +13,8 @@ export class NotifyService {
 
   public setNotice(message: string, type: string) {
     const notice = {
-      message: message,
-      type: type
+      message,
+      type
     };
 
     this.onNoticeChanged$.next(notice);
