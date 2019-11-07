@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatButtonModule, MatIconModule } from '@angular/material';
 import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
@@ -12,7 +12,7 @@ describe('SearchComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SearchComponent],
-      imports: [ReactiveFormsModule, MatInputModule, BrowserAnimationsModule]
+      imports: [ReactiveFormsModule, MatInputModule, BrowserAnimationsModule, MatButtonModule, MatIconModule]
     }).compileComponents();
   }));
 
@@ -20,7 +20,7 @@ describe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    spyOn(component.onSearch, 'emit');
+    spyOn(component.searchInit, 'emit');
   });
 
   it('should create search component', () => {
@@ -29,6 +29,6 @@ describe('SearchComponent', () => {
 
   it('should emit on call of function Search with same argument', () => {
     component.search('search value');
-    expect(component.onSearch.emit).toHaveBeenCalledWith('search value');
+    expect(component.searchInit.emit).toHaveBeenCalledWith('search value');
   });
 });

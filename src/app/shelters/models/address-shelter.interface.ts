@@ -4,5 +4,5 @@ export interface AddressShelter {
   region: string;
   city: string;
   street: string;
-  house: number;
+  house: string;
 }
