@@ -1,11 +1,18 @@
 @import "src/app/shared/style/variables.scss";
 
-.shelter {
-  text-decoration: none;
+mat-card {
+  position: relative;
+  padding-bottom: 35px;
 }
 
-.mat-card {
-  cursor: pointer;
+mat-card-actions {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.shelter-button {
+  text-decoration: none;
 }
 
 .shelter .selected {
@@ -13,12 +20,24 @@
   color: white;
 }
 
-.shelter .selected:hover,
-.mat-card:hover {
+.shelter .selected:hover {
   background-color: $selected-hover-background-color;
 }
 
-.mat-card-image {
-  max-height: 250px;
-  object-fit: contain;
+.representative {
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.representative-photo {
+  height: 50px;
+  max-width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 15px 15px;
+}
+
+mat-card {
+  min-height: 280px;
 }

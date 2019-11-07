@@ -16,6 +16,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   public shelter: Shelter;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
+  public isMessage = false;
 
   constructor(
     private sheltersService: SheltersService,
@@ -26,18 +27,39 @@ export class ShelterCardDetailsComponent implements OnInit {
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
-    this.shelterId = this.activatedRoute.snapshot.params['id'];
-    this.sheltersService
-      .getDetails(this.shelterId)
-      .pipe(take(1))
-      .subscribe(shelter => {
-        this.shelter = shelter;
-        this.patchFormValues(shelter);
-      });
+    this.shelterId = this.activatedRoute.snapshot.params.id;
+    this.getDetails();
+  }
+
+  private getDetails() {
+    this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
+      this.shelter = shelter;
+      this.patchFormValues(shelter);
+    });
   }
 
   public onSubmit(): void {
     this.toggleForm();
+    const shelterChange = {
+      name: this.profileForm.get('name').value,
+      rating: this.shelter.rating,
+      adressID: this.shelter.adressID,
+      avatar: this.profileForm.get('avatar').value,
+      locationID: this.shelter.locationID
+    };
+    let addressChange = { ...this.profileForm.get('address').value };
+    const isChangeAddress = Object.entries(addressChange).every(([key, value]) => this.shelter.address[key] === value);
+    if (isChangeAddress) {
+      addressChange = null;
+    }
+    this.sheltersService.putShelterDetails({
+      id: this.shelter.id,
+      shelter: shelterChange,
+      addressID: this.shelter.adressID,
+      address: addressChange,
+    }).subscribe(_ => {
+      // notify user that info was saved throw notify service
+    });
   }
 
   public onEdit(): void {
@@ -46,6 +68,7 @@ export class ShelterCardDetailsComponent implements OnInit {
 
   public onReset(): void {
     this.patchFormValues(this.shelter);
+    this.onEdit();
   }
 
   private createForm(): void {
@@ -53,7 +76,6 @@ export class ShelterCardDetailsComponent implements OnInit {
       name: [null, Validators.required],
       avatar: [],
       photoPath: [],
-      rating: [],
       address: this.fb.group({
         country: [],
         region: [],
@@ -64,23 +86,17 @@ export class ShelterCardDetailsComponent implements OnInit {
     });
   }
 
-  private patchFormValues(shelter: Shelter): void {
+  private patchFormValues(shelter): void {
     this.profileForm.patchValue({
       name: shelter.name,
-      address: {
-        country: shelter.country,
-        region: shelter.region,
-        city: shelter.city,
-        street: shelter.street,
-        house: shelter.house
-      }
+      avatar: shelter.avatar,
+      photoPath: shelter.photoPath,
+      address: shelter.address
     });
   }
 
-  private toggleForm() {
-    this.profileForm.enabled
-      ? this.profileForm.disable()
-      : this.profileForm.enable();
+  private toggleForm(): void {
+    this.profileForm.enabled ? this.profileForm.disable() : this.profileForm.enable();
     this.isEdiDisabled = this.profileForm.disabled;
   }
 }
