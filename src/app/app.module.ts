@@ -13,6 +13,7 @@ import { DonationModule } from './donation/donation.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
 import { CookieService } from 'ngx-cookie-service';
+import { NavbarModule } from './navbar/navbar.module';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -21,7 +22,7 @@ const interceptorProvider: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,7 +32,8 @@ const interceptorProvider: Provider = {
     LoginModule,
     RegistrationUserModule,
     DonationModule,
-    AdminUsersModule
+    AdminUsersModule,
+    NavbarModule,
   ],
   providers: [
     interceptorProvider,
