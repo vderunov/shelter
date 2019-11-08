@@ -5,7 +5,7 @@ import { NotifierService } from './notifier.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-notify',
+  selector: 'app-notifier',
   template: '',
   styleUrls: ['./notifier.component.scss'],
 })
