@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
+import { FormFields } from '../shared/validators/form-field-validator.interface';
 
 @Component({
   selector: 'app-registration-user',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class RegistrationUserComponent implements OnInit {
   public registerForm: FormGroup;
-  public maxInputLength: object;
+  public maxInputLength: FormFields;
 
   constructor(
     private formBuilder: FormBuilder,
