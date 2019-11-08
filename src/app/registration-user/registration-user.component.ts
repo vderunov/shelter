@@ -1,10 +1,10 @@
-import { NotifierService } from '../notifier/notifier.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
 import { FormFields } from '../shared/validators/form-field-validator.interface';
+import { NotifierService } from '../shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-registration-user',

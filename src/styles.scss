@@ -13,3 +13,22 @@ body {
 .error {
   color: $colorRedForError;
 }
+
+.notify-error {
+  background-color: $del-btn-bgc;
+  color: $text-btn;
+  height: max-content;
+}
+
+.notify-warning {
+  background-color: $reset-btn-bgc;
+  color: $text-btn;
+  height: max-content;
+}
+
+.notify-success {
+  background-color: $save-btn-bgc;
+  color: $text-btn;
+  max-width: 200px;
+  height: max-content;
+}

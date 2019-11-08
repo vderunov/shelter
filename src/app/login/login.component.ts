@@ -6,7 +6,7 @@ import { Login } from './login.interface';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NotifierService } from '../notifier/notifier.service';
+import { NotifierService } from '../shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-login',
@@ -25,10 +25,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private notifier: NotifierService
   ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params: Params) => {
       if (params.auth) {
-        this.notifier.showNotice('Please login', 'error');
+        this.notifier.showNotice('Please login', 'warning');
       }
     });
 
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.router.navigate(['/registraction-user']);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
