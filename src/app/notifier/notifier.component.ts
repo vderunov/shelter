@@ -1,27 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
-import { NotifyService } from './notify.service';
+import { NotifierService } from './notifier.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notify',
   template: '',
-  styleUrls: ['./notify.component.scss'],
+  styleUrls: ['./notifier.component.scss'],
 })
-export class NotifyComponent implements OnInit, OnDestroy {
+export class NotifierComponent implements OnInit, OnDestroy {
   private config = new MatSnackBarConfig();
   private destroy$: Subject<void> = new Subject();
 
   constructor(
     private snackBar: MatSnackBar,
-    public notifyService: NotifyService
+    public notifier: NotifierService
   ) { }
 
   public ngOnInit(): void {
     this.setConfig();
 
-    this.notifyService.onNoticeChanged$
+    this.notifier.onNoticeChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(notice => {
         if (notice) {

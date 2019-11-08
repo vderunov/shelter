@@ -6,7 +6,7 @@ import { Login } from './login.interface';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NotifyService } from '../notify/notify.service';
+import { NotifierService } from '../notifier/notifier.service';
 
 @Component({
   selector: 'app-login',
@@ -22,13 +22,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
-    private notify: NotifyService
+    private notifier: NotifierService
   ) { }
 
   ngOnInit() {
     this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params: Params) => {
       if (params.auth) {
-        this.notify.showNotice('Please login', 'error');
+        this.notifier.showNotice('Please login', 'error');
       }
     });
 

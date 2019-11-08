@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class NotifyService {
+export class NotifierService {
   onNoticeChanged$ = new BehaviorSubject<any>(null);
 
   public showNotice(message: string, type: string): void {
