@@ -15,7 +15,7 @@ export class QuestsListComponent implements OnInit {
   constructor(private questService: QuestService) { }
 
   public ngOnInit() {
-    this.quests$ = this.questService.getNeeds();
+    this.quests$ = this.questService.getQuests();
   }
 
   public trackById(index: number, quest: Quest): number {
@@ -23,6 +23,6 @@ export class QuestsListComponent implements OnInit {
   }
 
   public onSearch(searchValue: string): void {
-    this.quests$ = this.questService.getNeeds({ itemName: searchValue });
+    this.quests$ = this.questService.getQuests({ forSearch: searchValue });
   }
 }
