@@ -31,9 +31,9 @@ export class ManagersService {
     }
 
     public updateManagerById(formValue: object, id: string): Observable<Manager> {
-        return this.configService.getConfig().pipe(
+            return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
-                this.http.put<Manager>(`${config.managersApi}${id}`, formValue)
+                this.http.put<Manager>(`${config.managersApi}${id}`, formValue )
             )
         );
     }
