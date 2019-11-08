@@ -27,8 +27,13 @@ export class AuthenticationService {
       concatMap(config => this.http.post<any>(config.loginApi, loginData)),
       take(1),
       map(tokenObj => {
-        if (tokenObj.token) {
-          this.authStateService.setToken(tokenObj.token);
+        if (
+          Object.prototype.hasOwnProperty.call(tokenObj, 'token')
+          && Object.prototype.hasOwnProperty.call(tokenObj, 'roles')
+          && Object.prototype.hasOwnProperty.call(tokenObj, 'email')
+          && Object.prototype.hasOwnProperty.call(tokenObj, 'personId')
+        ) {
+          this.authStateService.setToken(tokenObj);
         }
       }),
       catchError(this.handleError)

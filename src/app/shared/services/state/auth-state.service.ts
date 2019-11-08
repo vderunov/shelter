@@ -15,6 +15,17 @@ export class AuthStateService {
 
   private token$ = new BehaviorSubject<string>(this.cookieService.get('token') || null);
 
+  public isLogged(): boolean {
+    if (this.token$) {
+      return true;
+    }
+    return false;
+  }
+
+  public getUserProperty(str: string): string | string[] {
+    return this.userData[str];
+  }
+
   public getState(): Observable<any> {
     return this.token$;
   }
@@ -24,16 +35,14 @@ export class AuthStateService {
   }
 
   public setToken(tokenObj: any) {
-    this.token$.next(tokenObj);
+    this.token$.next(tokenObj.token);
     if (tokenObj) {
+      console.log(tokenObj);
       this.cookieService.set('token', tokenObj, Date.now() + 7);
-      const tokenPayload = JSON.parse(this.base64decode(this.getPayload(tokenObj)));
-      console.log(JSON.parse(this.base64decode(this.getPayload(tokenObj))));
-      this.userData.email = tokenPayload.email;
-      this.userData.personId = tokenPayload.personId;
-      this.userData.roles = tokenPayload.roles;
-      this.userData.id = tokenPayload.id;
-      console.log(this.userData);
+      this.userData.email = tokenObj.email;
+      this.userData.personId = tokenObj.personId;
+      this.userData.roles = tokenObj.roles;
+      this.userData.id = tokenObj.id;
     } else {
       this.cookieService.delete('token');
     }
@@ -43,11 +52,4 @@ export class AuthStateService {
     this.setToken(null);
   }
 
-  public base64decode(str: string): string {
-    return atob(str);
-  }
-
-  public getPayload(str: string): string {
-    return str.match(/.*?\.(.*?)\..*/)[1];
-  }
 }
