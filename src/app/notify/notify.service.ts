@@ -5,13 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class NotifyService {
-  onNoticeChanged$: BehaviorSubject<any>;
+  onNoticeChanged$ = new BehaviorSubject<any>(null);
 
-  constructor() {
-    this.onNoticeChanged$ = new BehaviorSubject(null);
-  }
-
-  public setNotice(message: string, type: string) {
+  public showNotice(message: string, type: string): void {
     const notice = {
       message,
       type

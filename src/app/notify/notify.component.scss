@@ -2,10 +2,14 @@
   background: #fff;
   border: 1px solid red;
   color: red;
+  max-width: 200px;
+  height: max-content;
 }
 
 ::ng-deep .notify-success {
   background: #fff;
   border: 1px solid green;
   color: green;
+  max-width: 200px;
+  height: max-content;
 }

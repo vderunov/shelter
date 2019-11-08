@@ -1,6 +1,6 @@
 import { NotifyService } from './../notify/notify.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class RegistrationUserComponent implements OnInit {
     private notify: NotifyService
   ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
       {
         name: [null, FormFiledsValidator.checkName],
@@ -52,7 +52,8 @@ export class RegistrationUserComponent implements OnInit {
     }
 
     this.authenticationService.addUser(this.registerForm.value);
-    this.notify.setNotice('Please login', 'success'); // remove me!
+    // TODO: if registration is successful:
+    this.notify.showNotice('Done. Now please log in', 'success');
     this.router.navigate(['/login']);
   }
 }

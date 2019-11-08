@@ -2,15 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotifyComponent } from './notify.component';
 
-describe('NotifyComponent', () => {
+xdescribe('NotifyComponent', () => {
   let component: NotifyComponent;
   let fixture: ComponentFixture<NotifyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotifyComponent ]
+      declarations: [NotifyComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
