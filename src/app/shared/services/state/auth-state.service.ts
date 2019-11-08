@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { take, map } from 'rxjs/operators';
+import { UserData } from './user-data.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStateService {
-  constructor(private cookieService: CookieService) { }
+
+  constructor(
+    private cookieService: CookieService,
+    private userData: UserData,
+    ) { }
 
   private token$ = new BehaviorSubject<string>(this.cookieService.get('token') || null);
 
@@ -23,6 +27,13 @@ export class AuthStateService {
     this.token$.next(tokenObj);
     if (tokenObj) {
       this.cookieService.set('token', tokenObj, Date.now() + 7);
+      const tokenPayload = JSON.parse(this.base64decode(this.getPayload(tokenObj)));
+      console.log(JSON.parse(this.base64decode(this.getPayload(tokenObj))));
+      this.userData.email = tokenPayload.email;
+      this.userData.personId = tokenPayload.personId;
+      this.userData.roles = tokenPayload.roles;
+      this.userData.id = tokenPayload.id;
+      console.log(this.userData);
     } else {
       this.cookieService.delete('token');
     }
@@ -31,15 +42,6 @@ export class AuthStateService {
   public cleanAuthenticatedState() {
     this.setToken(null);
   }
-
-  // private getUserInfo(): object {
-  //   return this.getState().pipe(
-  //     take(1),
-  //     map(tok => {
-  //       return this.base64decode(this.getPayload(tok));
-  //     })
-  //   ).subscribe();
-  // }
 
   public base64decode(str: string): string {
     return atob(str);
