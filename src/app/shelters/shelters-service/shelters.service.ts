@@ -19,7 +19,6 @@ export class SheltersService {
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
     let params = new HttpParams();
     Object.keys(paramObj).forEach((key: string) => params = params.set(key, paramObj[key]));
-    
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         zip(
