@@ -23,7 +23,7 @@ export class HelpersService {
   public getHelperById(id: string): Observable<Helper> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.get<Helper>(`${config.helpersApi}${id}`)
+        this.http.get<Helper>(`${config.helpersApi}/${id}`)
       )
     );
   }
@@ -32,7 +32,7 @@ export class HelpersService {
   public updateHelperById(formValue: object, id: string): Observable<Helper> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.put<Helper>(`${config.helpersApi}${id}`, formValue)
+        this.http.put<Helper>(`${config.helpersApi}/${id}`, [formValue])
       )
     );
   }
@@ -40,7 +40,7 @@ export class HelpersService {
   public deleteHelperById(id: string) {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.delete(`${config.helpersApi}${id}`)
+        this.http.delete(`${config.helpersApi}/${id}`)
       )
     );
   }

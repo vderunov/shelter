@@ -25,15 +25,16 @@ export class ManagersService {
     public getManagerById(id: string): Observable<Manager> {
         return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
-                this.http.get<Manager>(`${config.managersApi}${id}`)
+                this.http.get<Manager>(`${config.managersApi}/${id}`)
             )
         );
     }
 
     public updateManagerById(formValue: object, id: string): Observable<Manager> {
-            return this.configService.getConfig().pipe(
+        console.log(JSON.stringify(formValue));
+        return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
-                this.http.put<Manager>(`${config.managersApi}${id}`, formValue )
+                this.http.put<Manager>(`${config.managersApi}/${id}`, [formValue])
             )
         );
     }
@@ -41,7 +42,7 @@ export class ManagersService {
     public deleteManagerById(id: string) {
         return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
-                this.http.delete(`${config.managersApi}${id}`)
+                this.http.delete(`${config.managersApi}/${id}`)
             )
         );
     }
