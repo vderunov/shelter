@@ -1,3 +1,5 @@
+$colorGrey: #757575;
+
 .form-wrap {
   display: flex;
   flex-direction: column;
@@ -12,9 +14,9 @@
     text-align: center;
   }
 
-  #avatar, label {
+  label {
     outline: none;
     cursor: pointer;
-    color: #757575;
+    color: $colorGrey;
   }
 }
