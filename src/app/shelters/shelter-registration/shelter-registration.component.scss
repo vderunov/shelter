@@ -11,4 +11,10 @@
   .div-buttons {
     text-align: center;
   }
+
+  #avatar, label {
+    outline: none;
+    cursor: pointer;
+    color: #757575;
+  }
 }

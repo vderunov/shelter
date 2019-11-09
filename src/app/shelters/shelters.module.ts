@@ -16,7 +16,7 @@ import { MatFileUploadModule } from 'mat-file-upload';
 import {GuardService} from '../shared/guard.service';
 
 const sheltersRoutes: Routes = [
-  { path: 'shelter-registration', component: ShelterRegistrationComponent, canActivate: [GuardService] },
+  { path: 'shelter-registration', component: ShelterRegistrationComponent },
   { path: 'shelters', component: ShelterListComponent },
   { path: 'shelters/:id', component: ShelterCardDetailsComponent }
 ];
