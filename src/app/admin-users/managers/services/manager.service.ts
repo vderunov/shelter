@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Manager } from '../models/manager.interface';
+import { Manager } from '../models/manager.model';
 import { Observable } from 'rxjs';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { ConfigService } from 'src/app/shared/services/config/config.service';

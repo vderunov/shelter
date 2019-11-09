@@ -1,5 +1,5 @@
 import { ManagersService } from './manager.service';
-import { Manager } from '../models/manager.interface';
+import { Manager } from '../models/manager.model';
 import { of } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 

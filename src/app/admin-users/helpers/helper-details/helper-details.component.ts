@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HelpersService } from '../services/helper.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { Helper } from '../models/helper.interface';
+import { Helper } from '../models/helper.model';
 import { Subject } from 'rxjs';
 
 @Component({

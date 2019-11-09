@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { Manager } from '../models/manager.interface';
+import { Manager } from '../models/manager.model';
 import { ManagersService } from '../services/manager.service';
 
 @Component({

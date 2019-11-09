@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Helper } from '../models/helper.interface';
+import { Helper } from '../models/helper.model';
 import { Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { ConfigService } from 'src/app/shared/services/config/config.service';

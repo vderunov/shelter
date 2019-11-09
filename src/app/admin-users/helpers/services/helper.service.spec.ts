@@ -1,5 +1,5 @@
 import { HelpersService } from './helper.service';
-import { Helper } from '../models/helper.interface';
+import { Helper } from '../models/helper.model';
 import { of } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 

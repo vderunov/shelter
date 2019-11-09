@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Manager } from '../models/manager.interface';
+import { Manager } from '../models/manager.model';
 import { ManagersService } from '../services/manager.service';
 
 @Component({

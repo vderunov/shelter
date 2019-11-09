@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Helper } from '../models/helper.interface';
+import { Helper } from '../models/helper.model';
 import { HelpersService } from '../services/helper.service';
 
 @Component({

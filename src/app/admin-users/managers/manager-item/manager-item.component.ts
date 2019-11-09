@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Manager } from '../models/manager.interface';
+import { Manager } from '../models/manager.model';
 
 @Component({
   selector: 'app-manager-item',
