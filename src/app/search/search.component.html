@@ -1,5 +1,8 @@
 <div class="searchContainer">
-  <form [formGroup]="searchForm" (ngSubmit)="search(searchInput.value)">
+  <form 
+    class=".searchForm"
+    [formGroup]="searchForm" 
+    (ngSubmit)="search(searchInput.value)">
     <mat-form-field class="search-field">
       <input 
         matInput

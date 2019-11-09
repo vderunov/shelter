@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Helper } from '../models/helper.model';
+import { Helper } from '../models/helper.interface';
 
 @Component({
   selector: 'app-helper-item',

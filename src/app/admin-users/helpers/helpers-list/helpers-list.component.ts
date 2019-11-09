@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Helper } from '../models/helper.model';
+import { Helper } from '../models/helper.interface';
 import { HelpersService } from '../services/helper.service';
 
 @Component({
@@ -18,8 +18,11 @@ export class HelpersListComponent implements OnInit {
     this.helpers$ = this.helperService.getAllHelpers();
   }
 
-  public trackByHelpers(index: number, user: Helper): string {
+  public trackByHelpers(index: number, user: Helper): number {
     return user.id;
   }
 
+  public onSearch(searchValue: string): void {
+    this.helpers$ = this.helperService.getAllHelpers({ name: searchValue });
+  }
 }
