@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Helper } from '../models/helper.model';
 import { Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
@@ -12,10 +12,12 @@ export class HelpersService {
 
   constructor(private http: HttpClient, private configService: ConfigService) { }
 
-  public getAllHelpers(): Observable<Helper[]> {
+  public getAllHelpers(paramObj: object = {}): Observable<Helper[]> {
+    let params = new HttpParams();
+    Object.keys(paramObj).forEach((key: string) => params = params.set(key, paramObj[key]));
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.get<Helper[]>(config.helpersApi)
+        this.http.get<Helper[]>(config.helpersApi, { params })
       )
     );
   }

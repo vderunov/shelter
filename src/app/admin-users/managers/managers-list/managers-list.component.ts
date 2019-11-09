@@ -18,7 +18,11 @@ export class ManagersListComponent implements OnInit {
     this.managers$ = this.managerService.getAllManagers();
   }
 
-  public trackByManagers(index: number, user: Manager): string {
+  public trackByManagers(index: number, user: Manager): number {
     return user.id;
+  }
+
+  public onSearch(searchValue: string): void {
+    this.managers$ = this.managerService.getAllManagers({ name: searchValue });
   }
 }

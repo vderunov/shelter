@@ -22,7 +22,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Phone Number*" type="text" formControlName="phone" phoneMask [maxlength]="maxInputLength.phone" />
+    <input matInput placeholder="Phone Number*" type="text" formControlName="phone" appPhoneMask [maxlength]="maxInputLength.phone" />
     <mat-hint align="end">
       Format: (050) 123-4567
     </mat-hint>
