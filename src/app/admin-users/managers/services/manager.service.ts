@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Manager } from '../models/manager.model';
 import { Observable } from 'rxjs';
 import { Config } from 'src/app/shared/services/config/config.interface';
@@ -14,10 +14,12 @@ export class ManagersService {
 
     constructor(private http: HttpClient, private configService: ConfigService) { }
 
-    public getAllManagers(): Observable<Manager[]> {
+    public getAllManagers(paramObj: object = {}): Observable<Manager[]> {
+        let params = new HttpParams();
+        Object.keys(paramObj).forEach((key: string) => params = params.set(key, paramObj[key]));
         return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
-                this.http.get<Manager[]>(config.managersApi)
+                this.http.get<Manager[]>(config.managersApi, { params })
             )
         );
     }
