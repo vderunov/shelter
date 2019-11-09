@@ -12,7 +12,7 @@ import { take } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShelterCardDetailsComponent implements OnInit {
-  private shelterId: string;
+  private shelterId: number;
   public shelter: Shelter;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
@@ -27,7 +27,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
-    this.shelterId = this.activatedRoute.snapshot.params.id;
+    this.shelterId = Number(this.activatedRoute.snapshot.params.id);
     this.getDetails();
   }
 
