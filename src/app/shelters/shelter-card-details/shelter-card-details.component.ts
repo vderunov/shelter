@@ -14,6 +14,7 @@ import { NotifierService } from 'src/app/shared/services/notifier/notifier.servi
 export class ShelterCardDetailsComponent implements OnInit {
   private shelterId: string;
   public shelter: Shelter;
+  private changedPhoto: string | ArrayBuffer;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
   public isMessage = false;
@@ -46,7 +47,7 @@ export class ShelterCardDetailsComponent implements OnInit {
       name: this.profileForm.get('name').value,
       rating: this.shelter.rating,
       adressID: this.shelter.adressID,
-      avatar: this.profileForm.get('avatar').value,
+      avatar: this.shelter.avatar,
       locationID: this.shelter.locationID
     };
     let addressChange = { ...this.profileForm.get('address').value };
@@ -56,9 +57,9 @@ export class ShelterCardDetailsComponent implements OnInit {
     }
     this.sheltersService.putShelterDetails({
       id: this.shelter.id,
-      shelter: shelterChange,
       addressID: this.shelter.adressID,
       address: addressChange,
+      shelter: shelterChange,
     }).subscribe(_ => {
       this.notifierService.showNotice('Changes have been saved!', 'success');
     });
@@ -107,5 +108,23 @@ export class ShelterCardDetailsComponent implements OnInit {
   private toggleForm(): void {
     this.profileForm.enabled ? this.profileForm.disable() : this.profileForm.enable();
     this.isEdiDisabled = this.profileForm.disabled;
+  }
+
+  private onSelectedFilesChanged(event) {
+    const fileReader = new FileReader();
+    if (event && event.length) {
+      fileReader.readAsDataURL(event && event.length && event[0]);
+      fileReader.onload = (ev: Event) => {
+        this.shelter.avatar = event[0];
+        this.changedPhoto = fileReader.result;
+      };
+    } else {
+      this.shelter.avatar = null;
+      this.changedPhoto = null;
+    }
+  }
+
+  private onUploadClicked(event) {
+    this.toggleForm();
   }
 }
