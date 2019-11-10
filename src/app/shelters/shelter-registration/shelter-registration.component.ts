@@ -47,9 +47,6 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
         () => {
           this.form.reset();
           this.gotoMainPage();
-        },
-        error => {
-          this.error = error.message;
         }
       );
   }
