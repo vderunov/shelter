@@ -30,9 +30,9 @@
             </mat-card-subtitle>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button (click)="onEdit()" [disabled]="!isEdiDisabled">Edit</button>
-            <button mat-button (click)="onSubmit()" [disabled]="isEdiDisabled || profileForm.invalid">Save</button>
-            <button mat-button (click)="onReset()" [disabled]="isEdiDisabled">Reset</button>
+            <button *appPermission="'shelterEdit'" mat-button (click)="onEdit()" [disabled]="!isEdiDisabled">Edit</button>
+            <button *appPermission="'shelterSave'" mat-button (click)="onSubmit()" [disabled]="isEdiDisabled || profileForm.invalid">Save</button>
+            <button *appPermission="'shelterReset'" mat-button (click)="onReset()" [disabled]="isEdiDisabled">Reset</button>
         </mat-card-actions>
     </form>
 </mat-card>

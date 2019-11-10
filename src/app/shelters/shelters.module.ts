@@ -13,6 +13,7 @@ import { MatButtonModule, MatInputModule } from '@angular/material';
 import { SearchModule } from '../search/search.module';
 import { ShelterRegistrationComponent } from './shelter-registration/shelter-registration.component';
 import {GuardService} from '../shared/guard.service';
+import { PermissionDirective } from '../shared/directives/permission/permission.directive';
 
 const sheltersRoutes: Routes = [
   // TODO: ShelterRegistrationComponent only available as admin. Needs guards in future.
@@ -26,7 +27,8 @@ const sheltersRoutes: Routes = [
     ShelterListComponent,
     ShelterCardComponent,
     ShelterCardDetailsComponent,
-    ShelterRegistrationComponent
+    ShelterRegistrationComponent,
+    PermissionDirective
   ],
   imports: [
     CommonModule,
