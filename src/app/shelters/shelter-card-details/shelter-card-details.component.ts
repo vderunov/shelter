@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shelter-card-details',
