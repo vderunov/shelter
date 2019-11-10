@@ -65,6 +65,6 @@ describe('NeedsComponent', () => {
     spyOn(needService, 'getNeeds').and.returnValue(of(mockNeeds));
     const searchValue = 'Тапки';
     component.onSearch(searchValue);
-    expect(needService.getNeeds).toHaveBeenCalledWith({ itemName: searchValue });
+    expect(needService.getNeeds).toHaveBeenCalledWith({ forSearch: searchValue });
   });
 });
