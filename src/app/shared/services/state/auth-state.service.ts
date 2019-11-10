@@ -1,29 +1,33 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { UserData } from './user-data.interface';
+import { Token } from './token.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStateService {
 
-  constructor(
-    private cookieService: CookieService,
-    private userData: UserData,
-    ) { }
+  constructor(private cookieService: CookieService) { }
 
-  private token$ = new BehaviorSubject<string>(this.cookieService.get('token') || null);
+  private token$ = new BehaviorSubject<Token>(this.getPreviousToken());
+
+  private getPreviousToken() {
+    if (this.cookieService.get('token')) {
+      return JSON.parse(this.cookieService.get('token'));
+    }
+    return null;
+  }
 
   public isLogged(): boolean {
-    if (this.token$) {
+    if (this.getStateValue()) {
       return true;
     }
     return false;
   }
 
-  public getUserProperty(str: string): string | string[] {
-    return this.userData[str];
+  public getTokenProperty(str: string): string | string[] {
+    return this.token$.getValue()[str];
   }
 
   public getState(): Observable<any> {
@@ -34,15 +38,10 @@ export class AuthStateService {
     return this.token$.getValue();
   }
 
-  public setToken(tokenObj: any) {
-    this.token$.next(tokenObj.token);
+  public setToken(tokenObj: Token) {
+    this.token$.next(tokenObj);
     if (tokenObj) {
-      console.log(tokenObj);
-      this.cookieService.set('token', tokenObj, Date.now() + 7);
-      this.userData.email = tokenObj.email;
-      this.userData.personId = tokenObj.personId;
-      this.userData.roles = tokenObj.roles;
-      this.userData.id = tokenObj.id;
+      this.cookieService.set('token', JSON.stringify(tokenObj), Date.now() + 7);
     } else {
       this.cookieService.delete('token');
     }

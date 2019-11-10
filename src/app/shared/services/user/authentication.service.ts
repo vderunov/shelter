@@ -29,9 +29,9 @@ export class AuthenticationService {
       map(tokenObj => {
         if (
           Object.prototype.hasOwnProperty.call(tokenObj, 'token')
-          && Object.prototype.hasOwnProperty.call(tokenObj, 'roles')
-          && Object.prototype.hasOwnProperty.call(tokenObj, 'email')
-          && Object.prototype.hasOwnProperty.call(tokenObj, 'personId')
+          // && Object.prototype.hasOwnProperty.call(tokenObj, 'roles')
+          // && Object.prototype.hasOwnProperty.call(tokenObj, 'email')
+          // && Object.prototype.hasOwnProperty.call(tokenObj, 'personId')
         ) {
           this.authStateService.setToken(tokenObj);
         }
