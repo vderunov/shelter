@@ -21,7 +21,8 @@ export class PermissionService {
     this.permissionsByRole.set(Roles.Admin, [
       Permissions.shelterEdit,
       Permissions.shelterReset,
-      Permissions.shelterSave
+      Permissions.shelterSave,
+      Permissions.shelterDelete
     ]);
     this.permissionsByRole.set(Roles.Guest, [
       Permissions.shelterReset

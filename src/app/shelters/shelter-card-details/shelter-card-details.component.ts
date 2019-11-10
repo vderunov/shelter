@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-shelter-card-details',
@@ -20,6 +21,8 @@ export class ShelterCardDetailsComponent implements OnInit {
   constructor(
     private sheltersService: SheltersService,
     private activatedRoute: ActivatedRoute,
+    private notifierService: NotifierService,
+    private router: Router,
     private fb: FormBuilder
   ) {}
 
@@ -57,12 +60,19 @@ export class ShelterCardDetailsComponent implements OnInit {
       addressID: this.shelter.adressID,
       address: addressChange,
     }).subscribe(_ => {
-      // notify user that info was saved throw notify service
+      this.notifierService.showNotice('Changes have been saved!', 'success');
     });
   }
 
   public onEdit(): void {
     this.toggleForm();
+  }
+
+  public onDelete(): void {
+    this.sheltersService.deleteShelter(this.shelter).subscribe(_ => {
+      this.notifierService.showNotice(`Shelter ${this.shelter.name} deleted!`, 'error');
+      this.router.navigate(['/shelters']);
+    });
   }
 
   public onReset(): void {
@@ -90,7 +100,7 @@ export class ShelterCardDetailsComponent implements OnInit {
       name: shelter.name,
       avatar: shelter.avatar,
       photoPath: shelter.photoPath,
-      address: shelter.address
+      address: shelter.address ? shelter.address : this.profileForm.get('address')
     });
   }
 
