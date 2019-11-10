@@ -32,7 +32,6 @@ export class AuctionService {
           const dontationItemsObj = dontationItems.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
 
           return listOfLots.map((lot: ActiveLot) => {
-            console.log(dontationItemsObj[lot.auctionLotItemID], shetlerObj[childrenObj[lot.orphanID].childrenHouseID]);
             return {
               ...lot,
               auctionLotInfo: dontationItemsObj[lot.auctionLotItemID],
