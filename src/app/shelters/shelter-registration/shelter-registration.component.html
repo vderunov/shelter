@@ -1,10 +1,5 @@
 <form class="form-wrap" [formGroup]="form" (ngSubmit)="submit()">
   <h4 class="mat-display-1">Shelter Registration Form</h4>
-  <p *ngIf="error; else registrationBlock" class="error">
-    {{ error }}
-    <button mat-button color="primary" (click)="gotoMainPage()">To the main</button>
-  </p>
-  <ng-template #registrationBlock>
     <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('name') }">
       <input
         matInput
@@ -75,7 +70,6 @@
       <label for="avatar">Avatar </label>
       <input id="avatar" type="file" (change)="onSelectedFilesChanged($event)"/>
     </div>
-  </ng-template>
   <div class="div-buttons">
     <button type="submit" mat-button [disabled]="form.invalid">Confirm</button>
     <button mat-button (click)="gotoMainPage()">Cancel</button>

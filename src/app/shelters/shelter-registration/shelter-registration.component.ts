@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NotifierService } from '../../shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-registration-shelter',
@@ -17,7 +18,7 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject();
   private file: File;
 
-  constructor(private sheltersService: SheltersService, private router: Router) {}
+  constructor(private sheltersService: SheltersService, private router: Router, private notifierService: NotifierService) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -49,7 +50,7 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
           this.gotoMainPage();
         },
         error => {
-          this.error = error.message;
+          this.notifierService.showNotice(error.message, 'error');
         }
       );
   }
