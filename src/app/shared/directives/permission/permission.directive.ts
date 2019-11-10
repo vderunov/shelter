@@ -1,7 +1,7 @@
 import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
 import { PermissionService } from '../../services/permission/permission.service';
 import { AuthStateService } from '../../services/state/auth-state.service';
-import { ROLES } from '../../models/permission/roles.enum';
+import { Roles } from '../../models/permission/roles.enum';
 
 @Directive({
   selector: '[appPermission]'
@@ -22,7 +22,12 @@ export class PermissionDirective {
 
     private updateView(permission) {
       const role = this.currentRoles.getStateValue();
-      const access = this.permissionService.getPermissionByRole(role, permission);
+
+// until server roles not fully implemented let`s assume that any not empty role is Admin //
+      const currentRole = role ? Roles.Admin : Roles.Guest;
+// ************************************************************************************** //
+
+      const access = this.permissionService.getPermissionByRole(currentRole, permission);
       if (access) {
           this.viewContainer.createEmbeddedView(this.templateRef);
       } else {

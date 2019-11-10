@@ -1,4 +1,4 @@
-export enum PERMISSIONS {
+export enum Permissions {
   shelterEdit,
   shelterSave,
   shelterReset
