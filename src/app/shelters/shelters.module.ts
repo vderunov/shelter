@@ -9,14 +9,16 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { ShelterCardDetailsComponent } from './shelter-card-details/shelter-card-details.component';
-import { MatButtonModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatIconModule, MatProgressBarModule } from '@angular/material';
 import { SearchModule } from '../search/search.module';
 import { ShelterRegistrationComponent } from './shelter-registration/shelter-registration.component';
-import { MatFileUploadModule } from 'mat-file-upload';
 import {GuardService} from '../shared/guard.service';
+import { PermissionDirective } from '../shared/directives/permission/permission.directive';
+import { MatFileUploadModule } from 'mat-file-upload';
 
 const sheltersRoutes: Routes = [
-  { path: 'shelter-registration', component: ShelterRegistrationComponent, canActivate: [GuardService] },
+  // TODO: ShelterRegistrationComponent only available as admin. Needs guards in future.
+  { path: 'shelter-registration', component: ShelterRegistrationComponent },
   { path: 'shelters', component: ShelterListComponent },
   { path: 'shelters/:id', component: ShelterCardDetailsComponent }
 ];
@@ -26,7 +28,8 @@ const sheltersRoutes: Routes = [
     ShelterListComponent,
     ShelterCardComponent,
     ShelterCardDetailsComponent,
-    ShelterRegistrationComponent
+    ShelterRegistrationComponent,
+    PermissionDirective
   ],
   imports: [
     CommonModule,
@@ -41,7 +44,9 @@ const sheltersRoutes: Routes = [
     MatInputModule,
     MatCardModule,
     SearchModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatIconModule,
+    MatProgressBarModule
   ],
   exports: [RouterModule, ShelterCardComponent]
 })

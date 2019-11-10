@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HelpersComponent } from './helpers.component';
+import { AuctionComponent } from './auction.component';
 
-xdescribe('HelpersComponent', () => {
-  let component: HelpersComponent;
-  let fixture: ComponentFixture<HelpersComponent>;
+describe('AuctionComponent', () => {
+  let component: AuctionComponent;
+  let fixture: ComponentFixture<AuctionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HelpersComponent ]
+      declarations: [ AuctionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HelpersComponent);
+    fixture = TestBed.createComponent(AuctionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

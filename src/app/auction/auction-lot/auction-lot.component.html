@@ -1,0 +1,32 @@
+<mat-card>
+  <div class="lot-div">
+
+    <div class="lot-avatar-div">
+      <img mat-card-image class="avatar" [src]="lot.photoParth" [alt]="lot.auctionLotInfo.name">
+    </div>
+
+    <div class="lot-content-div">
+
+      <div class=lot-info-div>
+        <div class="lot-info-head-div">
+          <div><strong>{{ lot.auctionLotInfo.name }}</strong></div>
+          <div>{{ lot.dateStart | date:'dd/MM/yyyy' }}</div>
+        </div>
+
+        <div>
+          <a [routerLink]="['/shelters', lot.shelterInfo.id]">Shelter: {{ lot.shelterInfo.name }}</a></div>
+        <div>Additional info: {{ lot.auctionLotInfo.description }} </div>
+        <div>Status: {{ lot.status }}</div>
+      </div>
+
+      <div class="lot-control-div">  
+        <button 
+          mat-raised-button
+          color="primary">
+          Buy for {{ lot.auctionLotInfo.price }}.00$
+        </button>
+      </div>
+
+    </div>
+  </div>
+</mat-card>

@@ -1,12 +1,12 @@
 export class Manager {
-    id: string;
+    id: number;
     name: string;
     surname: string;
     patronymic: string;
     birthday: string;
     rating: number;
     avatar: string;
-    childrenHouseId: string;
-    emailID: string;
+    childrenHouseID: number;
+    emailID: number;
     photoPath: string;
 }

@@ -1,6 +1,5 @@
 <app-search
-  (onSearch)="onSearch($event)"></app-search>
-
+  (searchInit)="onSearch($event)"></app-search>
 <mat-list>
   <mat-list-item *ngFor="let need of needs$ | async; trackBy: trackById">
     <app-needs-item [need]="need"></app-needs-item>

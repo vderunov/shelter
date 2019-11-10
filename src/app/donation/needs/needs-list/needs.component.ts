@@ -23,6 +23,6 @@ export class NeedsComponent implements OnInit {
   }
 
   public onSearch(searchValue: string): void {
-    this.needs$ = this.needService.getNeeds({ itemName: searchValue });
+    this.needs$ = this.needService.getNeeds({ forSearch: searchValue });
   }
 }

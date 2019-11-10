@@ -8,19 +8,19 @@ import { Config } from './config.interface';
   providedIn: 'root'
 })
 export class ConfigService {
-  configUrl = 'assets/config.json';
+  private configUrl = 'assets/config.json';
   private configLoaded$ = new ReplaySubject<Config>(1);
 
   constructor(private http: HttpClient) {}
 
-  initConfig(): void {
+  public initConfig(): void {
     this.http
       .get<Config>(this.configUrl)
       .pipe(take(1))
       .subscribe(config => this.configLoaded$.next(config));
   }
 
-  getConfig(): Observable<Config> {
+  public getConfig(): Observable<Config> {
     return this.configLoaded$.pipe(take(1));
   }
 }
