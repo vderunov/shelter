@@ -12,14 +12,13 @@ import { Children } from 'src/app/shared/models/children.interface';
   providedIn: 'root'
 })
 export class AuctionService {
-  
   constructor(
     private http: HttpClient,
     private configService: ConfigService) { }
 
   public getActiveLots(): Observable<ActiveLot[]> {
     return this.configService.getConfig().pipe(
-      concatMap((config: Config) => 
+      concatMap((config: Config) =>
         zip(
           this.http.get<ActiveLot[]>(config.activeLotsApi),
           this.http.get<Children[]>(config.childrenApi),

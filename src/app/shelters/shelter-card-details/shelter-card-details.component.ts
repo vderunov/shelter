@@ -12,7 +12,7 @@ import { NotifierService } from 'src/app/shared/services/notifier/notifier.servi
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShelterCardDetailsComponent implements OnInit {
-  private shelterId: number;
+  private shelterId: string;
   public shelter: Shelter;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
@@ -29,7 +29,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
-    this.shelterId = Number(this.activatedRoute.snapshot.params.id);
+    this.shelterId = this.activatedRoute.snapshot.params.id;
     this.getDetails();
   }
 
