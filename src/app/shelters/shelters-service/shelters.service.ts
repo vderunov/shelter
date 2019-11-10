@@ -123,6 +123,18 @@ export class SheltersService {
     return address ? this.http.put<AddressShelter>(`${api}/${addressID}`, this.createFormData(address)) : of(null);
   }
 
+  public deleteShelter(shelter): any {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return zip(
+          this.http.delete(`${config.sheltersApi}/${shelter.id}`),
+          shelter.addressID ? this.http.delete(`${config.addressApi}/${shelter.adressID}`) : of(null),
+          shelter.locationID ? this.http.delete(`${config.locationApi}/${shelter.locationID}`) : of(null)
+        );
+      })
+    );
+  }
+
   private createFormData(params) {
     const formData = new FormData();
     Object.entries(params).forEach(([key, value]: [string, Blob]) => formData.append(key, value));
