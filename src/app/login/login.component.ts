@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
-import { Login } from './login.interface';
+import { LoginModel } from './login.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -50,12 +50,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const loginData: Login = { ...this.loginForm.value };
+    const loginData: LoginModel = { ...this.loginForm.value };
     this.authenticationService.login(loginData).subscribe();
   }
 
   public goToRegistrationPage(): void {
-    this.router.navigate(['/registraction-user']);
+    this.router.navigate(['/user-registration']);
   }
 
   public ngOnDestroy(): void {

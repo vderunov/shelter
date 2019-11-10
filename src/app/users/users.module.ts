@@ -4,12 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { RegistrationUserComponent } from './registration-user.component';
 import { HttpClientModule } from '@angular/common/http';
-import { PhoneMaskDirective } from '../shared/directives/phone-mask.directive';
+import { PhoneMaskDirective } from 'src/app/shared/directives/phone-mask.directive';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
 @NgModule({
-  declarations: [RegistrationUserComponent, PhoneMaskDirective],
+  declarations: [UserRegistrationComponent, PhoneMaskDirective],
   imports: [
     CommonModule,
     FormsModule,
@@ -19,6 +19,6 @@ import { PhoneMaskDirective } from '../shared/directives/phone-mask.directive';
     MatButtonModule,
     HttpClientModule
   ],
-  exports: [RegistrationUserComponent]
+  exports: [UserRegistrationComponent]
 })
-export class RegistrationUserModule { }
+export class UsersModule { }

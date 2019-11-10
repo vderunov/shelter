@@ -3,8 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, take, concatMap, map } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Login } from 'src/app/login/login.interface';
-import { NewUser } from 'src/app/registration-user/registration-user.interface';
+import { LoginModel } from 'src/app/login/login.model';
 import { ConfigService } from '../config/config.service';
 import { AuthStateService } from '../state/auth-state.service';
 
@@ -20,7 +19,7 @@ export class AuthenticationService {
     private authStateService: AuthStateService
   ) { }
 
-  public login(loginData: Login): Observable<any> {
+  public login(loginData: LoginModel): Observable<any> {
     return this.configService.getConfig().pipe(
       concatMap(config => this.http.post<any>(config.loginApi, loginData)),
       take(1),
@@ -31,14 +30,6 @@ export class AuthenticationService {
       }),
       catchError(this.handleError)
     );
-  }
-
-  public addUser(newUser: NewUser) {
-    console.log('User has been added', newUser);
-  }
-
-  public removeUser(id: number) {
-    console.log('User has been removed');
   }
 
   private handleError(error: HttpErrorResponse) {

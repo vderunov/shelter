@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AuthenticationService } from '../shared/services/user/authentication.service';
-import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
-import { FormFields } from '../shared/validators/form-field-validator.interface';
-import { NotifierService } from '../shared/services/notifier/notifier.service';
+import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
+import { FormFields } from 'src/app/shared/validators/form-field-validator.interface';
+import { FormFiledsValidator } from 'src/app/shared/validators/form-fields-validator';
+import { UsersService } from '../users-service/users.service';
 
 @Component({
-  selector: 'app-registration-user',
-  templateUrl: './registration-user.component.html',
-  styleUrls: ['./registration-user.component.scss']
+  selector: 'app-user-registration',
+  templateUrl: './user-registration.component.html',
+  styleUrls: ['./user-registration.component.scss']
 })
-export class RegistrationUserComponent implements OnInit {
+export class UserRegistrationComponent implements OnInit {
   public registerForm: FormGroup;
   public maxInputLength: FormFields;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService,
+    private usersService: UsersService,
     private router: Router,
     private notifier: NotifierService
   ) { }
@@ -52,7 +52,7 @@ export class RegistrationUserComponent implements OnInit {
       return;
     }
 
-    this.authenticationService.addUser(this.registerForm.value);
+    this.usersService.addUser(this.registerForm.value);
     // TODO: if registration is successful:
     this.notifier.showNotice('Done. Now please log in', 'success');
     this.router.navigate(['/login']);
