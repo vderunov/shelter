@@ -1,0 +1,32 @@
+[
+  {
+      "id": 1,
+      "dateStart": "2019-11-14T03:03:00",
+      "auctionLotItemID": 1,
+      "orphanID": 118,
+      "avatar": null,
+      "photoParth": "http://localhost:53605/Auction/1637083296604642391.jpg",
+      "quantity": 2,
+      "status": "Approved"
+  },
+  {
+      "id": 3,
+      "dateStart": "2015-04-04T00:00:00",
+      "auctionLotItemID": 3,
+      "orphanID": 119,
+      "avatar": null,
+      "photoParth": "http://localhost:53605/Auction/0637083396131783109.jpg",
+      "quantity": 456,
+      "status": "Declined"
+  },
+  {
+      "id": 4,
+      "dateStart": "2015-04-04T00:00:00",
+      "auctionLotItemID": 4,
+      "orphanID": 120,
+      "avatar": null,
+      "photoParth": "http://localhost:53605/Auction/4637083927257702667.jpg",
+      "quantity": 4564,
+      "status": "UnApproved"
+  }
+]
