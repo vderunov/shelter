@@ -1,0 +1,5 @@
+<mat-list class="lot-list">
+  <mat-list-item class="lot-list-card" *ngFor="let lot of lots$ | async; trackBy: trackById">
+    <app-auction-lot [lot]="lot"></app-auction-lot>
+  </mat-list-item>
+</mat-list>
