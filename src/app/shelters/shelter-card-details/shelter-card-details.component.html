@@ -1,4 +1,14 @@
 <mat-card>
+    <div class="container-image" *ngIf="shelter">
+        <img mat-card-image class="shelter-photo" [src]="changedPhoto ? changedPhoto : shelter.photoPath" alt="Shelter photo">
+        <mat-file-upload #uploadPhotoButton
+            *appPermission="permissions.shelterUploadPhoto"
+            labelText="Select a file:"
+            [selectButtonText]="'Choose File'"
+            (uploadClicked)="onUploadClicked($event)"
+            (selectedFilesChanged)="onSelectedFilesChanged($event)">
+        </mat-file-upload>
+    </div>
     <form class="details-form" [formGroup]="profileForm">
         <mat-card-title>
             <mat-form-field class="details-full-width">
@@ -23,17 +33,21 @@
             </mat-form-field>
         </mat-card-subtitle>
         <mat-card-content>Rating: {{shelter?.rating}}</mat-card-content>
-        <mat-card-content class="coords">Location: 
+        <mat-card-content class="coords">Location:
             <mat-card-subtitle>
                 mapCoordX: {{shelter?.location?.mapCoordX}},
                 mapCoordX: {{shelter?.location?.mapCoordY}}
             </mat-card-subtitle>
         </mat-card-content>
         <mat-card-actions>
-            <button *appPermission="'shelterDelete'" mat-button (click)="onDelete()" [disabled]="!isEdiDisabled">Delete</button>
-            <button *appPermission="'shelterEdit'" mat-button (click)="onEdit()" [disabled]="!isEdiDisabled">Edit</button>
-            <button *appPermission="'shelterSave'" mat-button (click)="onSubmit()" [disabled]="isEdiDisabled || profileForm.invalid">Save</button>
-            <button *appPermission="'shelterReset'" mat-button (click)="onReset()" [disabled]="isEdiDisabled">Reset</button>
+            <button *appPermission="permissions.shelterDelete" mat-button (click)="onDelete()"
+                [disabled]="!isEdiDisabled">Delete</button>
+            <button *appPermission="permissions.shelterEdit" mat-button (click)="onEdit()"
+                [disabled]="!isEdiDisabled">Edit</button>
+            <button *appPermission="permissions.shelterSave" mat-button (click)="onSubmit()"
+                [disabled]="isEdiDisabled || profileForm.invalid">Save</button>
+            <button *appPermission="permissions.shelterReset" mat-button (click)="onReset()"
+                [disabled]="isEdiDisabled">Reset</button>
         </mat-card-actions>
     </form>
 </mat-card>

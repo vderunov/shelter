@@ -13,8 +13,8 @@ export class PermissionService {
     this.createPermissionsByRole();
   }
 
-  public getPermissionByRole(role: Roles, permission: Permissions): boolean {
-    return this.permissionsByRole.get(role).includes(Number(Permissions[permission]));
+  public getPermissionByRole(role: Roles, permission: number): boolean {
+    return this.permissionsByRole.get(role).includes(permission);
   }
 
   private createPermissionsByRole(): void {
@@ -22,7 +22,8 @@ export class PermissionService {
       Permissions.shelterEdit,
       Permissions.shelterReset,
       Permissions.shelterSave,
-      Permissions.shelterDelete
+      Permissions.shelterDelete,
+      Permissions.shelterUploadPhoto
     ]);
     this.permissionsByRole.set(Roles.Guest, [
       Permissions.shelterReset

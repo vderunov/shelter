@@ -135,9 +135,10 @@ export class SheltersService {
     );
   }
 
-  private createFormData(params) {
+  private createFormData(params): FormData {
     const formData = new FormData();
-    Object.entries(params).forEach(([key, value]: [string, Blob]) => formData.append(key, value));
+    Object.entries(params).forEach(([key, value]: [string, Blob]) =>
+      value instanceof File ? formData.append(key, value, value.name) : formData.append(key, value));
     return formData;
   }
 

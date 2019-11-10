@@ -1,12 +1,27 @@
 .mat-card {
-  max-width: 450px;
+  max-width: 70vw;
+  display: flex;
   margin: 25px auto;
 }
 
+.details-form {
+  margin: 25px;
+  width: 45%;
+}
+
+.container-image {
+  width: 45%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 25px;
+}
+
 .mat-card-image {
-  max-height: 250px;
+  padding-top: 25px;
+  max-height: 50vh;
   object-fit: contain;
 }
+
 .details-form {
   min-width: 150px;
   max-width: 500px;

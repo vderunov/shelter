@@ -9,11 +9,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { ShelterCardDetailsComponent } from './shelter-card-details/shelter-card-details.component';
-import { MatButtonModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatIconModule, MatProgressBarModule } from '@angular/material';
 import { SearchModule } from '../search/search.module';
 import { ShelterRegistrationComponent } from './shelter-registration/shelter-registration.component';
 import {GuardService} from '../shared/guard.service';
 import { PermissionDirective } from '../shared/directives/permission/permission.directive';
+import { MatFileUploadModule } from 'mat-file-upload';
 
 const sheltersRoutes: Routes = [
   // TODO: ShelterRegistrationComponent only available as admin. Needs guards in future.
@@ -43,6 +44,9 @@ const sheltersRoutes: Routes = [
     MatInputModule,
     MatCardModule,
     SearchModule,
+    MatFileUploadModule,
+    MatIconModule,
+    MatProgressBarModule
   ],
   exports: [RouterModule, ShelterCardComponent]
 })
