@@ -1,10 +1,10 @@
 <mat-card>
     <div class="container-image" *ngIf="shelter">
         <img mat-card-image class="shelter-photo" [src]="changedPhoto ? changedPhoto : shelter.photoPath" alt="Shelter photo">
-        <mat-file-upload
-            *appPermission="'shelterUploadPhoto'"
-            [labelText]="'Select a file:'"
-            [selectButtonText]="'Choose File(s)'"
+        <mat-file-upload #uploadPhotoButton
+            *appPermission="permissions.shelterUploadPhoto"
+            labelText="Select a file:"
+            [selectButtonText]="'Choose File'"
             (uploadClicked)="onUploadClicked($event)"
             (selectedFilesChanged)="onSelectedFilesChanged($event)">
         </mat-file-upload>
@@ -40,13 +40,13 @@
             </mat-card-subtitle>
         </mat-card-content>
         <mat-card-actions>
-            <button *appPermission="'shelterDelete'" mat-button (click)="onDelete()"
+            <button *appPermission="permissions.shelterDelete" mat-button (click)="onDelete()"
                 [disabled]="!isEdiDisabled">Delete</button>
-            <button *appPermission="'shelterEdit'" mat-button (click)="onEdit()"
+            <button *appPermission="permissions.shelterEdit" mat-button (click)="onEdit()"
                 [disabled]="!isEdiDisabled">Edit</button>
-            <button *appPermission="'shelterSave'" mat-button (click)="onSubmit()"
+            <button *appPermission="permissions.shelterSave" mat-button (click)="onSubmit()"
                 [disabled]="isEdiDisabled || profileForm.invalid">Save</button>
-            <button *appPermission="'shelterReset'" mat-button (click)="onReset()"
+            <button *appPermission="permissions.shelterReset" mat-button (click)="onReset()"
                 [disabled]="isEdiDisabled">Reset</button>
         </mat-card-actions>
     </form>

@@ -4,6 +4,7 @@ import { SheltersService } from '../shelters-service/shelters.service';
 import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
+import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 
 @Component({
   selector: 'app-shelter-card-details',
@@ -15,6 +16,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   private shelterId: string;
   public shelter: Shelter;
   private changedPhoto: string | ArrayBuffer;
+  public permissions = Permissions;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
   public isMessage = false;
