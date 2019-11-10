@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { Token } from './token.interface';
+import { AuthStateModel } from './auth-state.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStateService {
+  private token$ = new BehaviorSubject<AuthStateModel>(this.getPreviousToken());
+
+  private AuthStateName = 'AuthStateObject';
 
   constructor(private cookieService: CookieService) { }
 
-  private token$ = new BehaviorSubject<Token>(this.getPreviousToken());
-
   private getPreviousToken() {
-    if (this.cookieService.get('token')) {
-      return JSON.parse(this.cookieService.get('token'));
+    if (this.cookieService.get(this.AuthStateName)) {
+      return JSON.parse(this.cookieService.get(this.AuthStateName));
     }
     return null;
   }
@@ -38,12 +39,12 @@ export class AuthStateService {
     return this.token$.getValue();
   }
 
-  public setToken(tokenObj: Token) {
+  public setToken(tokenObj: AuthStateModel) {
     this.token$.next(tokenObj);
     if (tokenObj) {
-      this.cookieService.set('token', JSON.stringify(tokenObj), Date.now() + 7);
+      this.cookieService.set(this.AuthStateName, JSON.stringify(tokenObj), Date.now() + 7);
     } else {
-      this.cookieService.delete('token');
+      this.cookieService.delete(this.AuthStateName);
     }
   }
 

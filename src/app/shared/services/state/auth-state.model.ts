@@ -1,4 +1,4 @@
-export interface Token {
+export interface AuthStateModel {
   token: string;
   email?: string;
   roles?: string[];
