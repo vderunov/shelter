@@ -15,6 +15,7 @@ import { ShelterRegistrationComponent } from './shelter-registration/shelter-reg
 import {GuardService} from '../shared/guard.service';
 
 const sheltersRoutes: Routes = [
+  // TODO: ShelterRegistrationComponent only available as admin. Needs guards in future.
   { path: 'shelter-registration', component: ShelterRegistrationComponent },
   { path: 'shelters', component: ShelterListComponent },
   { path: 'shelters/:id', component: ShelterCardDetailsComponent }

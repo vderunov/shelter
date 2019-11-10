@@ -20,10 +20,10 @@ describe('SheltersService', () => {
     configServiceSpy = jasmine.createSpyObj('configService', ['getConfig']);
     service = new SheltersService(httpClientSpy as any, configServiceSpy as any);
     configUrl = {
-      'sheltersApi': 'https://familynetserver.azurewebsites.net/api/v1/childrenHouse',
-      'childrenApi': 'https://familynetserver.azurewebsites.net/api/v1/children/',
-      'representativesApi': 'https://familynetserver.azurewebsites.net/api/v1/representatives/',
-      'addressApi': 'https://familynetserver.azurewebsites.net/api/v1/address'
+      sheltersApi: 'https://familynetserver.azurewebsites.net/api/v1/childrenHouse',
+      childrenApi: 'https://familynetserver.azurewebsites.net/api/v1/children/',
+      representativesApi: 'https://familynetserver.azurewebsites.net/api/v1/representatives/',
+      addressApi: 'https://familynetserver.azurewebsites.net/api/v1/address'
     };
     configServiceSpy.getConfig.and.returnValue(of(configUrl));
   });
@@ -108,7 +108,7 @@ describe('SheltersService', () => {
         id: 135
       };
       httpClientSpy.post.and.returnValues(of(mockAnswer));
-      service.registerAddressShelter(url, addressData).subscribe((response: AddressShelter) => {
+      (service as any).registerAddressShelter(url, addressData).subscribe((response: AddressShelter) => {
         expect(response).toEqual(mockAnswer);
         done();
       });
@@ -134,7 +134,7 @@ describe('SheltersService', () => {
         photoPath: '127126e178dh1hd71'
       };
       httpClientSpy.post.and.returnValues(of(mockAnswer));
-      service.registrationShelter(url, shelterData).subscribe((response: Shelter) => {
+      (service as any).registrationShelter(url, shelterData).subscribe((response: Shelter) => {
         expect(response).toEqual(mockAnswer);
         done();
       });

@@ -1,5 +1,3 @@
-$colorGrey: #757575;
-
 .form-wrap {
   display: flex;
   flex-direction: column;
@@ -17,6 +15,5 @@ $colorGrey: #757575;
   label {
     outline: none;
     cursor: pointer;
-    color: $colorGrey;
   }
 }

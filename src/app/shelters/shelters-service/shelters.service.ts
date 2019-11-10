@@ -159,11 +159,11 @@ export class SheltersService {
     );
   }
 
-  public registerAddressShelter(api, addressData): Observable<AddressShelter> {
+  private registerAddressShelter(api, addressData): Observable<AddressShelter> {
     return this.http.post<AddressShelter>(api, addressData);
   }
 
-  public registrationShelter(api, shelterData): Observable<Shelter> {
+  private registrationShelter(api, shelterData): Observable<Shelter> {
     return this.http.post<Shelter>(api, shelterData);
   }
 }
