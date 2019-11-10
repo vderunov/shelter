@@ -14,6 +14,7 @@ import { SearchModule } from '../search/search.module';
 import { ShelterRegistrationComponent } from './shelter-registration/shelter-registration.component';
 import { MatFileUploadModule } from 'mat-file-upload';
 import {GuardService} from '../shared/guard.service';
+import { PermissionDirective } from '../shared/directives/permission/permission.directive';
 
 const sheltersRoutes: Routes = [
   { path: 'shelter-registration', component: ShelterRegistrationComponent, canActivate: [GuardService] },
@@ -26,7 +27,8 @@ const sheltersRoutes: Routes = [
     ShelterListComponent,
     ShelterCardComponent,
     ShelterCardDetailsComponent,
-    ShelterRegistrationComponent
+    ShelterRegistrationComponent,
+    PermissionDirective
   ],
   imports: [
     CommonModule,
