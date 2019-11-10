@@ -14,7 +14,8 @@ import { Representative } from 'src/app/shared/models/representative.interface';
   providedIn: 'root'
 })
 export class SheltersService {
-  constructor(private http: HttpClient, private configService: ConfigService) { }
+  constructor(private http: HttpClient, private configService: ConfigService) {
+  }
 
   public getShelters(paramObj: object = {}): Observable<Shelter[]> {
     let params = new HttpParams();
@@ -22,27 +23,27 @@ export class SheltersService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         zip(
-          this.http.get<Shelter[]>(config.sheltersApi, { params }),
+          this.http.get<Shelter[]>(config.sheltersApi, {params}),
           this.http.get(config.childrenApi),
           this.http.get(config.representativesApi),
           this.http.get<AddressShelter[]>(config.addressApi),
-          )
-        ),
-        map(([shelters, children, representatives, address]: [Shelter[], Children[], Representative[], AddressShelter[]]) => {
-          const countChildren = children.reduce((acc, curr) => {
-            acc[curr.childrenHouseID] = acc[curr.childrenHouseID] ? ++acc[curr.childrenHouseID] : 1;
-            return acc;
-          }, {});
-          const representativesObj = representatives.reduce((acc, curr) => ({ [curr.childrenHouseID]: curr, ...acc }), {});
-          const addressObj = address.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
-          return shelters.map((shelter: Shelter) => ({
-            ...shelter,
-            children: countChildren[shelter.id],
-            representative: representativesObj[shelter.id],
-            address: addressObj[shelter.adressID],
-          }));
-        })
-      );
+        )
+      ),
+      map(([shelters, children, representatives, address]: [Shelter[], Children[], Representative[], AddressShelter[]]) => {
+        const countChildren = children.reduce((acc, curr) => {
+          acc[curr.childrenHouseID] = acc[curr.childrenHouseID] ? ++acc[curr.childrenHouseID] : 1;
+          return acc;
+        }, {});
+        const representativesObj = representatives.reduce((acc, curr) => ({[curr.childrenHouseID]: curr, ...acc}), {});
+        const addressObj = address.reduce((acc, curr) => ({[curr.id]: curr, ...acc}), {});
+        return shelters.map((shelter: Shelter) => ({
+          ...shelter,
+          children: countChildren[shelter.id],
+          representative: representativesObj[shelter.id],
+          address: addressObj[shelter.adressID],
+        }));
+      })
+    );
   }
 
   public getDetails(id: string = ''): Observable<Shelter> {
@@ -86,7 +87,7 @@ export class SheltersService {
           this.putLocation(config.locationApi, null, changeData.shelter.locationID) :
           this.postLocation(config.locationApi, null);
         return location$.pipe(take(1),
-          concatMap((location: Location ): Observable<[Shelter, AddressShelter]> => {
+          concatMap((location: Location): Observable<[Shelter, AddressShelter]> => {
             if (location) {
               changeData.shelter.locationID = location.id;
             } else {
@@ -140,8 +141,8 @@ export class SheltersService {
     return formData;
   }
 
-  public registerShelter(form): Observable<Shelter> {
-    const addressDate: AddressShelter = {
+  public registerShelter(form, file): Observable<Shelter> {
+    const addressData: AddressShelter = {
       country: form.country,
       region: form.region,
       city: form.city,
@@ -149,31 +150,32 @@ export class SheltersService {
       house: form.house
     };
 
-    const shelterDate: Shelter = {
+    const shelterData: Shelter = {
       name: form.name,
       rating: form.rating,
       adressID: null,
-      avatar: null,
       locationID: null
     };
 
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.registerAddressShelter(config.addressApi, addressDate).pipe(
+        return this.registerAddressShelter(config.addressApi, this.createFormData(addressData)).pipe(
           concatMap(address => {
-            shelterDate.adressID = address.id;
-            return this.registrationShelter(config.sheltersApi, shelterDate);
+            shelterData.adressID = address.id;
+            const formData = this.createFormData(shelterData);
+            formData.append('avatar', file, file.name);
+            return this.registrationShelter(config.sheltersApi, formData);
           })
         );
       })
     );
   }
 
-  private registerAddressShelter(api, addressDate): Observable<AddressShelter> {
-    return this.http.post<AddressShelter>(api, addressDate);
+  private registerAddressShelter(api, addressData): Observable<AddressShelter> {
+    return this.http.post<AddressShelter>(api, addressData);
   }
 
-  private registrationShelter(api, shelterDate): Observable<Shelter> {
-    return this.http.post<Shelter>(api, shelterDate);
+  private registrationShelter(api, shelterData): Observable<Shelter> {
+    return this.http.post<Shelter>(api, shelterData);
   }
 }

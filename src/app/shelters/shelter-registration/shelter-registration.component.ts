@@ -15,6 +15,7 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public error = '';
   private destroy$: Subject<void> = new Subject();
+  private file: File;
 
   constructor(private sheltersService: SheltersService, private router: Router) {}
 
@@ -40,7 +41,7 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
     }
 
     this.sheltersService
-      .registerShelter(this.form.value)
+      .registerShelter(this.form.value, this.file)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
@@ -60,5 +61,9 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
 
   public gotoMainPage(): void {
     this.router.navigate(['/']);
+  }
+
+  public onSelectedFilesChanged($event: any) {
+    this.file = $event.target.files[0];
   }
 }
