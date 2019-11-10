@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { NavbarModule } from './navbar/navbar.module';
+import { MatSnackBarModule } from '@angular/material';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -38,7 +39,8 @@ const interceptorProvider: Provider = {
   providers: [
     interceptorProvider,
     CookieService,
+    MatSnackBarModule,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

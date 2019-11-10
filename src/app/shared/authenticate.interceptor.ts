@@ -13,7 +13,7 @@ export class AuthenticateInterceptor implements HttpInterceptor {
       concatMap(tokenObj => {
         if (tokenObj) {
           req = req.clone({
-            headers: req.headers.set('Authorization', tokenObj.token)
+            headers: req.headers.set('Authorization', `Bearer ${tokenObj.token}`)
           });
         }
         return next.handle(req).pipe(
