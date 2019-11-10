@@ -7,9 +7,11 @@ import { AuthStateModel } from './auth-state.model';
   providedIn: 'root'
 })
 export class AuthStateService {
-  private token$ = new BehaviorSubject<AuthStateModel>(this.getPreviousToken());
-
   private AuthStateName = 'AuthStateObject';
+
+  private cookieToken = this.getPreviousToken();
+
+  private token$ = new BehaviorSubject<AuthStateModel>(this.cookieToken);
 
   constructor(private cookieService: CookieService) { }
 

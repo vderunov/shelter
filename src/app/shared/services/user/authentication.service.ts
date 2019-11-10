@@ -7,7 +7,6 @@ import { Login } from 'src/app/login/login.interface';
 import { NewUser } from 'src/app/registration-user/registration-user.interface';
 import { ConfigService } from '../config/config.service';
 import { AuthStateService } from '../state/auth-state.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,7 @@ export class AuthenticationService {
     private router: Router,
     private http: HttpClient,
     private configService: ConfigService,
-    private authStateService: AuthStateService,
-    private cookieService: CookieService,
+    private authStateService: AuthStateService
   ) { }
 
   public login(loginData: Login): Observable<any> {
@@ -27,12 +25,7 @@ export class AuthenticationService {
       concatMap(config => this.http.post<any>(config.loginApi, loginData)),
       take(1),
       map(tokenObj => {
-        if (
-          Object.prototype.hasOwnProperty.call(tokenObj, 'token')
-          // && Object.prototype.hasOwnProperty.call(tokenObj, 'roles')
-          // && Object.prototype.hasOwnProperty.call(tokenObj, 'email')
-          // && Object.prototype.hasOwnProperty.call(tokenObj, 'personId')
-        ) {
+        if (tokenObj && tokenObj.token) {
           this.authStateService.setToken(tokenObj);
         }
       }),

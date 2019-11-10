@@ -35,11 +35,11 @@ const interceptorProvider: Provider = {
     DonationModule,
     AdminUsersModule,
     NavbarModule,
-    MatSnackBarModule,
+    MatSnackBarModule
   ],
   providers: [
     interceptorProvider,
-    CookieService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
