@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchModule } from '../search/search.module';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatFileUploadModule } from 'mat-file-upload';
 
 const adminRoutes: Routes = [
   { path: 'users', component: AdminUsersComponent },
@@ -45,6 +46,7 @@ const adminRoutes: Routes = [
       adminRoutes,
     ),
     MatGridListModule,
+    MatFileUploadModule,
     HttpClientModule,
     MatTabsModule,
     MatInputModule,

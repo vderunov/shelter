@@ -11,7 +11,7 @@
        <mat-icon>person_add</mat-icon>Add Manager</button>
         </mat-grid-tile>
     </mat-grid-list>
-   <button mat-raised-button (click)="openDialog()">Pick one</button>
+
     <mat-grid-list cols="5">
         <mat-grid-tile *ngFor="let manager of managers$ | async; trackBy: trackByManagers">
             <app-manager-item [manager]="manager"></app-manager-item>

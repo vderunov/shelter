@@ -5,6 +5,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Helper } from '../models/helper.model';
 import { Subject } from 'rxjs';
+import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 
 @Component({
   selector: 'app-helper-details',
@@ -19,8 +20,9 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
+  public permissions = Permissions;
   private unsubscribe: Subject<void> = new Subject();
-
+  private changedPhoto: string | ArrayBuffer;
   constructor(
     private helpersService: HelpersService,
     private activatedRoute: ActivatedRoute,
@@ -96,6 +98,20 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       ? this.profileForm.disable()
       : this.profileForm.enable();
     this.isEditDisabled = this.profileForm.disabled;
+  }
+
+  private changeAvatar(event) {
+    const fileReader = new FileReader();
+    if (event && event.length) {
+      fileReader.readAsDataURL(event && event.length && event[0]);
+      fileReader.onload = (ev: Event) => {
+        this.helper.avatar = event[0];
+        this.changedPhoto = fileReader.result;
+      };
+    } else {
+      this.helper.avatar = null;
+      this.changedPhoto = null;
+    }
   }
 
 }

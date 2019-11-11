@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Manager } from '../models/manager.model';
+import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 import { ManagersService } from '../services/manager.service';
 
 @Component({
@@ -18,8 +19,11 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public managerId: string;
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
+  public permissions = Permissions;
   public visibleFields = false;
+  private changedPhoto: string | ArrayBuffer;
   private unsubscribe: Subject<void> = new Subject();
+
   constructor(
     private managersService: ManagersService,
     private activatedRoute: ActivatedRoute,
@@ -71,7 +75,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       name: [null, Validators.required],
       surname: [],
       patronymic: [],
-      birthday: [],
+      birthday: Date,
       avatar: [],
       photoPath: [],
       rating: [],
@@ -95,6 +99,20 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       ? this.profileForm.disable()
       : this.profileForm.enable();
     this.isEditDisabled = this.profileForm.disabled;
+  }
+
+  private changeAvatar(event) {
+    const fileReader = new FileReader();
+    if (event && event.length) {
+      fileReader.readAsDataURL(event && event.length && event[0]);
+      fileReader.onload = (ev: Event) => {
+        this.manager.avatar = event[0];
+        this.changedPhoto = fileReader.result;
+      };
+    } else {
+      this.manager.avatar = null;
+      this.changedPhoto = null;
+    }
   }
 
 }

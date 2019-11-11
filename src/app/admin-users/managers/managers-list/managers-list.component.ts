@@ -27,35 +27,5 @@ export class ManagersListComponent implements OnInit {
     this.managers$ = this.managerService.getAllManagers({ name: searchValue });
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ManagerRegistrationComponent, {
-      width: '600px',
-
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-
-    });
-  }
-}
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
-@Component({
-  selector: 'app-manager-registration-component',
-  templateUrl: 'manager-registration.component.html',
-})
-export class ManagerRegistrationComponent {
-
-  constructor(
-    public dialogRef: MatDialogRef<ManagerRegistrationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
 }
