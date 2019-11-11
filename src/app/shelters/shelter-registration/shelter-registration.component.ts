@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NotifierService } from '../../shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-registration-shelter',
@@ -15,8 +16,9 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public error = '';
   private destroy$: Subject<void> = new Subject();
+  private file: File;
 
-  constructor(private sheltersService: SheltersService, private router: Router) {}
+  constructor(private sheltersService: SheltersService, private router: Router, private notifierService: NotifierService) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -40,7 +42,7 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
     }
 
     this.sheltersService
-      .registerShelter(this.form.value)
+      .registerShelter(this.form.value, this.file)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
@@ -48,7 +50,7 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
           this.gotoMainPage();
         },
         error => {
-          this.error = error.message;
+          this.notifierService.showNotice(error.message, 'error');
         }
       );
   }
@@ -60,5 +62,9 @@ export class ShelterRegistrationComponent implements OnInit, OnDestroy {
 
   public gotoMainPage(): void {
     this.router.navigate(['/']);
+  }
+
+  public onSelectedFilesChanged($event: any) {
+    this.file = $event.target.files[0];
   }
 }

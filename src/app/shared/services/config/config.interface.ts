@@ -11,4 +11,6 @@ export interface Config {
   managersApi: string;
   helpersApi: string;
   userApi: string;
+  activeLotsApi: string;
+  donationItemsApi: string;
 }
