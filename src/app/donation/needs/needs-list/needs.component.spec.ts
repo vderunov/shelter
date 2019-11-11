@@ -48,7 +48,7 @@ describe('NeedsComponent', () => {
     needService = fixture.debugElement.injector.get(NeedService);
   });
 
-  it(`Expect to return needs`, () => {
+  it('Expect to receive list of needs', () => {
     spyOn(needService, 'getNeeds').and.returnValue(of(mockNeeds));
     component.ngOnInit();
 
@@ -57,11 +57,11 @@ describe('NeedsComponent', () => {
     });
   });
 
-  it(`Expect to receive donationItemId`, () => {
+  it('Expect to receive donationItemId', () => {
     expect(component.trackById(1, mockNeeds[1])).toEqual(13);
   });
 
-  it(`Expect to check`, () => {
+  it('Expect to check params in onSearch method', () => {
     spyOn(needService, 'getNeeds').and.returnValue(of(mockNeeds));
     const searchValue = 'Тапки';
     component.onSearch(searchValue);
