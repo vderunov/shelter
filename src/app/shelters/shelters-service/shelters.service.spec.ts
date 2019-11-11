@@ -2,10 +2,11 @@ import { SheltersService } from './shelters.service';
 import { Shelter } from '../models/shelter.interface';
 import { HttpParams } from '@angular/common/http';
 import { of } from 'rxjs';
+import { AddressShelter } from '../models/address-shelter.interface';
 
 describe('SheltersService', () => {
   let service: SheltersService;
-  let httpClientSpy: { get: jasmine.Spy };
+  let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy };
   let configServiceSpy: { getConfig: jasmine.Spy };
   let configUrl: {
     sheltersApi: string,
@@ -15,7 +16,7 @@ describe('SheltersService', () => {
   };
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
     configServiceSpy = jasmine.createSpyObj('configService', ['getConfig']);
     service = new SheltersService(httpClientSpy as any, configServiceSpy as any);
     configUrl = {
@@ -88,4 +89,55 @@ describe('SheltersService', () => {
     });
   });
 
+  describe('Shelter registration post methods', () => {
+    it('should send a post request by sending addressData object', (done: DoneFn) => {
+      const url = 'https://familynetserver.azurewebsites.net/api/v1/address';
+      const addressData: AddressShelter = {
+        country: 'USA',
+        region: 'Springfield',
+        city: 'Springfield',
+        street: '742 Evergreen Terrace',
+        house: '25'
+      };
+      const mockAnswer: AddressShelter = {
+        country: 'USA',
+        region: 'Springfield',
+        city: 'Springfield',
+        street: '742 Evergreen Terrace',
+        house: '25',
+        id: 135
+      };
+      httpClientSpy.post.and.returnValues(of(mockAnswer));
+      (service as any).registerAddressShelter(url, addressData).subscribe((response: AddressShelter) => {
+        expect(response).toEqual(mockAnswer);
+        done();
+      });
+    });
+
+    it('should send a post request by sending shelterData object', (done: DoneFn) => {
+      const url = 'https://familynetserver.azurewebsites.net/api/v1/childrenHouse';
+      const shelterData: Shelter = {
+        name: 'SUM 41',
+        rating: 33,
+        adressID: 97,
+        avatar: null,
+        locationID: null,
+        id: 122
+      };
+      const mockAnswer: Shelter = {
+        name: 'SUM 41',
+        avatar: null,
+        rating: 22,
+        adressID: null,
+        locationID: null,
+        id: 135,
+        photoPath: '127126e178dh1hd71'
+      };
+      httpClientSpy.post.and.returnValues(of(mockAnswer));
+      (service as any).registrationShelter(url, shelterData).subscribe((response: Shelter) => {
+        expect(response).toEqual(mockAnswer);
+        done();
+      });
+    });
+  });
 });
