@@ -18,6 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchModule } from '../search/search.module';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const adminRoutes: Routes = [
   { path: 'users', component: AdminUsersComponent },
@@ -51,7 +52,8 @@ const adminRoutes: Routes = [
     MatButtonModule,
     MatIconModule,
     BrowserAnimationsModule,
-    SearchModule
+    SearchModule,
+    MatDialogModule
   ],
   exports: [
     RouterModule,

@@ -34,7 +34,7 @@ export class HelpersService {
   public updateHelperById(formValue: object, id: string): Observable<Helper> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.put<Helper>(`${config.helpersApi}/${id}`, [formValue])
+        this.http.put<Helper>(`${config.helpersApi}/${id}`, formValue)
       )
     );
   }

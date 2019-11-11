@@ -36,7 +36,7 @@ export class ManagersService {
         console.log(JSON.stringify(formValue));
         return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
-                this.http.put<Manager>(`${config.managersApi}/${id}`, [formValue])
+                this.http.put<Manager>(`${config.managersApi}/${id}`, formValue)
             )
         );
     }
