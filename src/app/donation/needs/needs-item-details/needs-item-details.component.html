@@ -1,5 +1,5 @@
 <mat-card *ngIf="need$ | async; let need">
-  <mat-card-title mat-raised-button [routerLink]="['../../donation']">
+  <mat-card-title mat-raised-button>
     <a mat-button>
       Name: {{need.orphanageName}}
     </a>
@@ -10,7 +10,7 @@
     <mat-card-content>Details: {{need.itemDescription}}</mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button [routerLink]="['../../donation']">Back</button>
+    <button mat-raised-button [routerLink]="['/donation']">Back</button>
     <button mat-raised-button>Donate</button>
   </mat-card-actions>
 </mat-card>
