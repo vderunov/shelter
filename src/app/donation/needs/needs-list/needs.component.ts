@@ -14,15 +14,15 @@ export class NeedsComponent implements OnInit {
 
   constructor(private needService: NeedService) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.needs$ = this.needService.getNeeds();
   }
 
   public trackById(index: number, item: Need) {
-    return item.donationItemID
+    return item.donationItemID;
   }
 
   public onSearch(searchValue: string): void {
-    this.needs$ = this.needService.getNeeds({ itemName: searchValue });
+    this.needs$ = this.needService.getNeeds({ forSearch: searchValue });
   }
 }

@@ -1,36 +1,37 @@
 <form class="form-wrap" [formGroup]="form" (ngSubmit)="submit()">
   <h4 class="mat-display-1">Shelter Registration Form</h4>
-  <p *ngIf="error; else registrationBlock" class="error">
-    {{ error }}
-    <button mat-button color="primary" (click)="gotoMainPage()">To the main</button>
-  </p>
-  <ng-template #registrationBlock>
-  <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('country') }">
-    <input
-      matInput
-      type="text"
-      placeholder="Country"
-      formControlName="country" />
-    <mat-error *ngIf="isFieldValid('country')">You must enter a value</mat-error>
-  </mat-form-field>
-  <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('region') }">
-    <input
-      matInput
-      type="text"
-      placeholder="Region"
-      formControlName="region"
-    />
-    <mat-error *ngIf="isFieldValid('region')">
-      You must enter a value
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('name') }">
+      <input
+        matInput
+        type="text"
+        placeholder="Name"
+        formControlName="name"/>
+      <mat-error *ngIf="isFieldValid('name')">You must enter a value</mat-error>
+    </mat-form-field>
+    <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('country') }">
+      <input
+        matInput
+        type="text"
+        placeholder="Country"
+        formControlName="country"/>
+      <mat-error *ngIf="isFieldValid('country')">You must enter a value</mat-error>
+    </mat-form-field>
+    <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('region') }">
+      <input
+        matInput
+        type="text"
+        placeholder="Region"
+        formControlName="region"/>
+      <mat-error *ngIf="isFieldValid('region')">
+        You must enter a value
+      </mat-error>
+    </mat-form-field>
     <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('city') }">
       <input
         matInput
         type="text"
-        placeholder="Сity"
-        formControlName="city"
-      />
+        placeholder="City"
+        formControlName="city"/>
       <mat-error *ngIf="isFieldValid('city')">
         You must enter a value
       </mat-error>
@@ -40,8 +41,7 @@
         matInput
         type="text"
         placeholder="Street"
-        formControlName="street"
-      />
+        formControlName="street"/>
       <mat-error *ngIf="isFieldValid('street')">
         You must enter a value
       </mat-error>
@@ -51,15 +51,27 @@
         matInput
         type="text"
         placeholder="House"
-        formControlName="house"
-      />
+        formControlName="house"/>
       <mat-error *ngIf="isFieldValid('house')">
         You must enter a value
       </mat-error>
     </mat-form-field>
+    <mat-form-field [ngClass]="{ 'mat-form-field': isFieldValid('rating') }">
+      <input
+        matInput
+        type="text"
+        placeholder="Rating"
+        formControlName="rating"/>
+      <mat-error *ngIf="isFieldValid('rating')">
+        You must enter a value
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <label for="avatar">Avatar </label>
+      <input id="avatar" type="file" (change)="onSelectedFilesChanged($event)"/>
+    </div>
   <div class="div-buttons">
     <button type="submit" mat-button [disabled]="form.invalid">Confirm</button>
     <button mat-button (click)="gotoMainPage()">Cancel</button>
   </div>
-  </ng-template>
 </form>

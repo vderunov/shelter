@@ -1,9 +1,16 @@
-<mat-card>
-  <span>{{ need.lastDateWhenStatusChanged | date:'dd/MM/yyyy'}}</span>
-  <span>{{ need.status }}</span>
+<mat-card class="need">
+  <span>{{ need.lastDateWhenStatusChanged | date:'dd/MM/yyyy' }}</span>
+  <span>{{ need.orphanageName | uppercase }} </span>
   <span>{{ need.city }}</span>
-  <span>{{ need.orphanageName }}</span>
+  <span>{{ need.status }}</span>
   <span>{{ need.donationItemID }}</span>
   <span>{{ need.itemName }}</span>
-  <button mat-button (click)="openDialog()">Open details</button>
+
+  <a mat-raised-button class="need" [routerLink]="['/needs', need.donationItemID]">
+    Open details
+  </a>
+
+  <a mat-raised-button>
+    Donate
+  </a>
 </mat-card>

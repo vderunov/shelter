@@ -1,39 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Login } from './login.interface';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { NotifierService } from '../shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
+  private destroy$: Subject<void> = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute,
+    private notifier: NotifierService
+  ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params: Params) => {
+      if (params.auth) {
+        this.notifier.showNotice('Please login', 'warning');
+      }
+    });
+
     this.loginForm = this.formBuilder.group({
       email: [null, FormFiledsValidator.checkEmail],
       password: [null, FormFiledsValidator.checkPassword]
     });
   }
 
-  isFieldInvalid(fieldName): boolean {
+  public isFieldInvalid(fieldName): boolean {
     return (
       this.loginForm.get(fieldName).touched &&
       this.loginForm.get(fieldName).invalid
     );
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
     }
@@ -42,7 +54,12 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(loginData).subscribe();
   }
 
-  goToRegistrationPage(): void {
+  public goToRegistrationPage(): void {
     this.router.navigate(['/registraction-user']);
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -1,46 +1,14 @@
-<div>
-    <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Helpers">
-            <div class="side">
-                <button class="buttonAddHelper">Add new Helper </button>
-            </div>
-            <div *ngFor="let user of users$ | async; trackBy: userTrackBy" class="comment-wrap main-wrap">
-                <div>
-                    <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
-                        class="avatar" alt="User Avatar">
-                </div>
-                <div class="comment-body">
-                    <div>
-                        <div>{{user.userName}}</div>
-                        <p> Phone: {{user.phoneNumber}}</p>
-                        <p> Email: {{user.email}}</p>
-                    </div>
-                </div>
-                <div>
-                    <button  [routerLink]="['/users', user.id]" class="button">More</button>
-                </div>
-            </div>
-        </mat-tab>
-        <mat-tab label="Managers">
-            <div class="side">
-                <button class="buttonAddManager">Add Manager</button>
-            </div>
-            <div *ngFor="let manager of managers$| async; trackBy: managerTrackBy " class="comment-wrap main-wrap">
-                <div>
-                    <img src="https://icons-for-free.com/iconfiles/png/512/facebook+profile+user+profile+icon-1320184041317225686.png"
-                        class="avatar" alt="User Avatar">
-                </div>
-                <div class="comment-body">
-                    <div>
-                        <div class="comment-author">{{manager.name}} {{manager.surname}}</div>
-                        <p>Birthday: {{manager.birthday}}</p>
-                        <p>Rating: {{manager.rating}}</p>
-                    </div>
-                </div>
-                <div>
-                    <button [routerLink]="['/manager', manager.id]" class="button">More</button>
-                </div>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
-</div>
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <h2>Helpers</h2>
+        </ng-template>
+        <app-helpers-list></app-helpers-list>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+                <h2>Managers</h2>
+        </ng-template>
+        <app-managers-list></app-managers-list>
+    </mat-tab>
+</mat-tab-group>

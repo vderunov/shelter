@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Quest } from '../models/quest.interface';
 import { concatMap, map } from 'rxjs/operators';
@@ -15,19 +15,11 @@ export class QuestService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-  // TODO. Nikolaienko Mikhail responsible for realization of search logic. Due to lack of search logic on backend, it is temporary realized on front-side.
-  // Nikolaienko Mikhail takes responsibility to negotiate with backers on matter of realization of search logic on beckend until next presentation.
-  public getNeeds(paramObj: object = {}): Observable<Quest[]> {
-    return this.configService.configLoaded.pipe(
-      concatMap((config: Config) => this.http.get<Quest[]>(config.questsApi)),
-      map((arr: Quest[]): Quest[] => {
-        if (Object.values(paramObj).length > 0) {
-          const key: string = Object.keys(paramObj)[0];
-          const value: string = paramObj[key];
-          return arr.filter((el: Quest): boolean => el[key].toLowerCase().indexOf(value.toLocaleLowerCase()) > -1)
-        }
-        return arr;
-      })
+  public getQuests(paramObj: object = {}): Observable<Quest[]> {
+    let params = new HttpParams();
+    Object.keys(paramObj).forEach((key: string) => params = params.set(key, paramObj[key]));
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => this.http.get<Quest[]>(config.questsApi, { params })),
     );
   }
 }

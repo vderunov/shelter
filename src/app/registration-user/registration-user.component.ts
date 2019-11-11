@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
-import { NewUser } from './registration-user.interface';
+import { FormFields } from '../shared/validators/form-field-validator.interface';
+import { NotifierService } from '../shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-registration-user',
@@ -12,20 +13,23 @@ import { NewUser } from './registration-user.interface';
 })
 export class RegistrationUserComponent implements OnInit {
   public registerForm: FormGroup;
+  public maxInputLength: FormFields;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private notifier: NotifierService
+  ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
       {
-        firstName: [null, FormFiledsValidator.checkName],
-        lastName: [null, FormFiledsValidator.checkName],
-        phone: ['+380', FormFiledsValidator.checkPhone],
+        name: [null, FormFiledsValidator.checkName],
+        surname: [null, FormFiledsValidator.checkName],
+        phone: ['', FormFiledsValidator.checkPhone],
         email: [null, FormFiledsValidator.checkEmail],
+        address: [null],
         password: [null, FormFiledsValidator.checkPassword],
         confirmPassword: [null, FormFiledsValidator.checkPassword]
       },
@@ -33,27 +37,24 @@ export class RegistrationUserComponent implements OnInit {
         validator: FormFiledsValidator.matchPassword
       }
     );
+    this.maxInputLength = FormFiledsValidator.getMaxInputLength();
   }
 
-  isFieldInvalid(fieldName): boolean {
+  public isFieldInvalid(fieldName): boolean {
     return (
       this.registerForm.get(fieldName).touched &&
       this.registerForm.get(fieldName).invalid
     );
   }
 
-  goToLoginPage(): void {
-    this.router.navigate(['/login']);
-  }
-
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.registerForm.invalid) {
       return;
     }
 
-    const newUser: NewUser = { ...this.registerForm.value };
-    this.authenticationService.addUser(newUser);
-
-    this.goToLoginPage();
+    this.authenticationService.addUser(this.registerForm.value);
+    // TODO: if registration is successful:
+    this.notifier.showNotice('Done. Now please log in', 'success');
+    this.router.navigate(['/login']);
   }
 }
