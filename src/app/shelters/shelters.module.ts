@@ -14,6 +14,7 @@ import { SearchModule } from '../search/search.module';
 import { ShelterRegistrationComponent } from './shelter-registration/shelter-registration.component';
 import {GuardService} from '../shared/guard.service';
 import { MatFileUploadModule } from 'mat-file-upload';
+import { PermissionsModule } from '../shared/permissions/permissions.module';
 
 const sheltersRoutes: Routes = [
   // TODO: ShelterRegistrationComponent only available as admin. Needs guards in future.
@@ -44,7 +45,7 @@ const sheltersRoutes: Routes = [
     SearchModule,
     MatFileUploadModule,
     MatIconModule,
-    MatProgressBarModule
+    PermissionsModule
   ],
   exports: [RouterModule, ShelterCardComponent]
 })
