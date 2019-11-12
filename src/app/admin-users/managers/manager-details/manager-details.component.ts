@@ -105,7 +105,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
     const fileReader = new FileReader();
     if (event && event.length) {
       fileReader.readAsDataURL(event && event.length && event[0]);
-      fileReader.onload = (ev: Event) => {
+      fileReader.onload = () => {
         this.manager.avatar = event[0];
         this.changedPhoto = fileReader.result;
       };
