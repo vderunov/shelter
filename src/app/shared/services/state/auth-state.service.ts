@@ -9,18 +9,9 @@ import { AuthStateModel } from './auth-state.model';
 export class AuthStateService {
   private AuthStateName = 'AuthStateObject';
 
-  private cookieToken = this.getPreviousToken();
-
-  private token$ = new BehaviorSubject<AuthStateModel>(this.cookieToken);
+  private token$ = new BehaviorSubject<AuthStateModel>(null);
 
   constructor(private cookieService: CookieService) { }
-
-  private getPreviousToken() {
-    if (this.cookieService.get(this.AuthStateName)) {
-      return JSON.parse(this.cookieService.get(this.AuthStateName));
-    }
-    return null;
-  }
 
   public isLogged(): boolean {
     if (this.getStateValue()) {
@@ -30,18 +21,23 @@ export class AuthStateService {
   }
 
   public getTokenProperty(str: string): string | string[] {
-    return this.token$.getValue()[str];
+    if (this.isLogged()) {
+      return this.getStateValue()[str];
+    }
   }
 
-  public getState(): Observable<any> {
+  public getState(): BehaviorSubject<AuthStateModel> {
+    if (!this.token$.getValue() && this.cookieService.get(this.AuthStateName)) {
+      this.token$.next(JSON.parse(this.cookieService.get(this.AuthStateName)));
+    }
     return this.token$;
   }
 
-  public getStateValue() {
-    return this.token$.getValue();
+  public getStateValue(): object {
+    return this.getState().getValue();
   }
 
-  public setToken(tokenObj: AuthStateModel) {
+  public setToken(tokenObj: AuthStateModel): void {
     this.token$.next(tokenObj);
     if (tokenObj) {
       this.cookieService.set(this.AuthStateName, JSON.stringify(tokenObj), Date.now() + 7);
@@ -50,7 +46,7 @@ export class AuthStateService {
     }
   }
 
-  public cleanAuthenticatedState() {
+  public cleanAuthenticatedState(): void {
     this.setToken(null);
   }
 
