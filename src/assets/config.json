@@ -7,7 +7,7 @@
   "loginApi": "https://familynetserver.azurewebsites.net/api/v1/authentication",
   "needsApi": "https://familynetserver.azurewebsites.net/api/v1/donations",
   "questsApi": "assets/quests.data.json",
-  "registrationUserApi": "/api/v1/volunteers",
+  "userRegistrationApi": "https://familynetserver.azurewebsites.net/api/v1/volunteers",
   "managersApi": "https://familynetserver.azurewebsites.net/api/v1/representatives/",
   "helpersApi": "https://familynetserver.azurewebsites.net/api/v1/volunteers/",
   "activeLotsApi": "assets/active-lots.data.json",

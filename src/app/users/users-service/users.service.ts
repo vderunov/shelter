@@ -1,8 +1,10 @@
-import { UserRegistrationModel } from './../models/user-registration.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
+import { Config } from 'src/app/shared/services/config/config.interface';
+import { UserRegistrationModel } from './../models/user-registration.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +12,18 @@ import { ConfigService } from 'src/app/shared/services/config/config.service';
 export class UsersService {
 
   constructor(
-    private router: Router,
     private http: HttpClient,
     private configService: ConfigService,
   ) { }
 
-  public addUser(newUser: UserRegistrationModel) {
-    console.log('User has been added', newUser);
-  }
+  public addUser(newUser: UserRegistrationModel): Observable<UserRegistrationModel> {
+    console.log('User has been added', newUser); // REMOVE ME!
 
-  public editUser(id: number, editedUser: UserRegistrationModel) {
-    console.log(`User with id ${id} has been edited: ${editedUser}`);
-  }
-
-  public removeUser(id: number) {
-    console.log(`User with id ${id} has been removed`);
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return this.http.post<UserRegistrationModel>(config.userRegistrationApi, newUser);
+      }
+      )
+    );
   }
 }
