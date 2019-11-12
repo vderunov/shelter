@@ -4,7 +4,7 @@ import { SheltersService } from '../shelters-service/shelters.service';
 import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
-import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
+import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
 
 @Component({
   selector: 'app-shelter-card-details',
@@ -15,7 +15,7 @@ import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 export class ShelterCardDetailsComponent implements OnInit {
   private shelterId: string;
   public shelter: Shelter;
-  private changedPhoto: string | ArrayBuffer;
+  public changedPhoto: string | ArrayBuffer;
   public permissions = Permissions;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
@@ -112,7 +112,7 @@ export class ShelterCardDetailsComponent implements OnInit {
     this.isEdiDisabled = this.profileForm.disabled;
   }
 
-  private onSelectedFilesChanged(event) {
+  public onSelectedFilesChanged(event) {
     const fileReader = new FileReader();
     if (event && event.length) {
       fileReader.readAsDataURL(event && event.length && event[0]);
@@ -126,7 +126,7 @@ export class ShelterCardDetailsComponent implements OnInit {
     }
   }
 
-  private onUploadClicked(event) {
+  public onUploadClicked(event) {
     this.toggleForm();
   }
 }
