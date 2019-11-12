@@ -14,7 +14,7 @@ export class NeedsComponent implements OnInit {
 
   constructor(private needService: NeedService) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.needs$ = this.needService.getNeeds();
   }
 
