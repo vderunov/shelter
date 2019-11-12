@@ -10,8 +10,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminUsersModule } from './admin-users/admin-users.module';
 import { DonationModule } from './donation/donation.module';
+import { AuctionModule } from './auction/auction.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
+import { MatSnackBarModule } from '@angular/material';
+import { PermissionDirective } from './shared/directives/permission/permission.directive';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -20,7 +23,7 @@ const interceptorProvider: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, PermissionDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,9 +33,11 @@ const interceptorProvider: Provider = {
     LoginModule,
     RegistrationUserModule,
     DonationModule,
-    AdminUsersModule
+    AuctionModule,
+    AdminUsersModule,
+    MatSnackBarModule
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

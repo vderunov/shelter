@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
 import { Router } from '@angular/router';
+import { FormFields } from '../shared/validators/form-field-validator.interface';
+import { NotifierService } from '../shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-registration-user',
@@ -11,15 +13,16 @@ import { Router } from '@angular/router';
 })
 export class RegistrationUserComponent implements OnInit {
   public registerForm: FormGroup;
-  public maxInputLength: object;
+  public maxInputLength: FormFields;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private notifier: NotifierService
   ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
       {
         name: [null, FormFiledsValidator.checkName],
@@ -50,6 +53,8 @@ export class RegistrationUserComponent implements OnInit {
     }
 
     this.authenticationService.addUser(this.registerForm.value);
+    // TODO: if registration is successful:
+    this.notifier.showNotice('Done. Now please log in', 'success');
     this.router.navigate(['/login']);
   }
 }
