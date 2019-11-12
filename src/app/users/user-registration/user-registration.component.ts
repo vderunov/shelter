@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
-import { FormFields } from 'src/app/shared/validators/form-field-validator.interface';
+import { FormFieldsModel } from 'src/app/shared/validators/form-fields.model';
 import { FormFiledsValidator } from 'src/app/shared/validators/form-fields-validator';
 import { UsersService } from '../users-service/users.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -12,9 +14,11 @@ import { UsersService } from '../users-service/users.service';
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.scss']
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserRegistrationComponent implements OnInit, OnDestroy {
   public registerForm: FormGroup;
-  public maxInputLength: FormFields;
+  public maxInputLength: FormFieldsModel;
+  public error = '';
+  private destroy$: Subject<void> = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,9 +57,23 @@ export class UserRegistrationComponent implements OnInit {
       return;
     }
 
-    this.usersService.addUser(this.registerForm.value);
-    // TODO: if registration is successful:
-    this.notifier.showNotice('Done. Now please log in', 'success');
-    this.router.navigate(['/login']);
+    this.usersService.addUser(this.registerForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        () => {
+          // TODO: if registration is successful:
+          this.registerForm.reset();
+          this.router.navigate(['/login']);
+          this.notifier.showNotice('Done. Now please log in', 'success');
+        },
+        error => {
+          this.notifier.showNotice(error.message, 'error');
+        }
+      );
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

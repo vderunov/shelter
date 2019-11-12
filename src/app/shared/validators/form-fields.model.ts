@@ -1,4 +1,4 @@
-export interface FormFields {
+export interface FormFieldsModel {
   name: number;
   surname: number;
   phone: number;
