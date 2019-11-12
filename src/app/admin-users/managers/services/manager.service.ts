@@ -32,7 +32,7 @@ export class ManagersService {
         );
     }
 
-    public updateManagerById(formValue: object, id: string): Observable<Manager> {
+    public updateManagerById(formValue: object, id: string, avatar): Observable<Manager> {
         console.log(JSON.stringify(formValue));
         return this.configService.getConfig().pipe(
             concatMap((config: Config) =>

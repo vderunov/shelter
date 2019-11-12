@@ -59,13 +59,13 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
 
   public deleteUser() {
     this.helpersService
-    .deleteHelperById(this.helperId)
-    .subscribe(() => this.router.navigate(['users']));
+      .deleteHelperById(this.helperId)
+      .subscribe(() => this.router.navigate(['users']));
   }
 
   public changeInfo() {
     this.helpersService
-      .updateHelperById(this.profileForm.value, this.helperId)
+      .updateHelperById(this.profileForm.value, this.helperId, this.changedPhoto)
       .subscribe(() => this.onEdit());
   }
 

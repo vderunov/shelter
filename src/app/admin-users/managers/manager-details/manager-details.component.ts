@@ -66,7 +66,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
 
   public changeInfo() {
     this.managersService
-      .updateManagerById(this.profileForm.value, this.managerId)
+      .updateManagerById(this.profileForm.value, this.managerId, this.changedPhoto)
       .subscribe(() => this.onEdit());
   }
 
@@ -114,5 +114,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       this.changedPhoto = null;
     }
   }
+ 
+
 
 }

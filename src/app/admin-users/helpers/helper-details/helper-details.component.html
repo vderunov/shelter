@@ -1,24 +1,20 @@
 <div>
-    <button mat-raised-button [routerLink]="['', 'users']" 
-    routerLinkActive="router-link-active" color="primary">
+    <button mat-raised-button [routerLink]="['', 'users']" routerLinkActive="router-link-active" color="primary">
         <mat-icon>reply</mat-icon>Back to users
     </button>
     <mat-card class="user-card">
-        <div *ngIf="helper" class="heder-card">
-            <h2> All Information about {{ helper.name }}</h2>
-            <mat-card-content>
-                <div class="container-image" *ngIf="helper">
-                    <img mat-card-image class="shelter-photo" 
-                    [src]="changedPhoto ? changedPhoto : helper.photoPath"
-                    [alt]="helper.name">
-                </div>
-                <mat-file-upload *ngIf="visibleFields" class="details-full-width"
-                    labelText="Change avatar:" (selectedFilesChanged)="changeAvatar($event)">
-                </mat-file-upload>
-            </mat-card-content>
-        </div>
         <mat-card-content>
             <form class="details-form" [formGroup]="profileForm">
+                <div *ngIf="helper" class="heder-card">
+                    <h2> All Information about {{ helper.name }}</h2>
+                        <img mat-card-image
+                        [src]="changedPhoto ? changedPhoto : helper.photoPath"
+                        [alt]="helper.name">
+                    </div>
+                    <mat-file-upload *ngIf="visibleFields" class="details-full-width"
+                     labelText="Change avatar:"
+                        (selectedFilesChanged)="changeAvatar($event)">
+                    </mat-file-upload>
                 <mat-card-title>
                     <mat-form-field class="details-full-width">
                         <input matInput placeholder="Name" formControlName="name">
@@ -42,7 +38,8 @@
             </form>
         </mat-card-content>
         <mat-card-actions *ngIf="visibleFields" class="button">
-            <button mat-raised-button class="reset" (click)="onReset()" [disabled]="isEditDisabled">
+            <button mat-raised-button class="reset" (click)="onReset()"
+                [disabled]="isEditDisabled">
                 <mat-icon>settings_backup_restore</mat-icon>Reset
             </button>
             <button mat-raised-button class="delete" (click)="deleteUser()"
