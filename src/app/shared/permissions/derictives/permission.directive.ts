@@ -1,10 +1,10 @@
 import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
-import { PermissionService } from '../../services/permission/permission.service';
+import { PermissionService } from '../services/permission.service';
 import { AuthStateService } from '../../services/state/auth-state.service';
-import { Roles } from '../../models/permission/roles.enum';
+import { Roles } from '../models/roles.enum';
 
 @Directive({
-  selector: '[appPermission]'
+  selector: '[appPermission]',
 })
 export class PermissionDirective {
 
