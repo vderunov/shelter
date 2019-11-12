@@ -9,7 +9,7 @@ import { UserRegistrationModel } from './../models/user-registration.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UserRegistrationService {
 
   constructor(
     private http: HttpClient,

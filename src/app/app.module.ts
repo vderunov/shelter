@@ -13,7 +13,7 @@ import { AuctionModule } from './auction/auction.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
 import { MatSnackBarModule } from '@angular/material';
-import { UsersModule } from './users/users.module';
+import { UserRegistrationModule } from './user-registration/user-registration.module';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -30,7 +30,7 @@ const interceptorProvider: Provider = {
     SheltersModule,
     MatButtonModule,
     LoginModule,
-    UsersModule,
+    UserRegistrationModule,
     DonationModule,
     AuctionModule,
     AdminUsersModule,

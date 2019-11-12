@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 import { FormFieldsModel } from 'src/app/shared/validators/form-fields.model';
 import { FormFiledsValidator } from 'src/app/shared/validators/form-fields-validator';
-import { UsersService } from '../users-service/users.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
+import { UserRegistrationService } from './services/user-registration.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -22,7 +21,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private usersService: UsersService,
+    private userRegistrationService: UserRegistrationService,
     private router: Router,
     private notifier: NotifierService
   ) { }
@@ -57,7 +56,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.usersService.addUser(this.registerForm.value)
+    this.userRegistrationService.addUser(this.registerForm.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
