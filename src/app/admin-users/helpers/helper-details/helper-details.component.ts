@@ -30,7 +30,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+ public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.helperId = this.activatedRoute.snapshot.params.id;
@@ -43,7 +43,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+ public ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }

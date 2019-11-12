@@ -14,7 +14,7 @@ export class HelpersListComponent implements OnInit {
 
   constructor(private helperService: HelpersService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.helpers$ = this.helperService.getAllHelpers();
   }
 

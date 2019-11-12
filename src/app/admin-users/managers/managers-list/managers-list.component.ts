@@ -15,7 +15,7 @@ export class ManagersListComponent implements OnInit {
 
   constructor(private managerService: ManagersService, public dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.managers$ = this.managerService.getAllManagers();
   }
 
@@ -26,6 +26,5 @@ export class ManagersListComponent implements OnInit {
   public onSearch(searchValue: string): void {
     this.managers$ = this.managerService.getAllManagers({ name: searchValue });
   }
-
 
 }

@@ -31,7 +31,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.managerId = this.activatedRoute.snapshot.params.id;
@@ -44,7 +44,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -60,8 +60,8 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
 
   public deleteUser() {
     this.managersService
-    .deleteManagerById(this.managerId)
-    .subscribe(() => this.router.navigate(['users']));
+      .deleteManagerById(this.managerId)
+      .subscribe(() => this.router.navigate(['users']));
   }
 
   public changeInfo() {
@@ -114,7 +114,5 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       this.changedPhoto = null;
     }
   }
- 
-
 
 }
