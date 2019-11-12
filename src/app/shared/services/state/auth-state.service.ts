@@ -7,9 +7,9 @@ import { AuthStateModel } from './auth-state.model';
   providedIn: 'root'
 })
 export class AuthStateService {
-  private AuthStateName = 'AuthStateObject';
+  private state$: BehaviorSubject<AuthStateModel>;
 
-  private token$ = new BehaviorSubject<AuthStateModel>(null);
+  private authStateName = 'AuthStateObject';
 
   constructor(private cookieService: CookieService) { }
 
@@ -26,23 +26,33 @@ export class AuthStateService {
     }
   }
 
-  public getState(): BehaviorSubject<AuthStateModel> {
-    if (!this.token$.getValue() && this.cookieService.get(this.AuthStateName)) {
-      this.token$.next(JSON.parse(this.cookieService.get(this.AuthStateName)));
-    }
-    return this.token$;
+  public getState(): Observable<AuthStateModel> {
+    return this.getStateSubject().asObservable();
   }
 
-  public getStateValue(): object {
-    return this.getState().getValue();
+  private getStateSubject(): BehaviorSubject<AuthStateModel> {
+    if (!this.state$) {
+      this.state$ = new BehaviorSubject<AuthStateModel>(this.getStateFromCookie());
+    }
+    return this.state$;
+  }
+
+  private getStateFromCookie(): AuthStateModel {
+    if (this.cookieService.get(this.authStateName)) {
+      return JSON.parse(this.cookieService.get(this.authStateName));
+    }
+  }
+
+  public getStateValue(): AuthStateModel {
+    return this.getStateSubject().getValue();
   }
 
   public setToken(tokenObj: AuthStateModel): void {
-    this.token$.next(tokenObj);
+    this.state$.next(tokenObj);
     if (tokenObj) {
-      this.cookieService.set(this.AuthStateName, JSON.stringify(tokenObj), Date.now() + 7);
+      this.cookieService.set(this.authStateName, JSON.stringify(tokenObj), Date.now() + 7);
     } else {
-      this.cookieService.delete(this.AuthStateName);
+      this.cookieService.delete(this.authStateName);
     }
   }
 
