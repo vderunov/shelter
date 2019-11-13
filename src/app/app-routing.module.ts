@@ -5,6 +5,7 @@ import { RegistrationUserComponent } from './registration-user/registration-user
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/shelters', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
   { path: 'registraction-user', component: RegistrationUserComponent },
   { path: 'users', component: AdminUsersComponent }
