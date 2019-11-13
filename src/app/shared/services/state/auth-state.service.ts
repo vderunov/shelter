@@ -20,7 +20,7 @@ export class AuthStateService {
     return false;
   }
 
-  public getTokenProperty(str: string): string | string[] {
+  public getStateProperty(str: string): string | string[] {
     if (this.isLogged()) {
       return this.getStateValue()[str];
     }
@@ -28,6 +28,23 @@ export class AuthStateService {
 
   public getState(): Observable<AuthStateModel> {
     return this.getStateSubject().asObservable();
+  }
+
+  public getStateValue(): AuthStateModel {
+    return this.getStateSubject().getValue();
+  }
+
+  public setState(stateObj: AuthStateModel): void {
+    this.getStateSubject().next(stateObj);
+    if (stateObj) {
+      this.cookieService.set(this.authStateName, JSON.stringify(stateObj), Date.now() + 7);
+    } else {
+      this.cookieService.delete(this.authStateName);
+    }
+  }
+
+  public cleanAuthenticatedState(): void {
+    this.setState(null);
   }
 
   private getStateSubject(): BehaviorSubject<AuthStateModel> {
@@ -41,23 +58,6 @@ export class AuthStateService {
     if (this.cookieService.get(this.authStateName)) {
       return JSON.parse(this.cookieService.get(this.authStateName));
     }
-  }
-
-  public getStateValue(): AuthStateModel {
-    return this.getStateSubject().getValue();
-  }
-
-  public setToken(tokenObj: AuthStateModel): void {
-    this.state$.next(tokenObj);
-    if (tokenObj) {
-      this.cookieService.set(this.authStateName, JSON.stringify(tokenObj), Date.now() + 7);
-    } else {
-      this.cookieService.delete(this.authStateName);
-    }
-  }
-
-  public cleanAuthenticatedState(): void {
-    this.setToken(null);
   }
 
 }
