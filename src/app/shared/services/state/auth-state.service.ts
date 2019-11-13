@@ -14,10 +14,10 @@ export class AuthStateService {
   constructor(private cookieService: CookieService) { }
 
   public isLogged(): boolean {
-    if (this.getStateValue()) {
-      return true;
+    if (!this.state$) {
+      return this.cookieService.check(this.authStateName);
     }
-    return false;
+    return Boolean(this.getStateValue());
   }
 
   public getStateProperty(str: string): string | string[] {
@@ -37,7 +37,7 @@ export class AuthStateService {
   public setState(stateObj: AuthStateModel): void {
     this.getStateSubject().next(stateObj);
     if (stateObj) {
-      this.cookieService.set(this.authStateName, JSON.stringify(stateObj), Date.now() + 7);
+      this.cookieService.set(this.authStateName, JSON.stringify(stateObj), 7);
     } else {
       this.cookieService.delete(this.authStateName);
     }
@@ -55,7 +55,7 @@ export class AuthStateService {
   }
 
   private getStateFromCookie(): AuthStateModel {
-    if (this.cookieService.get(this.authStateName)) {
+    if (this.cookieService.check(this.authStateName)) {
       return JSON.parse(this.cookieService.get(this.authStateName));
     }
   }
