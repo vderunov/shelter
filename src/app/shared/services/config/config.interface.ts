@@ -6,6 +6,7 @@ export interface Config {
   locationApi: string;
   loginApi: string;
   userRegistrationApi: string;
+  volunteerRegistrationApi: string;
   needsApi: string;
   questsApi: string;
   managersApi: string;

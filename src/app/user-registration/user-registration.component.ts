@@ -61,10 +61,9 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
-          // TODO: if registration is successful:
           this.registerForm.reset();
           this.router.navigate(['/login']);
-          this.notifier.showNotice('Done. Now please log in', 'success');
+          this.notifier.showNotice('Registration completed. Please log in', 'success');
         },
         error => {
           this.notifier.showNotice(error.message, 'error');

@@ -1,10 +1,8 @@
 export interface UserRegistrationModel {
-  name: string;
-  patronymic: string;
-  surname: string;
-  phone: string;
-  address?: string;
   email: string;
   password: string;
+  passwordConfirm: string;
+  phone: string;
+  yourDropdownSelected: number;
   id?: number;
 }

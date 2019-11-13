@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
-import { LoginModel } from './login.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NotifierService } from '../shared/services/notifier/notifier.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +15,7 @@ import { NotifierService } from '../shared/services/notifier/notifier.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
+  public error = '';
   private destroy$: Subject<void> = new Subject();
 
   constructor(
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private location: Location
   ) { }
 
   public ngOnInit(): void {
@@ -50,8 +52,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const loginData: LoginModel = { ...this.loginForm.value };
-    this.authenticationService.login(loginData).subscribe();
+    this.authenticationService.login(this.loginForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        () => {
+          this.loginForm.reset();
+          this.location.back();
+          this.notifier.showNotice('Welcome!', 'success');
+        },
+        error => {
+          this.notifier.showNotice(error.message, 'error');
+        }
+      );
   }
 
   public goToRegistrationPage(): void {
