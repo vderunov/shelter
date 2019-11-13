@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Roles } from '../../models/permission/roles.enum';
-import { Permissions } from '../../models/permission/permissions.enum';
+import { Roles } from '../models/roles.enum';
+import { Permissions } from '../models/permissions.enum';
 
 @Injectable({
   providedIn: 'root'
