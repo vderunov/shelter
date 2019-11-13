@@ -9,7 +9,7 @@ import { Config } from 'src/app/shared/services/config/config.interface';
 @Injectable({ providedIn: 'root' })
 
 export class HelpersService {
-
+api ='https://familynetserver.azurewebsites.net/api/v2/volunteers'
   constructor(private http: HttpClient, private configService: ConfigService) { }
 
   public getAllHelpers(paramObj: object = {}): Observable<Helper[]> {
@@ -31,10 +31,12 @@ export class HelpersService {
   }
 
 
-  public updateHelperById(formValue: object, id: string, avatar): Observable<Helper> {
+  public updateHelperById(formValue, id: string, avatar): Observable<Helper> {
+    console.log(formValue);
+    console.log(JSON.stringify(formValue));
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.put<Helper>(`${config.helpersApi}/${id}`, formValue)
+        this.http.put<Helper>(`${config.helpersApi}/${id}`,  JSON.stringify(formValue))
       )
     );
   }
@@ -46,5 +48,7 @@ export class HelpersService {
       )
     );
   }
-
+  public updateContact(contact, id){
+    return this.http.put<any>(`${this.api}/${id}`, contact);
+  }
 }

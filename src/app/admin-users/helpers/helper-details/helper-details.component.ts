@@ -15,6 +15,10 @@ import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 })
 
 export class HelperDetailsComponent implements OnInit, OnDestroy {
+  // displayedColumns: string[] = ['id', 'name', 'surname', 'patronymic', 'birthday', 'rating'];
+  // dataSource = [];
+  // contact = {};
+
   public helper: Helper;
   public helperId: string;
   public profileForm: FormGroup;
@@ -27,10 +31,11 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
     private helpersService: HelpersService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+
   ) { }
 
- public ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.helperId = this.activatedRoute.snapshot.params.id;
@@ -42,8 +47,8 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
         this.helper = helpers;
       });
   }
-
- public ngOnDestroy() {
+ 
+  public ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -63,9 +68,11 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       .subscribe(() => this.router.navigate(['users']));
   }
 
-  public changeInfo() {
+  public changeInfo(f) {
+    console.log('Update', f.value)
     this.helpersService
-      .updateHelperById(this.profileForm.value, this.helperId, this.changedPhoto)
+      .updateHelperById(f.value, this.helperId, this.changedPhoto)
+      // .updateHelperById(this.profileForm.value, this.helperId, this.changedPhoto)
       .subscribe(() => this.onEdit());
   }
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdminUsersComponent } from './admin-users.component';
 import { ManagersListComponent } from './managers/managers-list/managers-list.component';
 import { ManagerItemComponent } from './managers/manager-item/manager-item.component';
@@ -55,7 +55,8 @@ const adminRoutes: Routes = [
     MatIconModule,
     BrowserAnimationsModule,
     SearchModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule
   ],
   exports: [
     RouterModule,
