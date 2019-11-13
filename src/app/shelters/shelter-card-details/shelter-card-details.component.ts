@@ -115,7 +115,7 @@ export class ShelterCardDetailsComponent implements OnInit {
   public onSelectedFilesChanged(event) {
     const fileReader = new FileReader();
     if (event && event.length) {
-      fileReader.readAsDataURL(event && event.length && event[0]);
+      fileReader.readAsDataURL(event[0]);
       fileReader.onload = (ev: Event) => {
         this.shelter.avatar = event[0];
         this.changedPhoto = fileReader.result;

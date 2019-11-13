@@ -24,9 +24,9 @@ export class AuthenticationService {
     return this.configService.getConfig().pipe(
       concatMap(config => this.http.post<any>(config.loginApi, loginData)),
       take(1),
-      map(tokenObj => {
-        if (tokenObj.token) {
-          this.authStateService.setToken(tokenObj.token);
+      map(stateObj => {
+        if (stateObj && stateObj.token) {
+          this.authStateService.setState(stateObj);
         }
       }),
       catchError(this.handleError)

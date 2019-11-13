@@ -1,25 +1,63 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthStateModel } from './auth-state.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStateService {
-  private token$ = new BehaviorSubject<object>(null);
+  private state$: BehaviorSubject<AuthStateModel>;
 
-  public getState(): Observable<any> {
-    return this.token$;
+  private authStateName = 'AuthStateObject';
+
+  constructor(private cookieService: CookieService) { }
+
+  public isLogged(): boolean {
+    if (!this.state$) {
+      return this.cookieService.check(this.authStateName);
+    }
+    return Boolean(this.getStateValue());
   }
 
-  public getStateValue() {
-    return this.token$.getValue();
+  public getStateProperty(str: string): string | string[] {
+    if (this.isLogged()) {
+      return this.getStateValue()[str];
+    }
   }
 
-  public setToken(tokenObj: any) {
-    this.token$.next(tokenObj);
+  public getState(): Observable<AuthStateModel> {
+    return this.getStateSubject().asObservable();
   }
 
-  public cleanAuthenticatedState() {
-    this.setToken(null);
+  public getStateValue(): AuthStateModel {
+    return this.getStateSubject().getValue();
   }
+
+  public setState(stateObj: AuthStateModel): void {
+    this.getStateSubject().next(stateObj);
+    if (stateObj) {
+      this.cookieService.set(this.authStateName, JSON.stringify(stateObj), 7);
+    } else {
+      this.cookieService.delete(this.authStateName);
+    }
+  }
+
+  public cleanAuthenticatedState(): void {
+    this.setState(null);
+  }
+
+  private getStateSubject(): BehaviorSubject<AuthStateModel> {
+    if (!this.state$) {
+      this.state$ = new BehaviorSubject<AuthStateModel>(this.getStateFromCookie());
+    }
+    return this.state$;
+  }
+
+  private getStateFromCookie(): AuthStateModel {
+    if (this.cookieService.check(this.authStateName)) {
+      return JSON.parse(this.cookieService.get(this.authStateName));
+    }
+  }
+
 }
