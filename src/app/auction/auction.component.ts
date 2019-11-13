@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActiveLot } from './models/active-lot.model';
 import { AuctionService } from './services/auction.service';
-import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
+import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
 
 @Component({
   selector: 'app-auction',

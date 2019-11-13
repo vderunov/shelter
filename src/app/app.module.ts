@@ -14,7 +14,6 @@ import { AuctionModule } from './auction/auction.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
 import { MatSnackBarModule } from '@angular/material';
-import { PermissionDirective } from './shared/directives/permission/permission.directive';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -23,7 +22,7 @@ const interceptorProvider: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, PermissionDirective],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

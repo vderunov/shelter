@@ -5,6 +5,7 @@ import { AuctionComponent } from './auction.component';
 import { AuctionLotComponent } from './auction-lot/auction-lot.component';
 import { MatListModule, MatCardModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
+import { PermissionsModule } from '../shared/permissions/permissions.module';
 
 const auctionRoutes: Routes = [
   { path: 'auction', component: AuctionComponent }
@@ -17,7 +18,8 @@ const auctionRoutes: Routes = [
     RouterModule.forChild(auctionRoutes),
     MatListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    PermissionsModule
   ],
   exports: [
     RouterModule

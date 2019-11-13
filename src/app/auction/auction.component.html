@@ -1,4 +1,8 @@
-<button *appPermission="permissions.auctionShowPurchase" mat-button>Delete</button>
+<button 
+  *appPermission="permissions.auctionShowPurchase" 
+  class="show-purchases-button"
+  mat-button>
+  Show purchases</button>
 <mat-list class="lot-list">
   <mat-list-item class="lot-list-card" *ngFor="let lot of lots$ | async; trackBy: trackById">
     <app-auction-lot [lot]="lot"></app-auction-lot>
