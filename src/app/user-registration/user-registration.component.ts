@@ -30,8 +30,9 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     this.registerForm = this.formBuilder.group(
       {
         name: [null, FormFiledsValidator.checkName],
+        patronymic: [null, FormFiledsValidator.checkName],
         surname: [null, FormFiledsValidator.checkName],
-        phone: ['', FormFiledsValidator.checkPhone],
+        phone: [null, FormFiledsValidator.checkPhone],
         email: [null, FormFiledsValidator.checkEmail],
         address: [null],
         password: [null, FormFiledsValidator.checkPassword],
