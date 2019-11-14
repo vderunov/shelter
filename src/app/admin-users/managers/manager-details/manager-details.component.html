@@ -7,9 +7,7 @@
             <form class="details-form" [formGroup]="profileForm">
                 <div *ngIf="manager" class="heder-card">
                     <h2> All Information about {{ manager.name }}</h2>
-                    <img mat-card-image
-                    [src]="changedPhoto ? changedPhoto : manager.photoPath"
-                    [alt]="manager.name">
+                    <img mat-card-image [src]="changedPhoto ? changedPhoto : manager.photoPath" [alt]="manager.name">
                 </div>
                 <mat-file-upload *ngIf="visibleFields" class="details-full-width" labelText="Change avatar:"
                     (selectedFilesChanged)="changeAvatar($event)">
@@ -24,8 +22,10 @@
                     <mat-form-field class="details-full-width">
                         <input matInput placeholder="Patronymic" formControlName="patronymic">
                     </mat-form-field>
-                    <mat-form-field class="details-full-width">
-                        <input matInput placeholder="Birthday" formControlName="birthday">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker" formControlName="birthday">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field class="details-full-width">
                         <input matInput placeholder="Rating" formControlName="rating">
@@ -37,8 +37,7 @@
             </form>
         </mat-card-content>
         <mat-card-actions *ngIf="visibleFields" class="button">
-            <button mat-raised-button class="reset" (click)="onReset()" 
-                [disabled]="isEditDisabled">
+            <button mat-raised-button class="reset" (click)="onReset()" [disabled]="isEditDisabled">
                 <mat-icon>settings_backup_restore</mat-icon>Reset
             </button>
             <button mat-raised-button class="delete" (click)="deleteUser()"

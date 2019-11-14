@@ -5,7 +5,6 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Helper } from '../models/helper.model';
 import { Subject } from 'rxjs';
-import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 
 @Component({
   selector: 'app-helper-details',
@@ -15,24 +14,19 @@ import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 })
 
 export class HelperDetailsComponent implements OnInit, OnDestroy {
-  // displayedColumns: string[] = ['id', 'name', 'surname', 'patronymic', 'birthday', 'rating'];
-  // dataSource = [];
-  // contact = {};
-
   public helper: Helper;
   public helperId: string;
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
-  public permissions = Permissions;
+  public changedPhoto: string | ArrayBuffer;
   private unsubscribe: Subject<void> = new Subject();
-  private changedPhoto: string | ArrayBuffer;
+
   constructor(
     private helpersService: HelpersService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
-
   ) { }
 
   public ngOnInit(): void {
@@ -47,7 +41,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
         this.helper = helpers;
       });
   }
- 
+
   public ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
@@ -68,23 +62,46 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       .subscribe(() => this.router.navigate(['users']));
   }
 
-  public changeInfo(f) {
-    console.log('Update', f.value)
-    this.helpersService
-      .updateHelperById(f.value, this.helperId, this.changedPhoto)
-      // .updateHelperById(this.profileForm.value, this.helperId, this.changedPhoto)
+  public changeInfo(): void {
+    const helperChange = {
+      id: this.helper.id,
+      name: this.profileForm.get('name').value,
+      surname: this.profileForm.get('surname').value,
+      patronymic: this.profileForm.get('patronymic').value,
+      birthday: this.profileForm.get('birthday').value,
+      rating: this.profileForm.get('rating').value,
+      email: this.helper.emailID,
+      avatar: this.changedPhoto,
+      adressID: this.helper.addressID,
+    };
+    this.helpersService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
+  }
+
+  public changeAvatar(event) {
+    const fileReader = new FileReader();
+    if (event && event.length) {
+      fileReader.readAsDataURL(event[0]);
+      fileReader.onload = () => {
+        this.helper.avatar = event[0];
+        this.changedPhoto = fileReader.result;
+      };
+    } else {
+      this.helper.avatar = null;
+      this.changedPhoto = null;
+    }
   }
 
   private createForm(): void {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
-      surname: [],
-      patronymic: [],
-      birthday: [],
-      avatar: [],
-      photoPath: [],
-      rating: [],
+      surname: [null, Validators.required],
+      patronymic: [''],
+      birthday: ['', Validators.required],
+      avatar: [''],
+      rating: [null, Validators.required],
+      addressID: [''],
+      email: ['']
     });
   }
 
@@ -94,9 +111,8 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       surname: helper.surname,
       patronymic: helper.patronymic,
       birthday: helper.birthday,
-      avatar: helper.avatar,
-      photoPath: helper.photoPath,
       rating: helper.rating,
+      email: helper.emailID
     });
   }
 
@@ -105,20 +121,6 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       ? this.profileForm.disable()
       : this.profileForm.enable();
     this.isEditDisabled = this.profileForm.disabled;
-  }
-
-  private changeAvatar(event) {
-    const fileReader = new FileReader();
-    if (event && event.length) {
-      fileReader.readAsDataURL(event && event.length && event[0]);
-      fileReader.onload = () => {
-        this.helper.avatar = event[0];
-        this.changedPhoto = fileReader.result;
-      };
-    } else {
-      this.helper.avatar = null;
-      this.changedPhoto = null;
-    }
   }
 
 }

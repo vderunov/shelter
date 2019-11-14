@@ -18,8 +18,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchModule } from '../search/search.module';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFileUploadModule } from 'mat-file-upload';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule, MatNativeDateModule } from '@angular/material';
 
 const adminRoutes: Routes = [
   { path: 'users', component: AdminUsersComponent },
@@ -45,6 +47,9 @@ const adminRoutes: Routes = [
     RouterModule.forRoot(
       adminRoutes,
     ),
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatGridListModule,
     MatFileUploadModule,
     HttpClientModule,
@@ -56,11 +61,20 @@ const adminRoutes: Routes = [
     BrowserAnimationsModule,
     SearchModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule
+  ],
+  providers: [
+    MatDatepickerModule,
   ],
   exports: [
     RouterModule,
     MatTabsModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 

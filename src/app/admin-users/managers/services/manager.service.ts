@@ -12,6 +12,7 @@ import { concatMap } from 'rxjs/operators';
 
 export class ManagersService {
 
+
     constructor(private http: HttpClient, private configService: ConfigService) { }
 
     public getAllManagers(paramObj: object = {}): Observable<Manager[]> {
@@ -32,8 +33,7 @@ export class ManagersService {
         );
     }
 
-    public updateManagerById(formValue: object, id: string, avatar): Observable<Manager> {
-        console.log(JSON.stringify(formValue));
+    public updateManagerById(formValue: object, id: string): Observable<Manager> {
         return this.configService.getConfig().pipe(
             concatMap((config: Config) =>
                 this.http.put<Manager>(`${config.managersApi}/${id}`, formValue)
