@@ -20,7 +20,7 @@ export class AuthStateService {
     return Boolean(this.getStateValue());
   }
 
-  public getStateProperty(str: string): AuthStateModel {
+  public getStateProperty(str: string): string | string[] {
     if (this.isLogged()) {
       return this.getStateValue()[str];
     }
