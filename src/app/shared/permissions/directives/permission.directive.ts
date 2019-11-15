@@ -12,7 +12,7 @@ export class PermissionDirective {
     private permissionService: PermissionService,
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private currentRoles: AuthStateService
+    private authStateService: AuthStateService
     ) { }
 
     @Input()
@@ -21,12 +21,8 @@ export class PermissionDirective {
     }
 
     private updateView(permission) {
-      const role = this.currentRoles.getStateValue();
-
-// until server roles not fully implemented let`s assume that any not empty role is Admin //
-      const currentRole = role ? Roles.Admin : Roles.Guest;
-// ************************************************************************************** //
-
+      const role = this.authStateService.getStateProperty('roles');
+      const currentRole = role ? role[0] : Roles.Guest;
       const access = this.permissionService.getPermissionByRole(currentRole, permission);
       if (access) {
           this.viewContainer.createEmbeddedView(this.templateRef);

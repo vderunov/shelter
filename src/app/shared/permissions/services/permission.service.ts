@@ -28,5 +28,8 @@ export class PermissionService {
     this.permissionsByRole.set(Roles.Guest, [
       Permissions.shelterReset
     ]);
+    this.permissionsByRole.set(Roles.Volunteer, [
+      Permissions.shelterUploadPhoto
+    ]);
   }
 }
