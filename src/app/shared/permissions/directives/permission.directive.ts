@@ -2,8 +2,7 @@ import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
 import { PermissionService } from '../services/permission.service';
 
 @Directive({
-  selector: '[appPermission]',
-  exportAs: '[appPermission]'
+  selector: '[appPermission]'
 })
 export class PermissionDirective {
 

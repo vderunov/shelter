@@ -14,13 +14,12 @@ import { takeUntil } from 'rxjs/operators';
 export class AuctionComponent implements OnInit, OnDestroy {
   public permissions = Permissions;
   public lots$: Observable<ActiveLot[]>;
-  public isSpinner: boolean = true;
+  public isSpinner = true;
   private destroy$ = new Subject();
 
   constructor(private auctionService: AuctionService) { }
 
   public ngOnInit() {
-    // this.dataReady = false;
     this.lots$ = this.auctionService.getActiveLots();
     this.lots$.pipe(takeUntil(this.destroy$)).subscribe((lots: ActiveLot[]) => {
       this.isSpinner = false;
@@ -35,5 +34,4 @@ export class AuctionComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  
 }
