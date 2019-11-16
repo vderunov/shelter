@@ -21,6 +21,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public visibleFields = false;
   public changedPhoto: string | ArrayBuffer;
   private unsubscribe: Subject<void> = new Subject();
+  avatar: File = null;
 
   constructor(
     private managersService: ManagersService,
@@ -63,8 +64,22 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   }
 
   public changeInfo() {
-    this.managersService
-      .updateManagerById(this.profileForm.value, this.managerId)
+    const managerChanges = {
+      id: this.manager.id,
+      name: this.profileForm.get('name').value,
+      surname: this.profileForm.get('surname').value,
+      patronymic: this.profileForm.get('patronymic').value,
+      birthday: this.profileForm.get('birthday').value,
+      rating: this.profileForm.get('rating').value,
+      avatar: this.manager.avatar,
+      childrenHouseID: this.manager.childrenHouseID,
+      emailID: this.manager.emailID,
+      photoPath: this.manager.photoPath,
+    };
+    this.managersService.updateManagerImageById(managerChanges)
+      // this.managersService
+      // .updateManagerImageById(this.avatar, this.managerId)
+      // .updateManagerById(this.profileForm.value, this.managerId)
       .subscribe(() => this.onEdit());
   }
 
@@ -91,6 +106,9 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       avatar: [],
       photoPath: [],
       rating: [],
+      id: [],
+      childrenHouseID: [],
+      emailID: []
     });
   }
 
@@ -103,6 +121,10 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       avatar: manager.avatar,
       photoPath: manager.photoPath,
       rating: manager.rating,
+      id: manager.id,
+      childrenHouseID: manager.childrenHouseID,
+      emailID: manager.emailID
+
     });
   }
 
@@ -114,3 +136,34 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   }
 
 }
+
+
+//   public onSubmit(): void {
+//     this.toggleForm();
+//     const shelterChange = {
+//       name: this.profileForm.get('name').value,
+//       rating: this.shelter.rating,
+//       adressID: this.shelter.adressID,
+//       avatar: this.shelter.avatar,
+//       locationID: this.shelter.locationID
+//     };
+
+
+//     this.sheltersService.putShelterDetails({
+//       id: this.shelter.id,
+//       addressID: this.shelter.adressID,
+//       address: addressChange,
+//       shelter: shelterChange,
+//     })
+//   }
+
+//   private patchFormValues(shelter): void {
+//     this.profileForm.patchValue({
+//       name: shelter.name,
+//       avatar: shelter.avatar,
+//       photoPath: shelter.photoPath,
+//     });
+//   }
+
+
+

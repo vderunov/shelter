@@ -71,14 +71,18 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       birthday: this.profileForm.get('birthday').value,
       rating: this.profileForm.get('rating').value,
       email: this.helper.emailID,
-      avatar: this.changedPhoto,
+      avatar: this.helper.avatar,
       adressID: this.helper.addressID,
     };
+    console.log(this.helper.avatar);
     this.helpersService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
+    // this.helpersService.updateHelperImage(this.helper.avatar)
+    //   .subscribe();
   }
 
   public changeAvatar(event) {
+
     const fileReader = new FileReader();
     if (event && event.length) {
       fileReader.readAsDataURL(event[0]);
@@ -108,11 +112,13 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   private patchFormValues(helper: Helper): void {
     this.profileForm.patchValue({
       name: helper.name,
+      photoPath: helper.photoPath,
       surname: helper.surname,
       patronymic: helper.patronymic,
       birthday: helper.birthday,
       rating: helper.rating,
-      email: helper.emailID
+      email: helper.emailID,
+      avatar: helper.avatar
     });
   }
 

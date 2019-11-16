@@ -5,13 +5,14 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <p><img mat-card-image class="avatar" [src]="helper.photoPath" [alt]="helper.name"></p>
-            <p>Birthday: {{ helper.birthday | date:'dd/MM/yyyy' }}</p>
-            <p>Rating: {{ helper.rating }}</p>
+            <div><img mat-card-image class="avatar" [src]="helper.photoPath" [alt]="helper.name"></div>
+            <div class="content">
+                <p>Birthday: {{ helper.birthday | date:'dd/MM/yyyy' }}</p>
+                <p>Rating: {{ helper.rating }}</p>
+            </div>
         </mat-card-content>
         <mat-card-actions class="button">
-                <button mat-raised-button color="primary" 
-                [routerLink]="['/helper/', helper.id]">More</button>
+            <button mat-raised-button color="primary" [routerLink]="['/helper/', helper.id]">More</button>
         </mat-card-actions>
     </mat-card>
 </div>

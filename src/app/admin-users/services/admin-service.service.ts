@@ -1,50 +1,72 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Manager } from '../managers/models/manager.model';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Helper } from '../helpers/models/helper.model';
-import { Observable } from 'rxjs';
-import { Config } from 'src/app/shared/services/config/config.interface';
+import { Observable, of, zip } from 'rxjs';
+import { concatMap, map } from 'rxjs/operators';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap } from 'rxjs/operators';
-@Injectable({
-  providedIn: 'root'
-})
+import { Config } from 'src/app/shared/services/config/config.interface';
+
+@Injectable({ providedIn: 'root' })
 export class AdminService {
 
-  constructor(private http: HttpClient, private configService: ConfigService) { }
+  constructor(private http: HttpClient, private configService: ConfigService) {
+  }
 
-  public getAllManagers(paramObj: object = {}): Observable<Manager[]> {
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+
+  public getAllHelpers(paramObj: object = {}): Observable<Helper[]> {
     let params = new HttpParams();
     Object.keys(paramObj).forEach((key: string) => params = params.set(key, paramObj[key]));
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.get<Manager[]>(config.managersApi, { params })
+        this.http.get<Helper[]>(config.helpersApi, { params })
+      ),
+    );
+  }
+
+  public getHelperById(id: string): Observable<Helper> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.get<Helper>(`${config.helpersApi}/${id}`)
       )
     );
   }
 
-  public getManagerById(id: string): Observable<Manager> {
+  public updateUserById(changeData, userType) {
+    if (userType === 'helper') {
+      return this.configService.getConfig().pipe(
+        concatMap((config: Config) =>
+          this.putHelper(config.helpersApi, changeData, changeData.id)
+
+        ));
+    }
+
+
+  }
+
+  private putHelper(api, helper, helperId): Observable<Helper> {
+    return helper ? this.http.put<Helper>(`${api}/${helperId}`, helper, this.httpOptions) : of(null);
+  }
+
+  public deleteHelperById(id: string) {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.get<Manager>(`${config.managersApi}/${id}`)
+        this.http.delete(`${config.helpersApi}/${id}`)
       )
     );
   }
 
-  public updateManagerById(formValue: object, id: string): Observable<Manager> {
-    return this.configService.getConfig().pipe(
-      concatMap((config: Config) =>
-        this.http.put<Manager>(`${config.managersApi}/${id}`, formValue)
-      )
-    );
+  private createFormData(params): FormData {
+    const formData = new FormData();
+    Object.entries(params).forEach(([key, value]: [string, Blob]) =>
+      value instanceof File ? formData.append(key, value, value.name) : formData.append(key, value));
+    return formData;
   }
 
-  public deleteManagerById(id: string) {
-    return this.configService.getConfig().pipe(
-      concatMap((config: Config) =>
-        this.http.delete(`${config.managersApi}/${id}`)
-      )
-    );
-  }
 
 }
