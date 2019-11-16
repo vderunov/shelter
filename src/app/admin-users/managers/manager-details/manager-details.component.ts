@@ -136,34 +136,3 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
-//   public onSubmit(): void {
-//     this.toggleForm();
-//     const shelterChange = {
-//       name: this.profileForm.get('name').value,
-//       rating: this.shelter.rating,
-//       adressID: this.shelter.adressID,
-//       avatar: this.shelter.avatar,
-//       locationID: this.shelter.locationID
-//     };
-
-
-//     this.sheltersService.putShelterDetails({
-//       id: this.shelter.id,
-//       addressID: this.shelter.adressID,
-//       address: addressChange,
-//       shelter: shelterChange,
-//     })
-//   }
-
-//   private patchFormValues(shelter): void {
-//     this.profileForm.patchValue({
-//       name: shelter.name,
-//       avatar: shelter.avatar,
-//       photoPath: shelter.photoPath,
-//     });
-//   }
-
-
-

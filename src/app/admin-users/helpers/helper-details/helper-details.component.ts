@@ -74,7 +74,6 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       avatar: this.helper.avatar,
       adressID: this.helper.addressID,
     };
-    console.log(this.helper.avatar);
     this.helpersService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
     // this.helpersService.updateHelperImage(this.helper.avatar)
