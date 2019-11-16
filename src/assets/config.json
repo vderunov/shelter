@@ -10,6 +10,6 @@
   "registrationUserApi": "/api/v1/volunteers",
   "managersApi": "https://familynetserver.azurewebsites.net/api/v1/representatives/",
   "helpersApi": "https://familynetserver.azurewebsites.net/api/v1/volunteers/",
-  "activeLotsApi": "assets/active-lots.data.json",
+  "activeLotsApi": "https://familynetserver.azurewebsites.net/api/v2/AuctionLot/approved",
   "donationItemsApi": "https://familynetserver.azurewebsites.net/api/v2/donationItems/"
 }

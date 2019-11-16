@@ -6,6 +6,8 @@ import { AuctionLotComponent } from './auction-lot/auction-lot.component';
 import { MatListModule, MatCardModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { PermissionsModule } from '../shared/permissions/permissions.module';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const auctionRoutes: Routes = [
   { path: 'auction', component: AuctionComponent }
@@ -19,6 +21,8 @@ const auctionRoutes: Routes = [
     MatListModule,
     MatCardModule,
     MatButtonModule,
+    MatGridListModule,
+    MatProgressSpinnerModule,
     PermissionsModule
   ],
   exports: [

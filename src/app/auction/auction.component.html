@@ -1,10 +1,17 @@
-<button 
-  *appPermission="permissions.auctionShowPurchase" 
-  class="show-purchases-button"
-  mat-button>
-  Show purchases</button>
-<mat-list class="lot-list">
-  <mat-list-item class="lot-list-card" *ngFor="let lot of lots$ | async; trackBy: trackById">
-    <app-auction-lot [lot]="lot"></app-auction-lot>
-  </mat-list-item>
-</mat-list>
+<div class="center" *ngIf="isSpinner">
+  <mat-spinner fxFlex fxFlexAlign="center"></mat-spinner>
+</div>
+
+<div>
+  <button 
+    *appPermission="permissions.auctionShowPurchase" 
+    class="show-purchases-button"
+    mat-button>
+    Show purchases</button>
+
+    <mat-grid-list cols="4">
+    <mat-grid-tile *ngFor="let lot of lots$ | async; trackBy: trackById">
+      <app-auction-lot [lot]="lot"></app-auction-lot>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

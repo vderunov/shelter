@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Observable, Subscription, Subject } from 'rxjs';
 import { ActiveLot } from './models/active-lot.model';
 import { AuctionService } from './services/auction.service';
 import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auction',
@@ -10,18 +11,29 @@ import { Permissions } from 'src/app/shared/permissions/models/permissions.enum'
   styleUrls: ['./auction.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuctionComponent implements OnInit {
+export class AuctionComponent implements OnInit, OnDestroy {
   public permissions = Permissions;
   public lots$: Observable<ActiveLot[]>;
+  public isSpinner: boolean = true;
+  private destroy$ = new Subject();
 
   constructor(private auctionService: AuctionService) { }
 
   public ngOnInit() {
+    // this.dataReady = false;
     this.lots$ = this.auctionService.getActiveLots();
+    this.lots$.pipe(takeUntil(this.destroy$)).subscribe((lots: ActiveLot[]) => {
+      this.isSpinner = false;
+    });
   }
 
   public trackById(index: number, item: ActiveLot) {
     return item.auctionLotItemID;
   }
 
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  
 }
