@@ -18,7 +18,9 @@ export class AuthenticationService {
     private http: HttpClient,
     private configService: ConfigService,
     private authStateService: AuthStateService
-  ) { }
+  ) {
+
+  }
 
   public login(loginData: Login): Observable<any> {
     return this.configService.getConfig().pipe(
@@ -27,10 +29,15 @@ export class AuthenticationService {
       map(stateObj => {
         if (stateObj && stateObj.token) {
           this.authStateService.setState(stateObj);
+          this.router.navigate(['/shelters']);
         }
       }),
       catchError(this.handleError)
     );
+  }
+
+  public logout(): void {
+    this.authStateService.cleanAuthenticatedState();
   }
 
   public addUser(newUser: NewUser) {
@@ -48,7 +55,7 @@ export class AuthenticationService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
+      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
     }
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');

@@ -1,1 +1,19 @@
-<p>user-menu works!</p>
+<div *ngIf="authStateService.isLogged(); else guest">
+  <a mat-button [matMenuTriggerFor]="menu">
+    {{authStateService.getStateProperty('email')}}
+    <mat-icon>arrow_drop_down</mat-icon>
+  </a>
+
+  <mat-menu #menu="matMenu">
+    <a *appPermission="permissions.navigateRegistrateShelter" mat-menu-item [routerLink]="['/registration-shelter']">
+      Registrate a New Shelter</a>
+    <a *appPermission="permissions.navigateUsersDetails" mat-menu-item [routerLink]="['/users']">Users Details</a>
+    <a *appPermission="permissions.navigateLogout" mat-menu-item (click)="authenticationService.logout()">Sign out</a>
+  </mat-menu>
+</div>
+
+<ng-template #guest>
+  <a *appPermission="permissions.navigateLogin" mat-button [routerLink]="['/login']">Sign in</a>
+  <a *appPermission="permissions.navigateRegistrateUser" mat-raised-button [routerLink]="['/registraction-user']">
+    Sign up</a>
+</ng-template>

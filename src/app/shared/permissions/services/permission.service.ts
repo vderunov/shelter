@@ -31,13 +31,34 @@ export class PermissionService {
       Permissions.shelterReset,
       Permissions.shelterSave,
       Permissions.shelterDelete,
-      Permissions.shelterUploadPhoto
+      Permissions.shelterUploadPhoto,
+      Permissions.navigateAuction,
+      Permissions.navigateDonate,
+      Permissions.navigateShelters,
+      Permissions.navigateLogo,
+      Permissions.navigateLogin,
+      Permissions.navigateLogout,
+      Permissions.navigateRegistrateShelter,
+      Permissions.navigateUsersDetails
     ]);
     this.permissionsByRole.set(Roles.Guest, [
-      Permissions.shelterReset
+      Permissions.shelterReset,
+      Permissions.navigateAuction,
+      Permissions.navigateDonate,
+      Permissions.navigateShelters,
+      Permissions.navigateLogo,
+      Permissions.navigateLogin,
+      Permissions.navigateRegistrateUser,
+      Permissions.navigateLogout
     ]);
     this.permissionsByRole.set(Roles.Volunteer, [
-      Permissions.shelterUploadPhoto
+      Permissions.shelterUploadPhoto,
+      Permissions.navigateAuction,
+      Permissions.navigateDonate,
+      Permissions.navigateShelters,
+      Permissions.navigateLogo,
+      Permissions.navigateLogin,
+      Permissions.navigateLogout
     ]);
   }
 }

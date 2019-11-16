@@ -4,9 +4,10 @@
 */
 @import "src/app/shared/style/variables.scss";
 
-.nav {
+nav {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   background-color: $navbar-background-color;
   padding: 8px 16px;
 
@@ -28,5 +29,10 @@
 
   .flex-spacer {
     flex-grow: 1;
+  }
+
+  app-user-menu {
+    display: flex;
+    justify-content: space-between;
   }
 }

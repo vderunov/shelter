@@ -3,5 +3,14 @@ export enum Permissions {
   shelterSave,
   shelterReset,
   shelterDelete,
-  shelterUploadPhoto
+  shelterUploadPhoto,
+  navigateDonate,
+  navigateAuction,
+  navigateShelters,
+  navigateLogo,
+  navigateRegistrateShelter,
+  navigateRegistrateUser,
+  navigateUsersDetails,
+  navigateLogin,
+  navigateLogout
 }
