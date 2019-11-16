@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Helper } from '../models/helper.model';
-import { Observable, of, zip, concat } from 'rxjs';
-import { concatMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { Config } from 'src/app/shared/services/config/config.interface';
 
@@ -10,21 +10,13 @@ import { Config } from 'src/app/shared/services/config/config.interface';
 
 export class HelpersService {
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
-  }
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService) { }
 
   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-      
-    })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
-
-
-
-
-
 
   public getAllHelpers(paramObj: object = {}): Observable<Helper[]> {
     let params = new HttpParams();
@@ -44,38 +36,14 @@ export class HelpersService {
     );
   }
 
-  public updateHelperById(changeData): Observable<Helper> {
-    return this.configService.getConfig().pipe(
-      concatMap((config: Config) =>
-        this.putHelper(config.helpersApi, changeData, changeData.id)
-      ));
-  }
-  public updateHelperImage(photo): Observable<any> {
-    return this.configService.getConfig().pipe(
-        concatMap((config: Config) => {
-          const fd = new FormData();
-          fd.append('avatar', photo, photo.name);
-          return this.http.put<Helper>(config.helpersImageApi, fd);
-        })
 
-
+  public updateHelperById(helperData: Helper): Observable<Helper> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return this.http.put<Helper[]>(`${config.helpersApi}/${helperData.id}`, helperData, this.httpOptions),
+          this.putHelperImage(config.managersImageApi, helperData, helperData.id);
+      })
     );
-
-
-
-
-
-    // console.log();
-    // const fd = new FormData();
-    // fd.append('avatar', photo, photo.name);
-    // return this.configService.getConfig().pipe(
-    //   concatMap((config: Config) =>
-    //     this.http.put<Helper>(config.helpersImageApi, fd)
-    //   ));
-  }
-
-  private putHelper(api, helper, helperId): Observable<Helper> {
-    return helper ? this.http.put<Helper>(`${api}/${helperId}`, helper, this.httpOptions) : of(null);
   }
 
   public deleteHelperById(id: string) {
@@ -86,12 +54,16 @@ export class HelpersService {
     );
   }
 
-  private createFormData(params): FormData {
-    const formData = new FormData();
-    Object.entries(params).forEach(([key, value]: [string, Blob]) =>
-      value instanceof File ? formData.append(key, value, value.name) : formData.append(key, value));
-    return formData;
+  private putHelperImage(api: string, info: Helper, helperId: number): Observable<Helper> {
+    return this.http.put<Helper>(`${api}/${helperId}`, this.createFormData(info));
   }
 
-
+  private createFormData(info: Helper): FormData {
+    const formData = new FormData();
+    Object.entries(info).forEach(([key, value]: [string, Blob]) =>
+      value instanceof File ?
+        formData.append(key, value, value.name) :
+        formData.append(key, value));
+    return formData;
+  }
 }

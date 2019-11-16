@@ -21,7 +21,6 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public visibleFields = false;
   public changedPhoto: string | ArrayBuffer;
   private unsubscribe: Subject<void> = new Subject();
-  avatar: File = null;
 
   constructor(
     private managersService: ManagersService,
@@ -76,10 +75,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       emailID: this.manager.emailID,
       photoPath: this.manager.photoPath,
     };
-    this.managersService.updateManagerImageById(managerChanges)
-      // this.managersService
-      // .updateManagerImageById(this.avatar, this.managerId)
-      // .updateManagerById(this.profileForm.value, this.managerId)
+    this.managersService.updateManagerById(managerChanges)
       .subscribe(() => this.onEdit());
   }
 
@@ -100,12 +96,12 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   private createForm(): void {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
-      surname: [],
+      surname: [null, Validators.required],
       patronymic: [],
-      birthday: Date,
+      birthday: ['', Validators.required],
       avatar: [],
       photoPath: [],
-      rating: [],
+      rating: [null, Validators.required],
       id: [],
       childrenHouseID: [],
       emailID: []
@@ -134,5 +130,4 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       : this.profileForm.enable();
     this.isEditDisabled = this.profileForm.disabled;
   }
-
 }

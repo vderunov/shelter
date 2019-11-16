@@ -44,9 +44,7 @@ const adminRoutes: Routes = [
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    RouterModule.forRoot(
-      adminRoutes,
-    ),
+    RouterModule.forChild(adminRoutes),
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,

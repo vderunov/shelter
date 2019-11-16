@@ -70,14 +70,13 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       patronymic: this.profileForm.get('patronymic').value,
       birthday: this.profileForm.get('birthday').value,
       rating: this.profileForm.get('rating').value,
-      email: this.helper.emailID,
+      emailID: this.helper.emailID,
       avatar: this.helper.avatar,
-      adressID: this.helper.addressID,
+      addressID: this.helper.addressID,
+      photoPath: this.helper.photoPath,
     };
     this.helpersService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
-    // this.helpersService.updateHelperImage(this.helper.avatar)
-    //   .subscribe();
   }
 
   public changeAvatar(event) {
@@ -97,27 +96,31 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
 
   private createForm(): void {
     this.profileForm = this.fb.group({
+      id: [],
       name: [null, Validators.required],
       surname: [null, Validators.required],
-      patronymic: [''],
+      patronymic: [],
       birthday: ['', Validators.required],
-      avatar: [''],
+      avatar: [],
       rating: [null, Validators.required],
-      addressID: [''],
-      email: ['']
+      addressID: [],
+      emailID: [],
+      photoPath: []
+
     });
   }
 
   private patchFormValues(helper: Helper): void {
     this.profileForm.patchValue({
+      id: helper.id,
       name: helper.name,
-      photoPath: helper.photoPath,
       surname: helper.surname,
       patronymic: helper.patronymic,
       birthday: helper.birthday,
       rating: helper.rating,
-      email: helper.emailID,
-      avatar: helper.avatar
+      emailID: helper.emailID,
+      avatar: helper.avatar,
+      photoPath: helper.photoPath,
     });
   }
 
@@ -127,5 +130,4 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       : this.profileForm.enable();
     this.isEditDisabled = this.profileForm.disabled;
   }
-
 }

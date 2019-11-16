@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Manager } from '../models/manager.model';
-import { Observable, of, zip } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { concatMap } from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 
 export class ManagersService {
 
-    constructor(private http: HttpClient, private configService: ConfigService) { }
+    constructor(
+        private http: HttpClient,
+        private configService: ConfigService) { }
+
+    public httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
 
     public getAllManagers(paramObj: object = {}): Observable<Manager[]> {
         let params = new HttpParams();
@@ -32,61 +36,14 @@ export class ManagersService {
         );
     }
 
-
-
-
-    // public updateManagerImageById(changeData): Observable<Manager> {
-    //     return this.configService.getConfig().pipe(
-    //         concatMap((config: Config) => {
-    //             this.http.put<Manager>(`${config.managersImageApi}/${changeData.id}`,
-    //                 this.createFormData(changeData.manager))
-    //         })
-    //     );
-    // }
-
-
-    public updateManagerImageById(changeData): Observable<Manager[]> {
-        console.log(changeData, changeData.id);
+    public updateManagerById(managerData: Manager): Observable<Manager> {
         return this.configService.getConfig().pipe(
             concatMap((config: Config) => {
-                return zip(
-                    this.putShelter(config.managersImageApi, changeData, changeData.id)
-                );
-                // this.putShelter(config.sheltersApi, changeData.shelter, changeData.id)
+                return this.http.put<Manager[]>(`${config.managersApi}/${managerData.id}`, managerData, this.httpOptions),
+                    this.putManagerImage(config.managersImageApi, managerData, managerData.id);
             })
         );
     }
-
-    private putShelter(api, shelter, shelterId): Observable<Manager> {
-        return shelter ? this.http.put<Manager>(`${api}/${shelterId}`, this.createFormData(shelter)) : of(null);
-    }
-
-    private createFormData(params): FormData {
-        const formData = new FormData();
-        Object.entries(params).forEach(([key, value]: [string, Blob]) =>
-            value instanceof File ? formData.append(key, value, value.name) :
-                formData.append(key, value));
-        return formData;
-    }
-
-
-    // public updateManagerImageById( id, avatar): Observable<Manager> {
-    //     console.log(avatar, avatar.name);
-    //     const fd = new FormData();
-    //     fd.append('image', avatar, avatar.name);
-    //     return this.configService.getConfig().pipe(
-    //         concatMap((config: Config) =>
-    //             this.http.put<Manager>(`${config.managersImageApi}/${id}`, fd)
-    //         )
-    //     );
-    // }
-    // public updateManagerById(formValue: object, id: string): Observable<Manager> {
-    //     return this.configService.getConfig().pipe(
-    //         concatMap((config: Config) =>
-    //             this.http.put<Manager>(`${config.managersApi}/${id}`, formValue)
-    //         )
-    //     );
-    // }
 
     public deleteManagerById(id: string) {
         return this.configService.getConfig().pipe(
@@ -96,4 +53,16 @@ export class ManagersService {
         );
     }
 
+    private putManagerImage(api: string, info: Manager, managerId: number): Observable<Manager> {
+        return this.http.put<Manager>(`${api}/${managerId}`, this.createFormData(info));
+    }
+
+    private createFormData(info: Manager): FormData {
+        const formData = new FormData();
+        Object.entries(info).forEach(([key, value]: [string, Blob]) =>
+            value instanceof File ?
+                formData.append(key, value, value.name) :
+                formData.append(key, value));
+        return formData;
+    }
 }
