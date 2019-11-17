@@ -1,28 +1,16 @@
-.lot-div {
-  display: flex;
-  justify-content: flex-start;
-  min-width: 500px;
+.lot-card {
+  width: 280px;
 }
 
 .lot-avatar-div {
-  margin: 10px 10px 10px 10px;
-  min-height: 100px;
-  min-width: 100px;
-}
-
-.lot-content-div {
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
-  min-width: 400px;
-}
-
-.lot-info-head-div {
-  display: flex;
-  justify-content: space-between;
+  margin: 50px auto;
+  height: 100px;
+  width: 100px;
 }
 
 .lot-control-div {
   display: flex;
   justify-content: flex-end;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }

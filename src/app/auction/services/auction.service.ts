@@ -20,18 +20,17 @@ export class AuctionService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         zip(
-          this.http.get<ActiveLot[]>(config.activeLotsApi),
+          this.http.get(config.activeLotsApi),
           this.http.get<Children[]>(config.childrenApi),
           this.http.get<Shelter[]>(config.sheltersApi),
           this.http.get(config.donationItemsApi)
           )
         ),
-        map(([listOfLots, children, shelters, dontationItems]: [ActiveLot[], Children[], Shelter[], any]) => {
+        map(([listOfLots, children, shelters, dontationItems]: [any, Children[], Shelter[], any]) => {
           const childrenObj = children.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const shetlerObj = shelters.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const dontationItemsObj = dontationItems.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
-
-          return listOfLots.map((lot: ActiveLot) => {
+          return listOfLots.auctionLotDTOs.map((lot: ActiveLot) => {
             return {
               ...lot,
               auctionLotInfo: dontationItemsObj[lot.auctionLotItemID],
