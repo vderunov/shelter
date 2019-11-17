@@ -1,6 +1,6 @@
 export interface ActiveLot {
   id: number;
-  dateStart: string;
+  dateAdded: string;
   auctionLotItemID: number;
   orphanID?: number;
   avatar?: string;
