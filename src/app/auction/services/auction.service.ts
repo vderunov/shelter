@@ -4,7 +4,6 @@ import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { Observable, zip, of } from 'rxjs';
 import { ActiveLot } from '../models/active-lot.model';
-import { AuctionList } from '../models/auction-list.model';
 import { concatMap, map } from 'rxjs/operators';
 import { Shelter } from 'src/app/shelters/models/shelter.interface';
 import { Children } from 'src/app/shared/models/children.interface';
@@ -27,7 +26,7 @@ export class AuctionService {
           this.http.get(config.donationItemsApi)
           )
         ),
-        map(([listOfLots, children, shelters, dontationItems]: [AuctionList, Children[], Shelter[], any]) => {
+        map(([listOfLots, children, shelters, dontationItems]: [any, Children[], Shelter[], any]) => {
           const childrenObj = children.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const shetlerObj = shelters.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const dontationItemsObj = dontationItems.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
