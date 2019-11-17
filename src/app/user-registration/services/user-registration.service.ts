@@ -50,7 +50,7 @@ export class UserRegistrationService {
 
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.post<UserRegistrationModel>(config.userRegistrationApi, newUser, this.httpOptions).pipe(
+        return this.http.post<UserRegistrationModel>(config. , newUser, this.httpOptions).pipe(
           concatMap(() => this.authenticationService.login(loginObj).pipe(
             concatMap(() => this.http.post<VolunteerRegistrationModel>(config.helpersApi, newVolunteer, this.httpOptions))
           ))
