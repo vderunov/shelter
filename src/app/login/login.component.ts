@@ -6,7 +6,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NotifierService } from '../shared/services/notifier/notifier.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +23,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private notifier: NotifierService,
-    private location: Location
   ) { }
 
   public ngOnInit(): void {
