@@ -34,7 +34,6 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
         surname: [null, FormFiledsValidator.checkName],
         phone: [null, FormFiledsValidator.checkPhone],
         email: [null, FormFiledsValidator.checkEmail],
-        address: [null],
         password: [null, FormFiledsValidator.checkPassword],
         confirmPassword: [null, FormFiledsValidator.checkPassword]
       },
@@ -57,13 +56,13 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.userRegistrationService.addUser(this.registerForm.value)
+    this.userRegistrationService.addVolunteer(this.registerForm.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
           this.registerForm.reset();
-          this.router.navigate(['/login']);
           this.notifier.showNotice('Registration completed. Please log in', 'success');
+          this.router.navigate(['/login']);
         },
         error => {
           this.notifier.showNotice(error.message, 'error');

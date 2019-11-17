@@ -57,8 +57,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.loginForm.reset();
-          this.location.back();
           this.notifier.showNotice('Welcome!', 'success');
+          this.router.navigate(['/shelters']);
         },
         error => {
           this.notifier.showNotice(error.message, 'error');

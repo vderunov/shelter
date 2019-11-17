@@ -3,6 +3,6 @@ export interface UserRegistrationModel {
   password: string;
   passwordConfirm: string;
   phone: string;
-  yourDropdownSelected: number;
+  yourDropdownSelectedValue: string;
   id?: number;
 }

@@ -1,7 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, take, concatMap, map } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { concatMap, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LoginModel } from 'src/app/login/login.model';
 import { ConfigService } from '../config/config.service';
@@ -21,9 +21,8 @@ export class AuthenticationService {
 
   public login(loginData: LoginModel): Observable<void> {
     return this.configService.getConfig().pipe(
-      concatMap(config => this.http.post<any>(config.loginApi, loginData)),
-      take(1),
-      map(stateObj => {
+      concatMap((config) => this.http.post<any>(config.loginApi, loginData)),
+      map((stateObj) => {
         if (stateObj && stateObj.token) {
           this.authStateService.setState(stateObj);
         }
