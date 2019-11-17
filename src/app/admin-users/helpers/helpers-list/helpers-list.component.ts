@@ -25,4 +25,5 @@ export class HelpersListComponent implements OnInit {
   public onSearch(searchValue: string): void {
     this.helpers$ = this.helperService.getAllHelpers({ name: searchValue });
   }
+
 }

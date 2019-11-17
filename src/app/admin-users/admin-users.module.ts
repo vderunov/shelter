@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -39,7 +39,7 @@ const adminRoutes: Routes = [
     HelperItemComponent,
     HelpersListComponent,
     HelperDetailsComponent,
-    ManagerDetailsComponent,
+    ManagerDetailsComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -63,7 +63,7 @@ const adminRoutes: Routes = [
     MatDatepickerModule
   ],
   providers: [
-    MatDatepickerModule,
+    MatDatepickerModule
   ],
   exports: [
     RouterModule,
@@ -72,7 +72,11 @@ const adminRoutes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 

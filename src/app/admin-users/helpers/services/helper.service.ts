@@ -24,7 +24,7 @@ export class HelpersService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.http.get<Helper[]>(config.helpersApi, { params })
-      )
+      ),
     );
   }
 
@@ -37,11 +37,20 @@ export class HelpersService {
   }
 
 
-  public updateHelperById(helperData: Helper): Observable<Helper> {
+  public updateHelperById(helperData: Helper) {
+
+    this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return this.http.put<Helper>(`${config.helpersApi}/${helperData.id}`, helperData, this.httpOptions);
+      })
+    );
+    return this.putHelperImage(helperData);
+  }
+  public putHelperImage(helperData): Observable<Helper> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<Helper[]>(`${config.helpersApi}/${helperData.id}`, helperData, this.httpOptions) &&
-          this.putHelperImage(config.managersImageApi, helperData, helperData.id);
+        return this.http.put<Helper>(`${config.helpersImageApi}/${helperData.id}`, this.createFormData(helperData))
+
       })
     );
   }
@@ -54,9 +63,9 @@ export class HelpersService {
     );
   }
 
-  private putHelperImage(api: string, info: Helper, helperId: number): Observable<Helper> {
-    return this.http.put<Helper>(`${api}/${helperId}`, this.createFormData(info));
-  }
+  // private putHelperImage(api: string, info: Helper, helperId: number) {
+  //   return this.http.put<Helper>(`${api}/${helperId}`, this.createFormData(info));
+  // }
 
   private createFormData(info: Helper): FormData {
     const formData = new FormData();

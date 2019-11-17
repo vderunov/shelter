@@ -31,12 +31,12 @@ describe('HelpersService', () => {
       mockHelpers = [
         {
           id: 54, name: 'Олег', surname: 'Петренко', patronymic: 'Дмитреевич', birthday: '1954-12-30T00:00:00',
-          rating: 5.0, avatar: null, childrenHouseID: 53, emailID: 0,
+          rating: 5.0, avatar: null,  addressID: 3, emailID: 6,
           photoPath: 'https://familynetserver.azurewebsites.net/avatars/seddata_volunteer2.jpg'
         },
         {
           id: 55, name: 'Марина', surname: 'Кричич', patronymic: 'Михайловна', birthday: '1954-12-30T00:00:00',
-          rating: 5.0, avatar: null, childrenHouseID: 54, emailID: 0,
+          rating: 5.0, avatar: null, addressID: 1, emailID: 0,
           photoPath: 'https://familynetserver.azurewebsites.net/avatars/seddata_volunteer1.jpg'
         }
       ];

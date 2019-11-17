@@ -6,9 +6,12 @@
   <a mat-button [routerLink]="['/shelters']">
     Find shelter
   </a>
-  <a *appPermission="permissions.showUserList" mat-button disabled [routerLink]="['/users']">
+  <a mat-button disabled [routerLink]="['/users']">
     Admin Users
   </a>
+  <!-- <a *appPermission="permissions.showUserList" mat-button disabled [routerLink]="['/users']">
+    Admin Users
+  </a> -->
   <a mat-button [routerLink]="['/donation']">Donate
   </a>
   <a mat-button [routerLink]="['/auction']">Charity auction
