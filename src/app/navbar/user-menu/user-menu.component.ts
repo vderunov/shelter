@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthStateService } from '../../shared/services/state/auth-state.service';
 import { AuthenticationService } from '../../shared/services/user/authentication.service';
-import { Permissions } from '../../shared/permissions/models/permissions.enum';
 
 @Component({
   selector: 'app-user-menu',
@@ -9,7 +8,6 @@ import { Permissions } from '../../shared/permissions/models/permissions.enum';
   styleUrls: ['./user-menu.component.scss']
 })
 export class UserMenuComponent {
-  public permissions = Permissions;
 
   constructor(
     private authStateService: AuthStateService,

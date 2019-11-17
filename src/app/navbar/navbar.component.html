@@ -1,11 +1,11 @@
 <nav class="mat-elevation-z6">
-  <a *appPermission="permissions.navigateShelters" mat-button disableRipple [routerLink]="['/shelters']">
+  <a mat-button disableRipple [routerLink]="['/shelters']">
     <img src='assets/logo.png'>
     <span></span>
   </a>
-  <a *appPermission="permissions.navigateShelters" mat-button [routerLink]="['/shelters']">Find shelter</a>
-  <a *appPermission="permissions.navigateDonate" mat-button [routerLink]="['/donation']">Donate</a>
-  <a *appPermission="permissions.navigateAuction" mat-button [routerLink]="['/auction']">Charity auction</a>
+  <a mat-button [routerLink]="['/shelters']">Find shelter</a>
+  <a mat-button [routerLink]="['/donation']">Donate</a>
+  <a mat-button [routerLink]="['/auction']">Charity auction</a>
   <div class="flex-spacer"></div>
   <app-user-menu></app-user-menu>
 </nav>

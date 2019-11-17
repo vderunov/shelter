@@ -20,7 +20,7 @@ export class FormFiledsValidator {
       '^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+[.])+([a-zA-Z0-9]{2,4})+$'
     ),
     Validators.minLength(6),
-    Validators.maxLength(20)
+    Validators.maxLength(50)
   ];
 
   public static checkPassword = [
@@ -29,7 +29,7 @@ export class FormFiledsValidator {
       '^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9.,<>()-=_+!@#$%^&*~?]+$'
     ),
     Validators.minLength(6),
-    Validators.maxLength(20)
+    Validators.maxLength(50)
   ];
 
   public static matchPassword(control: AbstractControl) {
