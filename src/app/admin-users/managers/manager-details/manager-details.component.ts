@@ -73,7 +73,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       avatar: this.manager.avatar,
       childrenHouseID: this.manager.childrenHouseID,
       emailID: this.manager.emailID,
-      photoPath: this.manager.photoPath,
+      photoPath: this.manager.photoPath
     };
     this.managersService.updateManagerById(managerChanges)
       .subscribe(() => this.onEdit());

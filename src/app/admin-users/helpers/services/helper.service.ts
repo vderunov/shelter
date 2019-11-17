@@ -24,7 +24,7 @@ export class HelpersService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.http.get<Helper[]>(config.helpersApi, { params })
-      ),
+      )
     );
   }
 
@@ -40,7 +40,7 @@ export class HelpersService {
   public updateHelperById(helperData: Helper): Observable<Helper> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<Helper[]>(`${config.helpersApi}/${helperData.id}`, helperData, this.httpOptions),
+        return this.http.put<Helper[]>(`${config.helpersApi}/${helperData.id}`, helperData, this.httpOptions) &&
           this.putHelperImage(config.managersImageApi, helperData, helperData.id);
       })
     );

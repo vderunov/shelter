@@ -26,7 +26,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
     private helpersService: HelpersService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private router: Router,
+    private router: Router
   ) { }
 
   public ngOnInit(): void {
@@ -73,7 +73,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       emailID: this.helper.emailID,
       avatar: this.helper.avatar,
       addressID: this.helper.addressID,
-      photoPath: this.helper.photoPath,
+      photoPath: this.helper.photoPath
     };
     this.helpersService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
@@ -120,7 +120,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       rating: helper.rating,
       emailID: helper.emailID,
       avatar: helper.avatar,
-      photoPath: helper.photoPath,
+      photoPath: helper.photoPath
     });
   }
 

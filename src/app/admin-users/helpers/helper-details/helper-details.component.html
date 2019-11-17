@@ -5,7 +5,7 @@
     </button>
     <mat-card class="user-card">
         <mat-card-content>
-            <form #f="ngForm" class="details-form" [formGroup]="profileForm">
+            <form class="details-form" [formGroup]="profileForm">
                 <div *ngIf="helper" class="heder-card">
                     <h2> All Information about {{ helper.name }}</h2>
                     <img mat-card-image [src]="changedPhoto ? changedPhoto : helper.photoPath" [alt]="helper.name">

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Permissions} from 'src/app/shared/permissions/models/permissions.enum';
+import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -8,5 +8,5 @@ import {Permissions} from 'src/app/shared/permissions/models/permissions.enum';
 })
 export class NavbarComponent {
   public permissions = Permissions;
-  constructor() {}
+  constructor() { }
 }

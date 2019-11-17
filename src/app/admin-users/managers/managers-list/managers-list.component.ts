@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Manager } from '../models/manager.model';
 import { ManagersService } from '../services/manager.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-managers-list',
@@ -13,7 +12,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class ManagersListComponent implements OnInit {
   public managers$: Observable<Manager[]>;
 
-  constructor(private managerService: ManagersService, public dialog: MatDialog) { }
+  constructor(private managerService: ManagersService) { }
 
   public ngOnInit(): void {
     this.managers$ = this.managerService.getAllManagers();
