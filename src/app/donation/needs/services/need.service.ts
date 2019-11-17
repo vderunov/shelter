@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Need } from '../models/need.interface';
 import { Config } from 'src/app/shared/services/config/config.interface';
@@ -10,7 +10,6 @@ import { concatMap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class NeedService {
-
   constructor(
     private http: HttpClient,
     private configService: ConfigService) { }
@@ -23,11 +22,31 @@ export class NeedService {
     );
   }
 
-  public getDetails(id: string = ''): Observable<Need> {
+  public getDetails(id: string): Observable<Need> {
     return this.configService.getConfig().pipe(
-      concatMap((config: Config) => {
-        return this.http.get<Need>(`${config.needsApi}/${id}`);
-      })
+      concatMap((config: Config) =>
+        this.http.get<Need>(`${config.needsApi}/${id}`)
+      )
+    );
+  }
+
+  public putNeedData(id: string, newData): Observable<Need> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.put<Need>(`${config.needsApi}/${id}`, newData, httpOptions)
+      )
+    );
+  }
+
+  public deleteNeed(id: string): any {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.delete<Need>(`${config.needsApi}/${id}`)
+      )
     );
   }
 }

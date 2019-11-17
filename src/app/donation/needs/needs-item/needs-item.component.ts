@@ -8,4 +8,8 @@ import { Need } from '../models/need.interface';
 })
 export class NeedsItemComponent {
   @Input() need: Need;
+
+  public onDonate() {
+    console.log('change status by put + notification');
+  }
 }

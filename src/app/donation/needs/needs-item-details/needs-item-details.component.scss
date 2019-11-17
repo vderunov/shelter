@@ -1,0 +1,36 @@
+@import "src/app/shared/style/variables.scss";
+
+div {
+  padding: 10px;
+}
+
+.mat-card {
+  width: 450px;
+  position: relative;
+  padding-bottom: 120px;
+  margin: 25px auto;
+}
+
+.mat-card-actions {
+  position: absolute;
+  width: 100%;
+  bottom: 40px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.details-full-width {
+  width: 100%;
+}
+
+.mat-input-element {
+  color: $dark-text-color;
+
+  &::placeholder {
+    color: $dark-text-color;
+  }
+}
+
+input.ng-touched.ng-invalid{
+  border-color: red;
+ }

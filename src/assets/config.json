@@ -5,7 +5,7 @@
   "addressApi": "https://familynetserver.azurewebsites.net/api/v1/address",
   "locationApi": "https://familynetserver.azurewebsites.net/api/v1/location",
   "loginApi": "https://familynetserver.azurewebsites.net/api/v1/authentication",
-  "needsApi": "https://familynetserver.azurewebsites.net/api/v1/donations",
+  "needsApi": "https://familynetserver.azurewebsites.net/api/v2/donations",
   "questsApi": "assets/quests.data.json",
   "registrationUserApi": "/api/v1/volunteers",
   "managersApi": "https://familynetserver.azurewebsites.net/api/v1/representatives/",

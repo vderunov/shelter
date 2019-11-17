@@ -1,16 +1,37 @@
-<mat-card *ngIf="need$ | async; let need">
-  <mat-card-title mat-raised-button>
-    <a mat-button>
-      Name: {{need.orphanageName}}
-    </a>
-  </mat-card-title>
+<mat-card>
+  <form class="details-form" [formGroup]="needForm">
+    <mat-card-title>
+      <mat-form-field class="details-full-width">
+        <input matInput placeholder="Need item" formControlName="need">
+      </mat-form-field>
+      <mat-form-field class="details-full-width">
+        <input matInput placeholder="Need details" formControlName="details">
+      </mat-form-field>
+    </mat-card-title>
+  </form>
 
-    <mat-card-content>Address: {{need.city}}, {{need.orphanageStreet}}/{{need.orphanageHouse}}</mat-card-content>
-    <mat-card-content>We need: {{need.itemName}}</mat-card-content>
-    <mat-card-content>Details: {{need.itemDescription}}</mat-card-content>
+  <mat-card-subtitle>
+    <div>Status:
+      {{ need?.status }}
+    </div>
+    <div>Status changed:
+      {{ need?.lastDateWhenStatusChanged | date:'dd.MM.yyyy' }}
+    </div>
+  </mat-card-subtitle>
+
+  <mat-card-content>Additional info:
+    <div *ngIf="need">
+      Shelter name: <a class="shelter-name" [routerLink]="['/shelters', need.orphanageID]">{{ need?.orphanageName | uppercase }}</a>
+    </div>
+    <div>Address: {{ need?.city }}, {{ need?.street }}, {{ need?.house }}</div>
+  </mat-card-content>
+  
 
   <mat-card-actions>
-    <button mat-raised-button [routerLink]="['/donation']">Back</button>
-    <button mat-raised-button>Donate</button>
+    <button mat-raised-button (click)="onBack()">Back</button>
+    <button mat-raised-button (click)="onDonate()" color="primary">Donate</button>
+    <button mat-raised-button (click)="onEdit()">Edit</button>
+    <button mat-raised-button (click)="onSave()">Save</button>
+    <button mat-raised-button (click)="onDelete()">Delete</button>
   </mat-card-actions>
 </mat-card>
