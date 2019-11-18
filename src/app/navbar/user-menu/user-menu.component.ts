@@ -23,4 +23,8 @@ export class UserMenuComponent {
   public logout(): void {
     this.authenticationService.logout();
   }
+
+  public isLogged(): boolean {
+    return this.authStateService.isLogged();
+  }
 }

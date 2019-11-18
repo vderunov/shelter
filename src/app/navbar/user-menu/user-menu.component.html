@@ -1,4 +1,4 @@
-<div *ngIf="authStateService.isLogged(); else guest">
+<div *ngIf="isLogged(); else guest">
   <a mat-button [matMenuTriggerFor]="menu">
     {{getEmail()}}
     <mat-icon>arrow_drop_down</mat-icon>
