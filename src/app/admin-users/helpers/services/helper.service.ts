@@ -38,18 +38,18 @@ export class HelpersService {
 
 
   public updateHelperById(helperData: Helper) {
-
-    this.configService.getConfig().pipe(
+    this.putHelperImage(helperData);
+    return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
         return this.http.put<Helper>(`${config.helpersApi}/${helperData.id}`, helperData, this.httpOptions);
+
       })
     );
-    return this.putHelperImage(helperData);
   }
   public putHelperImage(helperData): Observable<Helper> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<Helper>(`${config.helpersImageApi}/${helperData.id}`, this.createFormData(helperData))
+        return this.http.put<Helper>(`${config.helpersImageApi}/${helperData.id}`, this.createFormData(helperData));
 
       })
     );
