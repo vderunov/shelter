@@ -11,10 +11,10 @@ export class AuthenticateInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<void>> {
     return this.authStateService.getState().pipe(
-      concatMap(token => {
-        if (token) {
+      concatMap(tokenObj => {
+        if (tokenObj) {
           req = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${token}`)
+            headers: req.headers.set('Authorization', `Bearer ${tokenObj.token}`)
           });
         }
         return next.handle(req).pipe(

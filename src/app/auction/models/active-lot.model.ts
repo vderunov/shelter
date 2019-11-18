@@ -7,4 +7,6 @@ export interface ActiveLot {
   photoParth?: string;
   quantity: number;
   status: string;
+  auctionLotInfo?: any;
+  shelterInfo?: any;
 }
