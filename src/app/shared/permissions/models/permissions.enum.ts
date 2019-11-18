@@ -1,8 +1,12 @@
 export enum Permissions {
+  // Shelters
   shelterEdit,
   shelterSave,
   shelterReset,
   shelterDelete,
   shelterUploadPhoto,
-  showUserList
+  // Users
+  showUserList,
+  // Auction
+  auctionShowPurchase
 }
