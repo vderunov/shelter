@@ -4,6 +4,7 @@ import { ActiveLot } from './models/active-lot.model';
 import { AuctionService } from './services/auction.service';
 import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auction',
@@ -17,7 +18,8 @@ export class AuctionComponent implements OnInit, OnDestroy {
   public isSpinner = true;
   private destroy$ = new Subject();
 
-  constructor(private auctionService: AuctionService) { }
+  constructor(private auctionService: AuctionService,
+    private router: Router) { }
 
   public ngOnInit() {
     this.lots$ = this.auctionService.getActiveLots();
@@ -33,5 +35,9 @@ export class AuctionComponent implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public goToCreateLotPage(): void {
+    this.router.navigate(['/auction/create-lot']);
   }
 }

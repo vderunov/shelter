@@ -41,4 +41,12 @@ export class AuctionService {
         })
     );
   }
+
+  public getItems(): Observable<any> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) => {
+        return this.http.get(config.donationItemsApi)
+      })
+    );
+  }
 }
