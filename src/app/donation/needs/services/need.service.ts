@@ -37,7 +37,7 @@ export class NeedService {
 
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.put<Need>(`${config.needsApi}/${id}`, newData, httpOptions)
+        this.http.put<Need>(`${config.donationItemsApi}/${id}`, newData, httpOptions)
       )
     );
   }

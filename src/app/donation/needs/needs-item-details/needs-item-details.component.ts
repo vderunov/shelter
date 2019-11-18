@@ -5,6 +5,7 @@ import { Need } from '../models/need.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
+import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 
 @Component({
   selector: 'app-needs-item-details',
@@ -17,8 +18,7 @@ export class NeedsItemDetailsComponent implements OnInit {
   public needForm: FormGroup;
   public isEditDisabled: boolean;
   private needId: string;
-
-  // public permissions = Permissions;
+  public permissions = Permissions;
 
   constructor(
     private needService: NeedService,
@@ -41,7 +41,7 @@ export class NeedsItemDetailsComponent implements OnInit {
   }
 
   public onDonate(): void {
-    console.log('donated');
+    //will be added put fo change status + notification
   }
 
   public onEdit(): void {
@@ -50,10 +50,7 @@ export class NeedsItemDetailsComponent implements OnInit {
 
   public onSave(): void {
     this.toggleForm();
-    const newData = {
-      name: this.needForm.get('need').value,
-      details: this.needForm.get('details').value
-    };
+    const newData = this.needForm.value;
 
     this.needService.putNeedData(this.needId, newData)
     .subscribe(_ => {
@@ -62,9 +59,11 @@ export class NeedsItemDetailsComponent implements OnInit {
   }
 
   public onDelete(): void {
-    this.needService
-      .deleteNeed(this.needId)
-      .subscribe(() => this.router.navigate(['/donation']));
+    this.needService.deleteNeed(this.needId)
+      .subscribe(_ => {
+        this.notifierService.showNotice(`Need ${this.need.itemName} was deleted!`, 'error');
+        this.router.navigate(['/donation']);
+      });
   }
 
   private getDetails() {
@@ -76,15 +75,15 @@ export class NeedsItemDetailsComponent implements OnInit {
 
   private createForm(): void {
     this.needForm = this.fb.group({
-      need: ['', Validators.required],
-      details: ['', Validators.required]
+      name: ['', Validators.required],
+      description: ['', Validators.required]
     });
   }
 
   private patchFormValues(need: Need): void {
     this.needForm.patchValue({
-      need: need.itemName,
-      details: need.itemDescription,
+      name: need.itemName,
+      description: need.itemDescription,
     });
   }
 
@@ -94,5 +93,4 @@ export class NeedsItemDetailsComponent implements OnInit {
       : this.needForm.enable();
     this.isEditDisabled = this.needForm.disabled;
   }
-
 }

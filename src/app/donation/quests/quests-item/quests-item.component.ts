@@ -10,6 +10,6 @@ export class QuestsItemComponent {
   @Input() quest: Quest;
 
   public onExecute() {
-    console.log('change status by put request + notification');
+    // changing status by put method will be here
   }
 }

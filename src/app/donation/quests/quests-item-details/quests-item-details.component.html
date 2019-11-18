@@ -14,8 +14,8 @@
     <div>Status:
       {{ quest?.status }}
     </div>
-    <div>Status changed:
-      {{ quest?.lastDateWhenStatusChanged | date:'dd.MM.yyyy' }}
+    <div>Quest period:
+      {{ quest?.fromDate | date:'dd.MM.yyyy' }} - {{ quest?.toDate | date:'dd.MM.yyyy' }}
     </div>
   </mat-card-subtitle>
 
@@ -23,7 +23,6 @@
     <div *ngIf="quest">
       Shelter name: <a class="shelter-name" [routerLink]="['/shelters', quest.orphanageID]">{{ quest?.orphanageName | uppercase }}</a>
     </div>
-    <div>Address: {{ quest?.city }}, {{ quest?.street }}, {{ quest?.house }}</div>
   </mat-card-content>
 
   <mat-card-actions>

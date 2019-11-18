@@ -2,10 +2,10 @@
   <form class="details-form" [formGroup]="needForm">
     <mat-card-title>
       <mat-form-field class="details-full-width">
-        <input matInput placeholder="Need item" formControlName="need">
+        <input matInput placeholder="Need item" formControlName="name">
       </mat-form-field>
       <mat-form-field class="details-full-width">
-        <input matInput placeholder="Need details" formControlName="details">
+        <input matInput placeholder="Need details" formControlName="description">
       </mat-form-field>
     </mat-card-title>
   </form>
@@ -25,7 +25,6 @@
     </div>
     <div>Address: {{ need?.city }}, {{ need?.street }}, {{ need?.house }}</div>
   </mat-card-content>
-  
 
   <mat-card-actions>
     <button mat-raised-button (click)="onBack()">Back</button>

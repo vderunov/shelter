@@ -10,6 +10,6 @@ export class NeedsItemComponent {
   @Input() need: Need;
 
   public onDonate() {
-    console.log('change status by put + notification');
+    // changing status by put method will be here
   }
 }

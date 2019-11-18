@@ -1,15 +1,13 @@
 export interface Quest {
   id: number;
-  orphanageID?: number;
-  lastDateWhenStatusChanged: string;
+  name: string;
   status: string;
-  charityMakerID?: number;
+  description?: string;
+  donationName?: string;
+  donationDescription?: string;
   orphanageName: string;
-  city?: string;
-  street?: string;
-  house?: string;
-  itemName: string;
-  itemDescription?: string;
-  itemID: number;
-  types: string[];
+  orphanageID: number;
+  volunteerID?: string;
+  fromDate: string;
+  toDate: string
 }

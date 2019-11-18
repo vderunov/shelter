@@ -1,11 +1,10 @@
 <mat-card class="quest">
-  <mat-card-title>{{ quest.itemName }}</mat-card-title>
+  <mat-card-title>{{ quest.name }}</mat-card-title>
   <mat-card-subtitle>id: {{ quest.id }}</mat-card-subtitle>
   <mat-card-content>
     <div>
       Shelter name: <a class="shelter-name" [routerLink]="['/shelters', quest.orphanageID]">{{ quest.orphanageName | uppercase }}</a>
     </div>
-    <div *ngIf="quest.city">City: {{ quest.city }}</div>
     <div>Status:
       {{ quest.status }}
     </div>

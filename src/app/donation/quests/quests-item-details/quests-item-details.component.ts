@@ -61,8 +61,8 @@ export class QuestsItemDetailsComponent implements OnInit {
 
   private patchFormValues(quest: Quest): void {
     this.questForm.patchValue({
-      quest: quest.itemName,
-      details: quest.itemDescription,
+      quest: quest.name,
+      details: quest.description,
     });
   }
 
