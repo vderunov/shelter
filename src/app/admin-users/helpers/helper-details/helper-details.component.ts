@@ -63,19 +63,19 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   }
 
   public changeInfo(): void {
+
     const helperChange = {
       id: this.helper.id,
       name: this.profileForm.get('name').value,
       surname: this.profileForm.get('surname').value,
       patronymic: this.profileForm.get('patronymic').value,
-      birthday: this.profileForm.get('birthday').value,
+      birthday: this.profileForm.get('birthday').value.toDateString(),
       rating: this.profileForm.get('rating').value,
       emailID: this.helper.emailID,
       avatar: this.helper.avatar,
       addressID: this.helper.addressID,
       photoPath: this.helper.photoPath
     };
-
     this.adminUserService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
   }

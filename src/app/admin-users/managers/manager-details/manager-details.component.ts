@@ -68,7 +68,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       name: this.profileForm.get('name').value,
       surname: this.profileForm.get('surname').value,
       patronymic: this.profileForm.get('patronymic').value,
-      birthday: this.profileForm.get('birthday').value,
+      birthday: this.profileForm.get('birthday').value.toDateString(),
       rating: this.profileForm.get('rating').value,
       avatar: this.manager.avatar,
       childrenHouseID: this.manager.childrenHouseID,
