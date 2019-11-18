@@ -3,5 +3,7 @@ export enum Permissions {
   shelterSave,
   shelterReset,
   shelterDelete,
-  shelterUploadPhoto
+  shelterUploadPhoto,
+  shelterCreate,
+  showUserList
 }

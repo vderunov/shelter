@@ -2,12 +2,14 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Injectable } from '@angular/core';
 import { AuthStateService } from './services/state/auth-state.service';
 import { NotifierService } from './services/notifier/notifier.service';
+import { Location } from '@angular/common';
 
 @Injectable({providedIn: 'root'})
 export class GuardService implements CanActivate {
   constructor(
     private authStateService: AuthStateService,
     private router: Router,
+    private location: Location,
     private notifierService: NotifierService
   ) { }
 
@@ -18,7 +20,7 @@ export class GuardService implements CanActivate {
     if (this.authStateService.checkRoles(route.data.allowedRoles)) {
       return true;
     } else {
-      this.notifierService.showNotice('You can\'t use this path directly!', 'warning');
+      this.notifierService.showNotice('You don\'t have permissions to view this page.', 'warning');
       if (this.authStateService.isLogged()) {
         this.router.navigate(['']);
       } else {

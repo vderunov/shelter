@@ -1,14 +1,14 @@
 <div *ngIf="authStateService.isLogged(); else guest">
   <a mat-button [matMenuTriggerFor]="menu">
-    {{authStateService.getStateProperty('email')}}
+    {{getEmail()}}
     <mat-icon>arrow_drop_down</mat-icon>
   </a>
 
   <mat-menu #menu="matMenu">
-    <a *ngIf="authStateService.checkRoles(['Admin'])" mat-menu-item [routerLink]="['/registration-shelter']">
-      Registrate a New Shelter</a>
-    <a *ngIf="authStateService.checkRoles(['Admin'])" mat-menu-item [routerLink]="['/users']">Users Details</a>
-    <a mat-menu-item (click)="authenticationService.logout()">Sign out</a>
+    <a *appPermission="permissions.shelterCreate" mat-menu-item [routerLink]="['/registration-shelter']">
+      Register a new Shelter</a>
+    <a *appPermission="permissions.showUserList" mat-menu-item [routerLink]="['/users']">Users Details</a>
+    <a mat-menu-item (click)="logout()">Sign out</a>
   </mat-menu>
 </div>
 

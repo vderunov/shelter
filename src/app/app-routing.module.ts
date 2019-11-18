@@ -5,17 +5,34 @@ import { RegistrationUserComponent } from './registration-user/registration-user
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { ShelterRegistrationComponent } from './shelters/shelter-registration/shelter-registration.component';
 import { GuardService } from './shared/guard.service';
+import { Roles } from './shared/permissions/models/roles.enum';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/shelters', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent },
-  { path: 'registraction-user', component: RegistrationUserComponent },
-  { path: 'users', component: AdminUsersComponent,
+  {
+    path: '',
+    redirectTo: '/shelters',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'registraction-user',
+    component: RegistrationUserComponent
+  },
+  {
+    path: 'users',
+    component: AdminUsersComponent,
     canActivate: [GuardService],
-    data: { allowedRoles: ['Admin'] } },
-  { path: 'registration-shelter', component: ShelterRegistrationComponent,
+    data: { allowedRoles: [Roles.Admin] }
+  },
+  {
+    path: 'registration-shelter',
+    component: ShelterRegistrationComponent,
     canActivate: [GuardService],
-    data: { allowedRoles: ['Admin'] } }
+    data: { allowedRoles: [Roles.Admin] }
+  }
 ];
 
 @NgModule({
