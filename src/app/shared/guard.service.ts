@@ -2,7 +2,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Injectable } from '@angular/core';
 import { AuthStateService } from './services/state/auth-state.service';
 import { NotifierService } from './services/notifier/notifier.service';
-import { Location } from '@angular/common';
 
 @Injectable({providedIn: 'root'})
 export class GuardService implements CanActivate {
