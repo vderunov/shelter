@@ -41,7 +41,7 @@ export class NeedsItemDetailsComponent implements OnInit {
   }
 
   public onDonate(): void {
-    // will be added put fo change status + notification
+    
   }
 
   public onEdit(): void {
@@ -61,7 +61,7 @@ export class NeedsItemDetailsComponent implements OnInit {
   public onDelete(): void {
     this.needService.deleteNeed(this.needId)
       .subscribe(_ => {
-        this.notifierService.showNotice(`Need ${this.need.itemName} was deleted!`, 'error');
+        this.notifierService.showNotice(`Need ${this.need.itemName} was deleted!`, 'success');
         this.router.navigate(['/donation']);
       });
   }
