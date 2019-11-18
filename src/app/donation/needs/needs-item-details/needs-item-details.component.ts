@@ -5,7 +5,7 @@ import { Need } from '../models/need.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
-import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
+import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
 
 @Component({
   selector: 'app-needs-item-details',
