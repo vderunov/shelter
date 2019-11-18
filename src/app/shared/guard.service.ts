@@ -15,8 +15,7 @@ export class GuardService implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const currentRoles: string | string[] = this.authStateService.getStateProperty('roles');
-    if (currentRoles && route.data.allowedRoles.includes(currentRoles[0])) {
+    if (this.authStateService.checkRoles(route.data.allowedRoles)) {
       return true;
     } else {
       this.notifierService.showNotice('You can\'t use this path directly!', 'warning');
@@ -25,6 +24,7 @@ export class GuardService implements CanActivate {
       } else {
         this.router.navigate(['/login']);
       }
+      return false;
     }
   }
 }
