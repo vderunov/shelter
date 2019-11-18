@@ -1,8 +1,24 @@
-<mat-card>
-  <span>{{ quest.lastDateWhenStatusChanged | date:'dd/MM/yyyy'}}</span>
-  <span>{{ quest.status }}</span>
-  <span>{{ quest.city }}</span>
-  <span>{{ quest.orphanageName }}</span>
-  <span>{{ quest.itemID }}</span>
-  <span>{{ quest.itemName }}</span>
+<mat-card class="quest">
+  <mat-card-title>{{ quest.name }}</mat-card-title>
+  <mat-card-subtitle>id: {{ quest.id }}</mat-card-subtitle>
+  <mat-card-content>
+    <div>
+      Shelter name: <a class="shelter-name" [routerLink]="['/shelters', quest.orphanageID]">{{ quest.orphanageName | uppercase }}</a>
+    </div>
+    <div>Status:
+      {{ quest.status }}
+    </div>
+    <div>Quest period:
+      {{ quest.fromDate | date:'dd.MM.yyyy' }} - {{ quest.toDate | date:'dd.MM.yyyy' }}
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+      <a mat-raised-button class="quest" [routerLink]="['/quests', quest.id]">
+        Open details
+      </a>
+      <a mat-raised-button (click)="onExecute()" color="primary">
+        Execute
+      </a>
+  </mat-card-actions>
 </mat-card>
