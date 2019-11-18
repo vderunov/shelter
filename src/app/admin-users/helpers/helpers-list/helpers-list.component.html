@@ -9,8 +9,7 @@
                 <mat-icon>person_add</mat-icon>Add Helper
             </button>
         </div>
-    </div>
-    
+    </div> 
     <mat-grid-list cols="5">
         <mat-grid-tile *ngFor="let helper of helpers$ | async; trackBy: trackByHelpers">
             <app-helper-item [helper]="helper"></app-helper-item>

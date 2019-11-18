@@ -63,12 +63,12 @@ export class AdminUserService {
   }
 
   private updateUserById<T>(data: T, argObj: EditUserModel) {
-    return this.configService.getConfig().pipe(
+    this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<T>(`${config[argObj.api]}/${argObj.id}`, data, this.httpOptions),
-          this.putImage<T>(data, argObj);
+        return this.http.put<T>(`${config[argObj.api]}/${argObj.id}`, data, this.httpOptions);
       })
     );
+    return this.putImage<T>(data, argObj);
   }
 
   private putImage<T>(data: T, argObj: EditUserModel): Observable<T> {

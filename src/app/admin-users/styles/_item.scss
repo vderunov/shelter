@@ -10,16 +10,16 @@
     height: 35px;
 }
 
+.content{
+  display: table-caption;  
+}
+
 .avatar {
     max-width: 130px;
     width: auto;
     max-height: 130px;
     float: left;
     margin: 0 10px 0 10px;
-}
-
-.content{
-  display: table-caption;  
 }
 
 .button {

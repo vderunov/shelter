@@ -75,6 +75,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       addressID: this.helper.addressID,
       photoPath: this.helper.photoPath
     };
+
     this.adminUserService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
   }
@@ -98,7 +99,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
       surname: [null, Validators.required],
-      patronymic: [],
+      patronymic: [null, Validators.required],
       birthday: ['', Validators.required],
       rating: [null, Validators.required]
     });
