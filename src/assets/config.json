@@ -5,11 +5,12 @@
   "addressApi": "https://familynetserver.azurewebsites.net/api/v1/address",
   "locationApi": "https://familynetserver.azurewebsites.net/api/v1/location",
   "loginApi": "https://familynetserver.azurewebsites.net/api/v1/authentication",
-  "needsApi": "https://familynetserver.azurewebsites.net/api/v1/donations",
-  "questsApi": "assets/quests.data.json",
+  "needsApi": "https://familynetserver.azurewebsites.net/api/v2/donations",
+  "questsApi": "https://familynetserver.azurewebsites.net/api/v2/quests",
   "registrationUserApi": "/api/v1/volunteers",
   "managersApi": "https://familynetserver.azurewebsites.net/api/v1/representatives/",
   "helpersApi": "https://familynetserver.azurewebsites.net/api/v1/volunteers/",
-  "activeLotsApi": "assets/active-lots.data.json",
-  "donationItemsApi": "https://familynetserver.azurewebsites.net/api/v2/donationItems/"
+  "activeLotsApi": "https://familynetserver.azurewebsites.net/api/v2/AuctionLot/approved",
+  "donationItemsApi": "https://familynetserver.azurewebsites.net/api/v2/donationItems/",
+  "purchaseApi": "https://familynetserver.azurewebsites.net/api/v2/Purchase/"
 }

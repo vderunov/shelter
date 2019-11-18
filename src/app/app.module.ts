@@ -13,6 +13,8 @@ import { DonationModule } from './donation/donation.module';
 import { AuctionModule } from './auction/auction.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
+import { CookieService } from 'ngx-cookie-service';
+import { NavbarModule } from './navbar/navbar.module';
 import { MatSnackBarModule } from '@angular/material';
 
 const interceptorProvider: Provider = {
@@ -22,7 +24,7 @@ const interceptorProvider: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,9 +36,13 @@ const interceptorProvider: Provider = {
     DonationModule,
     AuctionModule,
     AdminUsersModule,
+    NavbarModule,
     MatSnackBarModule
   ],
-  providers: [interceptorProvider],
+  providers: [
+    interceptorProvider,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

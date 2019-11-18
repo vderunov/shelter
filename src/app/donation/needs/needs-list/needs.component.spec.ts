@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { NeedsComponent } from './needs.component';
 import { NeedService } from '../services/need.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { Need } from '../models/need.interface';
 
 describe('NeedsComponent', () => {
@@ -13,6 +13,7 @@ describe('NeedsComponent', () => {
 
   const mockNeeds: Need[] = [
     {
+      id: 1,
       orphanageName: 'bfnf',
       lastDateWhenStatusChanged: '2019-13-26T09:27:31.2431168',
       status: 'Sended',
@@ -21,6 +22,7 @@ describe('NeedsComponent', () => {
       donationItemID: 12
     },
     {
+      id: 2,
       orphanageName: 'bfnf',
       lastDateWhenStatusChanged: '2019-13-26T09:27:31.2431168',
       status: 'Sended',

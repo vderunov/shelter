@@ -30,14 +30,24 @@ describe('QuestService', () => {
     beforeEach(() => {
       mockQuests = [
         {
-          id: 1, city: 'Сумы', orphanageID: 54, charityMakerID: null, itemID: 1, status: 'Sended',
-          lastDateWhenStatusChanged: '2019-10-26T09:27:31.2431168', orphanageName: 'Эльф',
-          itemName: 'Покрасить забор', types: []
+          id: 1,
+          name: 'Работы',
+          status: 'Sended',
+          orphanageName: 'Эльф',
+          orphanageID: 53,
+          description: 'Покрасить забор',
+          fromDate: '25/11/19',
+          toDate: '30/11/19'
         },
         {
-          id: 2, city: 'Херсон', orphanageID: 53, charityMakerID: null, itemID: 2, status: 'Sended',
-          lastDateWhenStatusChanged: '2019-10-26T09:28:22.6096282', orphanageName: 'Ромашка',
-          itemName: 'Привезти материалы', types: []
+          id: 2,
+          name: 'Работы',
+          status: 'Sended',
+          orphanageName: 'Эльф',
+          orphanageID: 52,
+          description: 'покрасить забор',
+          fromDate: '25/11/19',
+          toDate: '30/11/19'
         }
       ];
 

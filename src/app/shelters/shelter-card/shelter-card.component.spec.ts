@@ -1,34 +1,52 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShelterCardComponent } from './shelter-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { ShelterListComponent } from '../shelter-list/shelter-list.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Shelter } from '../models/shelter.interface';
+import { RouterTestingModule } from '@angular/router/testing';
 
-xdescribe('ShelterCardComponent', () => {
+describe('ShelterCardComponent', () => {
   let component: ShelterCardComponent;
   let fixture: ComponentFixture<ShelterCardComponent>;
+  let mockShelter: Shelter;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ShelterListComponent, ShelterCardComponent],
+      declarations: [ShelterCardComponent],
       imports: [
         CommonModule,
         MatGridListModule,
         MatCardModule,
-        HttpClientModule
+        RouterTestingModule
       ]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ShelterCardComponent);
     component = fixture.componentInstance;
+
+    mockShelter = {
+      id: 1,
+      name: 'Ромашка111',
+      adressID: 1,
+      rating: 11.0,
+      avatar: null,
+      locationID: null,
+      photoPath: 'https://familynetserver.azurewebsites.net/ChildrenHouses/Ромашка637093345351563349.jpg'
+    };
+    component.shelter = mockShelter;
+
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create component ShelterCard', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('Method selectCard', () => {
+    it('should send property id of argument into variable selectedId of component', () => {
+      component.selectCard(mockShelter);
+      expect(component.selectedId).toBe(mockShelter.id);
+    });
   });
 });
