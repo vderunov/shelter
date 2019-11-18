@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Helper } from '../models/helper.model';
-import { HelpersService } from '../services/helper.service';
+import { Helper } from '../../models/helper.model';
+import { AdminUserService } from '../../services/admin-user.service';
 
 @Component({
   selector: 'app-helpers-list',
@@ -12,10 +12,10 @@ import { HelpersService } from '../services/helper.service';
 export class HelpersListComponent implements OnInit {
   public helpers$: Observable<Helper[]>;
 
-  constructor(private helperService: HelpersService) { }
+  constructor(private adminUserService: AdminUserService) { }
 
   public ngOnInit(): void {
-    this.helpers$ = this.helperService.getAllHelpers();
+    this.helpers$ = this.adminUserService.getAllHelpers();
   }
 
   public trackByHelpers(index: number, user: Helper): number {
@@ -23,7 +23,7 @@ export class HelpersListComponent implements OnInit {
   }
 
   public onSearch(searchValue: string): void {
-    this.helpers$ = this.helperService.getAllHelpers({ name: searchValue });
+    this.helpers$ = this.adminUserService.getAllHelpers({ name: searchValue });
   }
 
 }

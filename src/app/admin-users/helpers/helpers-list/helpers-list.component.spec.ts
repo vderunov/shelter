@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HelpersListComponent } from './helpers-list.component';
-import { HelpersService } from '../services/helper.service';
-import { Helper } from '../models/helper.model';
+import { AdminUserService } from '../../services/admin-user.service';
+import { Helper } from '../../models/helper.model';
 import { of } from 'rxjs';
 
 describe('HelpersListComponent', () => {
   let component: HelpersListComponent;
   let fixture: ComponentFixture<HelpersListComponent>;
-  let helperServiceStub: Partial<HelpersService>;
-  let helperService: HelpersService;
+  let helperServiceStub: Partial<AdminUserService>;
+  let helperService: AdminUserService;
 
   const mockHelpers: Helper[] = [
     {
@@ -47,13 +47,13 @@ describe('HelpersListComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [HelpersListComponent],
-      providers: [{ provide: HelpersService, useValue: helperServiceStub }],
+      providers: [{ provide: AdminUserService, useValue: helperServiceStub }],
       schemas: [NO_ERRORS_SCHEMA]
     });
 
     fixture = TestBed.createComponent(HelpersListComponent);
     component = fixture.componentInstance;
-    helperService = fixture.debugElement.injector.get(HelpersService);
+    helperService = fixture.debugElement.injector.get(AdminUserService);
   });
 
   it('Expect to receive list of helpers', () => {

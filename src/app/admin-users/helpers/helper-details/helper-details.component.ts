@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HelpersService } from '../services/helper.service';
+import { AdminUserService } from '../../services/admin-user.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { Helper } from '../models/helper.model';
+import { Helper } from '../../models/helper.model';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -23,7 +23,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
-    private helpersService: HelpersService,
+    private adminUserService: AdminUserService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router
@@ -33,7 +33,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
     this.createForm();
     this.toggleForm();
     this.helperId = this.activatedRoute.snapshot.params.id;
-    this.helpersService
+    this.adminUserService
       .getHelperById(this.helperId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(helpers => {
@@ -57,7 +57,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    this.helpersService
+    this.adminUserService
       .deleteHelperById(this.helperId)
       .subscribe(() => this.router.navigate(['users']));
   }
@@ -75,7 +75,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       addressID: this.helper.addressID,
       photoPath: this.helper.photoPath
     };
-    this.helpersService.updateHelperById(helperChange)
+    this.adminUserService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
   }
 
@@ -96,31 +96,21 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
 
   private createForm(): void {
     this.profileForm = this.fb.group({
-      id: [],
       name: [null, Validators.required],
       surname: [null, Validators.required],
       patronymic: [],
       birthday: ['', Validators.required],
-      avatar: [],
-      rating: [null, Validators.required],
-      addressID: [],
-      emailID: [],
-      photoPath: []
-
+      rating: [null, Validators.required]
     });
   }
 
   private patchFormValues(helper: Helper): void {
     this.profileForm.patchValue({
-      id: helper.id,
       name: helper.name,
       surname: helper.surname,
       patronymic: helper.patronymic,
       birthday: helper.birthday,
-      rating: helper.rating,
-      emailID: helper.emailID,
-      avatar: helper.avatar,
-      photoPath: helper.photoPath
+      rating: helper.rating
     });
   }
 

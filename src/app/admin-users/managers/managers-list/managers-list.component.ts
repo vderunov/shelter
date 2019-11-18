@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Manager } from '../models/manager.model';
-import { ManagersService } from '../services/manager.service';
+import { Manager } from '../../models/manager.model';
+import { AdminUserService } from '../../services/admin-user.service';
 
 @Component({
   selector: 'app-managers-list',
@@ -12,10 +12,10 @@ import { ManagersService } from '../services/manager.service';
 export class ManagersListComponent implements OnInit {
   public managers$: Observable<Manager[]>;
 
-  constructor(private managerService: ManagersService) { }
+  constructor(private adminUserService: AdminUserService) { }
 
   public ngOnInit(): void {
-    this.managers$ = this.managerService.getAllManagers();
+    this.managers$ = this.adminUserService.getAllManagers();
   }
 
   public trackByManagers(index: number, user: Manager): number {
@@ -23,7 +23,7 @@ export class ManagersListComponent implements OnInit {
   }
 
   public onSearch(searchValue: string): void {
-    this.managers$ = this.managerService.getAllManagers({ name: searchValue });
+    this.managers$ = this.adminUserService.getAllManagers({ name: searchValue });
   }
 
 }

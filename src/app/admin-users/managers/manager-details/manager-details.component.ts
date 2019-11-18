@@ -3,8 +3,8 @@ import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { Manager } from '../models/manager.model';
-import { ManagersService } from '../services/manager.service';
+import { Manager } from '../../models/manager.model';
+import { AdminUserService } from '../../services/admin-user.service';
 
 @Component({
   selector: 'app-manager-details',
@@ -23,7 +23,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
-    private managersService: ManagersService,
+    private adminUserService: AdminUserService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router
@@ -33,7 +33,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
     this.createForm();
     this.toggleForm();
     this.managerId = this.activatedRoute.snapshot.params.id;
-    this.managersService
+    this.adminUserService
       .getManagerById(this.managerId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(managers => {
@@ -57,7 +57,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    this.managersService
+    this.adminUserService
       .deleteManagerById(this.managerId)
       .subscribe(() => this.router.navigate(['users']));
   }
@@ -75,7 +75,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       emailID: this.manager.emailID,
       photoPath: this.manager.photoPath
     };
-    this.managersService.updateManagerById(managerChanges)
+    this.adminUserService.updateManagerById(managerChanges)
       .subscribe(() => this.onEdit());
   }
 
@@ -99,12 +99,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       surname: [null, Validators.required],
       patronymic: [],
       birthday: ['', Validators.required],
-      avatar: [],
-      photoPath: [],
-      rating: [null, Validators.required],
-      id: [],
-      childrenHouseID: [],
-      emailID: []
+      rating: [null, Validators.required]
     });
   }
 
@@ -114,13 +109,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       surname: manager.surname,
       patronymic: manager.patronymic,
       birthday: manager.birthday,
-      avatar: manager.avatar,
-      photoPath: manager.photoPath,
-      rating: manager.rating,
-      id: manager.id,
-      childrenHouseID: manager.childrenHouseID,
-      emailID: manager.emailID
-
+      rating: manager.rating
     });
   }
 

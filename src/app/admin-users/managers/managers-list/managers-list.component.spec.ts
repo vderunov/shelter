@@ -1,16 +1,16 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ManagersService } from '../services/manager.service';
-import { Manager } from '../models/manager.model';
+import { AdminUserService } from '../../services/admin-user.service';
+import { Manager } from '../../models/manager.model';
 import { of } from 'rxjs';
 import { ManagersListComponent } from './managers-list.component';
 
 describe('ManagersListComponent', () => {
   let component: ManagersListComponent;
   let fixture: ComponentFixture<ManagersListComponent>;
-  let managerServiceStub: Partial<ManagersService>;
-  let managerService: ManagersService;
+  let managerServiceStub: Partial<AdminUserService>;
+  let managerService: AdminUserService;
 
   const mockManagers: Manager[] = [
     {
@@ -48,13 +48,13 @@ describe('ManagersListComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ManagersListComponent],
-      providers: [{ provide: ManagersService, useValue: managerServiceStub }],
+      providers: [{ provide: AdminUserService, useValue: managerServiceStub }],
       schemas: [NO_ERRORS_SCHEMA]
     });
 
     fixture = TestBed.createComponent(ManagersListComponent);
     component = fixture.componentInstance;
-    managerService = fixture.debugElement.injector.get(ManagersService);
+    managerService = fixture.debugElement.injector.get(AdminUserService);
   });
 
   it('Expect to receive list of managers', () => {
