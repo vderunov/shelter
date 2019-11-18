@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~8.2.9",
     "@angular/platform-browser-dynamic": "~8.2.9",
     "@angular/router": "~8.2.9",
+    "@ngneat/until-destroy": "^7.0.0",
     "mat-file-upload": "^1.2.1",
     "material-icons": "^0.3.1",
     "rxjs": "~6.4.0",
