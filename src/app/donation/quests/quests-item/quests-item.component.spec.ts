@@ -15,7 +15,7 @@ describe('QuestsItemComponent', () => {
     orphanageName: 'NameS124',
     orphanageID: 1,
     volunteerID: '',
-    fromDate:'2019-10-26T09:27:31.2431168',
+    fromDate: '2019-10-26T09:27:31.2431168',
     toDate: '2019-11-26T09:27:31.2431168'
   };
 

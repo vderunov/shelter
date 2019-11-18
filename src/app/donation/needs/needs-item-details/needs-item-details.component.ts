@@ -41,7 +41,7 @@ export class NeedsItemDetailsComponent implements OnInit {
   }
 
   public onDonate(): void {
-    //will be added put fo change status + notification
+    // will be added put fo change status + notification
   }
 
   public onEdit(): void {

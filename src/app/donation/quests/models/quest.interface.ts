@@ -9,5 +9,5 @@ export interface Quest {
   orphanageID: number;
   volunteerID?: string;
   fromDate: string;
-  toDate: string
+  toDate: string;
 }
