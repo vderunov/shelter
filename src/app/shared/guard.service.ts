@@ -8,7 +8,6 @@ export class GuardService implements CanActivate {
   constructor(
     private authStateService: AuthStateService,
     private router: Router,
-    private location: Location,
     private notifierService: NotifierService
   ) { }
 
