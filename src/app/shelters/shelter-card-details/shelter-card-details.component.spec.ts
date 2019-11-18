@@ -64,7 +64,7 @@ describe('ShelterCardDetailsComponent', () => {
         MatSnackBarModule,
         FormsModule,
         ReactiveFormsModule,
-        NoopAnimationsModule,
+        NoopAnimationsModule
       ],
       providers: [
         CookieService,
@@ -86,60 +86,48 @@ describe('ShelterCardDetailsComponent', () => {
   describe('Method onSubmit', () => {
     it('should send edited data to server', () => {
       spyOn(sheltersService, 'putShelterDetails').and.returnValue(of(mockChangedShelter));
-      const shelterServiceName = 'sheltersService';
-      const shelterChange = {
-        name: component.profileForm.get('name').value,
-        rating: component.shelter.rating,
-        adressID: component.shelter.adressID,
-        avatar: component.shelter.avatar,
-        locationID: component.shelter.locationID
-      };
-
-      let addressChange = { ...component.profileForm.get('address').value };
-      const isChangeAddress = Object.entries(addressChange).every(([key, value]) => component.shelter.address[key] === value);
-      if (isChangeAddress) {
-        addressChange = null;
-      }
-
       const changeData = {
         id: component.shelter.id,
         addressID: component.shelter.adressID,
-        address: addressChange,
-        shelter: shelterChange,
+        address: null,
+        shelter: {
+          name: component.shelter.name,
+          rating: component.shelter.rating,
+          adressID: component.shelter.adressID,
+          avatar: component.shelter.avatar,
+          locationID: component.shelter.locationID
+        }
       };
 
       component.onSubmit();
-      expect(component[shelterServiceName].putShelterDetails).toHaveBeenCalledWith(changeData);
+      expect(sheltersService.putShelterDetails).toHaveBeenCalledWith(changeData);
     });
   });
 
   describe('Method onEdit', () => {
     it('should toggle form', () => {
-      const toggleFormMethodName = 'toggleForm';
-      spyOn(component as any, toggleFormMethodName);
+      spyOn(component as any, 'toggleForm');
 
       component.onEdit();
-      expect(component[toggleFormMethodName]).toHaveBeenCalled();
+      expect((component as any).toggleForm).toHaveBeenCalled();
     });
   });
 
   describe('Method onDelete', () => {
     it('should send data to deleteShelter method of sheltersService', () => {
       spyOn(sheltersService, 'deleteShelter').and.returnValue(of(null));
-      const shelterServiceName = 'sheltersService';
 
       component.onDelete();
-      expect(component[shelterServiceName].deleteShelter).toHaveBeenCalledWith(component.shelter);
+      expect(sheltersService.deleteShelter).toHaveBeenCalledWith(component.shelter);
     });
   });
 
   describe('Method onReset()', () => {
     it('should return previos data to form', () => {
       spyOn(component as any, 'patchFormValues');
-      const patchFormValuesMethodName = 'patchFormValues';
 
       component.onReset();
-      expect(component[patchFormValuesMethodName]).toHaveBeenCalledWith(component.shelter);
+      expect((component as any).patchFormValues).toHaveBeenCalledWith(component.shelter);
     });
     it('should toggle form', () => {
       spyOn(component, 'onEdit');
@@ -151,12 +139,10 @@ describe('ShelterCardDetailsComponent', () => {
 
   describe('Method onUploadClicked', () => {
     it('should toggle form', () => {
-      const toggleFormMethodName = 'toggleForm';
-      const event = 'someEvent';
-      spyOn(component as any, toggleFormMethodName);
+      spyOn(component as any, 'toggleForm');
 
-      component.onUploadClicked(event);
-      expect(component[toggleFormMethodName]).toHaveBeenCalled();
+      component.onUploadClicked('someEvent');
+      expect((component as any).toggleForm).toHaveBeenCalled();
     });
   });
 });

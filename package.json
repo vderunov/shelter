@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~8.2.9",
     "@angular/platform-browser-dynamic": "~8.2.9",
     "@angular/router": "~8.2.9",
+    "angular-material-fileupload": "^2.0.0",
     "mat-file-upload": "^1.2.1",
     "material-icons": "^0.3.1",
     "ngx-cookie-service": "^2.2.0",

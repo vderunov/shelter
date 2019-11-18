@@ -60,13 +60,13 @@ describe('ShelterListComponent', () => {
 
   describe('Method onSearch', () => {
 
-    it('sends search params to sheltersService', () => {
-      const searchValue = 'searchValue';
+    it('sends search params to sheltersService', (done: DoneFn) => {
       spyOn(sheltersService, 'getShelters').and.returnValue(of(mockShelters));
 
-      component.onSearch(searchValue);
+      component.onSearch('searchValue');
       component.shelters$.subscribe((shelter: Shelter[]) => {
         expect(shelter).toEqual(mockShelters);
+        done();
       });
     });
   });
