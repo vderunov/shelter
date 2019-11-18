@@ -6,7 +6,6 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { UserMenuComponent } from './user-menu/user-menu.component';
-import { PermissionsModule } from '../shared/permissions/permissions.module';
 
 @NgModule({
   declarations: [NavbarComponent, UserMenuComponent],
@@ -18,8 +17,7 @@ import { PermissionsModule } from '../shared/permissions/permissions.module';
     MatButtonModule,
     AppRoutingModule,
     MatMenuModule,
-    MatIconModule,
-    PermissionsModule
+    MatIconModule
   ]
 })
 export class NavbarModule { }
