@@ -1,0 +1,36 @@
+@import "src/app/shared/style/variables.scss";
+
+div {
+  margin-bottom: 10px;
+}
+
+.mat-card {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.mat-card-actions {
+  position: absolute;
+  width: 100%;
+  bottom: 40px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.shelter-name {
+  font-size: 18px;
+  text-decoration: none;
+  color: $shelter-link-color;
+
+  &:hover {
+    background-color: $selected-hover-background-color;
+    color: $dark-text-color;
+  }
+
+  &:active {
+    background-color: $selected-background-color;
+    color: $dark-text-color;
+  }
+}

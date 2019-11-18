@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NeedsItemComponent } from './needs-item.component';
 import { MatCardModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NeedsItemDetailsComponent } from '../needs-item-details/needs-item-details.component';
 
 describe('NeedsItemComponent', () => {
   let component: NeedsItemComponent;
@@ -22,7 +21,7 @@ describe('NeedsItemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ NeedsItemComponent, NeedsItemDetailsComponent ],
+      declarations: [ NeedsItemComponent ],
       imports: [ RouterTestingModule, MatCardModule ]
     });
 
