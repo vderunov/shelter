@@ -16,6 +16,7 @@ import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { NavbarModule } from './navbar/navbar.module';
 import { MatSnackBarModule } from '@angular/material';
+import { UserDetailsComponent } from './admon-user/user-details/user-details.component';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -24,7 +25,7 @@ const interceptorProvider: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UserDetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

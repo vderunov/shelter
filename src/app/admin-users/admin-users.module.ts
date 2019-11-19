@@ -22,6 +22,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFileUploadModule } from 'mat-file-upload';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule, MatNativeDateModule } from '@angular/material';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserItemComponent } from './user-item/user-item.component';
 
 const adminRoutes: Routes = [
   { path: 'users', component: AdminUsersComponent },
@@ -39,7 +42,10 @@ const adminRoutes: Routes = [
     HelperItemComponent,
     HelpersListComponent,
     HelperDetailsComponent,
-    ManagerDetailsComponent
+    ManagerDetailsComponent,
+    UserDetailsComponent,
+    UserListComponent,
+    UserItemComponent
   ],
   imports: [
     ReactiveFormsModule,
