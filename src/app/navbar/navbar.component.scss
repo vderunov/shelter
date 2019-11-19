@@ -4,9 +4,10 @@
 */
 @import "src/app/shared/style/variables.scss";
 
-.nav {
+nav {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   background-color: $navbar-background-color;
   padding: 8px 16px;
 
@@ -15,6 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 40px;
 
     img {
       max-height: 40px;

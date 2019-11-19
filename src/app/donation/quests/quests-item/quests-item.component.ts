@@ -8,4 +8,8 @@ import { Quest } from '../models/quest.interface';
 })
 export class QuestsItemComponent {
   @Input() quest: Quest;
+
+  public onExecute() {
+    
+  }
 }
