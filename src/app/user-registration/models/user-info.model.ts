@@ -1,9 +1,9 @@
-export interface ManagerRegistrationModel {
+export interface UserInfoModel {
   name: string;
   surname: string;
   patronymic: string;
-  childrenHouseId: number;
   birthday?: string;
+  childrenHouseId?: number;
   rating?: number;
   id?: number;
 }

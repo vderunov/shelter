@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 import { FormFieldsModel } from 'src/app/shared/validators/form-fields.model';
 import { FormFiledsValidator } from 'src/app/shared/validators/form-fields-validator';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 import { UserRegistrationService } from './services/user-registration.service';
+import { AuthenticationService } from '../shared/services/user/authentication.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -14,24 +14,23 @@ import { UserRegistrationService } from './services/user-registration.service';
   styleUrls: ['./user-registration.component.scss']
 })
 export class UserRegistrationComponent implements OnInit, OnDestroy {
-  public registerForm: FormGroup;
+  public userRegForm: FormGroup;
   public maxInputLength: FormFieldsModel;
-  public error = '';
-  private destroy$: Subject<void> = new Subject();
+  public role: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private userRegistrationService: UserRegistrationService,
     private router: Router,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService
   ) { }
 
   public ngOnInit(): void {
-    this.registerForm = this.formBuilder.group(
+    this.role = this.route.snapshot.paramMap.get('role');
+    this.userRegForm = this.formBuilder.group(
       {
-        name: [null, FormFiledsValidator.checkName],
-        patronymic: [null, FormFiledsValidator.checkName],
-        surname: [null, FormFiledsValidator.checkName],
         phone: [null, FormFiledsValidator.checkPhone],
         email: [null, FormFiledsValidator.checkEmail],
         password: [null, FormFiledsValidator.checkPassword],
@@ -46,23 +45,23 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   public isFieldInvalid(fieldName): boolean {
     return (
-      this.registerForm.get(fieldName).touched &&
-      this.registerForm.get(fieldName).invalid
+      this.userRegForm.get(fieldName).touched &&
+      this.userRegForm.get(fieldName).invalid
     );
   }
 
   public onSubmit(): void {
-    if (this.registerForm.invalid) {
+    if (this.userRegForm.invalid) {
       return;
     }
 
-    this.userRegistrationService.addVolunteer(this.registerForm.value)
-      .pipe(takeUntil(this.destroy$))
+    this.userRegistrationService.addUser(this.userRegForm.value, this.role)
+      .pipe(untilDestroyed(this))
       .subscribe(
         () => {
-          this.registerForm.reset();
-          this.notifier.showNotice('Registration completed. Please log in', 'success');
-          this.router.navigate(['/login']);
+          this.notifier.showNotice('New user has been created', 'success');
+          this.authenticationService.login(this.userRegForm.value);
+          this.router.navigate(['/user-info']);
         },
         error => {
           this.notifier.showNotice(error.message, 'error');
@@ -70,8 +69,5 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       );
   }
 
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  public ngOnDestroy(): void { }
 }

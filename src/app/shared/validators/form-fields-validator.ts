@@ -20,7 +20,7 @@ export class FormFiledsValidator {
       '^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+[.])+([a-zA-Z0-9]{2,4})+$'
     ),
     Validators.minLength(6),
-    Validators.maxLength(20)
+    Validators.maxLength(50)
   ];
 
   public static checkPassword = [
@@ -31,6 +31,10 @@ export class FormFiledsValidator {
     Validators.minLength(6),
     Validators.maxLength(20)
   ];
+
+  public static checkShelter = [Validators.required];
+
+  public static checkBirthday = [Validators.required];
 
   public static matchPassword(control: AbstractControl) {
     const password = control.get('password').value;
@@ -43,13 +47,14 @@ export class FormFiledsValidator {
     }
   }
 
+
   public static getMaxInputLength() {
     return {
       name: 20,
       patronymic: 20,
       surname: 20,
       phone: 14,
-      email: 30,
+      email: 50,
       password: 20
     };
   }

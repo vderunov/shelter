@@ -1,35 +1,5 @@
-<form class="container" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <h2 class="mat-display-1">Create New Account</h2>
-
-  <mat-form-field>
-    <input matInput placeholder="First Name*" type="text" formControlName="name" [maxlength]="maxInputLength.name" />
-    <mat-hint align="end">
-      Between 2 and 20 symbols
-    </mat-hint>
-    <mat-error *ngIf="isFieldInvalid('name')">
-      Please enter valid First Name (between 2 and 20 symbols)
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Middle Name*" type="text" formControlName="patronymic" [maxlength]="maxInputLength.patronymic" />
-    <mat-hint align="end">
-      Between 2 and 20 symbols
-    </mat-hint>
-    <mat-error *ngIf="isFieldInvalid('patronymic')">
-      Please enter valid First Name (between 2 and 20 symbols)
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Last Name*" type="text" formControlName="surname" [maxlength]="maxInputLength.surname" />
-    <mat-hint align="end">
-      Between 2 and 20 symbols
-    </mat-hint>
-    <mat-error *ngIf="isFieldInvalid('surname')">
-      Please enter valid Last Name (between 2 and 20 symbols)
-    </mat-error>
-  </mat-form-field>
+<form class="container" [formGroup]="userRegForm" (ngSubmit)="onSubmit()">
+  <h2 class="mat-display-1">Create New User</h2>
 
   <mat-form-field>
     <input matInput placeholder="Phone Number*" type="text" formControlName="phone" appPhoneMask [maxlength]="maxInputLength.phone" />
@@ -44,7 +14,7 @@
   <mat-form-field>
     <input matInput placeholder="Email*" type="email" formControlName="email" [maxlength]="maxInputLength.email" />
     <mat-hint align="end">
-      Format: johndoe@mail.com
+      Format: johndoe@gmail.com
     </mat-hint>
     <mat-error *ngIf="isFieldInvalid('email')">
       Please enter valid Email (format: johndoe@gmail.com)
@@ -72,7 +42,7 @@
   </mat-form-field>
 
   <div class="div-buttons">
-    <button type="submit" mat-raised-button [disabled]="registerForm.invalid">
+    <button type="submit" mat-raised-button [disabled]="userRegForm.invalid">
       Create Account
     </button>
   </div>
