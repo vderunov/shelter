@@ -13,5 +13,7 @@ export enum Permissions {
   volunteerSave,
   volunteerDelete,
   // Auction
-  auctionShowPurchase
+  auctionShowPurchase,
+  // Users
+  showUserList
 }

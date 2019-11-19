@@ -3,8 +3,8 @@ import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { Manager } from '../models/manager.model';
-import { ManagersService } from '../services/manager.service';
+import { Manager } from '../../models/manager.model';
+import { AdminUserService } from '../../services/admin-user.service';
 
 @Component({
   selector: 'app-manager-details',
@@ -19,19 +19,21 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
+  public changedPhoto: string | ArrayBuffer;
   private unsubscribe: Subject<void> = new Subject();
+
   constructor(
-    private managersService: ManagersService,
+    private adminUserService: AdminUserService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.managerId = this.activatedRoute.snapshot.params.id;
-    this.managersService
+    this.adminUserService
       .getManagerById(this.managerId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(managers => {
@@ -40,7 +42,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -55,26 +57,49 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    this.managersService
-    .deleteManagerById(this.managerId)
-    .subscribe(() => this.router.navigate(['users']));
+    this.adminUserService
+      .deleteManagerById(this.managerId)
+      .subscribe(() => this.router.navigate(['users']));
   }
 
   public changeInfo() {
-    this.managersService
-      .updateManagerById(this.profileForm.value, this.managerId)
+    const managerChanges = {
+      id: this.manager.id,
+      name: this.profileForm.get('name').value,
+      surname: this.profileForm.get('surname').value,
+      patronymic: this.profileForm.get('patronymic').value,
+      birthday: this.profileForm.get('birthday').value.toDateString(),
+      rating: this.profileForm.get('rating').value,
+      avatar: this.manager.avatar,
+      childrenHouseID: this.manager.childrenHouseID,
+      emailID: this.manager.emailID,
+      photoPath: this.manager.photoPath
+    };
+    this.adminUserService.updateManagerById(managerChanges)
       .subscribe(() => this.onEdit());
+  }
+
+  public changeAvatar(event) {
+    const fileReader = new FileReader();
+    if (event && event.length) {
+      fileReader.readAsDataURL(event[0]);
+      fileReader.onload = () => {
+        this.manager.avatar = event[0];
+        this.changedPhoto = fileReader.result;
+      };
+    } else {
+      this.manager.avatar = null;
+      this.changedPhoto = null;
+    }
   }
 
   private createForm(): void {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
-      surname: [],
+      surname: [null, Validators.required],
       patronymic: [],
-      birthday: [],
-      avatar: [],
-      photoPath: [],
-      rating: [],
+      birthday: ['', Validators.required],
+      rating: [null, Validators.required]
     });
   }
 
@@ -84,9 +109,7 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       surname: manager.surname,
       patronymic: manager.patronymic,
       birthday: manager.birthday,
-      avatar: manager.avatar,
-      photoPath: manager.photoPath,
-      rating: manager.rating,
+      rating: manager.rating
     });
   }
 
@@ -96,5 +119,4 @@ export class ManagerDetailsComponent implements OnInit, OnDestroy {
       : this.profileForm.enable();
     this.isEditDisabled = this.profileForm.disabled;
   }
-
 }
