@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { SheltersService } from '../shelters-service/shelters.service';
 import { NotifierService } from '../../shared/services/notifier/notifier.service';
-import { untilDestroyed } from '@ngneat/until-destroy';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-registration-shelter',
