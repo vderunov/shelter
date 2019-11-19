@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-users.component.scss']
 })
 
-export class AdminUsersComponent {}
+export class AdminUsersComponent { }

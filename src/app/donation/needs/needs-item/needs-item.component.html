@@ -1,16 +1,25 @@
 <mat-card class="need">
-  <span>{{ need.lastDateWhenStatusChanged | date:'dd/MM/yyyy' }}</span>
-  <span>{{ need.orphanageName | uppercase }} </span>
-  <span>{{ need.city }}</span>
-  <span>{{ need.status }}</span>
-  <span>{{ need.donationItemID }}</span>
-  <span>{{ need.itemName }}</span>
+  <mat-card-title>{{ need.itemName }}</mat-card-title>
+  <mat-card-subtitle>id: {{ need.id }}</mat-card-subtitle>
+  <mat-card-content>
+    <div>
+      Shelter name: <a class="shelter-name" [routerLink]="['/shelters', need.orphanageID]">{{ need.orphanageName | uppercase }}</a>
+    </div>
+    <div *ngIf="need.city">City: {{ need.city }}</div>
+    <div>Status:
+      {{ need.status }}
+    </div>
+    <div>Status changed:
+      {{ need.lastDateWhenStatusChanged | date:'dd.MM.yyyy' }}
+    </div>
+  </mat-card-content>
 
-  <a mat-raised-button class="need" [routerLink]="['/needs', need.donationItemID]">
-    Open details
-  </a>
-
-  <a mat-raised-button>
-    Donate
-  </a>
+  <mat-card-actions>
+      <a mat-raised-button class="need" [routerLink]="['/needs', need.id]">
+        Open details
+      </a>
+      <a mat-raised-button (click)="onDonate()" color="primary">
+        Donate
+      </a>
+  </mat-card-actions>
 </mat-card>
