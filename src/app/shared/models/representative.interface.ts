@@ -7,6 +7,7 @@ export interface Representative {
   rating: number;
   avatar: any;
   childrenHouseID: number;
+  childrenHouseName: string;
   emailID: number;
   photoPath: string;
 }

@@ -1,18 +1,16 @@
 <div class="side">
-    <mat-grid-list cols="5" rowHeight="80px">
-        <mat-grid-tile
-            [colspan]="1">
+
+    <div class="control-div">
+        <div>
             <app-search
             (searchInit)="onSearch($event)"></app-search>
-        </mat-grid-tile>
-
-        <mat-grid-tile
-            [colspan]="1">
+        </div>
+        <div>
             <button class="add-manager-button" mat-raised-button color="primary">
                 <mat-icon>person_add</mat-icon>Add Manager
             </button>
-        </mat-grid-tile>
-    </mat-grid-list>
+        </div>
+    </div>
 
     <mat-grid-list cols="5">
         <mat-grid-tile *ngFor="let manager of managers$ | async; trackBy: trackByManagers">

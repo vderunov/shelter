@@ -3,12 +3,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Shelter } from '../models/shelter.interface';
 import { Observable, of, zip } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap, map, take, catchError } from 'rxjs/operators';
+import { concatMap, map, take, catchError, filter } from 'rxjs/operators';
 import { AddressShelter } from '../models/address-shelter.interface';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { Location } from '../models/location.interface';
 import { Children } from 'src/app/shared/models/children.interface';
 import { Representative } from 'src/app/shared/models/representative.interface';
+import { MapMarker } from 'src/app/map/map-marker.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,45 +26,59 @@ export class SheltersService {
         zip(
           this.http.get<Shelter[]>(config.sheltersApi, {params}),
           this.http.get(config.childrenApi),
-          this.http.get(config.representativesApi),
+          this.http.get<Representative[]>(config.representativesApi),
           this.http.get<AddressShelter[]>(config.addressApi),
+          this.http.get<Location[]>(config.locationApi),
         )
       ),
-      map(([shelters, children, representatives, address]: [Shelter[], Children[], Representative[], AddressShelter[]]) => {
+      map(([shelters, children, representatives, address, location]:
+        [Shelter[], Children[], Representative[], AddressShelter[], Location[]]) => {
         const countChildren = children.reduce((acc, curr) => {
           acc[curr.childrenHouseID] = acc[curr.childrenHouseID] ? ++acc[curr.childrenHouseID] : 1;
           return acc;
         }, {});
         const representativesObj = representatives.reduce((acc, curr) => ({[curr.childrenHouseID]: curr, ...acc}), {});
         const addressObj = address.reduce((acc, curr) => ({[curr.id]: curr, ...acc}), {});
+        const locationObj = location.reduce((acc, curr) => ({[curr.id]: curr, ...acc}), {});
         return shelters.map((shelter: Shelter) => ({
           ...shelter,
           children: countChildren[shelter.id],
           representative: representativesObj[shelter.id],
           address: addressObj[shelter.adressID],
+          location: locationObj[shelter.locationID]
         }));
       })
     );
   }
 
-  public getDetails(id: string = ''): Observable<Shelter> {
+  public getDetails(id: string = ''): Observable<any> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.getShelter(config.sheltersApi, id).pipe(
-          concatMap((shelter: Shelter): Observable<[Shelter, AddressShelter, Location]> =>
+          concatMap((shelter: Shelter): Observable<[Shelter, Children[], Representative[], AddressShelter, Location]> =>
             zip(
               of(shelter),
+              this.http.get<Children[]>(config.childrenApi),
+              this.http.get<Representative[]>(config.representativesApi),
               this.getAddress(config.addressApi, shelter.adressID),
               this.getLocation(config.locationApi, shelter.locationID)
             )
           ),
-          map(([shelter, address, location]): Shelter => ({
-            ...shelter,
-            address,
-            location,
-          }))
-        )
-      )
+          map(([shelter, children, representatives, address, location]) => {
+            const countChildren = children.reduce((acc, curr) => {
+              acc[curr.childrenHouseID] = acc[curr.childrenHouseID] ? ++acc[curr.childrenHouseID] : 1;
+              return acc;
+            }, {});
+            const representative = representatives.filter((represent: Representative) => shelter.id === represent.childrenHouseID)[0];
+            return {
+              ...shelter,
+              representative,
+              address,
+              location,
+              children: countChildren[shelter.id]
+            };
+          })
+      ))
     );
   }
 
@@ -77,6 +92,33 @@ export class SheltersService {
 
   private getLocation(api, params): Observable<Location> {
     return params ? this.http.get(`${api}/${params}`) : of(null);
+  }
+
+  public getLocationEveryShelters(): Observable<{zoom: number,  coords: MapMarker[]}> {
+    return this.getShelters().pipe(map((shelters) => this.createShelterLocation(shelters)));
+  }
+
+  public createShelterLocation(shelters, zoom?) {
+    return {
+      zoom: zoom ? zoom : 6,
+      coords: shelters
+        .filter((shelter) => shelter.locationID !== null)
+        .map((shelter) => ({
+          location: shelter.location,
+          id: shelter.id,
+          title: `
+            Shelter: ${shelter.name.toUpperCase()}
+            country: ${shelter.address.country}
+            region: ${shelter.address.region}
+            city: ${shelter.address.city}
+            street: ${shelter.address.street}
+            house: ${shelter.address.house}
+            children: ${shelter.children}
+            rating: ${shelter.rating}
+            representative: ${shelter.representative.name} ${shelter.representative.surname}
+            `
+        }))
+      };
   }
 
   public putShelterDetails(changeData): Observable<[Shelter, AddressShelter]> {

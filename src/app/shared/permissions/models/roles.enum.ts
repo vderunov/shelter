@@ -1,9 +1,9 @@
 export enum Roles {
-  Guest = 'GUEST',
-  Admin = 'ADMIN',
-  User = 'USER',
-  Orphan = 'ORPHAN',
-  Charitymaker = 'CHARITYMAKER',
-  Representative = 'REPRESENTATIVE',
-  Volunteer = 'VOLUNTEER'
+  Guest = 'Guest',
+  Admin = 'Admin',
+  User = 'User',
+  Orphan = 'Orphan',
+  Charitymaker = 'CharityMaker',
+  Representative = 'Representative',
+  Volunteer = 'Volunteer'
 }

@@ -22,4 +22,12 @@ export class QuestService {
       concatMap((config: Config) => this.http.get<Quest[]>(config.questsApi, { params })),
     );
   }
+
+  public getDetails(id: string): Observable<Quest> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.get<Quest>(`${config.questsApi}/${id}`)
+      )
+    );
+  }
 }

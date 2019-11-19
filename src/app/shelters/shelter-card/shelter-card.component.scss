@@ -11,6 +11,12 @@ mat-card-actions {
   right: 20px;
 }
 
+.shelter-photo {
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
 .shelter-button {
   text-decoration: none;
 }
@@ -39,5 +45,5 @@ mat-card-actions {
 }
 
 mat-card {
-  min-height: 280px;
+  height: 420px;
 }

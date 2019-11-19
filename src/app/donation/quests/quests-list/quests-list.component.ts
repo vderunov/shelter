@@ -19,7 +19,7 @@ export class QuestsListComponent implements OnInit {
   }
 
   public trackById(index: number, quest: Quest): number {
-    return quest.itemID;
+    return quest.id;
   }
 
   public onSearch(searchValue: string): void {

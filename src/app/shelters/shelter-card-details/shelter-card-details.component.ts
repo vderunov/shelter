@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
+import { MapMarker } from 'src/app/map/map-marker.model';
 
 @Component({
   selector: 'app-shelter-card-details',
@@ -15,11 +16,12 @@ import { Permissions } from 'src/app/shared/permissions/models/permissions.enum'
 export class ShelterCardDetailsComponent implements OnInit {
   private shelterId: string;
   public shelter: Shelter;
+  public marker;
   public changedPhoto: string | ArrayBuffer;
   public permissions = Permissions;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
-  public isMessage = false;
+  public isShowMap: boolean;
 
   constructor(
     private sheltersService: SheltersService,
@@ -29,6 +31,8 @@ export class ShelterCardDetailsComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  @ViewChild('uploadPhotoButton', {static: false}) uploadPhotoButton: ElementRef;
+
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
@@ -36,11 +40,16 @@ export class ShelterCardDetailsComponent implements OnInit {
     this.getDetails();
   }
 
-  private getDetails() {
+  private getDetails(): void {
     this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
       this.shelter = shelter;
+      this.marker = this.sheltersService.createShelterLocation([shelter], 15);
       this.patchFormValues(shelter);
     });
+  }
+
+  public toggleMap(): void {
+    this.isShowMap = !this.isShowMap;
   }
 
   public onSubmit(): void {
@@ -73,7 +82,7 @@ export class ShelterCardDetailsComponent implements OnInit {
 
   public onDelete(): void {
     this.sheltersService.deleteShelter(this.shelter).subscribe(_ => {
-      this.notifierService.showNotice(`Shelter ${this.shelter.name} deleted!`, 'error');
+      this.notifierService.showNotice(`Shelter ${this.shelter.name} deleted!`, 'success');
       this.router.navigate(['/shelters']);
     });
   }
@@ -83,7 +92,7 @@ export class ShelterCardDetailsComponent implements OnInit {
     this.onEdit();
   }
 
-  private createForm(): void {
+  public createForm(): void {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
       avatar: [],
@@ -112,21 +121,21 @@ export class ShelterCardDetailsComponent implements OnInit {
     this.isEdiDisabled = this.profileForm.disabled;
   }
 
-  public onSelectedFilesChanged(event) {
+  public onSelectedFilesChanged(event): void {
     const fileReader = new FileReader();
     if (event && event.length) {
-      fileReader.readAsDataURL(event && event.length && event[0]);
       fileReader.onload = (ev: Event) => {
         this.shelter.avatar = event[0];
         this.changedPhoto = fileReader.result;
       };
+      fileReader.readAsDataURL(event && event.length && event[0]);
     } else {
       this.shelter.avatar = null;
       this.changedPhoto = null;
     }
   }
 
-  public onUploadClicked(event) {
+  public onUploadClicked(event): void {
     this.toggleForm();
   }
 }
