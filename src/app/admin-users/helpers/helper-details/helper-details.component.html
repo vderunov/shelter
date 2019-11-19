@@ -3,17 +3,15 @@
         <mat-icon>reply</mat-icon>Back to users
     </button>
     <mat-card class="user-card">
-        <div *ngIf="helper" class="heder-card">
-            <h2> All Information about {{ helper.name }}</h2>
-            <mat-card-content>
-                <p><img mat-card-image class="avatar" [src]="helper.photoPath" [alt]="helper.name"></p>
-            </mat-card-content>
-        </div>
         <mat-card-content>
             <form class="details-form" [formGroup]="profileForm">
-                <mat-form-field *ngIf="visibleFields" class="details-full-width">
-                    <input matInput placeholder="Path to photo" formControlName="photoPath">
-                </mat-form-field>
+                <div *ngIf="helper" class="heder-card">
+                    <h2> All Information about {{ helper.name }}</h2>
+                    <img mat-card-image [src]="changedPhoto ? changedPhoto : helper.photoPath" [alt]="helper.name">
+                </div>
+                <mat-file-upload *ngIf="visibleFields" class="details-full-width" labelText="Change avatar:"
+                    (selectedFilesChanged)="changeAvatar($event)">
+                </mat-file-upload>
                 <mat-card-title>
                     <mat-form-field class="details-full-width">
                         <input matInput placeholder="Name" formControlName="name">
@@ -24,8 +22,10 @@
                     <mat-form-field class="details-full-width">
                         <input matInput placeholder="Patronymic" formControlName="patronymic">
                     </mat-form-field>
-                    <mat-form-field class="details-full-width">
-                        <input matInput placeholder="Birthday" formControlName="birthday">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker" formControlName="birthday">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field class="details-full-width">
                         <input matInput placeholder="Rating" formControlName="rating">

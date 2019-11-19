@@ -7,6 +7,7 @@ import { ActiveLot } from '../models/active-lot.model';
 import { concatMap, map } from 'rxjs/operators';
 import { Shelter } from 'src/app/shelters/models/shelter.interface';
 import { Children } from 'src/app/shared/models/children.interface';
+import { AuctionList } from '../models/auction-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class AuctionService {
           this.http.get(config.donationItemsApi)
           )
         ),
-        map(([listOfLots, children, shelters, dontationItems]: [any, Children[], Shelter[], any]) => {
+        map(([listOfLots, children, shelters, dontationItems]: [AuctionList, Children[], Shelter[], any]) => {
           const childrenObj = children.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const shetlerObj = shelters.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const dontationItemsObj = dontationItems.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
