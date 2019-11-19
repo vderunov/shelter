@@ -31,7 +31,10 @@ export class PermissionService {
       Permissions.shelterReset,
       Permissions.shelterSave,
       Permissions.shelterDelete,
-      Permissions.shelterUploadPhoto
+      Permissions.shelterUploadPhoto,
+      Permissions.shelterCreate,
+      Permissions.showUserList,
+      Permissions.auctionShowPurchase
     ]);
     this.permissionsByRole.set(Roles.Guest, [
       Permissions.shelterReset

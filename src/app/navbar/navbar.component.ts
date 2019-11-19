@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+
   constructor() {}
 }

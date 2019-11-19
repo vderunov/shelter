@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HelpersService } from '../services/helper.service';
+import { AdminUserService } from '../../services/admin-user.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { Helper } from '../models/helper.model';
+import { Helper } from '../../models/helper.model';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -19,20 +19,21 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
+  public changedPhoto: string | ArrayBuffer;
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
-    private helpersService: HelpersService,
+    private adminUserService: AdminUserService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
     this.helperId = this.activatedRoute.snapshot.params.id;
-    this.helpersService
+    this.adminUserService
       .getHelperById(this.helperId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(helpers => {
@@ -41,7 +42,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
@@ -56,26 +57,51 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    this.helpersService
-    .deleteHelperById(this.helperId)
-    .subscribe(() => this.router.navigate(['users']));
+    this.adminUserService
+      .deleteHelperById(this.helperId)
+      .subscribe(() => this.router.navigate(['users']));
   }
 
-  public changeInfo() {
-    this.helpersService
-      .updateHelperById(this.profileForm.value, this.helperId)
+  public changeInfo(): void {
+
+    const helperChange = {
+      id: this.helper.id,
+      name: this.profileForm.get('name').value,
+      surname: this.profileForm.get('surname').value,
+      patronymic: this.profileForm.get('patronymic').value,
+      birthday: this.profileForm.get('birthday').value.toDateString(),
+      rating: this.profileForm.get('rating').value,
+      emailID: this.helper.emailID,
+      avatar: this.helper.avatar,
+      addressID: this.helper.addressID,
+      photoPath: this.helper.photoPath
+    };
+    this.adminUserService.updateHelperById(helperChange)
       .subscribe(() => this.onEdit());
+  }
+
+  public changeAvatar(event) {
+
+    const fileReader = new FileReader();
+    if (event && event.length) {
+      fileReader.readAsDataURL(event[0]);
+      fileReader.onload = () => {
+        this.helper.avatar = event[0];
+        this.changedPhoto = fileReader.result;
+      };
+    } else {
+      this.helper.avatar = null;
+      this.changedPhoto = null;
+    }
   }
 
   private createForm(): void {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
-      surname: [],
-      patronymic: [],
-      birthday: [],
-      avatar: [],
-      photoPath: [],
-      rating: [],
+      surname: [null, Validators.required],
+      patronymic: [null, Validators.required],
+      birthday: ['', Validators.required],
+      rating: [null, Validators.required]
     });
   }
 
@@ -85,9 +111,7 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       surname: helper.surname,
       patronymic: helper.patronymic,
       birthday: helper.birthday,
-      avatar: helper.avatar,
-      photoPath: helper.photoPath,
-      rating: helper.rating,
+      rating: helper.rating
     });
   }
 
@@ -97,5 +121,4 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
       : this.profileForm.enable();
     this.isEditDisabled = this.profileForm.disabled;
   }
-
 }
