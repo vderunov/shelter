@@ -7,6 +7,6 @@ import { Permissions } from 'src/app/shared/permissions/models/permissions.enum'
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  public permissions = Permissions;
-  constructor() { }
+
+  constructor() {}
 }

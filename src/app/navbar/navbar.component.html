@@ -1,23 +1,11 @@
-<nav class="nav mat-elevation-z6">
+<nav class="mat-elevation-z6">
   <a mat-button disableRipple [routerLink]="['/shelters']">
     <img src='assets/logo.png'>
     <span></span>
   </a>
-  <a mat-button [routerLink]="['/shelters']">
-    Find shelter
-  </a>
-  <a *appPermission="permissions.showUserList" mat-button disabled [routerLink]="['/users']">
-    Admin Users
-  </a>
-  <a mat-button [routerLink]="['/donation']">Donate
-  </a>
-  <a mat-button [routerLink]="['/auction']">Charity auction
-  </a>
+  <a mat-button [routerLink]="['/shelters']">Find shelter</a>
+  <a mat-button [routerLink]="['/donation']">Donate</a>
+  <a mat-button [routerLink]="['/auction']">Charity auction</a>
   <div class="flex-spacer"></div>
-  <a mat-button [routerLink]="['/shelter-registration']">
-    Shelters registration
-  </a>
-  <a mat-stroked-button [routerLink]="['/login']">
-    Sign in
-  </a>
+  <app-user-menu></app-user-menu>
 </nav>

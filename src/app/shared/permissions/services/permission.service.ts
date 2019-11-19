@@ -32,6 +32,7 @@ export class PermissionService {
       Permissions.shelterSave,
       Permissions.shelterDelete,
       Permissions.shelterUploadPhoto,
+      Permissions.shelterCreate,
       Permissions.showUserList,
       Permissions.auctionShowPurchase
     ]);
