@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdminUsersComponent } from './admin-users.component';
 import { ManagersListComponent } from './managers/managers-list/managers-list.component';
 import { ManagerItemComponent } from './managers/manager-item/manager-item.component';
@@ -18,6 +18,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchModule } from '../search/search.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFileUploadModule } from 'mat-file-upload';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule, MatNativeDateModule } from '@angular/material';
 
 const adminRoutes: Routes = [
   { path: 'users', component: AdminUsersComponent },
@@ -35,15 +39,17 @@ const adminRoutes: Routes = [
     HelperItemComponent,
     HelpersListComponent,
     HelperDetailsComponent,
-    ManagerDetailsComponent,
+    ManagerDetailsComponent
   ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    RouterModule.forRoot(
-      adminRoutes,
-    ),
+    RouterModule.forChild(adminRoutes),
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatGridListModule,
+    MatFileUploadModule,
     HttpClientModule,
     MatTabsModule,
     MatInputModule,
@@ -51,11 +57,26 @@ const adminRoutes: Routes = [
     MatButtonModule,
     MatIconModule,
     BrowserAnimationsModule,
-    SearchModule
+    SearchModule,
+    MatDialogModule,
+    FormsModule,
+    MatDatepickerModule
+  ],
+  providers: [
+    MatDatepickerModule
   ],
   exports: [
     RouterModule,
     MatTabsModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 

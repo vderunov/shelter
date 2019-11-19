@@ -6,7 +6,7 @@ export class Helper {
     birthday: string;
     rating: number;
     avatar: string;
-    childrenHouseID: number;
     emailID: number;
     photoPath: string;
+    addressID: any;
 }

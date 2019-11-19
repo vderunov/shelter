@@ -3,13 +3,19 @@
 </div>
 
 <div>
-  <button 
-    *appPermission="permissions.auctionShowPurchase" 
-    class="show-purchases-button"
-    mat-button>
-    Show purchases</button>
+  <div>  
+    <button 
+      class="show-purchases-button"
+      mat-button>
+      Create new lot</button>
+    <button 
+      *appPermission="permissions.auctionShowPurchase"
+      class="show-purchases-button"
+      mat-button>
+      Show purchases</button>
+  </div>
 
-    <mat-grid-list cols="4">
+  <mat-grid-list cols="4">
     <mat-grid-tile *ngFor="let lot of lots$ | async; trackBy: trackById">
       <app-auction-lot [lot]="lot"></app-auction-lot>
     </mat-grid-tile>
