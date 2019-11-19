@@ -20,7 +20,7 @@ export class FormFiledsValidator {
       '^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+[.])+([a-zA-Z0-9]{2,4})+$'
     ),
     Validators.minLength(6),
-    Validators.maxLength(20)
+    Validators.maxLength(50)
   ];
 
   public static checkPassword = [
@@ -48,7 +48,7 @@ export class FormFiledsValidator {
       name: 20,
       surname: 20,
       phone: 14,
-      email: 20,
+      email: 50,
       address: 100,
       password: 20
     };

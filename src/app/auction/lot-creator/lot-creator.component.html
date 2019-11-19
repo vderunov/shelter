@@ -1,14 +1,36 @@
-<form [formGroup]="newLotForm" (ngSubmit)="submit()">
+<form class="container" [formGroup]="newLotForm" (ngSubmit)="onSubmit()">
   <h2 class="mat-display-1">Create new lot</h2>
 
   <mat-form-field>
-    <mat-label>List of items</mat-label>
+    <mat-label>List of items*</mat-label>
     <mat-select formControlName="items">
       <mat-option *ngFor="let item of items$ | async;" [value]="item.id">
-        {{item.name}}
+        {{item.name}} - {{item.description}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button type="submit">Create</button>
+  <mat-form-field>
+    <mat-label>List of children*</mat-label>
+    <mat-select formControlName="children">
+      <mat-option *ngFor="let child of children$ | async;" [value]="child.id">
+        {{child.surname}} {{child.name}} {{child.patronymic}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="container-image">
+    <img mat-card-image [src]="changedPhoto" alt="Lot photo">
+    <!-- <mat-file-upload #uploadPhotoButton
+        *appPermission="permissions.shelterUploadPhoto"
+        labelText="Select a file:"
+        [selectButtonText]="'Choose File'"
+        (uploadClicked)="onUploadClicked($event)"
+        (selectedFilesChanged)="onSelectedFilesChanged($event)">
+    </mat-file-upload> -->
+  </div>
+
+  <div class="div-buttons">
+    <button type="submit" mat-raised-button [disabled]="newLotForm.invalid">Create</button>
+  </div>
 </form>

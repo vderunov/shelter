@@ -8,6 +8,9 @@ import { concatMap, map } from 'rxjs/operators';
 import { Shelter } from 'src/app/shelters/models/shelter.interface';
 import { Children } from 'src/app/shared/models/children.interface';
 import { AuctionList } from '../models/auction-list.model';
+import { Child } from '../models/child.model';
+import { Item } from '../models/item.model';
+import { Manager } from 'src/app/admin-users/managers/models/manager.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +30,11 @@ export class AuctionService {
           this.http.get(config.donationItemsApi)
           )
         ),
-        map(([listOfLots, children, shelters, dontationItems]: [AuctionList, Children[], Shelter[], any]) => {
+        map(([listOfLots, children, shelters, dontationItems]: [ActiveLot[], Children[], Shelter[], Item[]]) => {
           const childrenObj = children.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const shetlerObj = shelters.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
           const dontationItemsObj = dontationItems.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
-          return listOfLots.auctionLotDTOs.map((lot: ActiveLot) => {
+          return listOfLots.map((lot: ActiveLot) => {
             return {
               ...lot,
               auctionLotInfo: dontationItemsObj[lot.auctionLotItemID],
@@ -42,11 +45,42 @@ export class AuctionService {
     );
   }
 
-  public getItems(): Observable<any> {
+  public getItems(): Observable<Item[]> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.get(config.donationItemsApi)
+        return this.http.get<Item[]>(config.donationItemsApi);
       })
     );
   }
+
+  private getManagerById(api: string, managerID: number): Observable<Manager> {
+    return this.http.get<Manager>(`${api}${managerID}`)
+  }
+
+  public getChildrenByManager(managerID: number): Observable<Children[]> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        zip(
+          this.http.get<Child[]>(config.childrenApi),
+          this.getManagerById(config.representativesApi, managerID)
+          )
+        ),
+        map(([children, manager]: [Children[], Manager]) => {
+          const childrenObj = children.reduce((acc, curr) => {
+            const currChilrenHouseId = curr.childrenHouseID;
+            if(Object.keys(acc).indexOf(String(currChilrenHouseId)) > -1) {
+              acc[currChilrenHouseId].push(curr);
+              return acc;
+            }
+            return ({ [curr.childrenHouseID]: [curr], ...acc });
+          }, {});
+          return childrenObj[manager.childrenHouseID];
+        })
+      )
+  }
+
+  public createNewLot(formValue) {
+    console.log(formValue);
+  }
+    
 }
