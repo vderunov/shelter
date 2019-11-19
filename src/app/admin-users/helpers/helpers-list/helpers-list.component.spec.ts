@@ -56,23 +56,26 @@ describe('HelpersListComponent', () => {
     helperService = fixture.debugElement.injector.get(AdminUserService);
   });
 
-  it('Expect to receive list of helpers', () => {
+  it('Expect to receive list of helpers',  (done: DoneFn) => {
     spyOn(helperService, 'getAllHelpers').and.returnValue(of(mockHelpers));
     component.ngOnInit();
     component.helpers$.subscribe((helpers: Helper[]) => {
       expect(helpers).toEqual(mockHelpers);
+      done();
     });
   });
 
-  it('Expect to receive helper Id', () => {
+  it('Expect to receive helper Id',  (done: DoneFn) => {
     expect(component.trackByHelpers(1, mockHelpers[1])).toEqual(55);
+    done();
   });
 
-  it('Expect to check params in onSearch method', () => {
+  it('Expect to check params in onSearch method',  (done: DoneFn) => {
     spyOn(helperService, 'getAllHelpers').and.returnValue(of(mockHelpers));
     const searchValue = 'Stive';
     component.onSearch(searchValue);
     expect(helperService.getAllHelpers).toHaveBeenCalledWith({ name: 'Stive' });
+    done();
   });
 
 });

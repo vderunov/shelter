@@ -31,8 +31,9 @@ describe('HelperItemComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create component helper item', () => {
+  it('should create component helper item',  (done: DoneFn) => {
     expect(component).toBeTruthy();
+    done();
   });
 
 });

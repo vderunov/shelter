@@ -57,23 +57,26 @@ describe('ManagersListComponent', () => {
     managerService = fixture.debugElement.injector.get(AdminUserService);
   });
 
-  it('Expect to receive list of managers', () => {
+  it('Expect to receive list of managers',  (done: DoneFn) => {
     spyOn(managerService, 'getAllManagers').and.returnValue(of(mockManagers));
     component.ngOnInit();
     component.managers$.subscribe((managers: Manager[]) => {
       expect(managers).toEqual(mockManagers);
+      done();
     });
   });
 
-  it('Expect to receive manager Id', () => {
+  it('Expect to receive manager Id', (done: DoneFn) => {
     expect(component.trackByManagers(1, mockManagers[1])).toEqual(59);
+    done();
   });
 
-  it('Expect to check params in onSearch method', () => {
+  it('Expect to check params in onSearch method',  (done: DoneFn) => {
     spyOn(managerService, 'getAllManagers').and.returnValue(of(mockManagers));
     const searchValue = 'Timonov';
     component.onSearch(searchValue);
     expect(managerService.getAllManagers).toHaveBeenCalledWith({ name: 'Timonov' });
+    done();
   });
 
 });

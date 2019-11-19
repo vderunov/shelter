@@ -54,27 +54,18 @@ export class AdminUserService {
     );
   }
 
-  public updateHelperById(helperData: Helper) {
-    return this.updateUserById<Helper>(helperData, { id: helperData.id, api: 'helpersApi', apiForImage: 'helpersImageApi' });
+  public updateHelperById(helperData: Helper): Observable<Helper> {
+    return this.updateUserById<Helper>(helperData, { id: helperData.id,  apiForUpdate: 'helpersImageApi' });
   }
 
-  public updateManagerById(helperData: Manager) {
-    return this.updateUserById<Manager>(helperData, { id: helperData.id, api: 'managersApi', apiForImage: 'managersImageApi' });
+  public updateManagerById(helperData: Manager): Observable<Manager> {
+    return this.updateUserById<Manager>(helperData, { id: helperData.id,  apiForUpdate: 'managersImageApi' });
   }
 
-  private updateUserById<T>(data: T, argObj: EditUserModel) {
-    this.configService.getConfig().pipe(
-      concatMap((config: Config) => {
-        return this.http.put<T>(`${config[argObj.api]}/${argObj.id}`, data, this.httpOptions);
-      })
-    );
-    return this.putImage<T>(data, argObj);
-  }
-
-  private putImage<T>(data: T, argObj: EditUserModel): Observable<T> {
+  private updateUserById<T>(data: T, argObj: EditUserModel): Observable<T> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<T>(`${config[argObj.apiForImage]}/${argObj.id}`, this.createFormData<T>(data));
+        return this.http.put<T>(`${config[argObj.apiForUpdate]}/${argObj.id}`, this.createFormData<T>(data));
       })
     );
   }

@@ -31,8 +31,9 @@ describe('ManagerItemComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create component manager item', () => {
+  it('should create component manager item',  (done: DoneFn) => {
     expect(component).toBeTruthy();
+    done();
   });
 
 });
