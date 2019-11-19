@@ -13,7 +13,7 @@ import { SheltersService } from '../shelters-service/shelters.service';
 describe('ShelterRegistrationComponent', () => {
   let component: ShelterRegistrationComponent;
   let fixture: ComponentFixture<ShelterRegistrationComponent>;
-  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+  let routerSpy: { navigate: jasmine.Spy };
   let mockShelter: Shelter;
   let sheltersService: SheltersService;
   let sheltersServiceSpy: { registerShelter: jasmine.Spy };
@@ -24,7 +24,7 @@ describe('ShelterRegistrationComponent', () => {
       representative: {id: 54, name: 'Олег', surname: 'Петренко', patronymic: 'Дмитреевич', childrenHouseID: 53},
       address: {id: 114, country: 'Украина', region: 'Днепропетровская', city: 'Днепр', street: 'Артема', house: '250'}
     };
-
+    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     sheltersServiceSpy = jasmine.createSpyObj('sheltersService', ['registerShelter']);
 
     TestBed.configureTestingModule({
@@ -56,34 +56,9 @@ describe('ShelterRegistrationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should checked country', () => {
-    expect(component.form.contains('country')).toBeTruthy();
-  });
-
-  it('should checked region', () => {
-    expect(component.form.contains('region')).toBeTruthy();
-  });
-
-  it('should checked city', () => {
-    expect(component.form.contains('city')).toBeTruthy();
-  });
-
-  it('should checked street', () => {
-    expect(component.form.contains('street')).toBeTruthy();
-  });
-
-  it('should checked house', () => {
-    expect(component.form.contains('house')).toBeTruthy();
-  });
-
-  it('should checked rating', () => {
-    expect(component.form.contains('rating')).toBeTruthy();
-  });
-
   it('should call gotoMainPage method and tell router to navigate', () => {
     component.gotoMainPage();
-    const spy = routerSpy.navigate as jasmine.Spy;
-    const navArgs = spy.calls.first().args[0];
+    const navArgs = routerSpy.navigate.calls.first().args[0];
     component.gotoMainPage();
     expect(navArgs).toEqual(['/']);
   });
@@ -91,9 +66,8 @@ describe('ShelterRegistrationComponent', () => {
   it('should call onSelectedFilesChanged method', () => {
     const testValue = null;
     const obj = {target: {files: [testValue]}};
-    const file = 'file';
     component.onSelectedFilesChanged(obj);
-    expect(component[file]).toEqual(testValue);
+    expect((component as any).file).toEqual(testValue);
   });
 
   it('should call submit data on sheltersService', () => {
@@ -108,7 +82,6 @@ describe('ShelterRegistrationComponent', () => {
     };
 
     sheltersServiceSpy.registerShelter.and.returnValue(of(mockShelter));
-    expect(component.form.valid).toBeFalsy();
     component.form.controls[formName.name].setValue('California');
     component.form.controls[formName.country].setValue('California');
     component.form.controls[formName.region].setValue('California');
@@ -116,8 +89,16 @@ describe('ShelterRegistrationComponent', () => {
     component.form.controls[formName.street].setValue('California');
     component.form.controls[formName.house].setValue('California 23');
     component.form.controls[formName.rating].setValue('23');
-    expect(component.form.valid).toBeTruthy();
     component.submit();
-    expect(sheltersServiceSpy.registerShelter).toHaveBeenCalled();
+    const formData = {
+      name: 'California',
+      country: 'California',
+      region: 'California',
+      city: 'California',
+      street: 'California',
+      house: 'California 23',
+      rating: '23'
+    };
+    expect(sheltersServiceSpy.registerShelter).toHaveBeenCalledWith(formData, (component as any).file);
   });
 });
