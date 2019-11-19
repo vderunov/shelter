@@ -1,12 +1,12 @@
 <agm-map
-  *ngIf="markers"
-  #map [latitude]="markers.coords[0].location.mapCoordX"
-  [longitude]="markers.coords[0].location.mapCoordY"
+  *ngIf="markers && markers.coords[0]"
+  #map [latitude]="markers.coords[0].location?.mapCoordX"
+  [longitude]="markers.coords[0].location?.mapCoordY"
   [zoom]="markers.zoom">
   <agm-marker
     *ngFor="let marker of markers.coords; trackBy: mapTrackBy"
-    [latitude]="marker?.location.mapCoordX"
-    [longitude]="marker?.location.mapCoordY"
+    [latitude]="marker.location?.mapCoordX"
+    [longitude]="marker.location?.mapCoordY"
     [title]='marker.title'
     (markerClick)="selectMarker(marker.id)">
   </agm-marker>

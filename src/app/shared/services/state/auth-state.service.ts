@@ -64,4 +64,5 @@ export class AuthStateService {
       return JSON.parse(this.cookieService.get(this.authStateName));
     }
   }
+
 }

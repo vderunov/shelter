@@ -4,8 +4,8 @@ export enum Permissions {
   shelterSave,
   shelterReset,
   shelterDelete,
+  shelterUploadPhoto,
   shelterCreate,
-  shelterShowMap,
   // Users
   showUserList,
   // Donations

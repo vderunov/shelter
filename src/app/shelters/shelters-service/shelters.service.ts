@@ -1,9 +1,9 @@
-import { Injectable, ErrorHandler } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Shelter } from '../models/shelter.interface';
 import { Observable, of, zip } from 'rxjs';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap, map, take, catchError, filter } from 'rxjs/operators';
+import { concatMap, map, take } from 'rxjs/operators';
 import { AddressShelter } from '../models/address-shelter.interface';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { Location } from '../models/location.interface';
@@ -107,15 +107,15 @@ export class SheltersService {
           location: shelter.location,
           id: shelter.id,
           title: `
-            Shelter: ${shelter.name.toUpperCase()}
-            country: ${shelter.address.country}
-            region: ${shelter.address.region}
-            city: ${shelter.address.city}
-            street: ${shelter.address.street}
-            house: ${shelter.address.house}
+            Shelter: ${shelter.name && shelter.name.toUpperCase()}
+            country: ${shelter.address && shelter.address.country}
+            region: ${shelter.address && shelter.address.region}
+            city: ${shelter.address && shelter.address.city}
+            street: ${shelter.address && shelter.address.street}
+            house: ${shelter.address && shelter.address.house}
             children: ${shelter.children}
             rating: ${shelter.rating}
-            representative: ${shelter.representative.name} ${shelter.representative.surname}
+            representative: ${shelter.representative && shelter.representative.name + shelter.representative.surname}
             `
         }))
       };
@@ -126,8 +126,8 @@ export class SheltersService {
       concatMap((config: Config) => {
         const location$ = changeData.shelter.locationID ?
           // will change value null to changeData.address to location when its work is stable
-          this.putLocation(config.locationApi, null, changeData.shelter.locationID) :
-          this.postLocation(config.locationApi, null);
+          this.putLocation(config.locationApi, changeData.address, changeData.shelter.locationID) :
+          this.postLocation(config.locationApi, changeData.address);
         return location$.pipe(take(1),
           concatMap((location: Location): Observable<[Shelter, AddressShelter]> => {
             if (location) {
@@ -154,7 +154,7 @@ export class SheltersService {
   }
 
   private putLocation(api, address, locationID): Observable<Location> {
-    return address ? this.http.put<Location>(`${api}/${locationID}`, this.createFormData(address)) : of(null);
+    return address ? this.http.put<Location>(`${api}/${locationID}`, this.createFormData(address)) : of({ id: locationID });
   }
 
   private postAddress(api, address): Observable<AddressShelter> {

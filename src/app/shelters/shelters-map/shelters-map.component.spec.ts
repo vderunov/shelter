@@ -5,7 +5,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { of } from 'rxjs';
 import { Shelter } from '../models/shelter.interface';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SheltersMapComponent', () => {
@@ -13,7 +12,6 @@ describe('SheltersMapComponent', () => {
   let fixture: ComponentFixture<SheltersMapComponent>;
   let sheltersServiceStub: Partial<SheltersService>;
   let sheltersService: SheltersService;
-  let router: Router;
   let mockShelters: Shelter[];
 
   beforeEach(() => {
@@ -50,7 +48,6 @@ describe('SheltersMapComponent', () => {
     fixture = TestBed.createComponent(SheltersMapComponent);
     component = fixture.componentInstance;
     sheltersService = fixture.debugElement.injector.get(SheltersService);
-    router = fixture.debugElement.injector.get(Router);
     fixture.detectChanges();
   });
 

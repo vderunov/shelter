@@ -31,6 +31,7 @@ export class PermissionService {
       Permissions.shelterReset,
       Permissions.shelterSave,
       Permissions.shelterDelete,
+      Permissions.shelterUploadPhoto,
       Permissions.shelterCreate,
       Permissions.showUserList,
       Permissions.auctionShowPurchase
@@ -38,9 +39,9 @@ export class PermissionService {
     this.permissionsByRole.set(Roles.Guest, [
     ]);
     this.permissionsByRole.set(Roles.Volunteer, [
+      Permissions.shelterUploadPhoto
     ]);
     this.permissionsByRole.set(Roles.Representative, [
-
     ]);
   }
 }

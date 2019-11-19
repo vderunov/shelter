@@ -1,10 +1,12 @@
 <mat-card [ngClass]="{ 'show-map': isShowMap }">
     <div class="container-image" *ngIf="shelter">
-        <img mat-card-image class="shelter-photo" [src]="changedPhoto ? changedPhoto : shelter.photoPath"
+        <img mat-card-image class="shelter-
+        photo" [src]="changedPhoto ? changedPhoto : shelter.photoPath"
             alt="Shelter photo">
         <mat-file-upload #uploadPhotoButton *appPermission="permissions.shelterUploadPhoto" labelText="Select a file:"
             [selectButtonText]="'Choose File'" (uploadClicked)="onUploadClicked($event)"
-            (selectedFilesChanged)="onSelectedFilesChanged($event)">
+            (selectedFilesChanged)="onSelectedFilesChanged($event)"
+            [showUploadButton]="false">
         </mat-file-upload>
     </div>
     <form class="details-form" [formGroup]="profileForm">

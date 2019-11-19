@@ -5,7 +5,6 @@ import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
-import { MapMarker } from 'src/app/map/map-marker.model';
 
 @Component({
   selector: 'app-shelter-card-details',
@@ -31,7 +30,7 @@ export class ShelterCardDetailsComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  @ViewChild('uploadPhotoButton', {static: false}) uploadPhotoButton: ElementRef;
+  @ViewChild('uploadPhotoButton', {static: false}) uploadPhotoButton;
 
   public ngOnInit(): void {
     this.createForm();
@@ -90,6 +89,9 @@ export class ShelterCardDetailsComponent implements OnInit {
   public onReset(): void {
     this.patchFormValues(this.shelter);
     this.onEdit();
+    this.shelter.avatar = null;
+    this.changedPhoto = null;
+    this.uploadPhotoButton.selectedFileText = null;
   }
 
   public createForm(): void {
@@ -121,21 +123,23 @@ export class ShelterCardDetailsComponent implements OnInit {
     this.isEdiDisabled = this.profileForm.disabled;
   }
 
-  public onSelectedFilesChanged(event): void {
+  public onSelectedFilesChanged(event) {
     const fileReader = new FileReader();
     if (event && event.length) {
+      fileReader.readAsDataURL(event[0]);
       fileReader.onload = (ev: Event) => {
         this.shelter.avatar = event[0];
         this.changedPhoto = fileReader.result;
+        this.onUploadClicked();
       };
-      fileReader.readAsDataURL(event && event.length && event[0]);
     } else {
       this.shelter.avatar = null;
       this.changedPhoto = null;
     }
   }
 
-  public onUploadClicked(event): void {
-    this.toggleForm();
+  public onUploadClicked(): void {
+    this.profileForm.enable();
+    this.isEdiDisabled = false;
   }
 }
