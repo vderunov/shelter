@@ -1,0 +1,13 @@
+div {
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 36px;
+    min-height: 40px;
+  }
+}
