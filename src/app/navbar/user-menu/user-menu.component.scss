@@ -1,5 +1,6 @@
 div {
   display: flex;
+  justify-content: space-between;
 
   a {
     text-decoration: none;
@@ -7,5 +8,8 @@ div {
     justify-content: center;
     align-items: center;
     line-height: 36px;
+    min-height: 40px;
+
   }
+
 }

@@ -21,7 +21,8 @@ export class AuthStateService {
   }
 
   public checkRoles(arrayOfRoles: string[]): boolean {
-    return arrayOfRoles.some((item) => item === this.getStateProperty('roles')[0]);
+    const currentRole: string = this.getStateProperty('roles')[0];
+    return arrayOfRoles.some((item) => item === currentRole);
   }
 
   public getStateProperty(str: string): string | string[] {

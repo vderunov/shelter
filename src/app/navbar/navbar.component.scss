@@ -16,6 +16,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 40px;
 
     img {
       max-height: 40px;
@@ -31,8 +32,4 @@ nav {
     flex-grow: 1;
   }
 
-  app-user-menu {
-    display: flex;
-    justify-content: space-between;
-  }
 }
