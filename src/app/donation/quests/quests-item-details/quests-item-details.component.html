@@ -28,8 +28,8 @@
   <mat-card-actions>
     <button mat-raised-button (click)="onBack()">Back</button>
     <button mat-raised-button (click)="onExecute()" color="primary">Execute</button>
-    <button mat-raised-button (click)="onEdit()">Edit</button>
-    <button mat-raised-button>Save</button>
-    <button mat-raised-button>Delete</button>
+    <button *appPermission="permissions.donationEdit" mat-raised-button (click)="onEdit()">Edit</button>
+    <button *appPermission="permissions.donationSave" mat-raised-button>Save</button>
+    <button *appPermission="permissions.donationDelete" mat-raised-button>Delete</button>
   </mat-card-actions>
 </mat-card>

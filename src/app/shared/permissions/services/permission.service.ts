@@ -32,13 +32,19 @@ export class PermissionService {
       Permissions.shelterSave,
       Permissions.shelterDelete,
       Permissions.shelterUploadPhoto,
-      Permissions.auctionShowPurchase
+      Permissions.auctionShowPurchase,
+      Permissions.donationEdit,
+      Permissions.donationSave,
+      Permissions.donationDelete
     ]);
     this.permissionsByRole.set(Roles.Guest, [
       Permissions.shelterReset
     ]);
     this.permissionsByRole.set(Roles.Volunteer, [
-      Permissions.shelterUploadPhoto
+      Permissions.shelterUploadPhoto,
+      Permissions.donationEdit,
+      Permissions.donationSave,
+      Permissions.donationDelete
     ]);
   }
 }
