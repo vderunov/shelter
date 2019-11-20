@@ -45,6 +45,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     this.maxInputLength = FormFiledsValidator.getMaxInputLength();
   }
 
+  public ngOnDestroy(): void { }
+
   public isFieldInvalid(fieldName): boolean {
     return (
       this.userRegForm.get(fieldName).touched &&
@@ -57,14 +59,12 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const currentRole = this.authStateService.getStateProperty('roles')[0];
-
     this.userRegistrationService.addUser(this.userRegForm.value, this.role)
       .pipe(untilDestroyed(this))
       .subscribe(
         () => {
           this.notifier.showNotice('New user has been created', 'success');
-          if (currentRole === 'Admin') {
+          if (this.isAdmin()) {
             this.router.navigate(['/users']);
           } else {
             this.authenticationService.login({
@@ -75,10 +75,15 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          this.notifier.showNotice(error.message, 'error');
+          this.notifier.showNotice(error.error || 'Something bad happened, please try again later.', 'error');
         }
       );
   }
 
-  public ngOnDestroy(): void { }
+  private isAdmin(): boolean {
+    const state = this.authStateService.getStateValue();
+    if (!!state) {
+      return state.roles[0] === 'Admin';
+    }
+  }
 }

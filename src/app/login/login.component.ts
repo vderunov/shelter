@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          this.notifier.showNotice(error.message, 'error');
+          this.notifier.showNotice(error.error || 'Something bad happened, please try again later.', 'error');
         }
       );
   }
