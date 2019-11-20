@@ -32,6 +32,10 @@ export class FormFiledsValidator {
     Validators.maxLength(20)
   ];
 
+  public static checkShelter = [Validators.required];
+
+  public static checkBirthday = [Validators.required];
+
   public static matchPassword(control: AbstractControl) {
     const password = control.get('password').value;
     const confirmPassword = control.get('confirmPassword').value;
@@ -43,13 +47,14 @@ export class FormFiledsValidator {
     }
   }
 
+
   public static getMaxInputLength() {
     return {
       name: 20,
+      patronymic: 20,
       surname: 20,
       phone: 14,
       email: 50,
-      address: 100,
       password: 20
     };
   }
