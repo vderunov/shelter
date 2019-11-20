@@ -103,7 +103,6 @@ export class AuctionService {
 
   public setLotPhoto(lotPhoto: string | ArrayBuffer = null, newLot: ActiveLot): Observable<ActiveLot> {
     newLot.avatar = lotPhoto;
-    delete newLot.photoParth;
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
         return this.http.put<ActiveLot>(`${config.activeLotsImageApi}${newLot.id}`, this.createFormData(newLot));

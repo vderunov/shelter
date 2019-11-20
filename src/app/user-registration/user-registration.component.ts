@@ -7,6 +7,7 @@ import { FormFieldsModel } from 'src/app/shared/validators/form-fields.model';
 import { FormFiledsValidator } from 'src/app/shared/validators/form-fields-validator';
 import { UserRegistrationService } from './services/user-registration.service';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
+import { AuthStateService } from 'src/app/shared/services/state/auth-state.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -24,7 +25,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     private router: Router,
     private notifier: NotifierService,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private authStateService: AuthStateService
   ) { }
 
   public ngOnInit(): void {
@@ -43,6 +45,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     this.maxInputLength = FormFiledsValidator.getMaxInputLength();
   }
 
+  public ngOnDestroy(): void { }
+
   public isFieldInvalid(fieldName): boolean {
     return (
       this.userRegForm.get(fieldName).touched &&
@@ -60,17 +64,26 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.notifier.showNotice('New user has been created', 'success');
-          this.authenticationService.login({
-            email: this.userRegForm.value.email,
-            password: this.userRegForm.value.password
-          }).pipe(untilDestroyed(this))
-            .subscribe(() => this.router.navigate(['/user-info']));
+          if (this.isAdmin()) {
+            this.router.navigate(['/users']);
+          } else {
+            this.authenticationService.login({
+              email: this.userRegForm.value.email,
+              password: this.userRegForm.value.password
+            }).pipe(untilDestroyed(this))
+              .subscribe(() => this.router.navigate(['/user-info']));
+          }
         },
         error => {
-          this.notifier.showNotice(error.message, 'error');
+          this.notifier.showNotice(error.error || 'Something bad happened, please try again later.', 'error');
         }
       );
   }
 
-  public ngOnDestroy(): void { }
+  private isAdmin(): boolean {
+    const state = this.authStateService.getStateValue();
+    if (!!state) {
+      return state.roles[0] === 'Admin';
+    }
+  }
 }

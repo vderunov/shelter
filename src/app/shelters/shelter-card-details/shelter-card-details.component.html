@@ -1,10 +1,8 @@
 <mat-card [ngClass]="{ 'show-map': isShowMap }">
     <div class="container-image" *ngIf="shelter">
-        <img mat-card-image class="shelter-photo" [src]="changedPhoto ? changedPhoto : shelter.photoPath"
-            alt="Shelter photo">
+        <img mat-card-image class="shelter-photo" [src]="changedPhoto ? changedPhoto : shelter.photoPath" alt="Shelter photo">
         <mat-file-upload #uploadPhotoButton *appPermission="permissions.shelterUploadPhoto" labelText="Select a file:"
-            [selectButtonText]="'Choose File'" (uploadClicked)="onUploadClicked()"
-            (selectedFilesChanged)="onSelectedFilesChanged($event)"
+            [selectButtonText]="'Choose File'" (uploadClicked)="onUploadClicked()" (selectedFilesChanged)="onSelectedFilesChanged($event)"
             [showUploadButton]="false">
         </mat-file-upload>
     </div>
@@ -39,16 +37,12 @@
             </mat-card-subtitle>
         </mat-card-content>
         <mat-card-actions>
-            <button *appPermission="permissions.shelterDelete" mat-button (click)="onDelete()"
-                [disabled]="!isEdiDisabled">Delete</button>
-            <button *appPermission="permissions.shelterEdit" mat-button (click)="onEdit()"
-                [disabled]="!isEdiDisabled">Edit</button>
-            <button *appPermission="permissions.shelterSave" mat-button (click)="onSubmit()"
-                [disabled]="isEdiDisabled || profileForm.invalid">Save</button>
-            <button *appPermission="permissions.shelterReset" mat-button (click)="onReset()"
-                [disabled]="isEdiDisabled">Reset</button>
-            <button *ngIf="shelter?.location" mat-button type="button"
-                (click)="toggleMap()">{{ isShowMap ? 'Hide map' : 'Show map' }}</button>
+            <button *appPermission="permissions.shelterDelete" mat-button (click)="onDelete()" [disabled]="!isEdiDisabled">Delete</button>
+            <button *appPermission="permissions.shelterEdit" mat-button (click)="onEdit()" [disabled]="!isEdiDisabled">Edit</button>
+            <button *appPermission="permissions.shelterSave" mat-button (click)="onSubmit()" [disabled]="isEdiDisabled || profileForm.invalid">Save</button>
+            <button *appPermission="permissions.shelterReset" mat-button (click)="onReset()" [disabled]="isEdiDisabled">Reset</button>
+            <button *ngIf="shelter?.location" mat-button type="button" (click)="toggleMap()">{{ isShowMap ? 'Hide map'
+                : 'Show map' }}</button>
         </mat-card-actions>
     </form>
     <app-map *ngIf="marker && shelter?.location" [markers]="marker"></app-map>
