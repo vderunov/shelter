@@ -51,6 +51,9 @@ describe('ShelterCardDetailsComponent', () => {
       },
       deleteShelter() {
         return of(null);
+      },
+      createShelterLocation(shelters, zoom) {
+        return {zoom: 12, coords: {}};
       }
     };
 

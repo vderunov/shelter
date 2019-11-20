@@ -64,7 +64,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
             email: this.userRegForm.value.email,
             password: this.userRegForm.value.password
           }).pipe(untilDestroyed(this))
-            .subscribe(() => this.router.navigate(['/user-info']))
+            .subscribe(() => this.router.navigate(['/user-info']));
         },
         error => {
           this.notifier.showNotice(error.message, 'error');
