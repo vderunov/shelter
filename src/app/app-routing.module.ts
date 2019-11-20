@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { RegistrationUserComponent } from './registration-user/registration-user.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { ShelterRegistrationComponent } from './shelters/shelter-registration/shelter-registration.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { UserInfoComponent } from './user-registration/user-info/user-info.component';
 import { GuardService } from './shared/guard.service';
 import { Roles } from './shared/permissions/models/roles.enum';
 
@@ -18,8 +19,12 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'registraction-user',
-    component: RegistrationUserComponent
+    path: 'user-registration',
+    component: UserRegistrationComponent
+  },
+  {
+    path: 'user-info',
+    component: UserInfoComponent
   },
   {
     path: 'users',
@@ -39,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
