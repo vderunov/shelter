@@ -1,9 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Shelter } from '../models/shelter.interface';
 import { SheltersService } from '../shelters-service/shelters.service';
-import { MapMarker } from 'src/app/map/map-marker.model';
-import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
