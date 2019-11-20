@@ -4,22 +4,39 @@ import { AdminUserService } from '../services/admin-user.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Helper } from '../models/helper.model';
+import { Manager } from '../models/manager.model';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-helper-details',
-  templateUrl: './helper-details.component.html',
-  styleUrls: ['./helper-details.component.scss'],
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class HelperDetailsComponent implements OnInit, OnDestroy {
-  public helper: Helper;
-  public helperId: string;
+export class UserDetailsComponent implements OnInit, OnDestroy {
+  public user;
+  public userId: string;
   public profileForm: FormGroup;
   public isEditDisabled: boolean;
   public visibleFields = false;
   public changedPhoto: string | ArrayBuffer;
+  public userRole: string;
+  public currUser;
+  public userRoleRequest = {
+    helpers: {
+      getById: 'getHelperById',
+      deleteById: 'deleteHelperById',
+      updateById: 'updateHelperById',
+      userChanges: 'helperChanges',
+    },
+    managers: {
+      getById: 'getManagerById',
+      deleteById: 'deleteManagerById',
+      updateById: 'updateManagerById',
+      userChanges: 'managerChanges',
+    }
+  };
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
@@ -32,13 +49,15 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.createForm();
     this.toggleForm();
-    this.helperId = this.activatedRoute.snapshot.params.id;
-    this.adminUserService
-      .getHelperById(this.helperId)
+    this.userId = this.activatedRoute.snapshot.params.id;
+    this.userRole = this.activatedRoute.snapshot.url[0].path;
+    this.currUser = this.userRoleRequest[this.userRole];
+    const userMethod = this.currUser.getById;
+    this.adminUserService[userMethod](this.userId)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(helpers => {
-        this.patchFormValues(helpers);
-        this.helper = helpers;
+      .subscribe(users => {
+        this.patchFormValues(users);
+        this.user = users;
       });
   }
 
@@ -53,65 +72,75 @@ export class HelperDetailsComponent implements OnInit, OnDestroy {
   }
 
   public onReset(): void {
-    this.patchFormValues(this.helper);
+    this.patchFormValues(this.user);
   }
 
   public deleteUser() {
-    this.adminUserService
-      .deleteHelperById(this.helperId)
+    const userMethod = this.currUser.deleteById;
+    this.adminUserService[userMethod](this.userId)
       .subscribe(() => this.router.navigate(['users']));
   }
 
-  public changeInfo(): void {
-
-    const helperChange = {
-      id: this.helper.id,
-      name: this.profileForm.get('name').value,
-      surname: this.profileForm.get('surname').value,
-      patronymic: this.profileForm.get('patronymic').value,
-      birthday: this.profileForm.get('birthday').value.toDateString(),
-      rating: this.profileForm.get('rating').value,
-      emailID: this.helper.emailID,
-      avatar: this.helper.avatar,
-      addressID: this.helper.addressID,
-      photoPath: this.helper.photoPath
+  public changeInfo() {
+    const formChanges = this.currUser.userChanges;
+    const userMethod = this.currUser.updateById;
+    const userFormChanges = {
+      managerChanges:  {
+        id:  this.user.id,
+        name: this.profileForm.get('name').value,
+        surname: this.profileForm.get('surname').value,
+        patronymic: this.profileForm.get('patronymic').value,
+        birthday: this.profileForm.get('birthday').value.toDateString(),
+        rating: this.profileForm.get('rating').value,
+        avatar: this.user.avatar,
+        childrenHouseID: this.user.childrenHouseID,
+        emailID: this.user.emailID
+      } as Manager,
+      helperChanges: {
+        id: this.user.id,
+        name: this.profileForm.get('name').value,
+        surname: this.profileForm.get('surname').value,
+        patronymic: this.profileForm.get('patronymic').value,
+        birthday: this.profileForm.get('birthday').value.toDateString(),
+        rating: this.profileForm.get('rating').value,
+        avatar: this.user.avatar
+      } as Helper,
     };
-    this.adminUserService.updateHelperById(helperChange)
+    this.adminUserService[userMethod](userFormChanges[formChanges])
       .subscribe(() => this.onEdit());
   }
 
   public changeAvatar(event) {
-
     const fileReader = new FileReader();
     if (event && event.length) {
       fileReader.readAsDataURL(event[0]);
       fileReader.onload = () => {
-        this.helper.avatar = event[0];
+        this.user.avatar = event[0];
         this.changedPhoto = fileReader.result;
       };
     } else {
-      this.helper.avatar = null;
+      this.user.avatar = null;
       this.changedPhoto = null;
     }
   }
 
   private createForm(): void {
     this.profileForm = this.fb.group({
-      name: [null, Validators.required],
-      surname: [null, Validators.required],
-      patronymic: [null, Validators.required],
-      birthday: ['', Validators.required],
-      rating: [null, Validators.required]
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      patronymic: ['', Validators.required],
+      birthday: [],
+      rating: ['', Validators.required]
     });
   }
 
-  private patchFormValues(helper: Helper): void {
+  private patchFormValues(user: Helper | Manager): void {
     this.profileForm.patchValue({
-      name: helper.name,
-      surname: helper.surname,
-      patronymic: helper.patronymic,
-      birthday: helper.birthday,
-      rating: helper.rating
+      name: user.name,
+      surname: user.surname,
+      patronymic: user.patronymic,
+      birthday: user.birthday,
+      rating: user.rating
     });
   }
 

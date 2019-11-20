@@ -3,12 +3,12 @@
         <ng-template mat-tab-label>
             <h2>Helpers</h2>
         </ng-template>
-        <app-helpers-list></app-helpers-list>
+        <app-user-list [userRole]="'helpers'"></app-user-list>
     </mat-tab>
     <mat-tab>
         <ng-template mat-tab-label>
             <h2>Managers</h2>
         </ng-template>
-        <app-managers-list></app-managers-list>
+        <app-user-list [userRole]="'managers'"></app-user-list>
     </mat-tab>
 </mat-tab-group>

@@ -16,7 +16,8 @@ import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { NavbarModule } from './navbar/navbar.module';
 import { MatSnackBarModule } from '@angular/material';
-import { UserDetailsComponent } from './admon-user/user-details/user-details.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment.prod';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -25,7 +26,7 @@ const interceptorProvider: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, UserDetailsComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,7 +39,11 @@ const interceptorProvider: Provider = {
     AuctionModule,
     AdminUsersModule,
     NavbarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.apiKey,
+      libraries: ['places']
+    }),
   ],
   providers: [
     interceptorProvider,

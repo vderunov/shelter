@@ -3,7 +3,7 @@ export class Helper {
     name: string;
     surname: string;
     patronymic: string;
-    birthday: string;
+    birthday: number;
     rating: number;
     avatar: string;
     emailID: number;

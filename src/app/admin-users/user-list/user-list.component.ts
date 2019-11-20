@@ -1,29 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable, from } from 'rxjs';
 import { Helper } from '../models/helper.model';
+import { Manager } from '../models/manager.model';
 import { AdminUserService } from '../services/admin-user.service';
 
 @Component({
-  selector: 'app-helpers-list',
-  templateUrl: './helpers-list.component.html',
-  styleUrls: ['./helpers-list.component.scss']
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss']
 })
 
-export class HelpersListComponent implements OnInit {
-  public helpers$: Observable<Helper[]>;
+export class UserListComponent implements OnInit {
+  @Input() userRole: string;
+  public users$: Observable<Helper[] | Manager[]>;
+  public roleRedirect = {
+    helpers: {
+      getAll: 'getAllHelpers'
+    },
+    managers: {
+      getAll: 'getAllManagers'
+    }
+  };
 
   constructor(private adminUserService: AdminUserService) { }
 
   public ngOnInit(): void {
-    this.helpers$ = this.adminUserService.getAllHelpers();
+    const methodName = this.roleRedirect[this.userRole].getAll;
+    this.users$ = this.adminUserService[methodName]();
+    this.adminUserService[methodName]().subscribe(
+    );
   }
 
-  public trackByHelpers(index: number, user: Helper): number {
+  public trackByUsers(index: number, user: Helper | Manager): number {
     return user.id;
   }
 
   public onSearch(searchValue: string): void {
-    this.helpers$ = this.adminUserService.getAllHelpers({ name: searchValue });
+    const methodName = this.roleRedirect[this.userRole].getAll;
+    this.users$ = this.adminUserService[methodName]({ name: searchValue });
   }
 
 }

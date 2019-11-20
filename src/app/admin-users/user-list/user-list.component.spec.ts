@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { HelpersListComponent } from './user-list.component';
+import { UserListComponent } from './user-list.component';
 import { AdminUserService } from '../services/admin-user.service';
 import { Helper } from '../models/helper.model';
 import { of } from 'rxjs';
 
-describe('HelpersListComponent', () => {
-  let component: HelpersListComponent;
-  let fixture: ComponentFixture<HelpersListComponent>;
+describe('UserListComponent', () => {
+  let component: UserListComponent;
+  let fixture: ComponentFixture<UserListComponent>;
   let helperServiceStub: Partial<AdminUserService>;
   let helperService: AdminUserService;
 
@@ -46,12 +46,12 @@ describe('HelpersListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [HelpersListComponent],
+      declarations: [UserListComponent],
       providers: [{ provide: AdminUserService, useValue: helperServiceStub }],
       schemas: [NO_ERRORS_SCHEMA]
     });
 
-    fixture = TestBed.createComponent(HelpersListComponent);
+    fixture = TestBed.createComponent(UserListComponent);
     component = fixture.componentInstance;
     helperService = fixture.debugElement.injector.get(AdminUserService);
   });
