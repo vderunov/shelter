@@ -14,6 +14,6 @@
 
 <ng-template #guest>
   <a mat-button [routerLink]="['/login']">Sign in</a>
-  <a mat-raised-button [routerLink]="['/user-registration']">
+  <a mat-raised-button [routerLink]="['/user-registration', { role: 'Volunteer' }]">
     Sign up</a>
 </ng-template>
