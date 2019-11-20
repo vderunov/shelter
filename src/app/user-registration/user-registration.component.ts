@@ -60,8 +60,11 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.notifier.showNotice('New user has been created', 'success');
-          this.authenticationService.login(this.userRegForm.value);
-          this.router.navigate(['/user-info']);
+          this.authenticationService.login({
+            email: this.userRegForm.value.email,
+            password: this.userRegForm.value.password
+          }).pipe(untilDestroyed(this))
+            .subscribe(() => this.router.navigate(['/user-info']))
         },
         error => {
           this.notifier.showNotice(error.message, 'error');

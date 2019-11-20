@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public goToRegistrationPage(): void {
-    this.router.navigate(['/user-registration', { role: 'volunteer' }]);
+    this.router.navigate(['/user-registration', { role: 'Volunteer' }]);
   }
 
   public ngOnDestroy(): void { }

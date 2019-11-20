@@ -19,7 +19,7 @@ export class AuthenticationService {
     private router: Router
   ) { }
 
-  public login(loginData: LoginModel): Observable<any> {
+  public login(loginData): Observable<any> {
     return this.configService.getConfig().pipe(
       concatMap((config) => this.http.post<LoginModel>(config.loginApi, loginData)),
       tap((stateObj) => {
