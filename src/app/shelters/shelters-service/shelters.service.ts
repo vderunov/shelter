@@ -122,14 +122,13 @@ export class SheltersService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
         const location$ = changeData.shelter.locationID ?
-          // will change value null to changeData.address to location when its work is stable
           this.putLocation(config.locationApi, changeData.address, changeData.shelter.locationID) :
-          this.postLocation(config.locationApi, changeData.address);
+          this.postLocation(config.locationApi, changeData.address, changeData.shelter.locationID);
         return location$.pipe(take(1),
           concatMap((location: Location): Observable<[Shelter, AddressShelter]> => {
             if (location) {
               changeData.shelter.locationID = location.id;
-            } else {
+            } else if (!changeData.shelter.locationID) {
               changeData.shelter.locationID = null;
             }
             return zip(
@@ -146,16 +145,12 @@ export class SheltersService {
     return shelter ? this.http.put<Shelter>(`${api}/${shelterId}`, this.createFormData(shelter)) : of(null);
   }
 
-  private postLocation(api, address): Observable<Location> {
-    return address ? this.http.post<Location>(api, this.createFormData(address)) : of(null);
+  private postLocation(api, address, locationID): Observable<Location> {
+    return address ? this.http.post<Location>(api, this.createFormData(address)) : of({ id: locationID });
   }
 
   private putLocation(api, address, locationID): Observable<Location> {
     return address ? this.http.put<Location>(`${api}/${locationID}`, this.createFormData(address)) : of({ id: locationID });
-  }
-
-  private postAddress(api, address): Observable<AddressShelter> {
-    return address ? this.http.post<AddressShelter>(api, this.createFormData(address)) : of(null);
   }
 
   private putAddress(api, address, addressID): Observable<AddressShelter> {
