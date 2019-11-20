@@ -9,7 +9,7 @@
 <form class="container" [formGroup]="newLotForm">
   <mat-form-field>
     <mat-label>List of items*</mat-label>
-    <mat-select formControlName="items">
+    <mat-select formControlName="item">
       <mat-option *ngFor="let item of items$ | async;" [value]="item.id">
         {{item.name}} - {{item.description}}
       </mat-option>
@@ -18,7 +18,7 @@
 
   <mat-form-field>
     <mat-label>List of children*</mat-label>
-    <mat-select formControlName="children">
+    <mat-select formControlName="child">
       <mat-option *ngFor="let child of children$ | async;" [value]="child.id">
         {{child.surname}} {{child.name}} {{child.patronymic}}
       </mat-option>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { Config } from 'src/app/shared/services/config/config.interface';
-import { Observable, zip } from 'rxjs';
+import { Observable, zip, from } from 'rxjs';
 import { ActiveLot } from '../models/active-lot.model';
 import { concatMap, map } from 'rxjs/operators';
 import { Shelter } from 'src/app/shelters/models/shelter.interface';
@@ -11,7 +11,7 @@ import { Child } from '../models/child.model';
 import { Item } from '../models/item.model';
 import { Manager } from 'src/app/admin-users/models/manager.model';
 import { Person } from 'src/app/shared/models/person.model';
-
+import { AdminUserService } from 'src/app/admin-users/services/admin-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,8 @@ export class AuctionService {
   };
   constructor(
     private http: HttpClient,
-    private configService: ConfigService) { }
+    private configService: ConfigService,
+    private adminUserService: AdminUserService) { }
 
   public getActiveLots(): Observable<ActiveLot[]> {
     return this.configService.getConfig().pipe(
@@ -59,44 +60,42 @@ export class AuctionService {
     );
   }
 
-  private getManagerById(api: string, managerID: number): Observable<Manager> {
-    return this.http.get<Manager>(`${api}${managerID}`);
-  }
-
   public getChildrenByManager(managerID: number): Observable<Child[]> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         zip(
           this.http.get<Child[]>(config.childrenApi),
-          this.getManagerById(config.managersApi, managerID)
+          this.adminUserService.getManagerById(String(managerID))
         )
       ),
       map(([children, manager]: [Child[], Manager]) => {
-        const childrenObj = children.reduce((acc, curr) => {
-          const currChilrenHouseId = curr.childrenHouseID;
-          if (Object.keys(acc).indexOf(String(currChilrenHouseId)) > -1) {
-            acc[currChilrenHouseId].push(curr);
-            return acc;
+        const childrenHouse = manager.childrenHouseID;
+        const childrenArr = children.reduce((acc, curr) => {
+          if (curr.childrenHouseID === childrenHouse) {
+            acc.push(curr);
           }
-          return ({ [curr.childrenHouseID]: [curr], ...acc });
-        }, {});
-        return childrenObj[manager.childrenHouseID];
+          return acc;
+        }, []);
+        return childrenArr;
       })
     );
   }
 
-  public createNewLot(formValue: any): Observable<ActiveLot> {
+  public createNewLot(formValue, lotPhoto): Observable<ActiveLot> {
+    const dateAdded = new Date();
     const data = {
-      dateStart: '0001-01-01T00:00:00',
-      auctionLotItemID: formValue.items,
-      orphanID: formValue.children,
+      dateAdded: `${dateAdded.getFullYear()}-${dateAdded.getMonth() + 1}-${dateAdded.getDate()}T00:00:00`,
+      auctionLotItemID: formValue.item,
+      orphanID: formValue.child,
       avatar: null,
       quantity: 1,
       status: 'Approved'
     };
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.post<ActiveLot>(config.activeLotsApi, data, this.httpOptions);
+        return this.http.post<ActiveLot>(config.activeLotsApi, data, this.httpOptions).pipe(
+          concatMap((newLot: ActiveLot) => this.setLotPhoto(lotPhoto, newLot))
+        );
       })
     );
   }
@@ -117,15 +116,15 @@ export class AuctionService {
     return formData;
   }
 
-  public deleteLoById(id: number): Observable<any> {
-    return this.configService.getConfig().pipe(
+  public deleteLotById(id: number): void {
+    this.configService.getConfig().pipe(
       concatMap((config: Config) => {
         return this.deleteLotHttpRequest(config.activeLotsApi, id);
       })
     );
   }
 
-  private deleteLotHttpRequest(api: string, id: number): Observable<any> {
+  private deleteLotHttpRequest(api: string, id: number) {
     return this.http.delete<ActiveLot>(`${api}${id}`);
   }
 }
