@@ -22,19 +22,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   public visibleFields = false;
   public changedPhoto: string | ArrayBuffer;
   public userRole: string;
-  public currUser;
   public userRoleRequest = {
     helpers: {
-      getById: 'getHelperById',
-      deleteById: 'deleteHelperById',
-      updateById: 'updateHelperById',
-      userChanges: 'helperChanges',
+      userChanges: 'helperChanges'
     },
     managers: {
-      getById: 'getManagerById',
-      deleteById: 'deleteManagerById',
-      updateById: 'updateManagerById',
-      userChanges: 'managerChanges',
+      userChanges: 'managerChanges'
     }
   };
   private unsubscribe: Subject<void> = new Subject();
@@ -51,9 +44,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     this.toggleForm();
     this.userId = this.activatedRoute.snapshot.params.id;
     this.userRole = this.activatedRoute.snapshot.url[0].path;
-    this.currUser = this.userRoleRequest[this.userRole];
-    const userMethod = this.currUser.getById;
-    this.adminUserService[userMethod](this.userId)
+    this.adminUserService.getUserById(this.userRole, this.userId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(users => {
         this.patchFormValues(users);
@@ -76,17 +67,15 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser() {
-    const userMethod = this.currUser.deleteById;
-    this.adminUserService[userMethod](this.userId)
+    this.adminUserService.deleteUserById(this.userRole, this.userId)
       .subscribe(() => this.router.navigate(['users']));
   }
 
   public changeInfo() {
-    const formChanges = this.currUser.userChanges;
-    const userMethod = this.currUser.updateById;
+    const formChanges = this.userRoleRequest[this.userRole].userChanges;
     const userFormChanges = {
-      managerChanges:  {
-        id:  this.user.id,
+      managerChanges: {
+        id: this.user.id,
         name: this.profileForm.get('name').value,
         surname: this.profileForm.get('surname').value,
         patronymic: this.profileForm.get('patronymic').value,
@@ -106,7 +95,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         avatar: this.user.avatar
       } as Helper,
     };
-    this.adminUserService[userMethod](userFormChanges[formChanges])
+    this.adminUserService.updateUserById(this.userRole, this.userId, userFormChanges[formChanges])
       .subscribe(() => this.onEdit());
   }
 

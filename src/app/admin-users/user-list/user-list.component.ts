@@ -3,7 +3,6 @@ import { Observable, from } from 'rxjs';
 import { Helper } from '../models/helper.model';
 import { Manager } from '../models/manager.model';
 import { AdminUserService } from '../services/admin-user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -14,29 +13,13 @@ import { Router } from '@angular/router';
 export class UserListComponent implements OnInit {
   @Input() userRole: string;
   public users$: Observable<Helper[] | Manager[]>;
-  public roleRedirect = {
-    helpers: {
-      getAll: 'getAllHelpers',
-      role: 'Volunteer'
-    },
-    managers: {
-      getAll: 'getAllManagers',
-      role: 'Representative'
-    }
-  };
-
-
 
   constructor(
-    private adminUserService: AdminUserService,
-    private router: Router
+    private adminUserService: AdminUserService
   ) { }
 
   public ngOnInit(): void {
-    const methodName = this.roleRedirect[this.userRole].getAll;
-    this.users$ = this.adminUserService[methodName]();
-    this.adminUserService[methodName]().subscribe(
-    );
+    this.users$ = this.adminUserService.getAllUsers(this.userRole);
   }
 
   public trackByUsers(index: number, user: Helper | Manager): number {
@@ -44,14 +27,11 @@ export class UserListComponent implements OnInit {
   }
 
   public onSearch(searchValue: string): void {
-    const methodName = this.roleRedirect[this.userRole].getAll;
-    this.users$ = this.adminUserService[methodName]({ name: searchValue });
+    this.users$ = this.adminUserService.getAllUsers(this.userRole, { name: searchValue });
   }
 
-  AddNewUser(userRole) {
-    const role = this.roleRedirect[this.userRole].role;
-    console.log(role);
-    // this.router.navigate(['/user-registration', { role: 'Volunteer' }]);
+  public addUser() {
+    this.adminUserService.addNewUser(this.userRole);
   }
 
 }

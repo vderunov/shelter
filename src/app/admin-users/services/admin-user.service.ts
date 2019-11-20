@@ -7,79 +7,74 @@ import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { Manager } from '../models/manager.model';
 import { EditUserModel } from '../models/edit-user.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
 export class AdminUserService {
 
+  public roleRedirect = {
+    helpers: {
+      addUserRole: 'Volunteer',
+      apiUser: 'helpersApi',
+      apiForUpdate: 'helpersImageApi'
+    },
+    managers: {
+      addUserRole: 'Representative',
+      apiUser: 'managersApi',
+      apiForUpdate: 'managersImageApi'
+    }
+  };
+
   constructor(
     private http: HttpClient,
-    private configService: ConfigService) { }
+    private configService: ConfigService,
+    private router: Router
+  ) { }
 
-  public getAllHelpers(paramObj: object = {}): Observable<Helper[]> {
-    return this.getAllUsersByRole<Helper>(paramObj, 'helpersApi');
-  }
-
-  public getAllManagers(paramObj: object = {}): Observable<Manager[]> {
-    return this.getAllUsersByRole<Manager>(paramObj, 'managersApi');
-  }
-
-  private getAllUsersByRole<T>(paramObj: object = {}, apiName: string): Observable<T[]> {
+  public getAllUsers(userRole: string, paramObj: object = {}) {
+    const apiName = this.roleRedirect[userRole].apiUser;
     let params = new HttpParams();
-    Object.keys(paramObj).forEach((key: string) => params = params.set(key, paramObj[key]));
+    Object.keys(paramObj)
+      .forEach((key: string) => params = params.set(key, paramObj[key]));
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.get<T[]>(config[apiName], { params })
+        this.http.get<Manager[] | Helper[]>(config[apiName], { params })
       ),
     );
   }
 
-  public getHelperById(id: string): Observable<Helper> {
-    return this.getUserById<Helper>(id, 'helpersApi');
-  }
-
-  public getManagerById(id: string): Observable<Manager> {
-    return this.getUserById<Manager>(id, 'managersApi');
-  }
-
-  private getUserById<T>(id: string, apiName: string): Observable<T> {
+  public getUserById(userRole: string, id: string): Observable<Helper | Manager> {
+    const apiName = this.roleRedirect[userRole].apiUser;
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.get<T>(`${config[apiName]}/${id}`)
+        this.http.get<Helper | Manager>(`${config[apiName]}/${id}`)
       )
     );
   }
 
-  public updateHelperById(helperData: Helper): Observable<Helper> {
-    return this.updateUserById<Helper>(helperData, { id: helperData.id,  apiForUpdate: 'helpersImageApi' });
-  }
-
-  public updateManagerById(managerData: Manager): Observable<Manager> {
-    return this.updateUserById<Manager>(managerData, { id: managerData.id,  apiForUpdate: 'managersImageApi' });
-  }
-
-  private updateUserById<T>(data: T, argObj: EditUserModel): Observable<T> {
+  public updateUserById(userRole: string, id: string, data: Helper | Manager):
+    Observable<Helper | Manager> {
+    const apiUpdate = this.roleRedirect[userRole].apiForUpdate;
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<T>(`${config[argObj.apiForUpdate]}${argObj.id}`, this.createFormData<T>(data));
+        return this.http.put<Manager | Helper>(`${config[apiUpdate]}${id}`, this.createFormData<Manager | Helper>(data));
       })
     );
   }
 
-  public deleteHelperById(id: string) {
-    return this.deleteUserById(id, 'helpersApi');
-  }
-
-  public deleteManagerById(id: string) {
-    return this.deleteUserById(id, 'managersApi');
-  }
-
-  private deleteUserById(id: string, apiName: string) {
+  public deleteUserById(userRole: string, id: string) {
+    const apiName = this.roleRedirect[userRole].apiUser;
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.http.delete(`${config[apiName]}/${id}`)
       )
     );
+  }
+
+  public addNewUser(userRole: string) {
+    const currRole = this.roleRedirect[userRole].addUserRole;
+    this.router.navigate(['/user-registration', { role: currRole }]);
   }
 
   private createFormData<T>(info: T): FormData {
