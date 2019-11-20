@@ -16,10 +16,6 @@ export class AdminUserService {
     private http: HttpClient,
     private configService: ConfigService) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   public getAllHelpers(paramObj: object = {}): Observable<Helper[]> {
     return this.getAllUsersByRole<Helper>(paramObj, 'helpersApi');
   }
@@ -58,14 +54,14 @@ export class AdminUserService {
     return this.updateUserById<Helper>(helperData, { id: helperData.id,  apiForUpdate: 'helpersImageApi' });
   }
 
-  public updateManagerById(helperData: Manager): Observable<Manager> {
-    return this.updateUserById<Manager>(helperData, { id: helperData.id,  apiForUpdate: 'managersImageApi' });
+  public updateManagerById(managerData: Manager): Observable<Manager> {
+    return this.updateUserById<Manager>(managerData, { id: managerData.id,  apiForUpdate: 'managersImageApi' });
   }
 
   private updateUserById<T>(data: T, argObj: EditUserModel): Observable<T> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<T>(`${config[argObj.apiForUpdate]}/${argObj.id}`, this.createFormData<T>(data));
+        return this.http.put<T>(`${config[argObj.apiForUpdate]}${argObj.id}`, this.createFormData<T>(data));
       })
     );
   }

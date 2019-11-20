@@ -1,12 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Helper } from '../models/helper.model';
+import { Manager } from '../models/manager.model';
 
 @Component({
-  selector: 'app-helper-item',
-  templateUrl: './helper-item.component.html',
-  styleUrls: ['./helper-item.component.scss']
+  selector: 'app-user-item',
+  templateUrl: './user-item.component.html',
+  styleUrls: ['./user-item.component.scss']
 })
 
-export class HelperItemComponent {
-  @Input() helper: Helper;
+export class UserItemComponent implements OnInit {
+  @Input() user: Helper | Manager;
+  @Input() userRole: string;
+
+  public userPath: string;
+  public ngOnInit(): void {
+    this.userPath = `/${this.userRole}`;
+  }
 }
