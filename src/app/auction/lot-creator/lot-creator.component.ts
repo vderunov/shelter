@@ -41,7 +41,9 @@ export class LotCreatorComponent implements OnInit {
 
   public onSubmit() {
     this.auctionService.createNewLot(this.newLotForm.value).subscribe((newLot: ActiveLot) => {
-      this.auctionService.setLotPhoto(this.lotPhoto, newLot);
+      this.auctionService.setLotPhoto(this.lotPhoto, newLot).subscribe(()=> {
+        console.log(1);
+      });
       this.notifier.showNotice('New lot created', 'success');
       this.router.navigate(['/auction']);
     },
@@ -52,6 +54,5 @@ export class LotCreatorComponent implements OnInit {
 
   public setPhoto(event: string | ArrayBuffer) {
     this.lotPhoto = event[0];
-    console.log(this.lotPhoto);
   }
 }

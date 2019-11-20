@@ -92,7 +92,7 @@ export class AuctionService {
       orphanID: formValue.children,
       avatar: null,
       quantity: 1,
-      status: 'UnApproved'
+      status: 'Approved'
     };
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
