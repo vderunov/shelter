@@ -7,6 +7,7 @@ import { FormFieldsModel } from 'src/app/shared/validators/form-fields.model';
 import { FormFiledsValidator } from 'src/app/shared/validators/form-fields-validator';
 import { UserRegistrationService } from './services/user-registration.service';
 import { AuthenticationService } from '../shared/services/user/authentication.service';
+import { AuthStateService } from 'src/app/shared/services/state/auth-state.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -24,7 +25,8 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     private router: Router,
     private notifier: NotifierService,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private authStateService: AuthStateService
   ) { }
 
   public ngOnInit(): void {
@@ -55,16 +57,22 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const currentRole = this.authStateService.getStateProperty('roles')[0];
+
     this.userRegistrationService.addUser(this.userRegForm.value, this.role)
       .pipe(untilDestroyed(this))
       .subscribe(
         () => {
           this.notifier.showNotice('New user has been created', 'success');
-          this.authenticationService.login({
-            email: this.userRegForm.value.email,
-            password: this.userRegForm.value.password
-          }).pipe(untilDestroyed(this))
-            .subscribe(() => this.router.navigate(['/user-info']));
+          if (currentRole === 'Admin') {
+            this.router.navigate(['/users']);
+          } else {
+            this.authenticationService.login({
+              email: this.userRegForm.value.email,
+              password: this.userRegForm.value.password
+            }).pipe(untilDestroyed(this))
+              .subscribe(() => this.router.navigate(['/user-info']));
+          }
         },
         error => {
           this.notifier.showNotice(error.message, 'error');
