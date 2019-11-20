@@ -67,7 +67,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
             .subscribe(() => this.router.navigate(['/user-info']));
         },
         error => {
-          this.notifier.showNotice(error.message, 'error');
+          this.notifier.showNotice(error.error || 'Something bad happened, please try again later.', 'error');
         }
       );
   }
