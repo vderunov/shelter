@@ -1,4 +1,4 @@
-export interface Representative {
+export interface Person {
   id: number;
   name: string;
   surname: string;
@@ -7,6 +7,7 @@ export interface Representative {
   rating: number;
   avatar: any;
   childrenHouseID: number;
+  childrenHouseName: string;
   emailID: number;
   photoPath: string;
 }
