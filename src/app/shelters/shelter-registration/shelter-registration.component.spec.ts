@@ -59,11 +59,10 @@ describe('ShelterRegistrationComponent', () => {
   it('should call gotoMainPage method and tell router to navigate', () => {
     component.gotoMainPage();
     const navArgs = routerSpy.navigate.calls.first().args[0];
-    component.gotoMainPage();
     expect(navArgs).toEqual(['/']);
   });
 
-  it('should call onSelectedFilesChanged method', () => {
+  it('should call onSelectedFilesChanged method and set uploaded file', () => {
     const testValue = null;
     const obj = {target: {files: [testValue]}};
     component.onSelectedFilesChanged(obj);
@@ -71,24 +70,16 @@ describe('ShelterRegistrationComponent', () => {
   });
 
   it('should call submit data on sheltersService', () => {
-    const formName = {
-      name: 'name',
-      country: 'country',
-      region: 'region',
-      city: 'city',
-      street: 'street',
-      house: 'house',
-      rating: 'rating'
-    };
-
     sheltersServiceSpy.registerShelter.and.returnValue(of(mockShelter));
-    component.form.controls[formName.name].setValue('California');
-    component.form.controls[formName.country].setValue('California');
-    component.form.controls[formName.region].setValue('California');
-    component.form.controls[formName.city].setValue('California');
-    component.form.controls[formName.street].setValue('California');
-    component.form.controls[formName.house].setValue('California 23');
-    component.form.controls[formName.rating].setValue('23');
+    component.form.patchValue({
+      name: 'California',
+      country: 'California',
+      region: 'California',
+      city: 'California',
+      street: 'California',
+      house: 'California 23',
+      rating: '23',
+    });
     component.submit();
     const formData = {
       name: 'California',
