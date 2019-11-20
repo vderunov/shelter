@@ -3,8 +3,6 @@ import { Shelter } from '../models/shelter.interface';
 import { HttpParams } from '@angular/common/http';
 import { of } from 'rxjs';
 import { AddressShelter } from '../models/address-shelter.interface';
-import { Children } from 'src/app/shared/models/children.interface';
-import { Representative } from 'src/app/shared/models/representative.interface';
 import { Location } from '../models/location.interface';
 
 describe('SheltersService', () => {

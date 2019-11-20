@@ -7,9 +7,8 @@ import { concatMap, map, take } from 'rxjs/operators';
 import { AddressShelter } from '../models/address-shelter.interface';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { Location } from '../models/location.interface';
-import { Children } from 'src/app/shared/models/children.interface';
-import { Representative } from 'src/app/shared/models/representative.interface';
 import { MapMarker } from 'src/app/map/map-marker.model';
+import { Person } from 'src/app/shared/models/person.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,18 +24,17 @@ export class SheltersService {
       concatMap((config: Config) =>
         zip(
           this.http.get<Shelter[]>(config.sheltersApi, {params}),
-          this.http.get(config.childrenApi),
-          this.http.get<Representative[]>(config.representativesApi),
+          this.http.get<Person[]>(config.childrenApi),
+          this.http.get<Person[]>(config.representativesApi),
           this.http.get<AddressShelter[]>(config.addressApi),
           this.http.get<Location[]>(config.locationApi),
         )
       ),
       map(([shelters, children, representatives, address, location]:
-        [Shelter[], Children[], Representative[], AddressShelter[], Location[]]) => {
-        const countChildren = children.reduce((acc, curr) => {
-          acc[curr.childrenHouseID] = acc[curr.childrenHouseID] ? ++acc[curr.childrenHouseID] : 1;
-          return acc;
-        }, {});
+        [Shelter[], Person[], Person[], AddressShelter[], Location[]]) => {
+        const countChildren = {};
+        children.forEach((elem) =>
+          countChildren[elem.childrenHouseID] = countChildren[elem.childrenHouseID] ? ++countChildren[elem.childrenHouseID] : 1);
         const representativesObj = representatives.reduce((acc, curr) => ({[curr.childrenHouseID]: curr, ...acc}), {});
         const addressObj = address.reduce((acc, curr) => ({[curr.id]: curr, ...acc}), {});
         const locationObj = location.reduce((acc, curr) => ({[curr.id]: curr, ...acc}), {});
@@ -51,25 +49,24 @@ export class SheltersService {
     );
   }
 
-  public getDetails(id: string = ''): Observable<any> {
+  public getDetails(id: string = ''): Observable<Shelter> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.getShelter(config.sheltersApi, id).pipe(
-          concatMap((shelter: Shelter): Observable<[Shelter, Children[], Representative[], AddressShelter, Location]> =>
+          concatMap((shelter: Shelter): Observable<[Shelter, Person[], Person[], AddressShelter, Location]> =>
             zip(
               of(shelter),
-              this.http.get<Children[]>(config.childrenApi),
-              this.http.get<Representative[]>(config.representativesApi),
+              this.http.get<Person[]>(config.childrenApi),
+              this.http.get<Person[]>(config.representativesApi),
               this.getAddress(config.addressApi, shelter.adressID),
               this.getLocation(config.locationApi, shelter.locationID)
             )
           ),
           map(([shelter, children, representatives, address, location]) => {
-            const countChildren = children.reduce((acc, curr) => {
-              acc[curr.childrenHouseID] = acc[curr.childrenHouseID] ? ++acc[curr.childrenHouseID] : 1;
-              return acc;
-            }, {});
-            const representative = representatives.filter((represent: Representative) => shelter.id === represent.childrenHouseID)[0];
+            const countChildren = {};
+            children.forEach((elem) =>
+              countChildren[elem.childrenHouseID] = countChildren[elem.childrenHouseID] ? ++countChildren[elem.childrenHouseID] : 1);
+            const representative = representatives.filter((represent: Person) => shelter.id === represent.childrenHouseID)[0];
             return {
               ...shelter,
               representative,
