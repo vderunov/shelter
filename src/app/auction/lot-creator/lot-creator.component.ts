@@ -5,6 +5,9 @@ import { AuctionService } from '../services/auction.service';
 import { AuthStateService } from 'src/app/shared/services/state/auth-state.service';
 import { Child } from '../models/child.model';
 import { Item } from '../models/item.model';
+import { NotifierService } from '../../shared/services/notifier/notifier.service';
+import { Router } from '@angular/router';
+import { ActiveLot } from '../models/active-lot.model';
 
 @Component({
   selector: 'app-lot-creator',
@@ -16,10 +19,15 @@ export class LotCreatorComponent implements OnInit {
   public items$: Observable<Item[]>;
   public children$: Observable<Child[]>;
   private managerID: number;
+  private lotPhoto: string | ArrayBuffer;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private auctionService: AuctionService,
-    private authStateService: AuthStateService) { }
+    private authStateService: AuthStateService,
+    private router: Router,
+    private notifier: NotifierService
+  ) { }
 
   public ngOnInit() {
     this.newLotForm = this.formBuilder.group({
@@ -32,6 +40,17 @@ export class LotCreatorComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.auctionService.createNewLot(this.newLotForm.value);
+    this.auctionService.createNewLot(this.newLotForm.value).subscribe((newLot: ActiveLot) => {
+      this.auctionService.setLotPhoto(this.lotPhoto, newLot);
+      this.notifier.showNotice('New lot created', 'success');
+      this.router.navigate(['/login']);
+    },
+      error => {
+        this.notifier.showNotice(error.message, 'error');
+      });
+  }
+
+  public setPhoto(event: string | ArrayBuffer) {
+    this.lotPhoto = event[0];
   }
 }

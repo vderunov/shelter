@@ -1,5 +1,9 @@
-<form class="container" [formGroup]="newLotForm" (ngSubmit)="onSubmit()">
+<form class="container" [formGroup]="newLotForm">
   <h2 class="mat-display-1">Create new lot</h2>
+
+  <mat-file-upload class="details-full-width" labelText="Lot photo"
+    (selectedFilesChanged)="setPhoto($event)">
+  </mat-file-upload>
 
   <mat-form-field>
     <mat-label>List of items*</mat-label>
@@ -19,18 +23,7 @@
     </mat-select>
   </mat-form-field>
 
-  <div class="container-image">
-    <img mat-card-image [src]="changedPhoto" alt="Lot photo">
-    <!-- <mat-file-upload #uploadPhotoButton
-        *appPermission="permissions.shelterUploadPhoto"
-        labelText="Select a file:"
-        [selectButtonText]="'Choose File'"
-        (uploadClicked)="onUploadClicked($event)"
-        (selectedFilesChanged)="onSelectedFilesChanged($event)">
-    </mat-file-upload> -->
-  </div>
-
   <div class="div-buttons">
-    <button type="submit" mat-raised-button [disabled]="newLotForm.invalid">Create</button>
+    <button type="submit" mat-raised-button [disabled]="newLotForm.invalid" (click)="onSubmit()">Create</button>
   </div>
 </form>

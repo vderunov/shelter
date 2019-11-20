@@ -12,6 +12,7 @@ import { LotCreatorComponent } from './lot-creator/lot-creator.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatFileUploadModule } from 'mat-file-upload';
 
 
 const auctionRoutes: Routes = [
@@ -32,7 +33,8 @@ const auctionRoutes: Routes = [
     PermissionsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatFileUploadModule
   ],
   exports: [
     RouterModule

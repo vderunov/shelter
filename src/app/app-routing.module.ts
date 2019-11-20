@@ -34,9 +34,9 @@ const routes: Routes = [
     canActivate: [GuardService],
     data: { allowedRoles: [Roles.Admin] }
   },
-  { 
-    path: 'auction', 
-    component: AuctionComponent 
+  {
+    path: 'auction',
+    component: AuctionComponent
   }
 ];
 
@@ -44,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
