@@ -5,7 +5,7 @@ import { AdminUserService } from '../services/admin-user.service';
 import { Helper } from '../models/helper.model';
 import { of } from 'rxjs';
 
-describe('UserListComponent', () => {
+xdescribe('UserListComponent', () => {
   // let component: UserListComponent;
   // let fixture: ComponentFixture<UserListComponent>;
   // let helperServiceStub: Partial<AdminUserService>;

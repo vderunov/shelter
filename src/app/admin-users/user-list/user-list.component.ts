@@ -3,6 +3,7 @@ import { Observable, from } from 'rxjs';
 import { Helper } from '../models/helper.model';
 import { Manager } from '../models/manager.model';
 import { AdminUserService } from '../services/admin-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -15,14 +16,21 @@ export class UserListComponent implements OnInit {
   public users$: Observable<Helper[] | Manager[]>;
   public roleRedirect = {
     helpers: {
-      getAll: 'getAllHelpers'
+      getAll: 'getAllHelpers',
+      role: 'Volunteer'
     },
     managers: {
-      getAll: 'getAllManagers'
+      getAll: 'getAllManagers',
+      role: 'Representative'
     }
   };
 
-  constructor(private adminUserService: AdminUserService) { }
+
+
+  constructor(
+    private adminUserService: AdminUserService,
+    private router: Router
+  ) { }
 
   public ngOnInit(): void {
     const methodName = this.roleRedirect[this.userRole].getAll;
@@ -38,6 +46,12 @@ export class UserListComponent implements OnInit {
   public onSearch(searchValue: string): void {
     const methodName = this.roleRedirect[this.userRole].getAll;
     this.users$ = this.adminUserService[methodName]({ name: searchValue });
+  }
+
+  AddNewUser(userRole) {
+    const role = this.roleRedirect[this.userRole].role;
+    console.log(role);
+    // this.router.navigate(['/user-registration', { role: 'Volunteer' }]);
   }
 
 }
