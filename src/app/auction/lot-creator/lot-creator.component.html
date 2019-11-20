@@ -1,10 +1,12 @@
-<form class="container" [formGroup]="newLotForm">
+<div class="container head">
   <h2 class="mat-display-1">Create new lot</h2>
 
   <mat-file-upload class="details-full-width" labelText="Lot photo"
     (selectedFilesChanged)="setPhoto($event)">
   </mat-file-upload>
+</div>
 
+<form class="container" [formGroup]="newLotForm">
   <mat-form-field>
     <mat-label>List of items*</mat-label>
     <mat-select formControlName="items">

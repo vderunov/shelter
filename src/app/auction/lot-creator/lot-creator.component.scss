@@ -5,6 +5,10 @@
   margin: 5rem auto;
 }
 
+.head {
+  margin-bottom: 0px;
+}
+
 h2 {
   text-align: center;
 }
@@ -12,11 +16,4 @@ h2 {
 .div-buttons {
   margin-top: 1rem;
   text-align: center;
-}
-
-.container-image {
-  width: 45%;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 25px;
 }

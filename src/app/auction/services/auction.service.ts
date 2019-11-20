@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { Config } from 'src/app/shared/services/config/config.interface';
-import { Observable, zip, of } from 'rxjs';
+import { Observable, zip } from 'rxjs';
 import { ActiveLot } from '../models/active-lot.model';
 import { concatMap, map } from 'rxjs/operators';
 import { Shelter } from 'src/app/shelters/models/shelter.interface';
-import { Children } from 'src/app/shared/models/children.interface';
 import { AuctionList } from '../models/auction-list.model';
 import { Child } from '../models/child.model';
 import { Item } from '../models/item.model';
 import { Manager } from 'src/app/admin-users/models/manager.model';
+import { Person } from 'src/app/shared/models/person.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +31,12 @@ export class AuctionService {
       concatMap((config: Config) =>
         zip(
           this.http.get(config.activeLotsApiApproved),
-          this.http.get<Children[]>(config.childrenApi),
+          this.http.get<Child[]>(config.childrenApi),
           this.http.get<Shelter[]>(config.sheltersApi),
           this.http.get(config.donationItemsApi)
         )
       ),
-      map(([listOfLots, children, shelters, dontationItems]: [ActiveLot[], Children[], Shelter[], Item[]]) => {
+      map(([listOfLots, children, shelters, dontationItems]: [ActiveLot[], Child[], Shelter[], Item[]]) => {
         const childrenObj = children.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
         const shetlerObj = shelters.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
         const dontationItemsObj = dontationItems.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
@@ -62,7 +63,7 @@ export class AuctionService {
     return this.http.get<Manager>(`${api}${managerID}`);
   }
 
-  public getChildrenByManager(managerID: number): Observable<Children[]> {
+  public getChildrenByManager(managerID: number): Observable<Child[]> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         zip(
@@ -70,7 +71,7 @@ export class AuctionService {
           this.getManagerById(config.representativesApi, managerID)
         )
       ),
-      map(([children, manager]: [Children[], Manager]) => {
+      map(([children, manager]: [Child[], Manager]) => {
         const childrenObj = children.reduce((acc, curr) => {
           const currChilrenHouseId = curr.childrenHouseID;
           if (Object.keys(acc).indexOf(String(currChilrenHouseId)) > -1) {
