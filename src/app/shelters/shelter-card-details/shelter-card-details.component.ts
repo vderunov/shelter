@@ -5,6 +5,7 @@ import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
+import { MatFileUpload } from 'angular-material-fileupload';
 
 @Component({
   selector: 'app-shelter-card-details',

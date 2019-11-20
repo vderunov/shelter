@@ -31,12 +31,12 @@ export class AuctionService {
       concatMap((config: Config) =>
         zip(
           this.http.get(config.activeLotsApiApproved),
-          this.http.get<Child[]>(config.childrenApi),
+          this.http.get<Person[]>(config.childrenApi),
           this.http.get<Shelter[]>(config.sheltersApi),
           this.http.get(config.donationItemsApi)
         )
       ),
-      map(([listOfLots, children, shelters, dontationItems]: [ActiveLot[], Child[], Shelter[], Item[]]) => {
+      map(([listOfLots, children, shelters, dontationItems]: [ActiveLot[], Person[], Shelter[], Item[]]) => {
         const childrenObj = children.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
         const shetlerObj = shelters.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
         const dontationItemsObj = dontationItems.reduce((acc, curr) => ({ [curr.id]: curr, ...acc }), {});
@@ -68,7 +68,7 @@ export class AuctionService {
       concatMap((config: Config) =>
         zip(
           this.http.get<Child[]>(config.childrenApi),
-          this.getManagerById(config.representativesApi, managerID)
+          this.getManagerById(config.managersApi, managerID)
         )
       ),
       map(([children, manager]: [Child[], Manager]) => {
@@ -101,21 +101,20 @@ export class AuctionService {
     );
   }
 
-  public setLotPhoto(lotPhoto: string | ArrayBuffer = 'null', newLot: ActiveLot): Observable<ActiveLot> {
+  public setLotPhoto(lotPhoto: string | ArrayBuffer = null, newLot: ActiveLot): Observable<ActiveLot> {
     newLot.avatar = lotPhoto;
+    delete newLot.photoParth;
     return this.configService.getConfig().pipe(
       concatMap((config: Config) => {
-        return this.http.put<ActiveLot>(`${config.activeLotsApi}${newLot.id}`, this.createFormData<ActiveLot>(newLot));
+        return this.http.put<ActiveLot>(`${config.activeLotsImageApi}${newLot.id}`, this.createFormData(newLot));
       })
     );
   }
 
-  private createFormData<T>(info: T): FormData {
+  private createFormData(params): FormData {
     const formData = new FormData();
-    Object.entries(info).forEach(([key, value]: [string, Blob]) =>
-      value instanceof File ?
-        formData.append(key, value, value.name) :
-        formData.append(key, value));
+    Object.entries(params).forEach(([key, value]: [string, Blob]) =>
+      value instanceof File ? formData.append(key, value, value.name) : formData.append(key, value));
     return formData;
   }
 
