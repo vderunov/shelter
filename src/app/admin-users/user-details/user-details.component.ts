@@ -22,14 +22,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   public visibleFields = false;
   public changedPhoto: string | ArrayBuffer;
   public userRole: string;
-  public userRoleRequest = {
-    helpers: {
-      userChanges: 'helperChanges'
-    },
-    managers: {
-      userChanges: 'managerChanges'
-    }
-  };
+  public formChanges: Manager | Helper;
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
@@ -72,9 +65,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   public changeInfo() {
-    const formChanges = this.userRoleRequest[this.userRole].userChanges;
-    const userFormChanges = {
-      managerChanges: {
+    if (this.userRole === 'managers') {
+      this.formChanges = {
         id: this.user.id,
         name: this.profileForm.get('name').value,
         surname: this.profileForm.get('surname').value,
@@ -84,8 +76,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         avatar: this.user.avatar,
         childrenHouseID: this.user.childrenHouseID,
         emailID: this.user.emailID
-      } as Manager,
-      helperChanges: {
+      } as Manager;
+    } else {
+      this.formChanges = {
         id: this.user.id,
         name: this.profileForm.get('name').value,
         surname: this.profileForm.get('surname').value,
@@ -93,9 +86,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         birthday: this.profileForm.get('birthday').value.toDateString(),
         rating: this.profileForm.get('rating').value,
         avatar: this.user.avatar
-      } as Helper,
-    };
-    this.adminUserService.updateUserById(this.userRole, this.userId, userFormChanges[formChanges])
+      } as Helper;
+    }
+
+    this.adminUserService.updateUserById(this.userRole, this.userId, this.formChanges)
       .subscribe(() => this.onEdit());
   }
 
@@ -118,7 +112,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       patronymic: ['', Validators.required],
-      birthday: [],
+      birthday: [''],
       rating: ['', Validators.required]
     });
   }

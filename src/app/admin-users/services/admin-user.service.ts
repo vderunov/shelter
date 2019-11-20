@@ -8,19 +8,21 @@ import { Config } from 'src/app/shared/services/config/config.interface';
 import { Manager } from '../models/manager.model';
 import { EditUserModel } from '../models/edit-user.model';
 import { Router } from '@angular/router';
+import { AuthStateService } from 'src/app/shared/services/state/auth-state.service';
+import { Roles } from 'src/app/shared/permissions/models/roles.enum';
 
 @Injectable({ providedIn: 'root' })
 
 export class AdminUserService {
 
-  public roleRedirect = {
+ private roleRedirect = {
     helpers: {
-      addUserRole: 'Volunteer',
+      addUserRole: Roles.Volunteer,
       apiUser: 'helpersApi',
       apiForUpdate: 'helpersImageApi'
     },
     managers: {
-      addUserRole: 'Representative',
+      addUserRole: Roles.Representative,
       apiUser: 'managersApi',
       apiForUpdate: 'managersImageApi'
     }
@@ -29,7 +31,8 @@ export class AdminUserService {
   constructor(
     private http: HttpClient,
     private configService: ConfigService,
-    private router: Router
+    private router: Router,
+    private authStateService: AuthStateService
   ) { }
 
   public getAllUsers(userRole: string, paramObj: object = {}) {
@@ -72,7 +75,7 @@ export class AdminUserService {
     );
   }
 
-  public addNewUser(userRole: string) {
+  public navigateRegistrPage(userRole: string) {
     const currRole = this.roleRedirect[userRole].addUserRole;
     this.router.navigate(['/user-registration', { role: currRole }]);
   }
