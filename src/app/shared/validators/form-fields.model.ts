@@ -1,8 +1,8 @@
-export interface FormFields {
+export interface FormFieldsModel {
   name: number;
+  patronymic: number;
   surname: number;
   phone: number;
   email: number;
-  address: number;
   password: number;
 }

@@ -37,13 +37,11 @@ export class PermissionService {
       Permissions.auctionShowPurchase
     ]);
     this.permissionsByRole.set(Roles.Guest, [
-
     ]);
     this.permissionsByRole.set(Roles.Volunteer, [
       Permissions.shelterUploadPhoto
     ]);
     this.permissionsByRole.set(Roles.Representative, [
-
     ]);
   }
 }
