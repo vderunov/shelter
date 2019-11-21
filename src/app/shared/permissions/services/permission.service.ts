@@ -37,7 +37,9 @@ export class PermissionService {
       Permissions.donationSave,
       Permissions.donationDelete,
       Permissions.shelterCreate,
-      Permissions.showUserList
+      Permissions.showUserList,
+      Permissions.auctionShowPurchase,
+      Permissions.auctionCreateLot
     ]);
     this.permissionsByRole.set(Roles.Guest, [
     ]);
@@ -53,7 +55,8 @@ export class PermissionService {
       Permissions.donationDelete
     ]);
     this.permissionsByRole.set(Roles.Charitymaker, [
-
+      Permissions.shelterUploadPhoto,
+      Permissions.auctionCreateLot
     ]);
   }
 }

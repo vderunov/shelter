@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagerDetailsComponent } from './manager-details.component';
+import { LotCreatorComponent } from './lot-creator.component';
 
-xdescribe('ManagerDetailsComponent', () => {
-  let component: ManagerDetailsComponent;
-  let fixture: ComponentFixture<ManagerDetailsComponent>;
+xdescribe('LotCreatorComponent', () => {
+  let component: LotCreatorComponent;
+  let fixture: ComponentFixture<LotCreatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagerDetailsComponent ]
+      declarations: [ LotCreatorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagerDetailsComponent);
+    fixture = TestBed.createComponent(LotCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

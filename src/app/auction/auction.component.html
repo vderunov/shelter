@@ -1,12 +1,10 @@
-<div class="center" *ngIf="isSpinner">
-  <mat-spinner fxFlex fxFlexAlign="center"></mat-spinner>
-</div>
-
 <div>
   <div>  
     <button 
+      *appPermission="permissions.auctionCreateLot"
       class="show-purchases-button"
-      mat-button>
+      mat-button
+      (click)="goToCreateLotPage()">
       Create new lot</button>
     <button 
       *appPermission="permissions.auctionShowPurchase"
@@ -15,7 +13,7 @@
       Show purchases</button>
   </div>
 
-  <mat-grid-list cols="4">
+  <mat-grid-list cols="3">
     <mat-grid-tile *ngFor="let lot of lots$ | async; trackBy: trackById">
       <app-auction-lot [lot]="lot"></app-auction-lot>
     </mat-grid-tile>

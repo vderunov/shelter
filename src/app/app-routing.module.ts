@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { ShelterRegistrationComponent } from './shelters/shelter-registration/shelter-registration.component';
+import { AuctionComponent } from './auction/auction.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { UserInfoComponent } from './user-registration/user-info/user-info.component';
 import { GuardService } from './shared/guard.service';
@@ -37,6 +38,10 @@ const routes: Routes = [
     component: ShelterRegistrationComponent,
     canActivate: [GuardService],
     data: { allowedRoles: [Roles.Admin] }
+  },
+  {
+    path: 'auction',
+    component: AuctionComponent
   }
 ];
 
