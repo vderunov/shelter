@@ -96,9 +96,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
     this.adminUserService.updateUserById(this.userRole, this.userId, this.formChanges)
       .subscribe(_ => {
-        this.notifierService.showNotice('Changes have been saved!', 'success');
+        this.notifierService.showNotice('Changes have been saved!', 'success'); 
+        this.onEdit();
       });
-    this.onEdit();
   }
 
   public changeAvatar(event) {
