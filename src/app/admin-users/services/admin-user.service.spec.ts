@@ -5,8 +5,8 @@
 // import { AdminUserService } from './admin-user.service';
 // import { Helper } from '../models/helper.model';
 
-<<<<<<< HEAD
-xdescribe('AdminUserService', () => {
+
+// xdescribe('AdminUserService', () => {
     // let service: AdminUserService;
     // let httpClientSpy: { get: jasmine.Spy };
     // let configServiceSpy: { getConfig: jasmine.Spy };
@@ -121,7 +121,7 @@ xdescribe('AdminUserService', () => {
     //         });
     //     });
     // });
-=======
+
 // describe('AdminUserService', () => {
 //     let service: AdminUserService;
 //     let httpClientSpy: { get: jasmine.Spy };
