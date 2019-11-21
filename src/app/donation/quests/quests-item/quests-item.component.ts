@@ -10,6 +10,5 @@ export class QuestsItemComponent {
   @Input() quest: Quest;
 
   public onExecute() {
-    
   }
 }

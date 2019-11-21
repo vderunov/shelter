@@ -41,7 +41,6 @@ export class NeedsItemDetailsComponent implements OnInit {
   }
 
   public onDonate(): void {
-    
   }
 
   public onEdit(): void {
