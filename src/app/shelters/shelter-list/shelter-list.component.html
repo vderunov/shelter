@@ -1,5 +1,5 @@
+<app-search (searchInit)="onSearch($event)"></app-search>
 <div *ngIf="(shelters$ | async) as shelters; else loading">
-  <app-search (searchInit)="onSearch($event)"></app-search>
   <mat-grid-list cols="3">
     <mat-grid-tile *ngFor="let shelter of shelters; trackBy: shelterTrackBy">
       <app-shelter-card [shelter]="shelter"></app-shelter-card>
