@@ -7,12 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 describe('AuthStateService', () => {
   let mockStateObj: AuthStateModel;
   let service: AuthStateService;
-  let cookieService: jasmine.SpyObj<CookieService>;
+  let cookieServiceSpy: jasmine.SpyObj<CookieService>;
   // let cookieServiceSpy;
-
-  TestBed.configureTestingModule({
-    providers:    [ {provide: CookieService, useValue: cookieService } ]
-  });
 
   beforeEach(() => {
     mockStateObj = {
@@ -25,8 +21,12 @@ describe('AuthStateService', () => {
       id: 'a6f06f4b-06f5-4f1f-9614-92a9dacb22af'
     };
 
-    cookieService = TestBed.get(CookieService);
-    service = new AuthStateService(cookieService);
+    TestBed.configureTestingModule({
+      providers: [CookieService, { provide: CookieService, useValue: cookieServiceSpy }]
+    });
+
+    // cookieService = TestBed.get(CookieService);
+    service = new AuthStateService(cookieServiceSpy);
   });
 
   // it('service should be created', () => {
