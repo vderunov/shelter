@@ -40,8 +40,12 @@ export class NeedsItemDetailsComponent implements OnInit {
     this.location.back();
   }
 
+<<<<<<< HEAD
   public onDonate(): void {
   }
+=======
+  public onDonate(): void { }
+>>>>>>> 0803164bd5c06cfb8750e5c221a32c4ac789e23e
 
   public onEdit(): void {
     this.toggleForm();

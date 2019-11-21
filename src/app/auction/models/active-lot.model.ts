@@ -3,7 +3,7 @@ export interface ActiveLot {
   dateAdded: string;
   auctionLotItemID: number;
   orphanID?: number;
-  avatar?: string;
+  avatar?: string | ArrayBuffer;
   photoParth?: string;
   quantity: number;
   status: string;

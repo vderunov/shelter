@@ -15,5 +15,7 @@ export interface Config {
   activeLotsApi: string;
   donationItemsApi: string;
   managersImageApi: string;
+  activeLotsApiApproved: string;
+  activeLotsImageApi: string;
   helpersImageApi: string;
 }
