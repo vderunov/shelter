@@ -1,4 +1,4 @@
-<mat-card class="need">
+<mat-card *ngIf="need.status !== 'Taken'" class="need">
   <mat-card-title>{{ need.itemName }}</mat-card-title>
   <mat-card-subtitle>id: {{ need.id }}</mat-card-subtitle>
   <mat-card-content>

@@ -49,6 +49,11 @@ export class PermissionService {
       Permissions.donationDelete
     ]);
     this.permissionsByRole.set(Roles.Representative, [
+      Permissions.donationEdit,
+      Permissions.donationSave,
+      Permissions.donationDelete
+    ]);
+    this.permissionsByRole.set(Roles.Charitymaker, [
 
     ]);
   }

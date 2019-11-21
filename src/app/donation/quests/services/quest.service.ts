@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Quest } from '../models/quest.interface';
 import { concatMap, map } from 'rxjs/operators';
@@ -27,6 +27,26 @@ export class QuestService {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
         this.http.get<Quest>(`${config.questsApi}/${id}`)
+      )
+    );
+  }
+
+  public putNewData(id: string | number, newData): Observable<Quest> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.put<Quest>(`${config.questsApi}/${id}`, newData, httpOptions)
+      )
+    );
+  }
+
+  public deleteQuest(id: string): any {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.delete<Quest>(`${config.questsApi}/${id}`)
       )
     );
   }
