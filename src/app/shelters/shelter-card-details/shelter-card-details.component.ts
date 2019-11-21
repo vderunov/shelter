@@ -5,6 +5,8 @@ import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shelter-card-details',
@@ -15,6 +17,7 @@ import { Permissions } from 'src/app/shared/permissions/models/permissions.enum'
 export class ShelterCardDetailsComponent implements OnInit {
   private shelterId: string;
   public shelter: Shelter;
+  public shelter$: Observable<Shelter>;
   public marker;
   public changedPhoto: string | ArrayBuffer;
   public permissions = Permissions;
@@ -33,18 +36,18 @@ export class ShelterCardDetailsComponent implements OnInit {
   @ViewChild('uploadPhotoButton', {static: false}) uploadPhotoButton;
 
   public ngOnInit(): void {
+    this.shelterId = this.activatedRoute.snapshot.params.id;
     this.createForm();
     this.toggleForm();
-    this.shelterId = this.activatedRoute.snapshot.params.id;
     this.getDetails();
   }
 
   private getDetails(): void {
-    this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
+    this.shelter$ = this.sheltersService.getDetails(this.shelterId).pipe(tap((shelter) => {
       this.shelter = shelter;
       this.marker = this.sheltersService.createShelterLocation([shelter], 15);
       this.patchFormValues(shelter);
-    });
+    }));
   }
 
   public toggleMap(): void {

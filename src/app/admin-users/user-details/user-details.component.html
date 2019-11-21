@@ -5,9 +5,9 @@
     <mat-card class="user-card">
         <mat-card-content>
             <form class="details-form" [formGroup]="profileForm">
-                <div *ngIf="helper" class="heder-card">
-                    <h2> All Information about {{ helper.name }}</h2>
-                    <img mat-card-image [src]="changedPhoto ? changedPhoto : helper.photoPath" [alt]="helper.name">
+                <div *ngIf="user" class="heder-card">
+                    <h2> All Information about {{ user.name }}</h2>
+                    <img mat-card-image [src]="changedPhoto ? changedPhoto : user.photoPath" [alt]="user.name">
                 </div>
                 <mat-file-upload *ngIf="visibleFields" class="details-full-width" labelText="Change avatar:"
                     (selectedFilesChanged)="changeAvatar($event)">

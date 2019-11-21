@@ -1,0 +1,17 @@
+<div>
+    <div class="control-div">
+        <div>
+            <app-search (searchInit)="onSearch($event)"></app-search>
+        </div>
+        <div>
+            <button (click)="addUser()" class="add-helper-button" mat-raised-button color="primary">
+                <mat-icon>person_add</mat-icon>Add new {{userRole}}
+            </button>
+        </div>
+    </div>
+    <mat-grid-list cols="5">
+        <mat-grid-tile *ngFor="let user of users$ | async; trackBy: trackByUsers">
+            <app-user-item [user]="user" [userRole]="userRole"></app-user-item>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
