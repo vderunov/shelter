@@ -65,7 +65,7 @@ export class AuctionService {
       concatMap((config: Config) =>
         zip(
           this.http.get<Child[]>(config.childrenApi),
-          this.adminUserService.getManagerById(String(managerID))
+          this.adminUserService.getUserById('managers', String(managerID))
         )
       ),
       map(([children, manager]: [Child[], Manager]) => {
@@ -84,7 +84,7 @@ export class AuctionService {
   public createNewLot(formValue, lotPhoto): Observable<ActiveLot> {
     const dateAdded = new Date();
     const data = {
-      dateAdded: `${dateAdded.getFullYear()}-${dateAdded.getMonth() + 1}-${dateAdded.getDate()}T00:00:00`,
+      dateAdded: dateAdded.toISOString(),
       auctionLotItemID: formValue.item,
       orphanID: formValue.child,
       avatar: null,

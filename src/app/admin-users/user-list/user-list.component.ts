@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit {
   }
 
   public addUser() {
-    this.adminUserService.navigateRegistrPage(this.userRole);
+    this.adminUserService.navigateToRegistration(this.userRole);
   }
 
 }

@@ -75,7 +75,7 @@ export class AdminUserService {
     );
   }
 
-  public navigateRegistrPage(userRole: string) {
+  public navigateToRegistration(userRole: string) {
     const currRole = this.roleRedirect[userRole].addUserRole;
     this.router.navigate(['/user-registration', { role: currRole }]);
   }
