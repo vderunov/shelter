@@ -1,5 +1,5 @@
 export interface Need {
-  id: number;
+  id: number | string;
   orphanageID?: number;
   lastDateWhenStatusChanged: string;
   status: string;

@@ -4,6 +4,6 @@
 
 <mat-grid-list cols="5">
   <mat-grid-tile *ngFor="let quest of quests$ | async; trackBy: trackById">
-    <app-quests-item [quest]="quest"></app-quests-item>
+    <app-quests-item (execute)="onExecute($event)" [quest]="quest"></app-quests-item>
   </mat-grid-tile>
 </mat-grid-list>

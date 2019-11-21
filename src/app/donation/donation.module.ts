@@ -12,6 +12,7 @@ import { SearchModule } from '../search/search.module';
 import { NeedsItemDetailsComponent } from './needs/needs-item-details/needs-item-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestsItemDetailsComponent } from './quests/quests-item-details/quests-item-details.component';
+import { PermissionsModule } from '../shared/permissions/permissions.module';
 
 const donationRoutes: Routes = [
   { path: 'donation', component: DonationComponent },
@@ -40,7 +41,8 @@ const donationRoutes: Routes = [
     MatCardModule,
     MatButtonModule,
     HttpClientModule,
-    SearchModule
+    SearchModule,
+    PermissionsModule
   ],
   exports: [
     RouterModule

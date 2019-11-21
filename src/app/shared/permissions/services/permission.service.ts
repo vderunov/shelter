@@ -32,6 +32,10 @@ export class PermissionService {
       Permissions.shelterSave,
       Permissions.shelterDelete,
       Permissions.shelterUploadPhoto,
+      Permissions.auctionShowPurchase,
+      Permissions.donationEdit,
+      Permissions.donationSave,
+      Permissions.donationDelete,
       Permissions.shelterCreate,
       Permissions.showUserList,
       Permissions.auctionShowPurchase,
@@ -40,9 +44,17 @@ export class PermissionService {
     this.permissionsByRole.set(Roles.Guest, [
     ]);
     this.permissionsByRole.set(Roles.Volunteer, [
-      Permissions.shelterUploadPhoto
+      Permissions.shelterUploadPhoto,
+      Permissions.donationEdit,
+      Permissions.donationSave,
+      Permissions.donationDelete
     ]);
     this.permissionsByRole.set(Roles.Representative, [
+      Permissions.donationEdit,
+      Permissions.donationSave,
+      Permissions.donationDelete
+    ]);
+    this.permissionsByRole.set(Roles.Charitymaker, [
       Permissions.shelterUploadPhoto,
       Permissions.auctionCreateLot
     ]);

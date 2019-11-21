@@ -4,12 +4,16 @@ import { Observable } from 'rxjs';
 import { Need } from '../models/need.interface';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
-import { concatMap, map } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NeedService {
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   constructor(
     private http: HttpClient,
     private configService: ConfigService) { }
@@ -30,14 +34,18 @@ export class NeedService {
     );
   }
 
-  public putNeedData(id: string, newData): Observable<Need> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-
+  public putNeedData(id: number | string, newData): Observable<Need> {
     return this.configService.getConfig().pipe(
       concatMap((config: Config) =>
-        this.http.put<Need>(`${config.donationItemsApi}/${id}`, newData, httpOptions)
+        this.http.put<Need>(`${config.donationItemsApi}/${id}`, newData, this.httpOptions)
+      )
+    );
+  }
+
+  public putStatus(id: number | string, newData): Observable<Need> {
+    return this.configService.getConfig().pipe(
+      concatMap((config: Config) =>
+        this.http.put<Need>(`${config.needsApi}/${id}`, newData, this.httpOptions)
       )
     );
   }

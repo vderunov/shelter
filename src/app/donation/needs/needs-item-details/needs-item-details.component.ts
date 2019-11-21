@@ -6,6 +6,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
+import { AuthStateService } from 'src/app/shared/services/state/auth-state.service';
+import { Roles } from 'src/app/shared/permissions/models/roles.enum';
 
 @Component({
   selector: 'app-needs-item-details',
@@ -27,6 +29,7 @@ export class NeedsItemDetailsComponent implements OnInit {
     private router: Router,
     private location: Location,
     private notifierService: NotifierService,
+    private authStateService: AuthStateService
   ) { }
 
   public ngOnInit(): void {
@@ -40,7 +43,20 @@ export class NeedsItemDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  public onDonate(): void { }
+  public onDonate(): void {
+    if (this.authStateService.checkRoles([Roles.Volunteer])) {
+      const data = this.need;
+      data.status = 'Taken';
+      data.lastDateWhenStatusChanged = new Date().toISOString();
+
+      this.needService.putStatus(this.needId, data)
+        .subscribe(_ => {
+          this.notifierService.showNotice('Need was taken!', 'success');
+        });
+    } else {
+      this.notifierService.showNotice('Thank\'s a lot!!! But, please sign in or register as a Volunteer', 'success');
+    }
+  }
 
   public onEdit(): void {
     this.toggleForm();
@@ -48,9 +64,7 @@ export class NeedsItemDetailsComponent implements OnInit {
 
   public onSave(): void {
     this.toggleForm();
-    const newData = this.needForm.value;
-
-    this.needService.putNeedData(this.needId, newData)
+    this.needService.putNeedData(this.need.donationItemID, {...this.needForm.value})
     .subscribe(_ => {
       this.notifierService.showNotice('Changes have been saved!', 'success');
     });
@@ -59,12 +73,12 @@ export class NeedsItemDetailsComponent implements OnInit {
   public onDelete(): void {
     this.needService.deleteNeed(this.needId)
       .subscribe(_ => {
-        this.notifierService.showNotice(`Need ${this.need.itemName} was deleted!`, 'success');
+        this.notifierService.showNotice('Need was deleted!', 'success');
         this.router.navigate(['/donation']);
       });
   }
 
-  private getDetails() {
+  private getDetails(): void {
     this.needService.getDetails(this.needId).subscribe(need => {
       this.need = need;
       this.patchFormValues(need);
