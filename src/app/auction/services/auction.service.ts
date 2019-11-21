@@ -65,7 +65,7 @@ export class AuctionService {
       concatMap((config: Config) =>
         zip(
           this.http.get<Child[]>(config.childrenApi),
-          this.adminUserService.getManagerById(String(managerID))
+          this.adminUserService.getUserById('managers', String(managerID))
         )
       ),
       map(([children, manager]: [Child[], Manager]) => {

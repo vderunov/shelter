@@ -9,10 +9,5 @@ import { Quest } from '../models/quest.interface';
 export class QuestsItemComponent {
   @Input() quest: Quest;
 
-<<<<<<< HEAD
-  public onExecute() {
-  }
-=======
   public onExecute() { }
->>>>>>> 0803164bd5c06cfb8750e5c221a32c4ac789e23e
 }
