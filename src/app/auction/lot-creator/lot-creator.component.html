@@ -1,0 +1,31 @@
+<div class="container head">
+  <h2 class="mat-display-1">Create new lot</h2>
+
+  <mat-file-upload class="details-full-width" labelText="Lot photo"
+    (selectedFilesChanged)="setPhoto($event)">
+  </mat-file-upload>
+</div>
+
+<form class="container" [formGroup]="newLotForm">
+  <mat-form-field>
+    <mat-label>List of items*</mat-label>
+    <mat-select formControlName="item" ngDefaultControl>
+      <mat-option *ngFor="let item of items$ | async;" [value]="item.id">
+        {{item.name}} - {{item.description}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>List of children*</mat-label>
+    <mat-select formControlName="child" ngDefaultControl>
+      <mat-option *ngFor="let child of children$ | async;" [value]="child.id">
+        {{child.surname}} {{child.name}} {{child.patronymic}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="div-buttons">
+    <button type="submit" mat-raised-button [disabled]="newLotForm.invalid" (click)="onSubmit()">Create</button>
+  </div>
+</form>

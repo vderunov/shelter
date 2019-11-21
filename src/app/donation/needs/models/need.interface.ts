@@ -1,10 +1,12 @@
 export interface Need {
-  id?: number;
+  id: number | string;
   orphanageID?: number;
-  orphanageName: string;
   lastDateWhenStatusChanged: string;
   status: string;
-  city: string;
+  orphanageName: string;
+  city?: string;
+  street?: string;
+  house?: string;
   itemName: string;
   itemDescription?: string;
   types?: string[];

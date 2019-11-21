@@ -1,7 +1,12 @@
-<app-search
-  (searchInit)="onSearch($event)"></app-search>
-<mat-grid-list cols="3">
-  <mat-grid-tile *ngFor="let shelter of shelters$ | async; trackBy: shelterTrackBy">
-    <app-shelter-card [shelter]="shelter"></app-shelter-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<app-search (searchInit)="onSearch($event)"></app-search>
+<div *ngIf="(shelters$ | async) as shelters; else loading">
+  <mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let shelter of shelters; trackBy: shelterTrackBy">
+      <app-shelter-card [shelter]="shelter"></app-shelter-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<ng-template #loading>
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+</ng-template>

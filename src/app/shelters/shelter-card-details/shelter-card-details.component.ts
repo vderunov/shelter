@@ -1,10 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { Shelter } from '../models/shelter.interface';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
-import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
+import { Permissions } from 'src/app/shared/permissions/models/permissions.enum';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shelter-card-details',
@@ -15,11 +17,13 @@ import { Permissions } from 'src/app/shared/models/permission/permissions.enum';
 export class ShelterCardDetailsComponent implements OnInit {
   private shelterId: string;
   public shelter: Shelter;
-  private changedPhoto: string | ArrayBuffer;
+  public shelter$: Observable<Shelter>;
+  public marker;
+  public changedPhoto: string | ArrayBuffer;
   public permissions = Permissions;
   public profileForm: FormGroup;
   public isEdiDisabled: boolean;
-  public isMessage = false;
+  public isShowMap: boolean;
 
   constructor(
     private sheltersService: SheltersService,
@@ -29,18 +33,25 @@ export class ShelterCardDetailsComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  @ViewChild('uploadPhotoButton', {static: false}) uploadPhotoButton;
+
   public ngOnInit(): void {
+    this.shelterId = this.activatedRoute.snapshot.params.id;
     this.createForm();
     this.toggleForm();
-    this.shelterId = this.activatedRoute.snapshot.params.id;
     this.getDetails();
   }
 
-  private getDetails() {
-    this.sheltersService.getDetails(this.shelterId).subscribe(shelter => {
+  private getDetails(): void {
+    this.shelter$ = this.sheltersService.getDetails(this.shelterId).pipe(tap((shelter) => {
       this.shelter = shelter;
+      this.marker = this.sheltersService.createShelterLocation([shelter], 15);
       this.patchFormValues(shelter);
-    });
+    }));
+  }
+
+  public toggleMap(): void {
+    this.isShowMap = !this.isShowMap;
   }
 
   public onSubmit(): void {
@@ -73,7 +84,7 @@ export class ShelterCardDetailsComponent implements OnInit {
 
   public onDelete(): void {
     this.sheltersService.deleteShelter(this.shelter).subscribe(_ => {
-      this.notifierService.showNotice(`Shelter ${this.shelter.name} deleted!`, 'error');
+      this.notifierService.showNotice(`Shelter ${this.shelter.name} deleted!`, 'success');
       this.router.navigate(['/shelters']);
     });
   }
@@ -81,9 +92,12 @@ export class ShelterCardDetailsComponent implements OnInit {
   public onReset(): void {
     this.patchFormValues(this.shelter);
     this.onEdit();
+    this.shelter.avatar = null;
+    this.changedPhoto = null;
+    this.uploadPhotoButton.selectedFileText = null;
   }
 
-  private createForm(): void {
+  public createForm(): void {
     this.profileForm = this.fb.group({
       name: [null, Validators.required],
       avatar: [],
@@ -112,13 +126,14 @@ export class ShelterCardDetailsComponent implements OnInit {
     this.isEdiDisabled = this.profileForm.disabled;
   }
 
-  private onSelectedFilesChanged(event) {
+  public onSelectedFilesChanged(event) {
     const fileReader = new FileReader();
     if (event && event.length) {
-      fileReader.readAsDataURL(event && event.length && event[0]);
+      fileReader.readAsDataURL(event[0]);
       fileReader.onload = (ev: Event) => {
         this.shelter.avatar = event[0];
         this.changedPhoto = fileReader.result;
+        this.onUploadClicked();
       };
     } else {
       this.shelter.avatar = null;
@@ -126,7 +141,8 @@ export class ShelterCardDetailsComponent implements OnInit {
     }
   }
 
-  private onUploadClicked(event) {
-    this.toggleForm();
+  public onUploadClicked(): void {
+    this.profileForm.enable();
+    this.isEdiDisabled = false;
   }
 }

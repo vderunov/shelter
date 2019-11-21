@@ -1,25 +1,38 @@
 .mat-card {
-  max-width: 70vw;
-  display: flex;
+  display: grid;
+  max-width: 60%;
   margin: 25px auto;
+  padding: 45px;
+  grid-template-columns: 1fr 1fr 0;
+  grid-gap: 0 55px;
+
+  * {
+    padding: 0;
+    border-radius: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+  }
 }
 
-.details-form {
-  margin: 25px;
-  width: 45%;
-}
+.show-map {
+  grid-template-columns: 3fr 3fr 3fr;
+  max-width: 84%;
 
-.container-image {
-  width: 45%;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 25px;
+  app-map {
+    height: 450px;
+    grid-column: span 1;
+    border-radius: 10px;
+    overflow: hidden;
+  }
 }
 
 .mat-card-image {
-  padding-top: 25px;
-  max-height: 50vh;
-  object-fit: contain;
+  max-width: 100%;
+  padding-left: 15px;
+  padding-top: 20px;
+  height: 450px;
+  object-fit: cover;
 }
 
 .details-form {
@@ -47,3 +60,4 @@ td {
     padding: 0 15px;
   }
 }
+

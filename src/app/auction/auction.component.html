@@ -1,5 +1,21 @@
-<mat-list class="lot-list">
-  <mat-list-item class="lot-list-card" *ngFor="let lot of lots$ | async; trackBy: trackById">
-    <app-auction-lot [lot]="lot"></app-auction-lot>
-  </mat-list-item>
-</mat-list>
+<div>
+  <div>  
+    <button 
+      *appPermission="permissions.auctionCreateLot"
+      class="show-purchases-button"
+      mat-button
+      (click)="goToCreateLotPage()">
+      Create new lot</button>
+    <button 
+      *appPermission="permissions.auctionShowPurchase"
+      class="show-purchases-button"
+      mat-button>
+      Show purchases</button>
+  </div>
+
+  <mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let lot of lots$ | async; trackBy: trackById">
+      <app-auction-lot [lot]="lot"></app-auction-lot>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

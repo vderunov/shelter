@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Need } from '../models/need.interface';
 
 @Component({
@@ -8,4 +8,9 @@ import { Need } from '../models/need.interface';
 })
 export class NeedsItemComponent {
   @Input() need: Need;
+  @Output() donate: EventEmitter<any> = new EventEmitter<Need>();
+
+  public onDonate() {
+    this.donate.emit(this.need);
+  }
 }

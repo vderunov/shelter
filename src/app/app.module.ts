@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheltersModule } from './shelters/shelters.module';
 import { LoginModule } from './login/login.module';
-import { RegistrationUserModule } from './registration-user/registration-user.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminUsersModule } from './admin-users/admin-users.module';
@@ -13,7 +12,12 @@ import { DonationModule } from './donation/donation.module';
 import { AuctionModule } from './auction/auction.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticateInterceptor } from './shared/authenticate.interceptor';
+import { CookieService } from 'ngx-cookie-service';
+import { NavbarModule } from './navbar/navbar.module';
 import { MatSnackBarModule } from '@angular/material';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment.prod';
+import { UserRegistrationModule } from './user-registration/user-registration.module';
 
 const interceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -22,7 +26,7 @@ const interceptorProvider: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,13 +34,21 @@ const interceptorProvider: Provider = {
     SheltersModule,
     MatButtonModule,
     LoginModule,
-    RegistrationUserModule,
+    UserRegistrationModule,
     DonationModule,
     AuctionModule,
     AdminUsersModule,
-    MatSnackBarModule
+    NavbarModule,
+    MatSnackBarModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.apiKey,
+      libraries: ['places']
+    }),
   ],
-  providers: [interceptorProvider],
+  providers: [
+    interceptorProvider,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

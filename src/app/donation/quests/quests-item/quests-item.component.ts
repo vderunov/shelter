@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Quest } from '../models/quest.interface';
 
 @Component({
@@ -8,4 +8,9 @@ import { Quest } from '../models/quest.interface';
 })
 export class QuestsItemComponent {
   @Input() quest: Quest;
+  @Output() execute: EventEmitter<any> = new EventEmitter<Quest>();
+
+  public onExecute() {
+    this.execute.emit(this.quest);
+  }
 }

@@ -1,0 +1,35 @@
+<mat-card>
+  <form class="details-form" [formGroup]="questForm">
+    <mat-card-title>
+      <mat-form-field class="details-full-width">
+        <input matInput placeholder="Quest item" formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="details-full-width">
+        <input matInput placeholder="Quest details" formControlName="description">
+      </mat-form-field>
+    </mat-card-title>
+  </form>
+
+  <mat-card-subtitle>
+    <div>Status:
+      {{ quest?.status }}
+    </div>
+    <div>Quest period:
+      {{ quest?.fromDate | date:'dd.MM.yyyy' }} - {{ quest?.toDate | date:'dd.MM.yyyy' }}
+    </div>
+  </mat-card-subtitle>
+
+  <mat-card-content>Additional info:
+    <div *ngIf="quest">
+      Shelter name: <a class="shelter-name" [routerLink]="['/shelters', quest.orphanageID]">{{ quest?.orphanageName | uppercase }}</a>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button (click)="onBack()">Back</button>
+    <button mat-raised-button (click)="onExecute()" color="primary">Execute</button>
+    <button *appPermission="permissions.donationEdit" mat-raised-button (click)="onEdit()">Edit</button>
+    <button *appPermission="permissions.donationSave" mat-raised-button (click)="onSave()">Save</button>
+    <button *appPermission="permissions.donationDelete" mat-raised-button (click)="onDelete()">Delete</button>
+  </mat-card-actions>
+</mat-card>

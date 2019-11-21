@@ -1,0 +1,19 @@
+<div *ngIf="isLogged(); else guest">
+  <a mat-button [matMenuTriggerFor]="menu">
+    {{getEmail()}}
+    <mat-icon>arrow_drop_down</mat-icon>
+  </a>
+
+  <mat-menu #menu="matMenu">
+    <a *appPermission="permissions.shelterCreate" mat-menu-item [routerLink]="['/registration-shelter']">
+      Register a new Shelter</a>
+    <a *appPermission="permissions.showUserList" mat-menu-item [routerLink]="['/users']">Users Details</a>
+    <a mat-menu-item (click)="logout()">Sign out</a>
+  </mat-menu>
+</div>
+
+<ng-template #guest>
+  <a mat-button [routerLink]="['/login']">Sign in</a>
+  <a mat-raised-button [routerLink]="['/user-registration', { role: 'Volunteer' }]">
+    Sign up</a>
+</ng-template>

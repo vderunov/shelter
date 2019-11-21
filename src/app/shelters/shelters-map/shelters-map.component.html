@@ -1,0 +1,7 @@
+<div *ngIf="(markers$ | async) as markers; else loading">
+  <app-map (markerSelection)="gotoShelter($event)" [markers]="markers"></app-map>
+</div>
+<ng-template #loading>
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+</ng-template>

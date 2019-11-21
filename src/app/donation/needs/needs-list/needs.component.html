@@ -1,7 +1,9 @@
 <app-search
-  (searchInit)="onSearch($event)"></app-search>
-<mat-list>
-  <mat-list-item *ngFor="let need of needs$ | async; trackBy: trackById">
-    <app-needs-item [need]="need"></app-needs-item>
-  </mat-list-item>
-</mat-list>
+  (searchInit)="onSearch($event)">
+</app-search>
+
+<mat-grid-list cols="5">
+  <mat-grid-tile *ngFor="let need of needs$ | async; trackBy: trackById">
+    <app-needs-item *ngIf="need.status !== 'Taken'" (donate)="onDonate($event)" [need]="need"></app-needs-item>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
-import { Login } from './login.interface';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { FormFiledsValidator } from '../shared/validators/form-fields-validator';
+import { AuthenticationService } from '../shared/services/user/authentication.service';
 import { NotifierService } from '../shared/services/notifier/notifier.service';
+import { AuthStateService } from '../shared/services/state/auth-state.service';
 
 @Component({
   selector: 'app-login',
@@ -14,23 +13,25 @@ import { NotifierService } from '../shared/services/notifier/notifier.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  public personId: string | string[];
   public loginForm: FormGroup;
-  private destroy$: Subject<void> = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private authStateService: AuthStateService
   ) { }
 
   public ngOnInit(): void {
-    this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params: Params) => {
-      if (params.auth) {
-        this.notifier.showNotice('Please login', 'warning');
-      }
-    });
+    this.route.queryParams.pipe(untilDestroyed(this))
+      .subscribe((params: Params) => {
+        if (params.auth) {
+          this.notifier.showNotice('Please login', 'warning');
+        }
+      });
 
     this.loginForm = this.formBuilder.group({
       email: [null, FormFiledsValidator.checkEmail],
@@ -50,16 +51,29 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const loginData: Login = { ...this.loginForm.value };
-    this.authenticationService.login(loginData).subscribe();
+    this.authenticationService.login(this.loginForm.value)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        () => {
+          this.loginForm.reset();
+          this.personId = this.authStateService.getStateProperty('personId');
+          if (!!this.personId) {
+            this.router.navigate(['/shelters']);
+            this.notifier.showNotice('Welcome!', 'success');
+          } else {
+            this.router.navigate(['/user-info']);
+            this.notifier.showNotice('Please fill out the form', 'success');
+          }
+        },
+        error => {
+          this.notifier.showNotice(error.error || 'Something bad happened, please try again later.', 'error');
+        }
+      );
   }
 
   public goToRegistrationPage(): void {
-    this.router.navigate(['/registraction-user']);
+    this.router.navigate(['/user-registration', { role: 'Volunteer' }]);
   }
 
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  public ngOnDestroy(): void { }
 }
