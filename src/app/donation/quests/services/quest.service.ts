@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Quest } from '../models/quest.interface';
-import { concatMap, map } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { Config } from 'src/app/shared/services/config/config.interface';
 import { ConfigService } from 'src/app/shared/services/config/config.service';
 

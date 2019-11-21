@@ -41,7 +41,7 @@ export class NeedsComponent implements OnInit {
       value.lastDateWhenStatusChanged = new Date().toISOString();
       this.needService.putStatus(value.id, value)
         .subscribe(_ => {
-          this.notifierService.showNotice(`Need ${value.id} was taken!`, 'success');
+          this.notifierService.showNotice('Need ${value.id} was taken!', 'success');
         });
     } else {
       this.notifierService.showNotice('Thank\'s a lot!!! But, please sign in or register as a Volunteer', 'success');

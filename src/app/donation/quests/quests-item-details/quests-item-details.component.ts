@@ -50,7 +50,7 @@ export class QuestsItemDetailsComponent implements OnInit {
 
       this.questService.putNewData(this.questId, data)
         .subscribe(_ => {
-          this.notifierService.showNotice(`Quest was taken!`, 'success');
+          this.notifierService.showNotice('Quest was taken!', 'success');
         });
     } else {
       this.notifierService.showNotice('Thank\'s a lot!!! But, please sign in or register as a Volunteer', 'success');
@@ -64,14 +64,14 @@ export class QuestsItemDetailsComponent implements OnInit {
   public onSave(): void {
     this.questService.putNewData(this.questId, this.questForm.value)
       .subscribe(_ => {
-        this.notifierService.showNotice(`Quest was edited!`, 'success');
+        this.notifierService.showNotice('Quest was edited!', 'success');
       });
   }
 
   public onDelete(): void {
     this.questService.deleteQuest(this.questId)
       .subscribe(_ => {
-        this.notifierService.showNotice(`Quest was deleted!`, 'success');
+        this.notifierService.showNotice('Quest was deleted!', 'success');
         this.router.navigate(['/donation']);
       });
   }

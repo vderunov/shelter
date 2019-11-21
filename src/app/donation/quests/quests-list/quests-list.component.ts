@@ -40,7 +40,7 @@ export class QuestsListComponent implements OnInit {
       value.status = 'Doing';
       this.questService.putNewData(value.id, value)
         .subscribe(_ => {
-          this.notifierService.showNotice(`Quest ${value.id} was taken!`, 'success');
+          this.notifierService.showNotice('Quest was taken!', 'success');
         });
     } else {
       this.notifierService.showNotice('Thank\'s a lot!!! But, please sign in or register as a Volunteer', 'success');

@@ -51,7 +51,7 @@ export class NeedsItemDetailsComponent implements OnInit {
 
       this.needService.putStatus(this.needId, data)
         .subscribe(_ => {
-          this.notifierService.showNotice(`Need was taken!`, 'success');
+          this.notifierService.showNotice('Need was taken!', 'success');
         });
     } else {
       this.notifierService.showNotice('Thank\'s a lot!!! But, please sign in or register as a Volunteer', 'success');
@@ -73,7 +73,7 @@ export class NeedsItemDetailsComponent implements OnInit {
   public onDelete(): void {
     this.needService.deleteNeed(this.needId)
       .subscribe(_ => {
-        this.notifierService.showNotice(`Need was deleted!`, 'success');
+        this.notifierService.showNotice('Need was deleted!', 'success');
         this.router.navigate(['/donation']);
       });
   }
