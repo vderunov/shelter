@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Helper } from '../models/helper.model';
 import { Manager } from '../models/manager.model';
 import { Subject } from 'rxjs';
+import { NotifierService } from 'src/app/shared/services/notifier/notifier.service';
 
 @Component({
   selector: 'app-user-details',
@@ -26,6 +27,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
+    private notifierService: NotifierService,
     private adminUserService: AdminUserService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
@@ -61,7 +63,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   public deleteUser() {
     this.adminUserService.deleteUserById(this.userRole, this.userId)
-      .subscribe(() => this.router.navigate(['users']));
+    .subscribe(_ => {
+      this.notifierService.showNotice(`User ${this.user.name} was deleted!`, 'success');
+      this.router.navigate(['users']);
+    });
   }
 
   public changeInfo() {
@@ -90,7 +95,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     }
 
     this.adminUserService.updateUserById(this.userRole, this.userId, this.formChanges)
-      .subscribe(() => this.onEdit());
+      .subscribe(_ => {
+        this.notifierService.showNotice('Changes have been saved!', 'success'); 
+        this.onEdit();
+      });
   }
 
   public changeAvatar(event) {
