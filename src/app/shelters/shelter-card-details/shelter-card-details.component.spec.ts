@@ -140,12 +140,12 @@ describe('ShelterCardDetailsComponent', () => {
     });
   });
 
-  xdescribe('Method onUploadClicked', () => {
-    xit('should toggle form', () => {
-      spyOn(component as any, 'toggleForm');
+  describe('Method onUploadClicked', () => {
+    it('should toggle form', () => {
+      spyOn((component as any).profileForm, 'enable');
 
       component.onUploadClicked();
-      expect((component as any).toggleForm).toHaveBeenCalled();
+      expect((component as any).profileForm.enable).toHaveBeenCalled();
     });
   });
 });

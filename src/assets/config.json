@@ -12,6 +12,8 @@
   "helpersApi": "https://familynetserver.azurewebsites.net/api/v2/volunteers/",
   "managersImageApi": "https://familynetserver.azurewebsites.net/api/v1/representatives/",
   "helpersImageApi": "https://familynetserver.azurewebsites.net/api/v1/volunteers/",
-  "activeLotsApi": "https://familynetserver.azurewebsites.net/api/v2/AuctionLot/approved",
+  "activeLotsApiApproved": "https://familynetserver.azurewebsites.net/api/v2/AuctionLot/approved",
+  "activeLotsApi": "https://familynetserver.azurewebsites.net/api/v2/AuctionLot/",
+  "activeLotsImageApi": "https://familynetserver.azurewebsites.net/api/v1/AuctionLot/",
   "donationItemsApi": "https://familynetserver.azurewebsites.net/api/v2/donationItems/"
 }
