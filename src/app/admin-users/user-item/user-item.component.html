@@ -1,0 +1,18 @@
+<div>
+    <mat-card class="user-card">
+        <mat-card-header>
+            <mat-card-title class="title">{{ user.name }} {{ user.patronymic }} {{ user.surname }}
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div><img mat-card-image class="avatar" [src]="user.photoPath" [alt]="user.name"></div>
+            <div class="content">
+                <p>Birthday: {{ user.birthday | date:'dd/MM/yyyy' }}</p>
+                <p>Rating: {{ user.rating }}</p>
+            </div>
+        </mat-card-content>
+        <mat-card-actions class="button">
+            <button mat-raised-button color="primary" [routerLink]="[userPath, user.id]">More</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

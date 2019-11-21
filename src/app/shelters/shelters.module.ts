@@ -16,6 +16,7 @@ import { MatFileUploadModule } from 'mat-file-upload';
 import { PermissionsModule } from '../shared/permissions/permissions.module';
 import { SheltersMapComponent } from './shelters-map/shelters-map.component';
 import { MapModule } from '../map/map.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const sheltersRoutes: Routes = [
   { path: 'shelters-map', component: SheltersMapComponent },
@@ -48,7 +49,8 @@ const sheltersRoutes: Routes = [
     MatFileUploadModule,
     MatIconModule,
     PermissionsModule,
-    MapModule
+    MapModule,
+    MatProgressSpinnerModule
   ],
   exports: [RouterModule, ShelterCardComponent]
 })
