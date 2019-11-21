@@ -40,7 +40,6 @@ export class PermissionService {
       Permissions.showUserList
     ]);
     this.permissionsByRole.set(Roles.Guest, [
-
     ]);
     this.permissionsByRole.set(Roles.Volunteer, [
       Permissions.shelterUploadPhoto,

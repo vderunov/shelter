@@ -6,15 +6,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 
 xdescribe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       imports: [
         RouterTestingModule,
         BrowserModule,
         NoopAnimationsModule,
         SheltersModule,
+        AgmCoreModule,
         MatButtonModule
       ],
       declarations: [AppComponent, NavbarComponent]
