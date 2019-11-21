@@ -9,6 +9,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheltersService } from '../shelters-service/shelters.service';
 import { of } from 'rxjs';
 import { Shelter } from '../models/shelter.interface';
+import { MatProgressSpinnerModule } from '@angular/material';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ShelterListComponent', () => {
   let component: ShelterListComponent;
@@ -37,13 +39,15 @@ describe('ShelterListComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ShelterListComponent, ShelterCardComponent],
       imports: [
         RouterTestingModule,
         MatGridListModule,
         MatCardModule,
         SearchModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        MatProgressSpinnerModule
       ],
       providers: [ {provide: SheltersService, useValue: sheltersServiceStub } ],
     }).compileComponents();
