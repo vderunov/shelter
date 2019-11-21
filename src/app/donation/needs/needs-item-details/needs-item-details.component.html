@@ -26,11 +26,11 @@
     <div>Address: {{ need?.city }}, {{ need?.street }}, {{ need?.house }}</div>
   </mat-card-content>
 
-  <mat-card-actions>
+  <mat-card-actions *ngIf="need">
     <button mat-raised-button (click)="onBack()">Back</button>
     <button mat-raised-button (click)="onDonate()" color="primary">Donate</button>
-    <button mat-raised-button (click)="onEdit()">Edit</button>
-    <button mat-raised-button (click)="onSave()">Save</button>
-    <button mat-raised-button (click)="onDelete()">Delete</button>
+    <button *appPermission="permissions.donationEdit" mat-raised-button (click)="onEdit()">Edit</button>
+    <button *appPermission="permissions.donationSave" mat-raised-button (click)="onSave()">Save</button>
+    <button *appPermission="permissions.donationDelete" mat-raised-button (click)="onDelete()">Delete</button>
   </mat-card-actions>
 </mat-card>

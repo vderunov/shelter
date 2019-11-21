@@ -7,9 +7,9 @@ export enum Permissions {
   shelterUploadPhoto,
   shelterCreate,
   // Donations
-  volunteerEdit,
-  volunteerSave,
-  volunteerDelete,
+  donationEdit,
+  donationSave,
+  donationDelete,
   // Auction
   auctionShowPurchase,
   auctionCreateLot,
