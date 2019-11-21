@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { AuthenticationService } from './authentication.service';
 import { LoginModel } from 'src/app/login/login.model';
 import { of } from 'rxjs';
@@ -20,9 +19,9 @@ describe('AuthenticationService', () => {
     routerSpy = jasmine.createSpyObj('router', ['navigate']);
     configUrl = {
       loginApi: 'https://familynetserver.azurewebsites.net/api/v2/authentication'
-    }
+    };
     service = new AuthenticationService(
-      httpClientSpy as any, 
+      httpClientSpy as any,
       configServiceSpy as any,
       authStateServiceSpy as any,
       routerSpy as any);
@@ -38,16 +37,16 @@ describe('AuthenticationService', () => {
       loginData = {
         email: 'iWantToSleep@gmail.com',
         password: '123PleaseHelpMe'
-      }
-    httpClientSpy.post.and.returnValue(of({token: 'someData'}));
-    configServiceSpy.getConfig.and.returnValue(of(configUrl));
+      };
+      httpClientSpy.post.and.returnValue(of({token: 'someData'}));
+      configServiceSpy.getConfig.and.returnValue(of(configUrl));
     });
 
-    it('shold send data for login by post request', (done: DoneFn) => {
+    it('should send data for login by post request', (done: DoneFn) => {
       service.login(loginData).subscribe(() => {
         expect(httpClientSpy.post).toHaveBeenCalledWith(configUrl.loginApi, loginData);
         done();
-      })
+      });
     });
   });
 
@@ -56,7 +55,6 @@ describe('AuthenticationService', () => {
       service.logout();
       expect(authStateServiceSpy.cleanAuthenticatedState).toHaveBeenCalled();
     });
-    
     it('should run router.navigate with proper argument', () => {
       service.logout();
       expect(routerSpy.navigate).toHaveBeenCalledWith(['']);
